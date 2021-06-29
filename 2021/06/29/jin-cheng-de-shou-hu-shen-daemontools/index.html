@@ -683,7 +683,7 @@ hello: up (pid 7917) 5 seconds<span aria-hidden="true" class="line-numbers-rows"
 <li>进程<code>PID</code></li>
 <li>处于当前状态的秒数</li>
 </ol>
-<h2 id="Daemontools-架构模型"><a href="#Daemontools-架构模型" class="headerlink" title="Daemontools 架构模型"></a>Daemontools 架构模型</h2><p><img src="https://raw.githubusercontent.com/dendi875/images/master/PicGo/daemontools.png" alt="daemontools"></p>
+<h2 id="Daemontools-架构模型"><a href="#Daemontools-架构模型" class="headerlink" title="Daemontools 架构模型"></a>Daemontools 架构模型</h2><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/daemontools.png" alt="daemontools"></p>
 <p>上图的“Connector A: Service”实际上是服务的<code>run</code>脚本，或者是任何二进制可执行文件，<code>shell</code>脚本或<code>PHP/Python/Perl/Ruby/ Lua</code>脚本，它们都是通过<code>exec</code>命令为其分配了一个<code>PID</code>的运行脚本。</p>
 <p>通过上图可以知道<code>daemontools</code>的工作方式，计算机首先初始化，然后系统引导运行<code>/command/svscanboot</code>，接着<code>/command/svscanboot</code>依次引导运行<code>/command/readproctitle</code>和<code>/command/svscan</code>。<code>/command/readproctitle </code>只是一个可以运行的调试工具。</p>
 <p><code>svscan /service </code>是daemontools的一个最重要的机制，每五秒钟它会扫描<code>/service</code>目录（假设<code>/ service</code>是传递给<code>svscan</code>的命令行参数）以查找符号链接目录，并运行该符号连接目录中的<code>run</code>命令（如果尚未运行）</p>
@@ -1321,7 +1321,7 @@ hello: up (pid 7917) 5 seconds<span aria-hidden="true" class="line-numbers-rows"
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">20.7k</span>
+                        class="white-color">22.3k</span>
             
             
             

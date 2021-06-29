@@ -508,7 +508,7 @@
 <h2 id="1-Elasticsearch-介绍"><a href="#1-Elasticsearch-介绍" class="headerlink" title="1. Elasticsearch 介绍"></a>1. Elasticsearch 介绍</h2><p>Elasticsearch（ES）是基于文本搜索库<a target="_blank" rel="noopener" href="https://lucene.apache.org/">Lucene</a>构建的高度可扩展的分布式开源搜索和分析引擎。</p>
 <p>如果有足够的计算机，ES集群通常可以跨非常大的数据集执行搜索和聚合查询。<br>如果你希望对一组文本文档进行传统的全文本搜索（类似于 Google 搜索），则ES很适合，</p>
 <p>Elasticsearch 主要用于搜索和日志分析，也是当今最流行的日志分析平台（ELK）（Elasticsearch，Logstash和Kibana）的核心。它在处理大数据（如：系统日志，网络流量）时非常有用。</p>
-<h2 id="2-Elasticsearch-中的重要概念"><a href="#2-Elasticsearch-中的重要概念" class="headerlink" title="2. Elasticsearch 中的重要概念"></a>2. Elasticsearch 中的重要概念</h2><p><img src="https://raw.githubusercontent.com/dendi875/images/master/PicGo/Elasticsearch.png" alt="Elasticsearch"></p>
+<h2 id="2-Elasticsearch-中的重要概念"><a href="#2-Elasticsearch-中的重要概念" class="headerlink" title="2. Elasticsearch 中的重要概念"></a>2. Elasticsearch 中的重要概念</h2><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/Elasticsearch.png" alt="Elasticsearch"></p>
 <h3 id="2-1-Cluster（集群）"><a href="#2-1-Cluster（集群）" class="headerlink" title="2.1 Cluster（集群）"></a>2.1 Cluster（集群）</h3><p>cluster是一个或一组服务器（节点）的集合，这些节点一起协同保存你的数据，并在所有节点之间为你提供索引和搜索功能。cluster具有唯一名称标识（默认是elasticsearch），你只需要指定集群标识名，启动的时候，凡是集群是这个名字的节点都会默认加到同一个集群中，选举master节点和节点管理都是自动完成的。当然一个节点也可以组成一个集群。</p>
 <h3 id="2-2-Node（节点）"><a href="#2-2-Node（节点）" class="headerlink" title="2.2 Node（节点）"></a>2.2 Node（节点）</h3><p>node是参与到cluster的单个服务器节点，具有唯一标识名，可加入到指定的cluster中。 单个es实例称为一个节点（node）。一组节点构成一个集群（cluster）。</p>
 <h3 id="2-3-Index（索引）"><a href="#2-3-Index（索引）" class="headerlink" title="2.3 Index（索引）"></a>2.3 Index（索引）</h3><p>Index是一类文档的集合。例如，你可以为用户数据创建一个索引，为商品数据创建另一个索引，为订单数据创建另一个索引。es 数据管理的顶层单位就叫做 Index（索引），相当于传统数据库中的数据库。每个 Index （即数据库）的名字必须是小写。</p>
@@ -1577,7 +1577,7 @@ tcp6       0      0 127.0.0.1:9200          :::*                    LISTEN      
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">20.7k</span>
+                        class="white-color">22.3k</span>
             
             
             

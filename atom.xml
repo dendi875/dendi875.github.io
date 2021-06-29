@@ -6,7 +6,7 @@
   <link href="https://zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://zhangquan.me/"/>
-  <updated>2021-06-29T07:46:30.052Z</updated>
+  <updated>2021-06-29T08:31:15.730Z</updated>
   <id>https://zhangquan.me/</id>
   
   <author>
@@ -17,11 +17,38 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>设计模式之-创建型模式-单例模式（Singleton Pattern）</title>
+    <link href="https://zhangquan.me/2021/06/29/she-ji-mo-shi-zhi-chuang-jian-xing-mo-shi-dan-li-mo-shi-singleton-pattern/"/>
+    <id>https://zhangquan.me/2021/06/29/she-ji-mo-shi-zhi-chuang-jian-xing-mo-shi-dan-li-mo-shi-singleton-pattern/</id>
+    <published>2021-06-29T08:28:10.000Z</published>
+    <updated>2021-06-29T08:31:15.730Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;设计模式之-单例模式（Singleton-Pattern）&quot;&gt;&lt;a href=&quot;#设计模式之-单例模式（Singleton-Pattern）&quot; class=&quot;headerlink&quot; title=&quot;设计模式之-单例模式（Singleton</summary>
+        
+      
+    
+    
+    
+    <category term="设计模式" scheme="https://zhangquan.me/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="PHP" scheme="https://zhangquan.me/tags/PHP/"/>
+    
+    <category term="面向对象" scheme="https://zhangquan.me/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Beanstalkd 学习研究</title>
     <link href="https://zhangquan.me/2021/06/29/beanstalkd-xue-xi-yan-jiu/"/>
     <id>https://zhangquan.me/2021/06/29/beanstalkd-xue-xi-yan-jiu/</id>
     <published>2021-06-29T07:44:02.000Z</published>
-    <updated>2021-06-29T07:46:30.052Z</updated>
+    <updated>2021-06-29T08:36:55.307Z</updated>
     
     
       
@@ -49,7 +76,7 @@
     <link href="https://zhangquan.me/2021/06/29/php-duo-jin-cheng-bian-cheng/"/>
     <id>https://zhangquan.me/2021/06/29/php-duo-jin-cheng-bian-cheng/</id>
     <published>2021-06-29T07:40:21.000Z</published>
-    <updated>2021-06-29T07:42:45.604Z</updated>
+    <updated>2021-06-29T08:36:48.161Z</updated>
     
     
       
@@ -75,7 +102,7 @@
     <link href="https://zhangquan.me/2021/06/29/git-de-4-ge-jie-duan-de-che-xiao-geng-gai/"/>
     <id>https://zhangquan.me/2021/06/29/git-de-4-ge-jie-duan-de-che-xiao-geng-gai/</id>
     <published>2021-06-29T07:26:02.000Z</published>
-    <updated>2021-06-29T07:37:21.605Z</updated>
+    <updated>2021-06-29T08:36:51.069Z</updated>
     
     
       
@@ -102,7 +129,7 @@
     <link href="https://zhangquan.me/2021/06/29/elasticsearch-xue-xi-yan-jiu/"/>
     <id>https://zhangquan.me/2021/06/29/elasticsearch-xue-xi-yan-jiu/</id>
     <published>2021-06-29T07:22:28.000Z</published>
-    <updated>2021-06-29T07:24:52.469Z</updated>
+    <updated>2021-06-29T08:36:57.804Z</updated>
     
     
       
@@ -153,7 +180,7 @@
     <link href="https://zhangquan.me/2021/06/29/jin-cheng-de-shou-hu-shen-daemontools/"/>
     <id>https://zhangquan.me/2021/06/29/jin-cheng-de-shou-hu-shen-daemontools/</id>
     <published>2021-06-29T06:42:40.000Z</published>
-    <updated>2021-06-29T07:11:40.131Z</updated>
+    <updated>2021-06-29T08:36:40.957Z</updated>
     
     
       
