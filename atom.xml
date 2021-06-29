@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Hexo</title>
+  <title>张权的博客</title>
   
   
-  <link href="https://dendi875.github.io/atom.xml" rel="self"/>
+  <link href="https://zhangquan.me/atom.xml" rel="self"/>
   
-  <link href="https://dendi875.github.io/"/>
+  <link href="https://zhangquan.me/"/>
   <updated>2021-06-28T12:54:33.900Z</updated>
-  <id>https://dendi875.github.io/</id>
+  <id>https://zhangquan.me/</id>
   
   <author>
-    <name>John Doe</name>
+    <name>张权</name>
     
   </author>
   
@@ -18,8 +18,8 @@
   
   <entry>
     <title>文章标题</title>
-    <link href="https://dendi875.github.io/2021/06/28/wen-zhang-biao-ti/"/>
-    <id>https://dendi875.github.io/2021/06/28/wen-zhang-biao-ti/</id>
+    <link href="https://zhangquan.me/2021/06/28/wen-zhang-biao-ti/"/>
+    <id>https://zhangquan.me/2021/06/28/wen-zhang-biao-ti/</id>
     <published>2021-06-28T12:36:59.000Z</published>
     <updated>2021-06-28T12:54:33.900Z</updated>
     
@@ -39,8 +39,8 @@
   
   <entry>
     <title>Hello World</title>
-    <link href="https://dendi875.github.io/2021/06/28/hello-world/"/>
-    <id>https://dendi875.github.io/2021/06/28/hello-world/</id>
+    <link href="https://zhangquan.me/2021/06/28/hello-world/"/>
+    <id>https://zhangquan.me/2021/06/28/hello-world/</id>
     <published>2021-06-28T12:22:24.130Z</published>
     <updated>2021-06-28T12:51:59.928Z</updated>
     
