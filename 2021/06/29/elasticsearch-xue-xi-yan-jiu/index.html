@@ -1369,9 +1369,9 @@ tcp6       0      0 127.0.0.1:9200          :::*                    LISTEN      
 
         // we need a <pre> tag workaround.
         // otherwise the text inside "pre" loses all the line breaks!
-        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+        //if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
             newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
-        }
+        //}
 
         var url = document.location.href;
         newdiv.innerHTML += '<br />'

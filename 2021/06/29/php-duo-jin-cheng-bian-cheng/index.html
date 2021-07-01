@@ -1633,9 +1633,9 @@ root     32053  0.0  0.0   5976   756 pts/1    S+   18:29   0:00 grep --color=au
 
         // we need a <pre> tag workaround.
         // otherwise the text inside "pre" loses all the line breaks!
-        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+        //if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
             newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
-        }
+        //}
 
         var url = document.location.href;
         newdiv.innerHTML += '<br />'

@@ -1113,9 +1113,9 @@ hello: up (pid 7917) 5 seconds<span aria-hidden="true" class="line-numbers-rows"
 
         // we need a <pre> tag workaround.
         // otherwise the text inside "pre" loses all the line breaks!
-        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+        //if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
             newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
-        }
+        //}
 
         var url = document.location.href;
         newdiv.innerHTML += '<br />'
