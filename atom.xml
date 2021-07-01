@@ -6,7 +6,7 @@
   <link href="https://zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://zhangquan.me/"/>
-  <updated>2021-06-30T06:35:18.573Z</updated>
+  <updated>2021-07-01T02:08:22.811Z</updated>
   <id>https://zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>设计模式之-结构型模式-适配器模式 (Adapter Pattern)</title>
+    <link href="https://zhangquan.me/2021/07/01/she-ji-mo-shi-zhi-jie-gou-xing-mo-shi-gua-pei-qi-mo-shi-adapter-pattern/"/>
+    <id>https://zhangquan.me/2021/07/01/she-ji-mo-shi-zhi-jie-gou-xing-mo-shi-gua-pei-qi-mo-shi-adapter-pattern/</id>
+    <published>2021-07-01T01:50:25.000Z</published>
+    <updated>2021-07-01T02:08:22.811Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;适配器模式-Adapter-Pattern&quot;&gt;&lt;a href=&quot;#适配器模式-Adapter-Pattern&quot; class=&quot;headerlink&quot; title=&quot;适配器模式 (Adapter Pattern)&quot;&gt;&lt;/a&gt;适配器模式 (Adapter</summary>
+        
+      
+    
+    
+    
+    <category term="设计模式" scheme="https://zhangquan.me/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="PHP" scheme="https://zhangquan.me/tags/PHP/"/>
+    
+    <category term="面向对象" scheme="https://zhangquan.me/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"/>
+    
+  </entry>
   
   <entry>
     <title>设计模式之-创建型模式-原型模式 (Prototype Pattern)</title>

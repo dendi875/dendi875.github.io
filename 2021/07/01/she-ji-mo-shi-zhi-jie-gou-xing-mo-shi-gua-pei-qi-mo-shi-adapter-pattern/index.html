@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="MySQL 四种事务隔离级别说明, PHP,Go,MySQL,Linux,Docker等">
+    <meta name="keywords" content="设计模式之-结构型模式-适配器模式 (Adapter Pattern), PHP,Go,MySQL,Linux,Docker等">
     <meta name="description" content="PHP Go MySQL 后端开发">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>MySQL 四种事务隔离级别说明 | 张权的博客</title>
+    <title>设计模式之-结构型模式-适配器模式 (Adapter Pattern) | 张权的博客</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -318,7 +318,7 @@
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">MySQL 四种事务隔离级别说明</h1>
+                    <h1 class="description center-align post-title">设计模式之-结构型模式-适配器模式 (Adapter Pattern)</h1>
                 </div>
             </div>
         </div>
@@ -434,8 +434,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/MySQL/">
-                                <span class="chip bg-color">MySQL</span>
+                            <a href="/tags/PHP/">
+                                <span class="chip bg-color">PHP</span>
+                            </a>
+                        
+                            <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
+                                <span class="chip bg-color">面向对象</span>
                             </a>
                         
                     </div>
@@ -446,8 +450,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-category">
-                                数据库
+                            <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-category">
+                                设计模式
                             </a>
                         
                     </div>
@@ -459,21 +463,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-06-29
+                    2021-07-01
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-06-29
+                    2021-07-01
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.4k
+                    2.7k
                 </div>
                 
 
@@ -503,430 +507,201 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="MySQL-四种事务隔离级别说明"><a href="#MySQL-四种事务隔离级别说明" class="headerlink" title="MySQL 四种事务隔离级别说明"></a>MySQL 四种事务隔离级别说明</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在 <code>MySQL</code> 中，为了保证并发读取数据的正确性，提出了四种事务隔离级别，下面我们就说明如何设置隔离级别，以及用示例来说明每种隔离级别的使用情况</p>
-<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><h3 id="设置隔离级别"><a href="#设置隔离级别" class="headerlink" title="设置隔离级别"></a>设置隔离级别</h3><p>你可以在 <code>MySQL</code> 配置文件 <code>my.cnf</code> 的 <code>[mysqld]</code>节中设置如下选项来为所有连接设置默认的隔离级别</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[mysqld]
-transaction-isolation = {READ-UNCOMMITTED | READ-COMMITTED | REPEATABLE-READ | SERIALIZABLE}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>如果未设置此选项，则 <code>InnoDB</code>默认是可重复读（<code>REPEATABLE-READ</code>）。</p>
-<p>你也可以用 <code>set session</code>语句来改变单个会话或所有新进来连接的隔离级别。</p>
-<p>语法如下：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">set [session | global] transaction isolation level {read uncommitted | read committed | repeatable read | serializable}<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+                <h1 id="适配器模式-Adapter-Pattern"><a href="#适配器模式-Adapter-Pattern" class="headerlink" title="适配器模式 (Adapter Pattern)"></a>适配器模式 (Adapter Pattern)</h1><hr>
+<h3 id="0-前言"><a href="#0-前言" class="headerlink" title="0. 前言"></a>0. 前言</h3><p>我的笔记本电脑的工作电压是20V，而我国的家庭用电是220V，如何让20V的笔记本电脑能够在220V的电压下工作？答案是引入一个电源适配器(AC Adapter)，俗称充电器或变压器，有了这个电源适配器，生活用电和笔记本电脑即可兼容，如图1所示：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/ac.jpg" alt="ac"></p>
+<p>图1 电源适配器示意图</p>
+<p>在软件开发中，有时也存在类似这种不兼容的情况，我们也可以像引入一个电源适配器一样引入一个称之为适配器的角色来协调这些存在不兼容的结构，这种设计方案即为适配器模式。</p>
+<p>与电源适配器相似，在适配器模式中引入了一个被称为适配器(Adapter)的包装类，而它所包装的对象称为适配者(Adaptee)，即被适配的类。适配器的实现就是把客户类的请求转化为对适配者的相应接口的调用。也就是说：当客户类调用适配器的方法时，在适配器类的内部将调用适配者类的方法，而这个过程对客户类是透明的，客户类并不直接访问适配者类。因此，适配器让那些由于接口不兼容而不能交互的类可以一起工作。</p>
+<h3 id="1-模式定义"><a href="#1-模式定义" class="headerlink" title="1. 模式定义"></a>1. 模式定义</h3><blockquote>
+<p>适配器模式 (Adapter Pattern)：将一个接口转换成客户希望的另一个接口，使接口不兼容的那些类可以一起工作，其别名为包装器(Wrapper)。</p>
+</blockquote>
+<p>适配器模式既可以作为<strong>类结构型模式</strong>，也可以作为<strong>对象结构型模式</strong>。</p>
+<ul>
+<li>适配器模式可以将一个类的接口和另一个类的接口匹配起来，而无须修改原来的适配者接口和抽象目标类接口。</li>
+<li>在适配器模式定义中所提及的接口是指广义的接口，它可以表示一个方法或者方法的集合。</li>
+<li>在适配器模式中，我们通过增加一个新的适配器类来解决接口不兼容的问题，使得原本没有任何关系的类可以协同工作。根据适配器类与适配者类的关系不同，适配器模式可分为对象适配器和类适配器两种，在对象适配器模式中，适配器与适配者之间是关联关系；在类适配器模式中，适配器与适配者之间是继承（或实现）关系。在实际开发中，对象适配器的使用频率更高。</li>
+</ul>
+<h3 id="2-对象适配器模式结构"><a href="#2-对象适配器模式结构" class="headerlink" title="2. 对象适配器模式结构"></a>2. 对象适配器模式结构</h3><p>对象适配器模式包含如下角色：</p>
+<ul>
+<li><p><code>Target</code>：<strong>目标抽象类</strong></p>
+<ul>
+<li>目标抽象类定义客户所需接口，可以是一个抽象类或接口，也可以是具体类。</li>
+</ul>
+</li>
+<li><p><code>Adaptee</code>：<strong>适配者类</strong></p>
+<ul>
+<li>适配者即被适配的角色，它定义了一个已经存在的接口，这个接口需要适配，适配者类一般是一个具体的类，包含了客户希望使用的业务方法，在某些情况下可能没有适配者类的源代码。</li>
+</ul>
+</li>
+<li><p><code>Adapter</code>：<strong>适配器类</strong></p>
+<ul>
+<li>适配器可以调用另一个接口，作为一个转换器，对Adaptee和Target进行适配，适配器类是适配器模式的核心，在对象适配器中，它通过继承Targe并关联一个Adaptee对象使二者产生联系。</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/Adapter-Pattern-0.jpg" alt="Adapter-Pattern-0"></p>
+<p>根据对象适配器模式结构图，在对象适配器中，客户端需要调用request()方法，而适配者类Adaptee没有该方法，但是它所提供的specificRequest()方法却是客户端所需要的。为了使客户端能够使用适配者类，需要提供一个包装类Adapter，即适配器类。这个包装类包装了一个适配者的实例，从而将客户端与适配者衔接起来，在适配器的request()方法中调用适配者的specificRequest()方法。因为适配器类与适配者类是关联关系（也可称之为委派关系），所以这种适配器模式称为对象适配器模式。</p>
+<h3 id="3-适配器模式应用实例"><a href="#3-适配器模式应用实例" class="headerlink" title="3. 适配器模式应用实例"></a>3. 适配器模式应用实例</h3><p>下面通过一个实例进一步学习和理解适配器模式。</p>
+<h3 id="实例说明"><a href="#实例说明" class="headerlink" title="实例说明"></a>实例说明</h3><blockquote>
+<p>Sunny软件公司在很久以前曾开发了一个算法库，里面包含了一些常用的算法，例如排序算法和查找算法，在进行各类软件开发时经常需要重用该算法库中的算法。在为某学校开发教务管理系统时，开发人员发现需要对学生成绩进行排序和查找，该系统的设计人员已经开发了一个成绩操作接口ScoreOperation，在该接口中声明了排序方法<code>arraySort(array $list): array</code>和查找方法<code>arraySearch(int $needle, array $haystack): int</code>，为了提高排序和查找的效率，开发人员决定重用算法库中的快速排序算法类QuickSort和二分查找算法类BinarySearch，其中QuickSort的<code>qSort(array $list): array</code>方法实现了快速排序，BinarySearch的<code>binsearch(array $arr, int $start, int $end, int $needle): int</code>方法实现了二分查找。</p>
+</blockquote>
+<p>由于某些原因，现在Sunny公司开发人员已经找不到该算法库的源代码，无法直接通过复制和粘贴操作来重用其中的代码；部分开发人员已经针对ScoreOperation接口编程，如果再要求对该接口进行修改或要求大家直接使用QuickSort类和BinarySearch类将导致大量代码需要修改。</p>
+<p>Sunny软件公司开发人员面对这个没有源码的算法库，遇到一个幸福而又烦恼的问题：如何在既不修改现有接口又不需要任何算法库代码的基础上能够实现算法库的重用？</p>
+<p>通过分析，我们不难得知，现在Sunny软件公司面对的问题有点类似本章最开始所提到的电压问题，成绩操作接口ScoreOperation好比只支持20V电压的笔记本，而算法库好比220V的家庭用电，这两部分都没有办法再进行修改，而且它们原本是两个完全不相关的结构，如图2所示：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/algorithm.jpg" alt="algorithm"></p>
+<p>图2 需协调的两个系统的结构示意图</p>
+<p>解决方案：我们需要ScoreOperation接口能够和已有算法库一起工作，让它们在同一个系统中能够兼容，最好的实现方法是增加一个类似电源适配器一样的适配器角色，通过适配器来协调这两个原本不兼容的结构。</p>
+<h3 id="实例代码"><a href="#实例代码" class="headerlink" title="实例代码"></a>实例代码</h3><ul>
+<li>ScoreOperation：<code>目标抽象类</code></li>
+</ul>
+<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token comment">/**
+ * 抽象成绩操作类：目标抽象类
+ *
+ * @author     &lt;dendi875@163.com&gt;
+ * @createDate 2018-06-25
+ * @copyright  Copyright (c) 2018 dendi875@163.com
+ */</span>
+
+<span class="token keyword">interface</span> <span class="token class-name-definition class-name">ScoreOperation</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">arraySort</span><span class="token punctuation">(</span><span class="token keyword type-hint">array</span> <span class="token variable">$list</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword return-type">array</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">arraySearch</span><span class="token punctuation">(</span><span class="token keyword type-hint">int</span> <span class="token variable">$needle</span><span class="token punctuation">,</span> <span class="token keyword type-hint">array</span> <span class="token variable">$haystack</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword return-type">int</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <ul>
-<li>如果使用 <code>global</code> 关键字，则表示在全局（多个 session中）对从那点开始创建的所有连接设置默认事务级别</li>
-<li>如果使用 <code>session</code>关键字，则表示为将来在当前连接上执行的所有事务设置默认事务级别</li>
-<li>不带<code>global</code>和<code>session</code>是为下一个（未开始）事务设置隔离级别</li>
+<li>QuickSort、BinarySearch： <code>适配者类</code></li>
 </ul>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">set session transaction isolation level read uncommitted;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token comment">/**
+ * 快速排序类：适配者
+ *
+ * @author     &lt;dendi875@163.com&gt;
+ * @createDate 2018-06-25
+ * @copyright  Copyright (c) 2018 dendi875@163.com
+ */</span>
 
-<p>上面的命令表示：为接下来在当前会话连接上执行的所有事务设置读未提交隔离级别</p>
-<p>注意：使用<code>set</code> 命令来设置隔离级别的方式在 <code>MySQL</code> 重启后会恢复到配置文件中设置的隔离级别</p>
-<h3 id="查询隔离级别"><a href="#查询隔离级别" class="headerlink" title="查询隔离级别"></a>查询隔离级别</h3><ul>
-<li>查询全局的隔离级别</li>
-</ul>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">select @@global.tx_isolation;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<span class="token keyword">class</span> <span class="token class-name-definition class-name">QuickSort</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">qSort</span><span class="token punctuation">(</span><span class="token keyword type-hint">array</span> <span class="token variable">$list</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword return-type">array</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">count</span><span class="token punctuation">(</span><span class="token variable">$list</span><span class="token punctuation">)</span> <span class="token operator">&lt;=</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token variable">$list</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token variable">$baseValue</span> <span class="token operator">=</span> <span class="token variable">$list</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+        <span class="token variable">$leftArray</span> <span class="token operator">=</span> <span class="token variable">$rightArray</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+        <span class="token function">array_shift</span><span class="token punctuation">(</span><span class="token variable">$list</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">foreach</span> <span class="token punctuation">(</span><span class="token variable">$list</span> <span class="token keyword">as</span> <span class="token variable">$value</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$value</span> <span class="token operator">&lt;</span> <span class="token variable">$baseValue</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token variable">$leftArray</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token variable">$value</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                <span class="token variable">$rightArray</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token variable">$value</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token variable">$leftArray</span> <span class="token operator">=</span> <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token function">qSort</span><span class="token punctuation">(</span><span class="token variable">$leftArray</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token variable">$rightArray</span> <span class="token operator">=</span> <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token function">qSort</span><span class="token punctuation">(</span><span class="token variable">$rightArray</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">return</span> <span class="token function">array_merge</span><span class="token punctuation">(</span><span class="token variable">$leftArray</span><span class="token punctuation">,</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token variable">$baseValue</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token variable">$rightArray</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/**
+ * 二分查找类：适配者
+ *
+ * @author     &lt;dendi875@163.com&gt;
+ * @createDate 2018-06-25
+ * @copyright  Copyright (c) 2018 dendi875@163.com
+ */</span>
+
+<span class="token keyword">class</span> <span class="token class-name-definition class-name">BinarySearch</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">binsearch</span><span class="token punctuation">(</span><span class="token keyword type-hint">array</span> <span class="token variable">$arr</span><span class="token punctuation">,</span> <span class="token keyword type-hint">int</span> <span class="token variable">$start</span><span class="token punctuation">,</span> <span class="token keyword type-hint">int</span> <span class="token variable">$end</span><span class="token punctuation">,</span> <span class="token keyword type-hint">int</span> <span class="token variable">$needle</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword return-type">int</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$start</span> <span class="token operator">&gt;</span> <span class="token variable">$end</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token variable">$mid</span> <span class="token operator">=</span> <span class="token function">ceil</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token variable">$end</span> <span class="token operator">+</span> <span class="token variable">$start</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$arr</span><span class="token punctuation">[</span><span class="token variable">$mid</span><span class="token punctuation">]</span> <span class="token operator">&gt;</span> <span class="token variable">$needle</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token function">binsearch</span><span class="token punctuation">(</span><span class="token variable">$arr</span><span class="token punctuation">,</span> <span class="token variable">$start</span><span class="token punctuation">,</span> <span class="token variable">$end</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token variable">$needle</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$arr</span><span class="token punctuation">[</span><span class="token variable">$mid</span><span class="token punctuation">]</span> <span class="token operator">&lt;</span> <span class="token variable">$needle</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token function">binsearch</span><span class="token punctuation">(</span><span class="token variable">$arr</span><span class="token punctuation">,</span> <span class="token variable">$start</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token variable">$end</span><span class="token punctuation">,</span> <span class="token variable">$needle</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token variable">$mid</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <ul>
-<li>查询一个会话的隔离级别</li>
+<li>OperationAdapter： <code>适配器类</code></li>
 </ul>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">select @@session.tx_isolation;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token comment">/**
+ * 操作适配器：适配器类
+ *
+ * @author     &lt;dendi875@163.com&gt;
+ * @createDate 2018-06-25
+ * @copyright  Copyright (c) 2018 dendi875@163.com
+ */</span>
+
+<span class="token keyword">class</span> <span class="token class-name-definition class-name">OperationAdapter</span> <span class="token keyword">implements</span> <span class="token class-name">ScoreOperation</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">private</span> <span class="token variable">$sortObj</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">private</span> <span class="token variable">$searchObj</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">__construct</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">sortObj</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">QuickSort</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">searchObj</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BinarySearch</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">arraySort</span><span class="token punctuation">(</span><span class="token keyword type-hint">array</span> <span class="token variable">$list</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword return-type">array</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">sortObj</span><span class="token operator">-&gt;</span><span class="token function">qSort</span><span class="token punctuation">(</span><span class="token variable">$list</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">arraySearch</span><span class="token punctuation">(</span><span class="token keyword type-hint">int</span> <span class="token variable">$needle</span><span class="token punctuation">,</span> <span class="token keyword type-hint">array</span> <span class="token variable">$haystack</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword return-type">int</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">searchObj</span><span class="token operator">-&gt;</span><span class="token function">binsearch</span><span class="token punctuation">(</span><span class="token variable">$haystack</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token function">count</span><span class="token punctuation">(</span><span class="token variable">$haystack</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token variable">$needle</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <ul>
-<li>查询一个事务的隔离级别</li>
+<li>客户端测试代码</li>
 </ul>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">select @@tx_isolation;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token comment">/* 定义成绩数组 */</span>
+<span class="token variable">$scores</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">90</span><span class="token punctuation">,</span> <span class="token number">84</span><span class="token punctuation">,</span> <span class="token number">76</span><span class="token punctuation">,</span> <span class="token number">50</span><span class="token punctuation">,</span> <span class="token number">69</span><span class="token punctuation">,</span> <span class="token number">90</span><span class="token punctuation">,</span> <span class="token number">91</span><span class="token punctuation">,</span> <span class="token number">88</span><span class="token punctuation">,</span> <span class="token number">96</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token variable">$operation</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">OperationAdapter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<h3 id="四种隔离级别的示例"><a href="#四种隔离级别的示例" class="headerlink" title="四种隔离级别的示例"></a>四种隔离级别的示例</h3><ol>
-<li>各隔离级别会再现的问题</li>
-</ol>
-<table>
-<thead>
-<tr>
-<th>隔离级别</th>
-<th>脏读</th>
-<th>不可重复读</th>
-<th>幻读</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>读未提交</td>
-<td>可能</td>
-<td>可能</td>
-<td>可能</td>
-</tr>
-<tr>
-<td>读已提交</td>
-<td>不可能</td>
-<td>可能</td>
-<td>可能</td>
-</tr>
-<tr>
-<td>可重复读</td>
-<td>不可能</td>
-<td>不可能</td>
-<td>可能</td>
-</tr>
-<tr>
-<td>可串行化</td>
-<td>不可能</td>
-<td>不可能</td>
-<td>不可能</td>
-</tr>
-</tbody></table>
-<ul>
-<li>读未提交：该隔离级别下可能会出现 <strong>脏读</strong>，也就是可能会读取到其它会话中修改了但还未提交的数据</li>
-<li>读已提交：该隔离级别解决了脏读问题，但可能会出现<strong>不可重复读</strong></li>
-<li>可重复读： 该隔离级别解决了不可重复读问题，但可能会出现<strong>幻读</strong></li>
-<li>可串行化：该隔离级别解决了幻读问题，它是完全串行化的读，每次读都需要获得表级共享锁，读写相互都会阻塞</li>
-</ul>
-<ol start="2">
-<li>示例来说明每种隔离级别的使用情况</li>
-</ol>
-<p>准备一张测试表，插入一些测试数据，然后开启两个<code>MySQL</code>终端，在此命令为<code>session1</code>和<code>session2</code></p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">CREATE TABLE `goods` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) NOT NULL DEFAULT '' COMMENT '商品名称',
-  `stock` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '库存',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `uk_name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='商品';
+<span class="token variable">$result</span> <span class="token operator">=</span> <span class="token variable">$operation</span><span class="token operator">-&gt;</span><span class="token function">arraySort</span><span class="token punctuation">(</span><span class="token variable">$scores</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">echo</span> <span class="token string double-quoted-string">"成绩排序结果："</span><span class="token operator">.</span><span class="token function">implode</span><span class="token punctuation">(</span><span class="token string single-quoted-string">','</span><span class="token punctuation">,</span> <span class="token variable">$result</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">//output：成绩排序结果：50,69,76,84,88,90,90,91,96</span>
 
-insert into `goods` (`name`, `stock`) values 
-('p1', '1000'),
-('p2', '1000'),
-('p3', '1000'),
-('p4', '1000'),
-('p5', '1000'),
-('p6', '1000'),
-('p7', '1000'),
-('p8', '1000'),
-('p9', '1000');<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token variable">$key1</span> <span class="token operator">=</span> <span class="token variable">$operation</span><span class="token operator">-&gt;</span><span class="token function">arraySearch</span><span class="token punctuation">(</span><span class="token number">90</span><span class="token punctuation">,</span> <span class="token variable">$result</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$key2</span> <span class="token operator">=</span> <span class="token variable">$operation</span><span class="token operator">-&gt;</span><span class="token function">arraySearch</span><span class="token punctuation">(</span><span class="token number">84</span><span class="token punctuation">,</span> <span class="token variable">$result</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$key3</span> <span class="token operator">=</span> <span class="token variable">$operation</span><span class="token operator">-&gt;</span><span class="token function">arraySearch</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">,</span> <span class="token variable">$result</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">echo</span> <span class="token string double-quoted-string">"查找成绩为90的索引位置："</span><span class="token operator">.</span><span class="token variable">$key1</span><span class="token punctuation">;</span>   <span class="token comment">//output：查找成绩为90的索引位置：5</span>
+<span class="token keyword">echo</span> <span class="token string double-quoted-string">"查找成绩84的索引位置："</span><span class="token operator">.</span><span class="token variable">$key2</span><span class="token punctuation">;</span>   <span class="token comment">//output：查查找成绩84的索引位置：3</span>
+<span class="token keyword">echo</span> <span class="token string double-quoted-string">"查找成绩100的索引位置："</span><span class="token operator">.</span><span class="token variable">$key3</span><span class="token punctuation">;</span>  <span class="token comment">//output：查找成绩100的索引位置：-1</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h4 id="脏读"><a href="#脏读" class="headerlink" title="脏读"></a>脏读</h4><p>脏读就是指当一个事务正在访问数据，并且对数据进行了修改，而这种修改还没有提交到数据库中，这时，另外一个事务也访问这个数据，然后使用了这个数据。</p>
-<p>session1：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">// 关闭自动提交，设置隔离级别为读未提交
-mysql&gt; set autocommit=0;
-mysql&gt; set session transaction isolation level read uncommitted;
-
-// 确认
-mysql&gt; show variables like '%autocommit%';
-+---------------+-------+
-| Variable_name | Value |
-+---------------+-------+
-| autocommit    | OFF   |
-+---------------+-------+
-
-mysql&gt; select @@session.tx_isolation;
-+------------------------+
-| @@session.tx_isolation |
-+------------------------+
-| READ-UNCOMMITTED       |
-+------------------------+
-
-// 开启事务，查询 id = 1 的记录
-
-mysql&gt; start transaction;
-
-mysql&gt; select * from goods where id=1;
-+----+------+-------+
-| id | name | stock |
-+----+------+-------+
-|  1 | p1   |  1000 |
-+----+------+-------+
-1 row in set (0.01 sec)
-
-mysql&gt; select * from goods where id=1;
-+----+------+-------+
-| id | name | stock |
-+----+------+-------+
-|  1 | p1   |  1000 |
-+----+------+-------+
-1 row in set (0.00 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>session2：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mysql&gt; set autocommit=0;
-mysql&gt; set session transaction isolation level read uncommitted;
-
-// 确认
-
-// 开启事务，把 id = 1记录的库存更新至 1
-mysql&gt; start transaction;
-Query OK, 0 rows affected (0.00 sec)
-
-mysql&gt; select * from goods where id=1;
-+----+------+-------+
-| id | name | stock |
-+----+------+-------+
-|  1 | p1   |  1000 |
-+----+------+-------+
-1 row in set (0.00 sec)
-
-mysql&gt; update goods set stock=1 where id=1;
-Query OK, 1 row affected (0.00 sec)
-Rows matched: 1  Changed: 1  Warnings: 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>session1：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mysql&gt; select * from goods where id=1; 
-+----+------+-------+
-| id | name | stock |
-+----+------+-------+
-|  1 | p1   |     1 |
-+----+------+-------+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p><strong>注意：</strong> 这时 session1 读取到了 session2 未提交的内容，如果 session2 回滚刚才更新的数据，session1 读取到的数据就是错误的</p>
-<h4 id="不可重复读"><a href="#不可重复读" class="headerlink" title="不可重复读"></a>不可重复读</h4><p>事务一一直读，事务二修改数据并提交，有可能就会出现事务一内两次读取到的数据不一样</p>
-<p>session1：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">// 取消自动提交，并设置隔离级别为读已提交
-mysql&gt; set autocommit=0;
-mysql&gt; set session transaction isolation level read committed;
-
-// 确认
-mysql&gt; select @@session.tx_isolation;
-+------------------------+
-| @@session.tx_isolation |
-+------------------------+
-| READ-COMMITTED         |
-+------------------------+
-
-// 开启事务，查询 id=1 的记录
-mysql&gt; start transaction;
-Query OK, 0 rows affected (0.00 sec)
-
-mysql&gt; select * from goods where id=1;
-+----+------+-------+
-| id | name | stock |
-+----+------+-------+
-|  1 | p1   |  1000 |
-+----+------+-------+
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>session2：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">// 取消自动提交，并设置隔离级别为读已提交
-mysql&gt; set autocommit=0;
-mysql&gt; set session transaction isolation level read committed;
-
-// 确认
-mysql&gt; select @@session.tx_isolation;
-+------------------------+
-| @@session.tx_isolation |
-+------------------------+
-| READ-COMMITTED         |
-+------------------------+
-
-mysql&gt; start transaction;
-mysql&gt; select * from goods where id=1;
-mysql&gt; update goods set stock=1 where id=1;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>这时返回到 session1</p>
-<p>session1：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mysql&gt; select * from goods where id=1;
-+----+------+-------+
-| id | name | stock |
-+----+------+-------+
-|  1 | p1   |  1000 |
-+----+------+-------+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>可以观察到在读已提交的隔离级别下，session1 没出现<strong>脏读</strong>。</p>
-<p>继续返回到 session2 执行手动提交</p>
-<p>session2：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mysql&gt; commit;
-Query OK, 0 rows affected (0.01 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<p>再返回到 session1 查看 id = 1的记录</p>
-<p>session1：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mysql&gt; select * from goods where id=1;
-+----+------+-------+
-| id | name | stock |
-+----+------+-------+
-|  1 | p1   |     1 |
-+----+------+-------+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p><strong>注意：</strong> 在 session2 提交后，session1 连接两次读取到的数据不一致了，这就是<strong>读已提交隔离级别可能会出现不可重复读的情况</strong></p>
-<p>在演示幻读之前，我们先演示下<strong>可重复读</strong></p>
-<h4 id="可重复读"><a href="#可重复读" class="headerlink" title="可重复读"></a>可重复读</h4><p>session1：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mysql&gt; set autocommit=0;
-mysql&gt; set session transaction isolation level repeatable read;
-
-mysql&gt; select @@session.tx_isolation;
-+------------------------+
-| @@session.tx_isolation |
-+------------------------+
-| REPEATABLE-READ        |
-+------------------------+
-
-mysql&gt; select * from goods where id=1;
-+----+------+-------+
-| id | name | stock |
-+----+------+-------+
-|  1 | p1   |  1000 |
-+----+------+-------+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>session2：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mysql&gt; set autocommit=0;
-mysql&gt; set session transaction isolation level repeatable read;
-
-mysql&gt; select @@session.tx_isolation;
-+------------------------+
-| @@session.tx_isolation |
-+------------------------+
-| REPEATABLE-READ        |
-+------------------------+
-
-mysql&gt; start transaction;
-Query OK, 0 rows affected (0.00 sec)
-
-mysql&gt; select * from goods where id=1;
-+----+------+-------+
-| id | name | stock |
-+----+------+-------+
-|  1 | p1   |  1000 |
-+----+------+-------+
-1 row in set (0.00 sec)
-
-mysql&gt; update goods set stock=1 where id=1;
-Query OK, 1 row affected (0.00 sec)
-Rows matched: 1  Changed: 1  Warnings: 0
-
-mysql&gt;  commit;
-Query OK, 0 rows affected (0.00 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>再返回到 session1 查询 id=1 的记录</p>
-<p>session1：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mysql&gt; select * from goods where id=1;
-+----+------+-------+
-| id | name | stock |
-+----+------+-------+
-|  1 | p1   |  1000 |
-+----+------+-------+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>可以观察到<strong>在可重复读隔离级别下</strong>，session1 连续多次读取的数据是一致的，也就是它是可重复读的</p>
-<h4 id="幻读"><a href="#幻读" class="headerlink" title="幻读"></a>幻读</h4><p>两个事务彼此隔离，互相并不知道对方操作了什么，当第一个事务插入了一条数据并提交后，因为隔离级别是可重复读，在第二个事务里并不知道第一个事务已经插入了数据，所以第二个事务查询出来的数据还是没插入之前的，这时第二个事务再次插入数据时就可能会报数据已存在，以为自己出现了幻觉</p>
-<p>session1：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mysql&gt; set autocommit=0;
-mysql&gt; set session transaction isolation level repeatable read;
-
-// 开启事务，插入数据并提交
-mysql&gt; start transaction;
-Query OK, 0 rows affected (0.00 sec)
-
-mysql&gt; select * from goods;
-+----+------+-------+
-| id | name | stock |
-+----+------+-------+
-|  1 | p1   |     1 |
-|  2 | p2   |  1000 |
-|  3 | p3   |  1000 |
-|  4 | p4   |  1000 |
-|  5 | p5   |  1000 |
-|  6 | p6   |  1000 |
-|  7 | p7   |  1000 |
-|  8 | p8   |  1000 |
-|  9 | p9   |  1000 |
-+----+------+-------+
-9 rows in set (0.00 sec)
-
-mysql&gt; insert into goods(`name`,`stock`) values('p10', 1000);      
-Query OK, 1 row affected (0.00 sec)
-
-mysql&gt; commit;
-Query OK, 0 rows affected (0.00 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>切换到 session2 </p>
-<p>session2：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mysql&gt; set autocommit=0;
-mysql&gt; set session transaction isolation level repeatable read;
-
-// 开启事务，查询后再插入
-mysql&gt; start transaction;
-
-mysql&gt; select * from goods;
-+----+------+-------+
-| id | name | stock |
-+----+------+-------+
-|  1 | p1   |     1 |
-|  2 | p2   |  1000 |
-|  3 | p3   |  1000 |
-|  4 | p4   |  1000 |
-|  5 | p5   |  1000 |
-|  6 | p6   |  1000 |
-|  7 | p7   |  1000 |
-|  8 | p8   |  1000 |
-|  9 | p9   |  1000 |
-+----+------+-------+
-9 rows in set (0.00 sec)
-
-mysql&gt; insert into goods(`name`, `stock`) values('p10', 1000);     
-ERROR 1062 (23000): Duplicate entry 'p10' for key 'uk_name'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h4 id="SERIALIZABLE（可串行化）"><a href="#SERIALIZABLE（可串行化）" class="headerlink" title="SERIALIZABLE（可串行化）"></a>SERIALIZABLE（可串行化）</h4><p>在该隔离级别下事务都是串行顺序执行的，<code>MySQL</code> 数据库的 <code>InnoDB</code> 引擎会给读操作隐式加一把读共享锁，从而避免了脏读、不可重读复读和幻读问题。</p>
-<p>session1：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mysql&gt; set autocommit=0;
-Query OK, 0 rows affected (0.00 sec)
-
-mysql&gt; set session transaction isolation level serializable;
-Query OK, 0 rows affected (0.00 sec)
-
-mysql&gt; select @@session.tx_isolation;
-+------------------------+
-| @@session.tx_isolation |
-+------------------------+
-| SERIALIZABLE           |
-+------------------------+
-1 row in set (0.00 sec)
-
-// 开启一个事务，插入一条数据但不提交
-mysql&gt; start transaction;
-Query OK, 0 rows affected (0.00 sec)
-
-mysql&gt; insert into goods(`name`, `stock`) values('p10', 1000); 
-Query OK, 1 row affected (0.00 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>切换到 session2 ，开启一个事务然后查询数据</p>
-<p>session2：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mysql&gt; set autocommit=0;
-Query OK, 0 rows affected (0.00 sec)
-
-mysql&gt; set session transaction isolation level serializable;
-Query OK, 0 rows affected (0.00 sec)
-
-mysql&gt; select @@session.tx_isolation;
-+------------------------+
-| @@session.tx_isolation |
-+------------------------+
-| SERIALIZABLE           |
-+------------------------+
-1 row in set (0.00 sec)
-
-mysql&gt; select * from goods; // 些时会一直卡住<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>立马切换到 session1，提交事务</p>
-<p>session1：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mysql&gt; commit;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>再切换到 session2</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mysql&gt; select * from goods;
-+----+------+-------+
-| id | name | stock |
-+----+------+-------+
-|  1 | p1   |  1000 |
-|  2 | p2   |  1000 |
-|  3 | p3   |  1000 |
-|  4 | p4   |  1000 |
-|  5 | p5   |  1000 |
-|  6 | p6   |  1000 |
-|  7 | p7   |  1000 |
-|  8 | p8   |  1000 |
-|  9 | p9   |  1000 |
-| 10 | p10  |  1000 |
-+----+------+-------+
-10 rows in set (1.12 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>session2 也有可能获取锁超时</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mysql&gt; select * from goods;
-ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<p><strong>注意：</strong>　一旦事务提交，session2 会立马返回插入的记录，否则会一直卡住，直到超时，其中超时参数是由 <code>innodb_lock_wait_timeout</code> 控制。由于每条 <code>select</code>语句都会加锁，所以该隔离级别的数据库并发能力最弱</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>四个级别逐渐增强，每个级别解决一个问题。事务级别越高，性能越差。<code>InnoDB</code>默认级别是可重复读。 </p>
+<h3 id="4-UML类图"><a href="#4-UML类图" class="headerlink" title="4. UML类图"></a>4. UML类图</h3><p>示例代码UML图：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/AdapterPattern-1.png" alt="AdapterPattern-1"></p>
+<h3 id="5-适配器模式的优点"><a href="#5-适配器模式的优点" class="headerlink" title="5. 适配器模式的优点"></a>5. 适配器模式的优点</h3><p>适配器模式的主要优点如下：</p>
+<p>(1)将目标类和适配者类解耦，通过引入一个适配器类来重用现有的适配者类，无须修改原有结构。</p>
+<p>(2)增加了类的透明性和复用性，将具体的业务实现过程封装在适配者类中，对于客户端类而言是透明的，而且提高了适配者的复用性，同一个适配者类可以在多个不同的系统中复用。</p>
+<p>(3)一个对象适配器可以把多个不同的适配者适配到同一个目标。</p>
+<h3 id="6-适配器模式的缺点"><a href="#6-适配器模式的缺点" class="headerlink" title="6. 适配器模式的缺点"></a>6. 适配器模式的缺点</h3><p>类适配器模式的主要缺点如下：</p>
+<p>(1)PHP不支持多继承，一次最多只能适配一个适配者类，不能同时适配多个适配者；但可以通过<code>Trait</code>来减少单继承的限制。</p>
+<p>(2)适配者类不能为最终类，如在PHP中不能为final类；</p>
+<p>对象适配器模式的缺点如下：</p>
+<p>与类适配器模式相比，要在适配器中置换适配者类的某些方法比较麻烦。如果一定要置换掉适配者类的一个或多个方法，可以先做一个适配者类的子类，将适配者类的方法置换掉，然后再把适配者类的子类当做真正的适配者进行适配，实现过程较为复杂。</p>
+<h3 id="7-适配器模式适用场景"><a href="#7-适配器模式适用场景" class="headerlink" title="7.适配器模式适用场景"></a>7.适配器模式适用场景</h3><p>在以下情况下可以考虑使用适配器模式：</p>
+<p>(1)系统需要使用一些现有的类，而这些类的接口（如方法名）不符合系统的需要，甚至没有这些类的源代码。</p>
+<p>(2) 想创建一个可以重复使用的类，用于与一些彼此之间没有太大关联的一些类，包括一些可能在将来引进的类一起工作。</p>
 
                 
             </div>
@@ -953,7 +728,7 @@ ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction<span 
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://zhangquan.me/2021/06/29/mysql-si-chong-shi-wu-ge-chi-ji-bie-shuo-ming/">https://zhangquan.me/2021/06/29/mysql-si-chong-shi-wu-ge-chi-ji-bie-shuo-ming/</a>
+                    <a href="https://zhangquan.me/2021/07/01/she-ji-mo-shi-zhi-jie-gou-xing-mo-shi-gua-pei-qi-mo-shi-adapter-pattern/">https://zhangquan.me/2021/07/01/she-ji-mo-shi-zhi-jie-gou-xing-mo-shi-gua-pei-qi-mo-shi-adapter-pattern/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -991,8 +766,12 @@ ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction<span 
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/MySQL/">
-                                    <span class="chip bg-color">MySQL</span>
+                                <a href="/tags/PHP/">
+                                    <span class="chip bg-color">PHP</span>
+                                </a>
+                            
+                                <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
+                                    <span class="chip bg-color">面向对象</span>
                                 </a>
                             
                         </div>
@@ -1163,7 +942,7 @@ ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction<span 
         repo: 'https://dendi875.github.io/',
         owner: 'dendi875',
         admin: "dendi875",
-        id: '2021-06-29T12-09-39',
+        id: '2021-07-01T09-50-25',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -1191,84 +970,36 @@ ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction<span 
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/06/29/jin-cheng-de-shou-hu-shen-daemontools/">
+                <a href="/2021/07/01/she-ji-mo-shi-zhi-jie-gou-xing-mo-shi-gua-pei-qi-mo-shi-adapter-pattern/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="进程的守护神-daemontools">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="设计模式之-结构型模式-适配器模式 (Adapter Pattern)">
                         
-                        <span class="card-title">进程的守护神-daemontools</span>
+                        <span class="card-title">设计模式之-结构型模式-适配器模式 (Adapter Pattern)</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            守护进程管理工具
-                        
-                    </div>
-                    <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-06-29
-                        </span>
-                        <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Linux/" class="post-category">
-                                    Linux
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E5%B7%A5%E5%85%B7/">
-                        <span class="chip bg-color">工具</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
-            </div>
-            <div class="card">
-                <a href="/2021/06/29/mysql-si-chong-shi-wu-ge-chi-ji-bie-shuo-ming/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="MySQL 四种事务隔离级别说明">
-                        
-                        <span class="card-title">MySQL 四种事务隔离级别说明</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            彻底搞懂 MySQL 四种事务的隔离级别
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-29
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-07-01
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-category">
-                                    数据库
+                            <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-category">
+                                    设计模式
                                 </a>
                             
                             
@@ -1279,8 +1010,65 @@ ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction<span 
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/MySQL/">
-                        <span class="chip bg-color">MySQL</span>
+                    <a href="/tags/PHP/">
+                        <span class="chip bg-color">PHP</span>
+                    </a>
+                    
+                    <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
+                        <span class="chip bg-color">面向对象</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2021/06/30/she-ji-mo-shi-zhi-chuang-jian-xing-mo-shi-yuan-xing-mo-shi-prototype-pattern/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="设计模式之-创建型模式-原型模式 (Prototype Pattern)">
+                        
+                        <span class="card-title">设计模式之-创建型模式-原型模式 (Prototype Pattern)</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-30
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-category">
+                                    设计模式
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/PHP/">
+                        <span class="chip bg-color">PHP</span>
+                    </a>
+                    
+                    <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
+                        <span class="chip bg-color">面向对象</span>
                     </a>
                     
                 </div>
