@@ -186,13 +186,6 @@
   </url>
   
   <url>
-    <loc>https://zhangquan.me/tags/%E8%BF%90%E7%BB%B4/</loc>
-    <lastmod>2021-07-06</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://zhangquan.me/tags/MySQL/</loc>
     <lastmod>2021-07-06</lastmod>
     <changefreq>daily</changefreq>
@@ -208,6 +201,13 @@
   
   <url>
     <loc>https://zhangquan.me/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</loc>
+    <lastmod>2021-07-06</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhangquan.me/tags/%E8%BF%90%E7%BB%B4/</loc>
     <lastmod>2021-07-06</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -230,13 +230,6 @@
   </url>
   
   <url>
-    <loc>https://zhangquan.me/categories/Linux/</loc>
-    <lastmod>2021-07-06</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://zhangquan.me/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
     <lastmod>2021-07-06</lastmod>
     <changefreq>daily</changefreq>
@@ -245,6 +238,13 @@
   
   <url>
     <loc>https://zhangquan.me/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
+    <lastmod>2021-07-06</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhangquan.me/categories/Linux/</loc>
     <lastmod>2021-07-06</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
