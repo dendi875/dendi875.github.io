@@ -1,0 +1,1861 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Elasticsearch 学习研究, PHP,Go,MySQL,Linux,Docker等">
+    <meta name="description" content="PHP Go MySQL 后端开发">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Elasticsearch 学习研究 | 张权的博客</title>
+    <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+    <script>
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+    </script>
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="张权的博客" type="application/atom+xml">
+</head>
+
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/log.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">张权的博客</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/log.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">张权的博客</div>
+        <div class="logo-desc">
+            
+            PHP Go MySQL 后端开发
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Elasticsearch 学习研究</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/">
+                                <span class="chip bg-color">中间件</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%90%8E%E7%AB%AF/" class="post-category">
+                                后端
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-06-29
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2021-06-29
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    3.6k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    15 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="Elasticsearch-学习研究"><a href="#Elasticsearch-学习研究" class="headerlink" title="Elasticsearch 学习研究"></a>Elasticsearch 学习研究</h1><hr>
+<h2 id="1-Elasticsearch-介绍"><a href="#1-Elasticsearch-介绍" class="headerlink" title="1. Elasticsearch 介绍"></a>1. Elasticsearch 介绍</h2><p>Elasticsearch（ES）是基于文本搜索库<a target="_blank" rel="noopener" href="https://lucene.apache.org/">Lucene</a>构建的高度可扩展的分布式开源搜索和分析引擎。</p>
+<p>如果有足够的计算机，ES集群通常可以跨非常大的数据集执行搜索和聚合查询。<br>如果你希望对一组文本文档进行传统的全文本搜索（类似于 Google 搜索），则ES很适合，</p>
+<p>Elasticsearch 主要用于搜索和日志分析，也是当今最流行的日志分析平台（ELK）（Elasticsearch，Logstash和Kibana）的核心。它在处理大数据（如：系统日志，网络流量）时非常有用。</p>
+<h2 id="2-Elasticsearch-中的重要概念"><a href="#2-Elasticsearch-中的重要概念" class="headerlink" title="2. Elasticsearch 中的重要概念"></a>2. Elasticsearch 中的重要概念</h2><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/Elasticsearch.png" alt="Elasticsearch"></p>
+<h3 id="2-1-Cluster（集群）"><a href="#2-1-Cluster（集群）" class="headerlink" title="2.1 Cluster（集群）"></a>2.1 Cluster（集群）</h3><p>cluster是一个或一组服务器（节点）的集合，这些节点一起协同保存你的数据，并在所有节点之间为你提供索引和搜索功能。cluster具有唯一名称标识（默认是elasticsearch），你只需要指定集群标识名，启动的时候，凡是集群是这个名字的节点都会默认加到同一个集群中，选举master节点和节点管理都是自动完成的。当然一个节点也可以组成一个集群。</p>
+<h3 id="2-2-Node（节点）"><a href="#2-2-Node（节点）" class="headerlink" title="2.2 Node（节点）"></a>2.2 Node（节点）</h3><p>node是参与到cluster的单个服务器节点，具有唯一标识名，可加入到指定的cluster中。 单个es实例称为一个节点（node）。一组节点构成一个集群（cluster）。</p>
+<h3 id="2-3-Index（索引）"><a href="#2-3-Index（索引）" class="headerlink" title="2.3 Index（索引）"></a>2.3 Index（索引）</h3><p>Index是一类文档的集合。例如，你可以为用户数据创建一个索引，为商品数据创建另一个索引，为订单数据创建另一个索引。es 数据管理的顶层单位就叫做 Index（索引），相当于传统数据库中的数据库。每个 Index （即数据库）的名字必须是小写。</p>
+<p>es数据的索引、搜索和分析都是基于索引完成的。每个Index包含多个shard，默认是5个，分散在不同的node上。当索引创建完成的时候，主分片的数量就固定了，但是复制分片的数量可以随时调整。</p>
+<p>在单个cluster中，你可以创建任意个Index。</p>
+<p>下面的命令可以查看当前节点的所有 Index。</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ curl -X GET 'http://localhost:9200/_cat/indices?v' -d ''
+health status index  pri rep docs.count docs.deleted store.size pri.store.size
+yellow open   orders   5   1          0            0       650b           650b<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="2-4-Type（类型）"><a href="#2-4-Type（类型）" class="headerlink" title="2.4 Type（类型）"></a>2.4 Type（类型）</h3><p>Type是 Index 中数据的 ，在索引中，你可以定义一个或多个类型。它是索引中虚拟逻辑的分组，用来过滤    Document ，相当于传统数据库的表。</p>
+<p>不同的 Type 应该有相似的结构（schema），举例来说，<code>id</code>字段不能在这个 Type 是字符串，在另 Type 是数值。这是与关系型数据库的表的一个<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/2.3/mapping.html">区别</a>。</p>
+<p>举例来说，在一个商城系统中，你可以定义一个订单的 type（orders_order），可以定义一个商品的 type（orders_product），还可以定义一个日志的 type（orders_log）。</p>
+<p>下面的命令可以列出每个 Index 所包含的 Type。</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ curl 'http://localhost:9200/_mapping?pretty=true'<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="2-5-Document（文档）"><a href="#2-5-Document（文档）" class="headerlink" title="2.5 Document（文档）"></a>2.5 Document（文档）</h3><p>Document是es数据可被索引化的基本的存储单元，需要存储在Type中，相当于传统数据库的行记录。</p>
+<p>Index 里面单条的记录称为 Document（文档）。许多条 Document 构成了一个 Index。</p>
+<p>Document 使用 JSON 格式表示，下面是一个例子。</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">{
+  "name": "张三",
+  "title": "工程师",
+  "desc": "数据库管理"
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="2-6-Shard（分片）"><a href="#2-6-Shard（分片）" class="headerlink" title="2.6 Shard（分片）"></a>2.6 Shard（分片）</h3><p>一个索引可能会存储大量的数据，进而会让单个节点超出硬件能承受范围。举例来说，存储了10亿文档的单个节点，会占用1TB磁盘空间，并且会导致查询的时候速度很慢。</p>
+<p>为了解决这个问题，Elasticsearch 提供了分片，也就是将index细分为多个碎片的功能。当你创建index的时候，你可以简单地指定你想要的分片数量。每一个分片具有和 index 完全相同的功能。</p>
+<p>碎片最主要的两个作用是：</p>
+<ul>
+<li>它允许你水平地切割你的容量体积</li>
+<li>它允许你并行地分发作业，提高系统的性能</li>
+</ul>
+<p>默认在创建索引时会创建5个分片，这个数量可以修改。分片的数量只能在创建索引的时候指定，不能在后期修改。</p>
+<h3 id="2-7-Replicas（副本）"><a href="#2-7-Replicas（副本）" class="headerlink" title="2.7 Replicas（副本）"></a>2.7 Replicas（副本）</h3><p>因为各种原因，所以数据丢失等问题会时有发生，碎片也可能会丢失，为了防止这个问题，所以你可以将一个或多个索引碎片复制到所谓的复制碎片，简称为副本。</p>
+<p>副本最主要的两个作用是：</p>
+<ul>
+<li>它提供了高可用性，以防碎片/节点失败。基于这点，所以副本的永远不要和原始碎片分布在同一个节点上</li>
+<li>它可以扩展系统的吞吐量，因为搜索可以在所有副本上执行</li>
+</ul>
+<p>默认情况下，Elasticsearch为每个索引分配了5个主碎片和1个副本，这意味着在你的集群中，如果至少有两个节点，那么每个索引将有5个主碎片和5个复制碎片，每个索引总共10个碎片。</p>
+<p>将Elasticsearch和传统关系型数据库Mysql做一下类比：</p>
+<table>
+<thead>
+<tr>
+<th>MySQL</th>
+<th>Elasticsearch</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Database（数据库）</td>
+<td>Index（索引）</td>
+</tr>
+<tr>
+<td>Table（表）</td>
+<td>Type（类型）</td>
+</tr>
+<tr>
+<td>Row（行）</td>
+<td>Document（文档）</td>
+</tr>
+<tr>
+<td>Column（列）</td>
+<td>Field（字段）</td>
+</tr>
+<tr>
+<td>Schema（方案）</td>
+<td>Mapping（映射）</td>
+</tr>
+<tr>
+<td>Index（索引）</td>
+<td>Everything Indexed by default（默认情况下所有字段都被索引）</td>
+</tr>
+<tr>
+<td>SQL（结构化查询语言）</td>
+<td>Query DSL（查询专用语言）</td>
+</tr>
+</tbody></table>
+<h2 id="3-Elasticsearch-安装和配置"><a href="#3-Elasticsearch-安装和配置" class="headerlink" title="3. Elasticsearch 安装和配置"></a>3. Elasticsearch 安装和配置</h2><h3 id="3-1-安装"><a href="#3-1-安装" class="headerlink" title="3.1 安装"></a>3.1 安装</h3><p>Elasticsearch 至少需要 Java 7  环境。如果你的机器还没安装 Java，可以参考<a target="_blank" rel="noopener" href="https://www.liquidweb.com/kb/install-java-8-on-centos-7/">这篇文章</a>。</p>
+<p>安装完 Java，就可以跟着<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/5.5/_installation.html#_installation">官方文档</a>安装 Elasticsearch。</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># cd /usr/local/software/
+# curl -L -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.5.3.tar.gz
+# # tar -zxvf elasticsearch-5.5.3.tar.gz  -C /usr/local/
+# # cd /usr/local/elasticsearch-5.5.3/
+# ./bin/elasticsearch<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>如果这时报错”Exception in thread “main” java.lang.RuntimeException: don’t run elasticsearch as root.”，表示不能以超级用户root启动es，我们新建一个用户：</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># useradd es
+# passwd es
+# chown -R es:es /usr/local/elasticsearch-5.5.3/
+# su - es
+$ /usr/local/elasticsearch-5.5.3/bin/elasticsearch<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>如果这时报错“max file descriptors [4096] for elasticsearch process is too low, increase to at least [65536]”，这表示文件描述符太少了，我们需要设置文件描述数量：</p>
+<p>查看<code>es</code>用户硬限制：</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ ulimit -Hn
+4096<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>打开<code>/etc/security/limits.conf</code>增加一行：</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">es  - nofile  65536<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>退出<code>es</code>用户，再重新看硬限制：</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ ulimit -Hn
+65536<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>如果一切正常，es 就会在默认的9200端口运行。开启另一个终端查看es进程和端口：</p>
+<pre class="line-numbers language-none"><code class="language-none"># ps -ef | grep elastic
+es        1753  1726  8 18:14 pts/1    00:00:02 /bin/java -Xms2g -Xmx2g -XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupancyFraction=75 -XX:+UseCMSInitiatingOccupancyOnly -XX:+AlwaysPreTouch -server -Xss1m -Djava.awt.headless=true -Dfile.encoding=UTF-8 -Djna.nosys=true -Djdk.io.permissionsUseCanonicalPath=true -Dio.netty.noUnsafe=true -Dio.netty.noKeySetOptimization=true -Dio.netty.recycler.maxCapacityPerThread=0 -Dlog4j.shutdownHookEnabled=false -Dlog4j2.disable.jmx=true -Dlog4j.skipJansi=true -XX:+HeapDumpOnOutOfMemoryError -Des.path.home=/usr/local/elasticsearch-5.5.3 -cp /usr/local/elasticsearch-5.5.3/lib/* org.elasticsearch.bootstrap.Elasticsearch
+root      1793  1596  0 18:14 pts/0    00:00:00 grep --color=auto elastic
+
+# netstat -tlunp | grep 9200
+tcp6       0      0 127.0.0.1:9200          :::*                    LISTEN      1753/java<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可以看到es已经正常启动，除了查看es进程和端口外，我们还可以执行：</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># curl 'http://localhost:9200'
+{
+  "name" : "Onl1EgV",
+  "cluster_name" : "elasticsearch",
+  "cluster_uuid" : "P3CrVh_BTO-1EVzJlyWXKg",
+  "version" : {
+    "number" : "5.5.3",
+    "build_hash" : "9305a5e",
+    "build_date" : "2017-09-07T15:56:59.599Z",
+    "build_snapshot" : false,
+    "lucene_version" : "6.6.0"
+  },
+  "tagline" : "You Know, for Search"
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>上面代码中，请求9200端口，es 返回一个 JSON 对象，包含当前节点、集群、版本等信息。</p>
+<p>以上es的运行方式可以通过<code>CTRL+C</code>或关闭窗口来停止运行，平时我们可以通过守护进程的方式在后台启动es：</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ ./bin/elasticsearch -d<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>如果是后台启动后想要停止es，可以通过<code>ps -ef | grep elastic</code>找到es进程PID，然后<code>kill</code>掉就行</p>
+<h3 id="3-2-配置"><a href="#3-2-配置" class="headerlink" title="3.2 配置"></a>3.2 配置</h3><p>认情况下，es 只允许本机访问，如果需要远程访问，可以修改 es 安装目录的<em>ES_HOME/config/elasticsearch.yml</em>文件，去掉<strong>network.host</strong>的注释，将它的值改成<code>0.0.0.0</code>，然后重新启动 es。</p>
+<p>如果远程还不能访问可能需要检查下<strong>防火墙</strong>和<strong>SELinux</strong>的设置。</p>
+<p>其它配置项的解释可以参考<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/5.5/settings.html">官方页面</a></p>
+<h2 id="4-Elasticsearch-插件"><a href="#4-Elasticsearch-插件" class="headerlink" title="4. Elasticsearch 插件"></a>4. Elasticsearch 插件</h2><h3 id="4-1-IK-中文分词插件"><a href="#4-1-IK-中文分词插件" class="headerlink" title="4.1 IK 中文分词插件"></a>4.1 IK 中文分词插件</h3><p>es 内置的分词器对中文不友好，会把中文分成单个字来进行全文检索，不能达到想要的结果，ik 可以进行友好的分词及自定义分词。</p>
+<p>内置的分词器对中文会一个一个拆分，如下面是内置分词器的效果：</p>
+<pre class="line-numbers language-ssh" data-language="ssh"><code class="language-ssh">$ curl -H 'Content-Type: application/json'  -X GET 'localhost:9200/_analyze?pretty' -d '
+&gt; {
+&gt; "analyzer": "default",
+&gt; "text":"今天天气真好"
+&gt; }
+&gt; '
+{
+  "tokens" : [
+    {
+      "token" : "今",
+      "start_offset" : 0,
+      "end_offset" : 1,
+      "type" : "&lt;IDEOGRAPHIC&gt;",
+      "position" : 0
+    },
+    {
+      "token" : "天",
+      "start_offset" : 1,
+      "end_offset" : 2,
+      "type" : "&lt;IDEOGRAPHIC&gt;",
+      "position" : 1
+    },
+    {
+      "token" : "天",
+      "start_offset" : 2,
+      "end_offset" : 3,
+      "type" : "&lt;IDEOGRAPHIC&gt;",
+      "position" : 2
+    },
+    {
+      "token" : "气",
+      "start_offset" : 3,
+      "end_offset" : 4,
+      "type" : "&lt;IDEOGRAPHIC&gt;",
+      "position" : 3
+    },
+    {
+      "token" : "真",
+      "start_offset" : 4,
+      "end_offset" : 5,
+      "type" : "&lt;IDEOGRAPHIC&gt;",
+      "position" : 4
+    },
+    {
+      "token" : "好",
+      "start_offset" : 5,
+      "end_offset" : 6,
+      "type" : "&lt;IDEOGRAPHIC&gt;",
+      "position" : 5
+    }
+  ]
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>首先，安装中文分词插件。这里使用的是<a target="_blank" rel="noopener" href="https://github.com/medcl/elasticsearch-analysis-ik/">ik</a></p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">[es@localhost elasticsearch-5.5.3]$ ./bin/elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v5.5.3/elasticsearch-analysis-ik-5.5.3.zip<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>接着，重新启动 Elastic，就会自动加载这个新安装的插件。</p>
+<p>IK支持两种分词模式：</p>
+<ul>
+<li>ik_max_word: 会将文本做最细粒度的拆分，会穷尽各种可能的组合</li>
+<li>ik_smart: 会做最粗粒度的拆分</li>
+</ul>
+<p>接下来，我们看看 IK 分词效果和自带的有什么不同。</p>
+<p>先试一下<code>ik_smart</code>的效果：</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"> curl -H 'Content-Type: application/json'  -X GET 'localhost:9200/_analyze?pretty' -d '
+&gt; {
+&gt; "analyzer": "ik_smart",
+&gt; "text":"今天天气真好"
+&gt; }
+&gt; '
+{
+  "tokens" : [
+    {
+      "token" : "今天天气",
+      "start_offset" : 0,
+      "end_offset" : 4,
+      "type" : "CN_WORD",
+      "position" : 0
+    },
+    {
+      "token" : "真好",
+      "start_offset" : 4,
+      "end_offset" : 6,
+      "type" : "CN_WORD",
+      "position" : 1
+    }
+  ]
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>再试一下<code>ik_max_word</code>的效果：</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">{
+  "tokens" : [
+    {
+      "token" : "今天天气",
+      "start_offset" : 0,
+      "end_offset" : 4,
+      "type" : "CN_WORD",
+      "position" : 0
+    },
+    {
+      "token" : "今天",
+      "start_offset" : 0,
+      "end_offset" : 2,
+      "type" : "CN_WORD",
+      "position" : 1
+    },
+    {
+      "token" : "天天",
+      "start_offset" : 1,
+      "end_offset" : 3,
+      "type" : "CN_WORD",
+      "position" : 2
+    },
+    {
+      "token" : "天气",
+      "start_offset" : 2,
+      "end_offset" : 4,
+      "type" : "CN_WORD",
+      "position" : 3
+    },
+    {
+      "token" : "真好",
+      "start_offset" : 4,
+      "end_offset" : 6,
+      "type" : "CN_WORD",
+      "position" : 4
+    }
+  ]
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>设置mapping默认分词器：</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">curl -X PUT 'localhost:9200/userdoors' -d '
+{
+  "mappings": {
+    "person": {
+      "properties": {
+        "name": {
+          "type": "text",
+          "analyzer": "ik_max_word",
+          "search_analyzer": "ik_max_word"
+        },
+        "title": {
+          "type": "text",
+          "analyzer": "ik_max_word",
+          "search_analyzer": "ik_max_word"
+        },
+        "desc": {
+          "type": "text",
+          "analyzer": "ik_max_word",
+          "search_analyzer": "ik_max_word"
+        }
+      }
+    }
+  }
+}'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>面代码中，首先新建一个名称为<code>userdoor</code>的Index，里面有一个名称为<code>person</code>的 Type。person有三个字段<code>name</code>、<code>title</code>、<code>desc</code>。</p>
+<p><strong>注意：</strong> 这里设置<code>search_analyzer</code>与<code>analyzer</code> 相同是为了确保搜索时和索引时使用相同的分词器，以确保查询中的术语与反向索引中的术语具有相同的格式。如果不设置<code>search_analyzer</code>，则 <code>search_analyzer</code> 与 <code>analyzer</code> 相同。详细请查阅官网<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/5.5/search-analyzer.html">搜索分析器</a></p>
+<h3 id="4-2-head-插件"><a href="#4-2-head-插件" class="headerlink" title="4.2 head 插件"></a>4.2 head 插件</h3><h2 id="5-Elasticsearch-REST-APIs-的使用"><a href="#5-Elasticsearch-REST-APIs-的使用" class="headerlink" title="5. Elasticsearch REST APIs 的使用"></a>5. Elasticsearch REST APIs 的使用</h2><h3 id="5-1-Indices-APIs（索引API）"><a href="#5-1-Indices-APIs（索引API）" class="headerlink" title="5.1 Indices APIs（索引API）"></a>5.1 Indices APIs（索引API）</h3><p>索引API用于对索引进行各种管理，如：创建索引、删除索引、获取索引等，还包括，索引设置，别名管理，映射管理，状态管理等。</p>
+<h4 id="创建索引"><a href="#创建索引" class="headerlink" title="创建索引"></a>创建索引</h4><p>新建 Index，可以直接向 es 服务器发出 PUT 请求。下面的例子是新建一个名叫orders的 Index。</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ curl -X PUT 'http://localhost:9200/orders' -d ''
+{"acknowledged":true}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>服务器返回一个 JSON 对象，里面的<code>acknowledged</code>字段表示操作成功。</p>
+<h4 id="删除索引"><a href="#删除索引" class="headerlink" title="删除索引"></a>删除索引</h4><p>我们发出 DELETE 请求，删除这个 Index。</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ curl -X DELETE 'http://localhost:9200/orders'
+{"acknowledged":true}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h3 id="5-2-Document-APIs（文档API）"><a href="#5-2-Document-APIs（文档API）" class="headerlink" title="5.2 Document APIs（文档API）"></a>5.2 Document APIs（文档API）</h3><h4 id="新增文档"><a href="#新增文档" class="headerlink" title="新增文档"></a>新增文档</h4><p>向指定的 /Index/Type 发送 PUT 请求，就可以在 Index 里面新增一条记录。比如，向<code>/userdoor/person</code>发送请求，就可以新增一条人员记录。</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ curl -X PUT 'localhost:9200/userdoor/person/1?pretty=true' -d '
+&gt; {
+&gt;   "name": "张三",
+&gt;   "title": "工程师",
+&gt;   "desc": "数据库管理"
+&gt; }'
+{
+  "_index" : "userdoor",
+  "_type" : "person",
+  "_id" : "1",
+  "_version" : 4,
+  "result" : "created",
+  "_shards" : {
+    "total" : 2,
+    "successful" : 1,
+    "failed" : 0
+  },
+  "created" : true
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>最后的1是该条记录的 <code>Id</code>。它不一定是数字，任意字符串（比如abc）都可以。<strong>URL</strong> 的参数<code>pretty=true</code>表示以易读的格式返回。</p>
+<p>新增记录的时候，也可以不指定 <code>Id</code>，让<code>es</code>自动生成唯一的<code>Id</code>这时要改成 <strong>POST</strong> 请求。</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ curl -X POST 'localhost:9200/userdoor/person?pretty' -d '
+&gt; {
+&gt;   "name": "李四",
+&gt;   "title": "工程师",
+&gt;   "desc": "运维管理"
+&gt; }'
+{
+  "_index" : "userdoor",
+  "_type" : "person",
+  "_id" : "AW8ETT-SDmqcpvuz_i-w",
+  "_version" : 1,
+  "result" : "created",
+  "_shards" : {
+    "total" : 2,
+    "successful" : 1,
+    "failed" : 0
+  },
+  "created" : true
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>注意，如果没有先创建 Index（这个例子是userdoor），直接执行上面的命令，es 也不会报错，而是直接生成指定的 Index。</p>
+<h4 id="查看文档"><a href="#查看文档" class="headerlink" title="查看文档"></a>查看文档</h4><p>向/Index/Type/Id发出 GET 请求，就可以查看这条记录。</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ curl -X GET 'localhost:9200/userdoor/person/1?pretty=true'
+{
+  "_index" : "userdoor",
+  "_type" : "person",
+  "_id" : "1",
+  "_version" : 4,
+  "found" : true,
+  "_source" : {
+    "name" : "张三",
+    "title" : "工程师",
+    "desc" : "数据库管理"
+  }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="更新文档"><a href="#更新文档" class="headerlink" title="更新文档"></a>更新文档</h4><p>更新记录就是使用 PUT 请求，重新发送一次数据。</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ curl -X PUT 'localhost:9200/userdoor/person/1?pretty' -d '
+&gt; {
+&gt;   "name": "张三",
+&gt;   "title": "工程师",
+&gt;   "desc": "数据库管理，软件开发"
+&gt; }'
+{
+  "_index" : "userdoor",
+  "_type" : "person",
+  "_id" : "1",
+  "_version" : 5,
+  "result" : "updated",
+  "_shards" : {
+    "total" : 2,
+    "successful" : 1,
+    "failed" : 0
+  },
+  "created" : false
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="删除文档"><a href="#删除文档" class="headerlink" title="删除文档"></a>删除文档</h4><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ curl -X DELETE 'localhost:9200/userdoor/person/1?pretty' -d ''<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="5-3-Search-APIs（搜索API）"><a href="#5-3-Search-APIs（搜索API）" class="headerlink" title="5.3 Search APIs（搜索API）"></a>5.3 Search APIs（搜索API）</h3><h4 id="查询所有文档"><a href="#查询所有文档" class="headerlink" title="查询所有文档"></a>查询所有文档</h4><p>使用 GET 方法，直接请求/Index/Type/_search，就会返回所有记录。</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ curl 'localhost:9200/userdoor/person/_search?pretty'
+{
+  "took" : 185,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 5,
+    "successful" : 5,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : 2,
+    "max_score" : 1.0,
+    "hits" : [
+      {
+        "_index" : "userdoor",
+        "_type" : "person",
+        "_id" : "AW8ETT-SDmqcpvuz_i-w",
+        "_score" : 1.0,
+        "_source" : {
+          "name" : "李四",
+          "title" : "工程师",
+          "desc" : "运维管理"
+        }
+      },
+      {
+        "_index" : "userdoor",
+        "_type" : "person",
+        "_id" : "1",
+        "_score" : 1.0,
+        "_source" : {
+          "name" : "张三",
+          "title" : "工程师",
+          "desc" : "数据库管理，软件开发"
+        }
+      }
+    ]
+  }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>上面代码中，返回结果的 <code>took</code>字段表示该操作的耗时（单位为毫秒），<code>timed_out</code>字段表示是否超时，<code>hits</code>字段表示命中的记录，里面子字段的含义如下。</p>
+<ul>
+<li>total：返回记录数，本例是2条。</li>
+<li>max_score：最高的匹配程度，本例是1.0。</li>
+<li>hits：返回的记录组成的数组。</li>
+</ul>
+<p>返回的记录中，每条记录都有一个<code>_score</code>字段，表示匹配的程序，默认是按照这个字段降序排列。</p>
+<h3 id="5-4-Query-DSL"><a href="#5-4-Query-DSL" class="headerlink" title="5.4 Query DSL"></a>5.4 Query DSL</h3><p>Elastic 的查询非常特别，使用自己的<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/5.5/query-dsl.html">查询语法</a>，要求 GET 请求带有数据体。</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ curl 'localhost:9200/userdoor/person/_search?pretty'  -d '
+&gt; {
+&gt;   "query" : { "match" : { "desc" : "软件" }}
+&gt; }'
+{
+  "took" : 27,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 5,
+    "successful" : 5,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : 1,
+    "max_score" : 0.28582606,
+    "hits" : [
+      {
+        "_index" : "userdoor",
+        "_type" : "person",
+        "_id" : "1",
+        "_score" : 0.28582606,
+        "_source" : {
+          "name" : "张三",
+          "title" : "工程师",
+          "desc" : "数据库管理，软件开发"
+        }
+      }
+    ]
+  }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>上面代码使用 <a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/5.5/query-dsl-match-query.html">Match 查询</a> ，指定的匹配条件是<code>desc</code>字段里面包含”软件”这个词</p>
+<h2 id="6-参考资料"><a href="#6-参考资料" class="headerlink" title="6. 参考资料"></a>6. 参考资料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html">Elasticsearch 官方手册</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/mobz/elasticsearch-head">elasticsearch-head</a></li>
+</ul>
+
+                
+            </div>
+            <hr/>
+
+            
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/">
+                                    <span class="chip bg-color">中间件</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '74246e3f2f506da75afc',
+        clientSecret: '70819cf2612b26db162560122cbb8ccc36aa4509',
+        repo: 'https://dendi875.github.io/',
+        owner: 'dendi875',
+        admin: "dendi875",
+        id: '2021-06-29T15-22-28',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2021/06/29/git-de-4-ge-jie-duan-de-che-xiao-geng-gai/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="Git 的 4 个阶段的撤销更改">
+                        
+                        <span class="card-title">Git 的 4 个阶段的撤销更改</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-06-29
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Git/" class="post-category">
+                                    Git
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Git/">
+                        <span class="chip bg-color">Git</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%B7%A5%E5%85%B7/">
+                        <span class="chip bg-color">工具</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2021/06/29/shi-yong-openssl-zi-jian-ca-he-ban-fa-duo-yu-ming-tong-pei-fu-zheng-shu/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="使用openssl自建CA和颁发多域名通配符证书">
+                        
+                        <span class="card-title">使用openssl自建CA和颁发多域名通配符证书</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-29
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Linux/" class="post-category">
+                                    Linux
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E8%BF%90%E7%BB%B4/">
+                        <span class="chip bg-color">运维</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        //if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        //}
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 张权的博客<br />'
+            + '文章作者: 张权<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2021</span>
+            
+            <span id="year">2021</span>
+            <a href="/about" target="_blank">张权</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">41.5k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2021";
+                        var startMonth = "6";
+                        var startDate = "28";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/dendi875" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:dendi875@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=943299849" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 943299849" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+        var t1 = Date.UTC(2017, 09, 11, 00, 00, 00); //北京时间2018-2-13 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+    }/*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+    <script type="text/javascript"> var OriginTitile = document.title, st; document.addEventListener("visibilitychange", function () { document.hidden ? (document.title = "Σ(っ °Д °;)っ喔哟，崩溃啦！", clearTimeout(st)) : (document.title = "φ(゜▽゜*)♪咦，又好了！", st = setTimeout(function () { document.title = OriginTitile }, 3e3)) })
+    </script>
+</body>
+
+</html>
