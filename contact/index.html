@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="contact, PHP,Go,MySQL,Linux,Docker等">
+    <meta name="keywords" content="contact, PHP,Java,Go,MySQL,Linux,Docker等">
     <meta name="description" content="PHP Go MySQL 后端开发">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>contact | 张权的博客</title>
+    <title>contact | 一代键客</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -45,7 +45,7 @@
     </script>
 <meta name="generator" content="Hexo 5.4.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="张权的博客" type="application/atom+xml">
+<link rel="alternate" href="/atom.xml" title="一代键客" type="application/atom+xml">
 </head>
 
 
@@ -60,7 +60,7 @@
                     
                     <img src="/medias/log.png" class="logo-img" alt="LOGO">
                     
-                    <span class="logo-span">张权的博客</span>
+                    <span class="logo-span">一代键客</span>
                 </a>
             </div>
             
@@ -159,7 +159,7 @@
         
         <img src="/medias/log.png" class="logo-img circle responsive-img">
         
-        <div class="logo-name">张权的博客</div>
+        <div class="logo-name">一代键客</div>
         <div class="logo-desc">
             
             PHP Go MySQL 后端开发
@@ -401,37 +401,107 @@
             </div>
             <!--valine评论弹幕-->
             
+                <p>
+                    <b>畅所欲言</b><br>
+                    <b>在这里可以留下你的足迹，欢迎在下方留言，欢迎交换友链</b><br>
+                    <b>友链信息</b><br>
+                    <b>博客名称: 一代键客</b><br>
+                    <b>博客网址: https://www.zhangquan.me</b><br>
+                    <b>博客头像: https://www.zhangquan.me/medias/logo.png</b><br>
+                    <b>博客介绍: 犹豫就会败北</b><br>
+                </p>
+                <div class="container">
+                    <section id="custom" class="bb-section">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <form class="form-inline">
+                                    <div class="form-group">
+                                        文字：<input class="form-control" name="info" type="text" placeholder="hello, world"/>
+                                    </div>
+                                    <div class="form-group">
+                                        链接：<input class="form-control" name="href" type="text" placeholder="https://github.com/blinkfox/hexo-theme-matery"/>
+                                    </div>
+                                    <div class="form-group">
+                                        速度：<input  class="form-control"  name="speed" type="text" placeholder="5~20" value="16" />
+                                    </div>
+                                </form>
+                                <div class="form-group">
+                                    <button id="send"  class="btn" onclick="run()">留言</button>
+                                    <button id="clear" class="btn " onclick="clear_barrage()"> 清除</button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <script type="text/javascript">
+                    AV.init({
+                        appId: 's8QEmTF1Slf32CctOSsFuvXe-gzGzoHsz',
+                        appKey: 'sDkuaBSVzI8HdhP09aPoMjYV'
+                    });
+
+                    $(function() {
+                        do_barrager();
+                        async function do_barrager() {
+                            let lists = [];
+                            //查询弹幕
+                            const query = new AV.Query('barrager');
+                            const barrager = await query.find().then((barrager) => {
+                                lists = barrager;
+                            })
+                            let length = lists.length;
+                            let index = 0;
+                            const timer = setInterval(() => {
+                                if (index === length) {
+                                    clearInterval(timer);
+                                    do_barrager()
+                                } else {
+                                    let obj = lists[index]
+                                    let jsonObject = eval('(' + JSON.stringify(obj) + ')');
+                                    $('body').barrager({
+                                        'img': '/medias/barrager/' + Math.floor(Math.random() * 3) + ".png",
+                                        'href': jsonObject.href,
+                                        'info': jsonObject.info,
+                                        'speed': jsonObject.speed
+                                    });
+                                    index++;
+                                }
+                            }, 500)
+                        }
+                    });
+
+                    //发送弹幕
+                    function  run(){
+                        let info = $('input[name=info]').val();
+                        (info === '' ) ?  info='hello world' : info=info;
+                        let href = $('input[name=href]').val();
+                        (href === '' ) ?  href='https://github.com/blinkfox/hexo-theme-matery' : href=href;
+                        let speed = parseInt($('input[name=speed]').val());
+                        if(speed > 20 || speed < 5)
+                            speed = Math.floor(Math.random() * 10) + 5;
+                        const Barrager = AV.Object.extend('barrager');
+                        const barrager = new Barrager();
+                        barrager.set('href', href);
+                        barrager.set('info', info);
+                        barrager.set('speed', speed);
+                        barrager.save().then((todo) => {
+                            $(" input[ name='info' ] ").val("")
+                            $(" input[ name='href' ] ").val("")
+                            $(" input[ name='speed' ] ").val("")
+                        });
+                    }
+
+                    function  clear_barrage()
+                    {
+                        $.fn.barrager.removeAll();
+                    }
+
+                </script>
+            
         </div>
 
         <!--其他评论card-->
         <div class="card">
-            
-                <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
-<link rel="stylesheet" href="/css/my-gitalk.css">
-
-<div class="card gitalk-card" data-aos="fade-up">
-    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
-        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
-        <span>评论</span>
-    </div>
-    <div id="gitalk-container" class="card-content"></div>
-</div>
-
-<script src="/libs/gitalk/gitalk.min.js"></script>
-<script>
-    let gitalk = new Gitalk({
-        clientID: '74246e3f2f506da75afc',
-        clientSecret: '70819cf2612b26db162560122cbb8ccc36aa4509',
-        repo: 'https://dendi875.github.io/',
-        owner: 'dendi875',
-        admin: "dendi875",
-        id: '2021-06-28T21-06-29',
-        distractionFreeMode: false  // Facebook-like distraction free mode
-    });
-
-    gitalk.render('gitalk-container');
-</script>
-
             
 
             
@@ -662,7 +732,7 @@
         minutes - 0-59之间的整数，做为date对象的分钟数
         seconds - 0-59之间的整数，做为date对象的秒数
         microseconds - 0-999之间的整数，做为date对象的毫秒数 */
-        var t1 = Date.UTC(2017, 09, 11, 00, 00, 00); //北京时间2018-2-13 00:00:00
+        var t1 = Date.UTC(2020, 11, 01, 00, 00, 00); //北京时间2018-2-13 00:00:00
         var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
         var diff = t2 - t1;
         var diffYears = Math.floor(diff / years);
