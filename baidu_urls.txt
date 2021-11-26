@@ -1,3 +1,4 @@
+https://www.zhangquan.me/2021/11/26/mac-xi-tong-zai-gen-mu-lu-chuang-jian-wen-jian-jia/
 https://www.zhangquan.me/2021/07/09/she-ji-mo-shi-zhi-jie-gou-xing-mo-shi-wai-guan-mo-shi-facade-pattern/
 https://www.zhangquan.me/2021/07/08/she-ji-mo-shi-zhi-jie-gou-xing-mo-shi-zu-he-mo-shi-composite-pattern/
 https://www.zhangquan.me/2021/07/06/she-ji-mo-shi-zhi-jie-gou-xing-mo-shi-zhuang-shi-mo-shi-decorator-pattern/
