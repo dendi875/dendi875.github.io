@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.zhangquan.me/2021/11/26/spring-boot-ji-cheng-cat-quan-lian-lu-jian-kong/</loc>
+    <lastmod>2021-11-26</lastmod>
+  </url>
+  <url>
     <loc>https://www.zhangquan.me/2021/06/29/jin-cheng-de-shou-hu-shen-daemontools/</loc>
     <lastmod>2021-11-26</lastmod>
   </url>

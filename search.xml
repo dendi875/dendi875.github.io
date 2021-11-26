@@ -4,6 +4,37 @@
   
     
     <entry>
+      <title>Spring Boot 集成 CAT 全链路监控</title>
+      <link href="/2021/11/26/spring-boot-ji-cheng-cat-quan-lian-lu-jian-kong/"/>
+      <url>/2021/11/26/spring-boot-ji-cheng-cat-quan-lian-lu-jian-kong/</url>
+      
+        <content type="html"><![CDATA[<h2 id="一、编写一个-springboot-与-cat-整合的案例"><a href="#一、编写一个-springboot-与-cat-整合的案例" class="headerlink" title="一、编写一个 springboot 与 cat 整合的案例"></a>一、编写一个 springboot 与 cat 整合的案例</h2><h3 id="将-cat-client-通过源码安装到本地仓库"><a href="#将-cat-client-通过源码安装到本地仓库" class="headerlink" title="将 cat-client 通过源码安装到本地仓库"></a>将 cat-client 通过源码安装到本地仓库</h3><ul><li>cat-client的源码路径：cat/lib/java</li><li>进入源码路径后，执行命令：<pre class="line-numbers language-none"><code class="language-none">mvn clean install -DskipTests<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li></ul><p>安装成功后，在本地仓库就存在 cat-client-3.0.0.jar 包了</p><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/cat-10.png"></p><h3 id="CAT客户端-Demo"><a href="#CAT客户端-Demo" class="headerlink" title="CAT客户端 Demo"></a>CAT客户端 Demo</h3><h4 id="maven-引入-cat-客户端包，在-pom-xml-加入"><a href="#maven-引入-cat-客户端包，在-pom-xml-加入" class="headerlink" title="maven 引入 cat 客户端包，在 pom.xml 加入"></a>maven 引入 cat 客户端包，在 pom.xml 加入</h4><pre class="line-numbers language-none"><code class="language-none">&lt;dependency&gt;    &lt;groupId&gt;com.dianping.cat&lt;/groupId&gt;    &lt;artifactId&gt;cat-client&lt;/artifactId&gt;    &lt;version&gt;3.0.0&lt;/version&gt;&lt;/dependency&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><h4 id="配置domain"><a href="#配置domain" class="headerlink" title="配置domain"></a>配置domain</h4><ul><li>在资源文件中新建app.properties文件</li></ul><p>在resources资源文件META-INF下，注意是src/main/resources/META-INF/文件夹，加上domain配置，如：app.name=spring-boot-cat-simple</p><ul><li>接着我们以一个简单的接口测试演练下，项目结构如下：</li></ul><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/cat-dashboard-5.png"></p><p>HelloController 类</p><pre class="line-numbers language-none"><code class="language-none">package com.zq.controller;import com.zq.service.CatService;import org.springframework.beans.factory.annotation.Autowired;import org.springframework.web.bind.annotation.RequestMapping;import org.springframework.web.bind.annotation.RestController;import javax.servlet.http.HttpServletRequest;// @RestController 的意思是 Controller 里面的方法都以 json 格式输出@RestControllerpublic class HelloController {    @Autowired    private CatService catServiceImpl;    @RequestMapping("/hello")    public String index(HttpServletRequest request) {        String url = request.getRequestURL().toString();        return catServiceImpl.hello(url);    }    @RequestMapping("/error")    public String error(HttpServletRequest request) {        String url = request.getRequestURL().toString();        return catServiceImpl.error(url);    }}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>Service 类</p><pre class="line-numbers language-none"><code class="language-none">package com.zq.service.impl;import com.dianping.cat.Cat;import com.dianping.cat.message.Transaction;import com.zq.service.CatService;import org.springframework.stereotype.Service;@Servicepublic class CatServiceImpl implements CatService {    @Override    public String hello(String url) {        // 创建一个 Transaction        Transaction transaction = Cat.newTransaction("URL", url);        try {            // 处理业务            myBusiness();            // 设置成功状态            transaction.setStatus(Transaction.SUCCESS);        } catch (Exception e) {            // 设置错误状态            transaction.setStatus(e);            // 记录错误信息            Cat.logError(e);        } finally {            // 结束 Transaction            transaction.complete();        }        return "hello";    }    @Override    public String error(String url) {        // 创建一个 Transaction        Transaction transaction = Cat.newTransaction("URL", url);        try {            // 处理业务            int i = 1 / 0;            // 设置成功状态            transaction.setStatus(Transaction.SUCCESS);        } catch (Exception e) {            // 设置错误状态            transaction.setStatus(e);            // 记录错误信息            Cat.logError(e);        } finally {            // 结束 Transaction            transaction.complete();        }        return "error";    }    private void myBusiness() {        // 模拟业务处理时间        try {            Thread.sleep(500);        } catch (InterruptedException e) {            e.printStackTrace();        }    }}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><ul><li><p>请求：<a href="http://localhost:8900/hello">http://localhost:8900/hello</a></p></li><li><p>请求：<a href="http://localhost:8900/hello/error">http://localhost:8900/hello/error</a></p></li></ul><h2 id="二、查看监控信息"><a href="#二、查看监控信息" class="headerlink" title="二、查看监控信息"></a>二、查看监控信息</h2><p>进入 cat 控制台，点击 Transaction 按钮 ，之后点击全部，会看到有哪些客户端，如图：</p><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/cat-dashboard-1.png"></p><p>点击客户端 spring-boot-cat-simple ，出现如图：</p><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/cat-dashboard-2.png"></p><p>接着再点击 URL 的 Type </p><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/cat-dashboard-3.png"></p><p>如上图，可以清晰的看到 请求的 总个数（tatal）、均值（avg）、最大/最小（max/min)、标准差（std）等，其他都比较直观</p><p>点击 “log View” 可以查看 错误信息，如图：</p><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/cat-dashboard-4.png"></p><h2 id="三、源码"><a href="#三、源码" class="headerlink" title="三、源码"></a>三、源码</h2><ul><li><a href="https://github.com/dendi875/spring-boot-study/tree/main/spring-boot-cat-simple">spring-boot-cat-simple</a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 监控 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 中间件 </tag>
+            
+            <tag> CAT </tag>
+            
+            <tag> JAVA </tag>
+            
+            <tag> Spring Boot </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>CAT服务端安装</title>
       <link href="/2021/11/26/cat-fu-wu-duan-an-zhuang/"/>
       <url>/2021/11/26/cat-fu-wu-duan-an-zhuang/</url>

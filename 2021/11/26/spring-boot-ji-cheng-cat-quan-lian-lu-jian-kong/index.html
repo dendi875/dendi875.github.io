@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Elasticsearch 学习研究, PHP,Java,Go,MySQL,Linux,Docker等">
+    <meta name="keywords" content="Spring Boot 集成 CAT 全链路监控, PHP,Java,Go,MySQL,Linux,Docker等">
     <meta name="description" content="PHP Go MySQL 后端开发">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Elasticsearch 学习研究 | 一代键客</title>
+    <title>Spring Boot 集成 CAT 全链路监控 | 一代键客</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -327,12 +327,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/14.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Elasticsearch 学习研究</h1>
+                    <h1 class="description center-align post-title">Spring Boot 集成 CAT 全链路监控</h1>
                 </div>
             </div>
         </div>
@@ -452,6 +452,18 @@
                                 <span class="chip bg-color">中间件</span>
                             </a>
                         
+                            <a href="/tags/CAT/">
+                                <span class="chip bg-color">CAT</span>
+                            </a>
+                        
+                            <a href="/tags/JAVA/">
+                                <span class="chip bg-color">JAVA</span>
+                            </a>
+                        
+                            <a href="/tags/Spring-Boot/">
+                                <span class="chip bg-color">Spring Boot</span>
+                            </a>
+                        
                     </div>
                     
                 </div>
@@ -460,8 +472,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E5%90%8E%E7%AB%AF/" class="post-category">
-                                后端
+                            <a href="/categories/%E7%9B%91%E6%8E%A7/" class="post-category">
+                                监控
                             </a>
                         
                     </div>
@@ -473,7 +485,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-06-29
+                    2021-11-26
                 </div>
                 
 
@@ -487,14 +499,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3.6k
+                    595
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    15 分
+                    2 分
                 </div>
                 
 
@@ -517,480 +529,143 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Elasticsearch-学习研究"><a href="#Elasticsearch-学习研究" class="headerlink" title="Elasticsearch 学习研究"></a>Elasticsearch 学习研究</h1><hr>
-<h2 id="1-Elasticsearch-介绍"><a href="#1-Elasticsearch-介绍" class="headerlink" title="1. Elasticsearch 介绍"></a>1. Elasticsearch 介绍</h2><p>Elasticsearch（ES）是基于文本搜索库<a target="_blank" rel="noopener" href="https://lucene.apache.org/">Lucene</a>构建的高度可扩展的分布式开源搜索和分析引擎。</p>
-<p>如果有足够的计算机，ES集群通常可以跨非常大的数据集执行搜索和聚合查询。<br>如果你希望对一组文本文档进行传统的全文本搜索（类似于 Google 搜索），则ES很适合，</p>
-<p>Elasticsearch 主要用于搜索和日志分析，也是当今最流行的日志分析平台（ELK）（Elasticsearch，Logstash和Kibana）的核心。它在处理大数据（如：系统日志，网络流量）时非常有用。</p>
-<h2 id="2-Elasticsearch-中的重要概念"><a href="#2-Elasticsearch-中的重要概念" class="headerlink" title="2. Elasticsearch 中的重要概念"></a>2. Elasticsearch 中的重要概念</h2><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/Elasticsearch.png" alt="Elasticsearch"></p>
-<h3 id="2-1-Cluster（集群）"><a href="#2-1-Cluster（集群）" class="headerlink" title="2.1 Cluster（集群）"></a>2.1 Cluster（集群）</h3><p>cluster是一个或一组服务器（节点）的集合，这些节点一起协同保存你的数据，并在所有节点之间为你提供索引和搜索功能。cluster具有唯一名称标识（默认是elasticsearch），你只需要指定集群标识名，启动的时候，凡是集群是这个名字的节点都会默认加到同一个集群中，选举master节点和节点管理都是自动完成的。当然一个节点也可以组成一个集群。</p>
-<h3 id="2-2-Node（节点）"><a href="#2-2-Node（节点）" class="headerlink" title="2.2 Node（节点）"></a>2.2 Node（节点）</h3><p>node是参与到cluster的单个服务器节点，具有唯一标识名，可加入到指定的cluster中。 单个es实例称为一个节点（node）。一组节点构成一个集群（cluster）。</p>
-<h3 id="2-3-Index（索引）"><a href="#2-3-Index（索引）" class="headerlink" title="2.3 Index（索引）"></a>2.3 Index（索引）</h3><p>Index是一类文档的集合。例如，你可以为用户数据创建一个索引，为商品数据创建另一个索引，为订单数据创建另一个索引。es 数据管理的顶层单位就叫做 Index（索引），相当于传统数据库中的数据库。每个 Index （即数据库）的名字必须是小写。</p>
-<p>es数据的索引、搜索和分析都是基于索引完成的。每个Index包含多个shard，默认是5个，分散在不同的node上。当索引创建完成的时候，主分片的数量就固定了，但是复制分片的数量可以随时调整。</p>
-<p>在单个cluster中，你可以创建任意个Index。</p>
-<p>下面的命令可以查看当前节点的所有 Index。</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ curl -X GET 'http://localhost:9200/_cat/indices?v' -d ''
-health status index  pri rep docs.count docs.deleted store.size pri.store.size
-yellow open   orders   5   1          0            0       650b           650b<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="2-4-Type（类型）"><a href="#2-4-Type（类型）" class="headerlink" title="2.4 Type（类型）"></a>2.4 Type（类型）</h3><p>Type是 Index 中数据的 ，在索引中，你可以定义一个或多个类型。它是索引中虚拟逻辑的分组，用来过滤    Document ，相当于传统数据库的表。</p>
-<p>不同的 Type 应该有相似的结构（schema），举例来说，<code>id</code>字段不能在这个 Type 是字符串，在另 Type 是数值。这是与关系型数据库的表的一个<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/2.3/mapping.html">区别</a>。</p>
-<p>举例来说，在一个商城系统中，你可以定义一个订单的 type（orders_order），可以定义一个商品的 type（orders_product），还可以定义一个日志的 type（orders_log）。</p>
-<p>下面的命令可以列出每个 Index 所包含的 Type。</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ curl 'http://localhost:9200/_mapping?pretty=true'<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<h3 id="2-5-Document（文档）"><a href="#2-5-Document（文档）" class="headerlink" title="2.5 Document（文档）"></a>2.5 Document（文档）</h3><p>Document是es数据可被索引化的基本的存储单元，需要存储在Type中，相当于传统数据库的行记录。</p>
-<p>Index 里面单条的记录称为 Document（文档）。许多条 Document 构成了一个 Index。</p>
-<p>Document 使用 JSON 格式表示，下面是一个例子。</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">{
-  "name": "张三",
-  "title": "工程师",
-  "desc": "数据库管理"
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="2-6-Shard（分片）"><a href="#2-6-Shard（分片）" class="headerlink" title="2.6 Shard（分片）"></a>2.6 Shard（分片）</h3><p>一个索引可能会存储大量的数据，进而会让单个节点超出硬件能承受范围。举例来说，存储了10亿文档的单个节点，会占用1TB磁盘空间，并且会导致查询的时候速度很慢。</p>
-<p>为了解决这个问题，Elasticsearch 提供了分片，也就是将index细分为多个碎片的功能。当你创建index的时候，你可以简单地指定你想要的分片数量。每一个分片具有和 index 完全相同的功能。</p>
-<p>碎片最主要的两个作用是：</p>
-<ul>
-<li>它允许你水平地切割你的容量体积</li>
-<li>它允许你并行地分发作业，提高系统的性能</li>
+                <h2 id="一、编写一个-springboot-与-cat-整合的案例"><a href="#一、编写一个-springboot-与-cat-整合的案例" class="headerlink" title="一、编写一个 springboot 与 cat 整合的案例"></a>一、编写一个 springboot 与 cat 整合的案例</h2><h3 id="将-cat-client-通过源码安装到本地仓库"><a href="#将-cat-client-通过源码安装到本地仓库" class="headerlink" title="将 cat-client 通过源码安装到本地仓库"></a>将 cat-client 通过源码安装到本地仓库</h3><ul>
+<li>cat-client的源码路径：cat/lib/java</li>
+<li>进入源码路径后，执行命令：<pre class="line-numbers language-none"><code class="language-none">mvn clean install -DskipTests<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
 </ul>
-<p>默认在创建索引时会创建5个分片，这个数量可以修改。分片的数量只能在创建索引的时候指定，不能在后期修改。</p>
-<h3 id="2-7-Replicas（副本）"><a href="#2-7-Replicas（副本）" class="headerlink" title="2.7 Replicas（副本）"></a>2.7 Replicas（副本）</h3><p>因为各种原因，所以数据丢失等问题会时有发生，碎片也可能会丢失，为了防止这个问题，所以你可以将一个或多个索引碎片复制到所谓的复制碎片，简称为副本。</p>
-<p>副本最主要的两个作用是：</p>
-<ul>
-<li>它提供了高可用性，以防碎片/节点失败。基于这点，所以副本的永远不要和原始碎片分布在同一个节点上</li>
-<li>它可以扩展系统的吞吐量，因为搜索可以在所有副本上执行</li>
+<p>安装成功后，在本地仓库就存在 cat-client-3.0.0.jar 包了</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/cat-10.png"></p>
+<h3 id="CAT客户端-Demo"><a href="#CAT客户端-Demo" class="headerlink" title="CAT客户端 Demo"></a>CAT客户端 Demo</h3><h4 id="maven-引入-cat-客户端包，在-pom-xml-加入"><a href="#maven-引入-cat-客户端包，在-pom-xml-加入" class="headerlink" title="maven 引入 cat 客户端包，在 pom.xml 加入"></a>maven 引入 cat 客户端包，在 pom.xml 加入</h4><pre class="line-numbers language-none"><code class="language-none">&lt;dependency&gt;
+    &lt;groupId&gt;com.dianping.cat&lt;/groupId&gt;
+    &lt;artifactId&gt;cat-client&lt;/artifactId&gt;
+    &lt;version&gt;3.0.0&lt;/version&gt;
+&lt;/dependency&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="配置domain"><a href="#配置domain" class="headerlink" title="配置domain"></a>配置domain</h4><ul>
+<li>在资源文件中新建app.properties文件</li>
 </ul>
-<p>默认情况下，Elasticsearch为每个索引分配了5个主碎片和1个副本，这意味着在你的集群中，如果至少有两个节点，那么每个索引将有5个主碎片和5个复制碎片，每个索引总共10个碎片。</p>
-<p>将Elasticsearch和传统关系型数据库Mysql做一下类比：</p>
-<table>
-<thead>
-<tr>
-<th>MySQL</th>
-<th>Elasticsearch</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Database（数据库）</td>
-<td>Index（索引）</td>
-</tr>
-<tr>
-<td>Table（表）</td>
-<td>Type（类型）</td>
-</tr>
-<tr>
-<td>Row（行）</td>
-<td>Document（文档）</td>
-</tr>
-<tr>
-<td>Column（列）</td>
-<td>Field（字段）</td>
-</tr>
-<tr>
-<td>Schema（方案）</td>
-<td>Mapping（映射）</td>
-</tr>
-<tr>
-<td>Index（索引）</td>
-<td>Everything Indexed by default（默认情况下所有字段都被索引）</td>
-</tr>
-<tr>
-<td>SQL（结构化查询语言）</td>
-<td>Query DSL（查询专用语言）</td>
-</tr>
-</tbody></table>
-<h2 id="3-Elasticsearch-安装和配置"><a href="#3-Elasticsearch-安装和配置" class="headerlink" title="3. Elasticsearch 安装和配置"></a>3. Elasticsearch 安装和配置</h2><h3 id="3-1-安装"><a href="#3-1-安装" class="headerlink" title="3.1 安装"></a>3.1 安装</h3><p>Elasticsearch 至少需要 Java 7  环境。如果你的机器还没安装 Java，可以参考<a target="_blank" rel="noopener" href="https://www.liquidweb.com/kb/install-java-8-on-centos-7/">这篇文章</a>。</p>
-<p>安装完 Java，就可以跟着<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/5.5/_installation.html#_installation">官方文档</a>安装 Elasticsearch。</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># cd /usr/local/software/
-# curl -L -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.5.3.tar.gz
-# # tar -zxvf elasticsearch-5.5.3.tar.gz  -C /usr/local/
-# # cd /usr/local/elasticsearch-5.5.3/
-# ./bin/elasticsearch<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>如果这时报错”Exception in thread “main” java.lang.RuntimeException: don’t run elasticsearch as root.”，表示不能以超级用户root启动es，我们新建一个用户：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># useradd es
-# passwd es
-# chown -R es:es /usr/local/elasticsearch-5.5.3/
-# su - es
-$ /usr/local/elasticsearch-5.5.3/bin/elasticsearch<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>如果这时报错“max file descriptors [4096] for elasticsearch process is too low, increase to at least [65536]”，这表示文件描述符太少了，我们需要设置文件描述数量：</p>
-<p>查看<code>es</code>用户硬限制：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ ulimit -Hn
-4096<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<p>打开<code>/etc/security/limits.conf</code>增加一行：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">es  - nofile  65536<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>退出<code>es</code>用户，再重新看硬限制：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ ulimit -Hn
-65536<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<p>如果一切正常，es 就会在默认的9200端口运行。开启另一个终端查看es进程和端口：</p>
-<pre class="line-numbers language-none"><code class="language-none"># ps -ef | grep elastic
-es        1753  1726  8 18:14 pts/1    00:00:02 /bin/java -Xms2g -Xmx2g -XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupancyFraction=75 -XX:+UseCMSInitiatingOccupancyOnly -XX:+AlwaysPreTouch -server -Xss1m -Djava.awt.headless=true -Dfile.encoding=UTF-8 -Djna.nosys=true -Djdk.io.permissionsUseCanonicalPath=true -Dio.netty.noUnsafe=true -Dio.netty.noKeySetOptimization=true -Dio.netty.recycler.maxCapacityPerThread=0 -Dlog4j.shutdownHookEnabled=false -Dlog4j2.disable.jmx=true -Dlog4j.skipJansi=true -XX:+HeapDumpOnOutOfMemoryError -Des.path.home=/usr/local/elasticsearch-5.5.3 -cp /usr/local/elasticsearch-5.5.3/lib/* org.elasticsearch.bootstrap.Elasticsearch
-root      1793  1596  0 18:14 pts/0    00:00:00 grep --color=auto elastic
-
-# netstat -tlunp | grep 9200
-tcp6       0      0 127.0.0.1:9200          :::*                    LISTEN      1753/java<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>可以看到es已经正常启动，除了查看es进程和端口外，我们还可以执行：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># curl 'http://localhost:9200'
-{
-  "name" : "Onl1EgV",
-  "cluster_name" : "elasticsearch",
-  "cluster_uuid" : "P3CrVh_BTO-1EVzJlyWXKg",
-  "version" : {
-    "number" : "5.5.3",
-    "build_hash" : "9305a5e",
-    "build_date" : "2017-09-07T15:56:59.599Z",
-    "build_snapshot" : false,
-    "lucene_version" : "6.6.0"
-  },
-  "tagline" : "You Know, for Search"
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>上面代码中，请求9200端口，es 返回一个 JSON 对象，包含当前节点、集群、版本等信息。</p>
-<p>以上es的运行方式可以通过<code>CTRL+C</code>或关闭窗口来停止运行，平时我们可以通过守护进程的方式在后台启动es：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ ./bin/elasticsearch -d<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>如果是后台启动后想要停止es，可以通过<code>ps -ef | grep elastic</code>找到es进程PID，然后<code>kill</code>掉就行</p>
-<h3 id="3-2-配置"><a href="#3-2-配置" class="headerlink" title="3.2 配置"></a>3.2 配置</h3><p>认情况下，es 只允许本机访问，如果需要远程访问，可以修改 es 安装目录的<em>ES_HOME/config/elasticsearch.yml</em>文件，去掉<strong>network.host</strong>的注释，将它的值改成<code>0.0.0.0</code>，然后重新启动 es。</p>
-<p>如果远程还不能访问可能需要检查下<strong>防火墙</strong>和<strong>SELinux</strong>的设置。</p>
-<p>其它配置项的解释可以参考<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/5.5/settings.html">官方页面</a></p>
-<h2 id="4-Elasticsearch-插件"><a href="#4-Elasticsearch-插件" class="headerlink" title="4. Elasticsearch 插件"></a>4. Elasticsearch 插件</h2><h3 id="4-1-IK-中文分词插件"><a href="#4-1-IK-中文分词插件" class="headerlink" title="4.1 IK 中文分词插件"></a>4.1 IK 中文分词插件</h3><p>es 内置的分词器对中文不友好，会把中文分成单个字来进行全文检索，不能达到想要的结果，ik 可以进行友好的分词及自定义分词。</p>
-<p>内置的分词器对中文会一个一个拆分，如下面是内置分词器的效果：</p>
-<pre class="line-numbers language-ssh" data-language="ssh"><code class="language-ssh">$ curl -H 'Content-Type: application/json'  -X GET 'localhost:9200/_analyze?pretty' -d '
-&gt; {
-&gt; "analyzer": "default",
-&gt; "text":"今天天气真好"
-&gt; }
-&gt; '
-{
-  "tokens" : [
-    {
-      "token" : "今",
-      "start_offset" : 0,
-      "end_offset" : 1,
-      "type" : "&lt;IDEOGRAPHIC&gt;",
-      "position" : 0
-    },
-    {
-      "token" : "天",
-      "start_offset" : 1,
-      "end_offset" : 2,
-      "type" : "&lt;IDEOGRAPHIC&gt;",
-      "position" : 1
-    },
-    {
-      "token" : "天",
-      "start_offset" : 2,
-      "end_offset" : 3,
-      "type" : "&lt;IDEOGRAPHIC&gt;",
-      "position" : 2
-    },
-    {
-      "token" : "气",
-      "start_offset" : 3,
-      "end_offset" : 4,
-      "type" : "&lt;IDEOGRAPHIC&gt;",
-      "position" : 3
-    },
-    {
-      "token" : "真",
-      "start_offset" : 4,
-      "end_offset" : 5,
-      "type" : "&lt;IDEOGRAPHIC&gt;",
-      "position" : 4
-    },
-    {
-      "token" : "好",
-      "start_offset" : 5,
-      "end_offset" : 6,
-      "type" : "&lt;IDEOGRAPHIC&gt;",
-      "position" : 5
-    }
-  ]
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>首先，安装中文分词插件。这里使用的是<a target="_blank" rel="noopener" href="https://github.com/medcl/elasticsearch-analysis-ik/">ik</a></p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">[es@localhost elasticsearch-5.5.3]$ ./bin/elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v5.5.3/elasticsearch-analysis-ik-5.5.3.zip<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>接着，重新启动 Elastic，就会自动加载这个新安装的插件。</p>
-<p>IK支持两种分词模式：</p>
+<p>在resources资源文件META-INF下，注意是src/main/resources/META-INF/文件夹，加上domain配置，如：app.name=spring-boot-cat-simple</p>
 <ul>
-<li>ik_max_word: 会将文本做最细粒度的拆分，会穷尽各种可能的组合</li>
-<li>ik_smart: 会做最粗粒度的拆分</li>
+<li>接着我们以一个简单的接口测试演练下，项目结构如下：</li>
 </ul>
-<p>接下来，我们看看 IK 分词效果和自带的有什么不同。</p>
-<p>先试一下<code>ik_smart</code>的效果：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"> curl -H 'Content-Type: application/json'  -X GET 'localhost:9200/_analyze?pretty' -d '
-&gt; {
-&gt; "analyzer": "ik_smart",
-&gt; "text":"今天天气真好"
-&gt; }
-&gt; '
-{
-  "tokens" : [
-    {
-      "token" : "今天天气",
-      "start_offset" : 0,
-      "end_offset" : 4,
-      "type" : "CN_WORD",
-      "position" : 0
-    },
-    {
-      "token" : "真好",
-      "start_offset" : 4,
-      "end_offset" : 6,
-      "type" : "CN_WORD",
-      "position" : 1
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/cat-dashboard-5.png"></p>
+<p>HelloController 类</p>
+<pre class="line-numbers language-none"><code class="language-none">package com.zq.controller;
+
+import com.zq.service.CatService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+
+// @RestController 的意思是 Controller 里面的方法都以 json 格式输出
+@RestController
+public class HelloController {
+
+    @Autowired
+    private CatService catServiceImpl;
+
+    @RequestMapping("/hello")
+    public String index(HttpServletRequest request) {
+        String url = request.getRequestURL().toString();
+
+        return catServiceImpl.hello(url);
     }
-  ]
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>再试一下<code>ik_max_word</code>的效果：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">{
-  "tokens" : [
-    {
-      "token" : "今天天气",
-      "start_offset" : 0,
-      "end_offset" : 4,
-      "type" : "CN_WORD",
-      "position" : 0
-    },
-    {
-      "token" : "今天",
-      "start_offset" : 0,
-      "end_offset" : 2,
-      "type" : "CN_WORD",
-      "position" : 1
-    },
-    {
-      "token" : "天天",
-      "start_offset" : 1,
-      "end_offset" : 3,
-      "type" : "CN_WORD",
-      "position" : 2
-    },
-    {
-      "token" : "天气",
-      "start_offset" : 2,
-      "end_offset" : 4,
-      "type" : "CN_WORD",
-      "position" : 3
-    },
-    {
-      "token" : "真好",
-      "start_offset" : 4,
-      "end_offset" : 6,
-      "type" : "CN_WORD",
-      "position" : 4
+
+    @RequestMapping("/error")
+    public String error(HttpServletRequest request) {
+        String url = request.getRequestURL().toString();
+
+        return catServiceImpl.error(url);
     }
-  ]
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>设置mapping默认分词器：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">curl -X PUT 'localhost:9200/userdoors' -d '
-{
-  "mappings": {
-    "person": {
-      "properties": {
-        "name": {
-          "type": "text",
-          "analyzer": "ik_max_word",
-          "search_analyzer": "ik_max_word"
-        },
-        "title": {
-          "type": "text",
-          "analyzer": "ik_max_word",
-          "search_analyzer": "ik_max_word"
-        },
-        "desc": {
-          "type": "text",
-          "analyzer": "ik_max_word",
-          "search_analyzer": "ik_max_word"
+<p>Service 类</p>
+<pre class="line-numbers language-none"><code class="language-none">package com.zq.service.impl;
+
+import com.dianping.cat.Cat;
+import com.dianping.cat.message.Transaction;
+import com.zq.service.CatService;
+import org.springframework.stereotype.Service;
+
+@Service
+public class CatServiceImpl implements CatService {
+
+    @Override
+    public String hello(String url) {
+
+        // 创建一个 Transaction
+        Transaction transaction = Cat.newTransaction("URL", url);
+        try {
+            // 处理业务
+            myBusiness();
+            // 设置成功状态
+            transaction.setStatus(Transaction.SUCCESS);
+        } catch (Exception e) {
+            // 设置错误状态
+            transaction.setStatus(e);
+            // 记录错误信息
+            Cat.logError(e);
+        } finally {
+            // 结束 Transaction
+            transaction.complete();
         }
-      }
+
+        return "hello";
     }
-  }
-}'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>面代码中，首先新建一个名称为<code>userdoor</code>的Index，里面有一个名称为<code>person</code>的 Type。person有三个字段<code>name</code>、<code>title</code>、<code>desc</code>。</p>
-<p><strong>注意：</strong> 这里设置<code>search_analyzer</code>与<code>analyzer</code> 相同是为了确保搜索时和索引时使用相同的分词器，以确保查询中的术语与反向索引中的术语具有相同的格式。如果不设置<code>search_analyzer</code>，则 <code>search_analyzer</code> 与 <code>analyzer</code> 相同。详细请查阅官网<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/5.5/search-analyzer.html">搜索分析器</a></p>
-<h3 id="4-2-head-插件"><a href="#4-2-head-插件" class="headerlink" title="4.2 head 插件"></a>4.2 head 插件</h3><h2 id="5-Elasticsearch-REST-APIs-的使用"><a href="#5-Elasticsearch-REST-APIs-的使用" class="headerlink" title="5. Elasticsearch REST APIs 的使用"></a>5. Elasticsearch REST APIs 的使用</h2><h3 id="5-1-Indices-APIs（索引API）"><a href="#5-1-Indices-APIs（索引API）" class="headerlink" title="5.1 Indices APIs（索引API）"></a>5.1 Indices APIs（索引API）</h3><p>索引API用于对索引进行各种管理，如：创建索引、删除索引、获取索引等，还包括，索引设置，别名管理，映射管理，状态管理等。</p>
-<h4 id="创建索引"><a href="#创建索引" class="headerlink" title="创建索引"></a>创建索引</h4><p>新建 Index，可以直接向 es 服务器发出 PUT 请求。下面的例子是新建一个名叫orders的 Index。</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ curl -X PUT 'http://localhost:9200/orders' -d ''
-{"acknowledged":true}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<p>服务器返回一个 JSON 对象，里面的<code>acknowledged</code>字段表示操作成功。</p>
-<h4 id="删除索引"><a href="#删除索引" class="headerlink" title="删除索引"></a>删除索引</h4><p>我们发出 DELETE 请求，删除这个 Index。</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ curl -X DELETE 'http://localhost:9200/orders'
-{"acknowledged":true}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<h3 id="5-2-Document-APIs（文档API）"><a href="#5-2-Document-APIs（文档API）" class="headerlink" title="5.2 Document APIs（文档API）"></a>5.2 Document APIs（文档API）</h3><h4 id="新增文档"><a href="#新增文档" class="headerlink" title="新增文档"></a>新增文档</h4><p>向指定的 /Index/Type 发送 PUT 请求，就可以在 Index 里面新增一条记录。比如，向<code>/userdoor/person</code>发送请求，就可以新增一条人员记录。</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ curl -X PUT 'localhost:9200/userdoor/person/1?pretty=true' -d '
-&gt; {
-&gt;   "name": "张三",
-&gt;   "title": "工程师",
-&gt;   "desc": "数据库管理"
-&gt; }'
-{
-  "_index" : "userdoor",
-  "_type" : "person",
-  "_id" : "1",
-  "_version" : 4,
-  "result" : "created",
-  "_shards" : {
-    "total" : 2,
-    "successful" : 1,
-    "failed" : 0
-  },
-  "created" : true
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>最后的1是该条记录的 <code>Id</code>。它不一定是数字，任意字符串（比如abc）都可以。<strong>URL</strong> 的参数<code>pretty=true</code>表示以易读的格式返回。</p>
-<p>新增记录的时候，也可以不指定 <code>Id</code>，让<code>es</code>自动生成唯一的<code>Id</code>这时要改成 <strong>POST</strong> 请求。</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ curl -X POST 'localhost:9200/userdoor/person?pretty' -d '
-&gt; {
-&gt;   "name": "李四",
-&gt;   "title": "工程师",
-&gt;   "desc": "运维管理"
-&gt; }'
-{
-  "_index" : "userdoor",
-  "_type" : "person",
-  "_id" : "AW8ETT-SDmqcpvuz_i-w",
-  "_version" : 1,
-  "result" : "created",
-  "_shards" : {
-    "total" : 2,
-    "successful" : 1,
-    "failed" : 0
-  },
-  "created" : true
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>注意，如果没有先创建 Index（这个例子是userdoor），直接执行上面的命令，es 也不会报错，而是直接生成指定的 Index。</p>
-<h4 id="查看文档"><a href="#查看文档" class="headerlink" title="查看文档"></a>查看文档</h4><p>向/Index/Type/Id发出 GET 请求，就可以查看这条记录。</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ curl -X GET 'localhost:9200/userdoor/person/1?pretty=true'
-{
-  "_index" : "userdoor",
-  "_type" : "person",
-  "_id" : "1",
-  "_version" : 4,
-  "found" : true,
-  "_source" : {
-    "name" : "张三",
-    "title" : "工程师",
-    "desc" : "数据库管理"
-  }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h4 id="更新文档"><a href="#更新文档" class="headerlink" title="更新文档"></a>更新文档</h4><p>更新记录就是使用 PUT 请求，重新发送一次数据。</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ curl -X PUT 'localhost:9200/userdoor/person/1?pretty' -d '
-&gt; {
-&gt;   "name": "张三",
-&gt;   "title": "工程师",
-&gt;   "desc": "数据库管理，软件开发"
-&gt; }'
-{
-  "_index" : "userdoor",
-  "_type" : "person",
-  "_id" : "1",
-  "_version" : 5,
-  "result" : "updated",
-  "_shards" : {
-    "total" : 2,
-    "successful" : 1,
-    "failed" : 0
-  },
-  "created" : false
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h4 id="删除文档"><a href="#删除文档" class="headerlink" title="删除文档"></a>删除文档</h4><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ curl -X DELETE 'localhost:9200/userdoor/person/1?pretty' -d ''<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<h3 id="5-3-Search-APIs（搜索API）"><a href="#5-3-Search-APIs（搜索API）" class="headerlink" title="5.3 Search APIs（搜索API）"></a>5.3 Search APIs（搜索API）</h3><h4 id="查询所有文档"><a href="#查询所有文档" class="headerlink" title="查询所有文档"></a>查询所有文档</h4><p>使用 GET 方法，直接请求/Index/Type/_search，就会返回所有记录。</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ curl 'localhost:9200/userdoor/person/_search?pretty'
-{
-  "took" : 185,
-  "timed_out" : false,
-  "_shards" : {
-    "total" : 5,
-    "successful" : 5,
-    "failed" : 0
-  },
-  "hits" : {
-    "total" : 2,
-    "max_score" : 1.0,
-    "hits" : [
-      {
-        "_index" : "userdoor",
-        "_type" : "person",
-        "_id" : "AW8ETT-SDmqcpvuz_i-w",
-        "_score" : 1.0,
-        "_source" : {
-          "name" : "李四",
-          "title" : "工程师",
-          "desc" : "运维管理"
+    @Override
+    public String error(String url) {
+        // 创建一个 Transaction
+        Transaction transaction = Cat.newTransaction("URL", url);
+        try {
+            // 处理业务
+            int i = 1 / 0;
+            // 设置成功状态
+            transaction.setStatus(Transaction.SUCCESS);
+        } catch (Exception e) {
+            // 设置错误状态
+            transaction.setStatus(e);
+            // 记录错误信息
+            Cat.logError(e);
+        } finally {
+            // 结束 Transaction
+            transaction.complete();
         }
-      },
-      {
-        "_index" : "userdoor",
-        "_type" : "person",
-        "_id" : "1",
-        "_score" : 1.0,
-        "_source" : {
-          "name" : "张三",
-          "title" : "工程师",
-          "desc" : "数据库管理，软件开发"
-        }
-      }
-    ]
-  }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>上面代码中，返回结果的 <code>took</code>字段表示该操作的耗时（单位为毫秒），<code>timed_out</code>字段表示是否超时，<code>hits</code>字段表示命中的记录，里面子字段的含义如下。</p>
+        return "error";
+    }
+
+    private void myBusiness() {
+        // 模拟业务处理时间
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <ul>
-<li>total：返回记录数，本例是2条。</li>
-<li>max_score：最高的匹配程度，本例是1.0。</li>
-<li>hits：返回的记录组成的数组。</li>
+<li><p>请求：<a target="_blank" rel="noopener" href="http://localhost:8900/hello">http://localhost:8900/hello</a></p>
+</li>
+<li><p>请求：<a target="_blank" rel="noopener" href="http://localhost:8900/hello/error">http://localhost:8900/hello/error</a></p>
+</li>
 </ul>
-<p>返回的记录中，每条记录都有一个<code>_score</code>字段，表示匹配的程序，默认是按照这个字段降序排列。</p>
-<h3 id="5-4-Query-DSL"><a href="#5-4-Query-DSL" class="headerlink" title="5.4 Query DSL"></a>5.4 Query DSL</h3><p>Elastic 的查询非常特别，使用自己的<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/5.5/query-dsl.html">查询语法</a>，要求 GET 请求带有数据体。</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ curl 'localhost:9200/userdoor/person/_search?pretty'  -d '
-&gt; {
-&gt;   "query" : { "match" : { "desc" : "软件" }}
-&gt; }'
-{
-  "took" : 27,
-  "timed_out" : false,
-  "_shards" : {
-    "total" : 5,
-    "successful" : 5,
-    "failed" : 0
-  },
-  "hits" : {
-    "total" : 1,
-    "max_score" : 0.28582606,
-    "hits" : [
-      {
-        "_index" : "userdoor",
-        "_type" : "person",
-        "_id" : "1",
-        "_score" : 0.28582606,
-        "_source" : {
-          "name" : "张三",
-          "title" : "工程师",
-          "desc" : "数据库管理，软件开发"
-        }
-      }
-    ]
-  }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>上面代码使用 <a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/5.5/query-dsl-match-query.html">Match 查询</a> ，指定的匹配条件是<code>desc</code>字段里面包含”软件”这个词</p>
-<h2 id="6-参考资料"><a href="#6-参考资料" class="headerlink" title="6. 参考资料"></a>6. 参考资料</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html">Elasticsearch 官方手册</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/mobz/elasticsearch-head">elasticsearch-head</a></li>
+<h2 id="二、查看监控信息"><a href="#二、查看监控信息" class="headerlink" title="二、查看监控信息"></a>二、查看监控信息</h2><p>进入 cat 控制台，点击 Transaction 按钮 ，之后点击全部，会看到有哪些客户端，如图：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/cat-dashboard-1.png"></p>
+<p>点击客户端 spring-boot-cat-simple ，出现如图：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/cat-dashboard-2.png"></p>
+<p>接着再点击 URL 的 Type </p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/cat-dashboard-3.png"></p>
+<p>如上图，可以清晰的看到 请求的 总个数（tatal）、均值（avg）、最大/最小（max/min)、标准差（std）等，其他都比较直观</p>
+<p>点击 “log View” 可以查看 错误信息，如图：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/cat-dashboard-4.png"></p>
+<h2 id="三、源码"><a href="#三、源码" class="headerlink" title="三、源码"></a>三、源码</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/dendi875/spring-boot-study/tree/main/spring-boot-cat-simple">spring-boot-cat-simple</a></li>
 </ul>
 
                 
@@ -1018,7 +693,7 @@ tcp6       0      0 127.0.0.1:9200          :::*                    LISTEN      
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://www.zhangquan.me/2021/06/29/elasticsearch-xue-xi-yan-jiu/">https://www.zhangquan.me/2021/06/29/elasticsearch-xue-xi-yan-jiu/</a>
+                    <a href="https://www.zhangquan.me/2021/11/26/spring-boot-ji-cheng-cat-quan-lian-lu-jian-kong/">https://www.zhangquan.me/2021/11/26/spring-boot-ji-cheng-cat-quan-lian-lu-jian-kong/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1058,6 +733,18 @@ tcp6       0      0 127.0.0.1:9200          :::*                    LISTEN      
                             
                                 <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/">
                                     <span class="chip bg-color">中间件</span>
+                                </a>
+                            
+                                <a href="/tags/CAT/">
+                                    <span class="chip bg-color">CAT</span>
+                                </a>
+                            
+                                <a href="/tags/JAVA/">
+                                    <span class="chip bg-color">JAVA</span>
+                                </a>
+                            
+                                <a href="/tags/Spring-Boot/">
+                                    <span class="chip bg-color">Spring Boot</span>
                                 </a>
                             
                         </div>
@@ -1552,50 +1239,60 @@ tcp6       0      0 127.0.0.1:9200          :::*                    LISTEN      
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/06/29/git-de-4-ge-jie-duan-de-che-xiao-geng-gai/">
+                <a href="/2021/11/26/spring-boot-ji-cheng-cat-quan-lian-lu-jian-kong/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="Git 的 4 个阶段的撤销更改">
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="Spring Boot 集成 CAT 全链路监控">
                         
-                        <span class="card-title">Git 的 4 个阶段的撤销更改</span>
+                        <span class="card-title">Spring Boot 集成 CAT 全链路监控</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Git 常用的撤销命令
+                            
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-06-29
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-26
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Git/" class="post-category">
-                                    Git
+                            <a href="/categories/%E7%9B%91%E6%8E%A7/" class="post-category">
+                                    监控
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Git/">
-                        <span class="chip bg-color">Git</span>
+                    <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/">
+                        <span class="chip bg-color">中间件</span>
                     </a>
                     
-                    <a href="/tags/%E5%B7%A5%E5%85%B7/">
-                        <span class="chip bg-color">工具</span>
+                    <a href="/tags/CAT/">
+                        <span class="chip bg-color">CAT</span>
+                    </a>
+                    
+                    <a href="/tags/JAVA/">
+                        <span class="chip bg-color">JAVA</span>
+                    </a>
+                    
+                    <a href="/tags/Spring-Boot/">
+                        <span class="chip bg-color">Spring Boot</span>
                     </a>
                     
                 </div>
@@ -1609,31 +1306,31 @@ tcp6       0      0 127.0.0.1:9200          :::*                    LISTEN      
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/06/29/shi-yong-openssl-zi-jian-ca-he-ban-fa-duo-yu-ming-tong-pei-fu-zheng-shu/">
+                <a href="/2021/11/26/cat-fu-wu-duan-an-zhuang/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="使用openssl自建CA和颁发多域名通配符证书">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="CAT服务端安装">
                         
-                        <span class="card-title">使用openssl自建CA和颁发多域名通配符证书</span>
+                        <span class="card-title">CAT服务端安装</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            使用openssl自建CA和颁发多域名通配符证书
+                            调用链监控中间件 CAT 服务端安装部署
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-29
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-26
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Linux/" class="post-category">
-                                    Linux
+                            <a href="/categories/%E7%9B%91%E6%8E%A7/" class="post-category">
+                                    监控
                                 </a>
                             
                             
@@ -1643,8 +1340,16 @@ tcp6       0      0 127.0.0.1:9200          :::*                    LISTEN      
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E8%BF%90%E7%BB%B4/">
-                        <span class="chip bg-color">运维</span>
+                    <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/">
+                        <span class="chip bg-color">中间件</span>
+                    </a>
+                    
+                    <a href="/tags/CAT/">
+                        <span class="chip bg-color">CAT</span>
+                    </a>
+                    
+                    <a href="/tags/JAVA/">
+                        <span class="chip bg-color">JAVA</span>
                     </a>
                     
                 </div>
