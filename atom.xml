@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2021-11-26T06:12:27.738Z</updated>
+  <updated>2021-11-26T08:00:27.760Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -17,11 +17,41 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>CAT服务端安装</title>
+    <link href="https://www.zhangquan.me/2021/11/26/cat-fu-wu-duan-an-zhuang/"/>
+    <id>https://www.zhangquan.me/2021/11/26/cat-fu-wu-duan-an-zhuang/</id>
+    <published>2021-11-26T07:51:11.000Z</published>
+    <updated>2021-11-26T08:00:27.760Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;我的本地开发环境&quot;&gt;&lt;a href=&quot;#我的本地开发环境&quot; class=&quot;headerlink&quot; title=&quot;我的本地开发环境&quot;&gt;&lt;/a&gt;我的本地开发环境&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;操作系统： macOS Catalina</summary>
+        
+      
+    
+    
+    
+    <category term="监控" scheme="https://www.zhangquan.me/categories/%E7%9B%91%E6%8E%A7/"/>
+    
+    
+    <category term="中间件" scheme="https://www.zhangquan.me/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
+    
+    <category term="CAT" scheme="https://www.zhangquan.me/tags/CAT/"/>
+    
+    <category term="JAVA" scheme="https://www.zhangquan.me/tags/JAVA/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Mac 系统在根目录创建文件夹</title>
     <link href="https://www.zhangquan.me/2021/11/26/mac-xi-tong-zai-gen-mu-lu-chuang-jian-wen-jian-jia/"/>
     <id>https://www.zhangquan.me/2021/11/26/mac-xi-tong-zai-gen-mu-lu-chuang-jian-wen-jian-jia/</id>
     <published>2021-11-26T06:06:52.000Z</published>
-    <updated>2021-11-26T06:12:27.738Z</updated>
+    <updated>2021-11-26T06:17:40.096Z</updated>
     
     
       
