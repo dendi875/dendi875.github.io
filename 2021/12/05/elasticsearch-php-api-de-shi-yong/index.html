@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="设计模式之-结构型模式-组合模式 (Composite Pattern), PHP,Java,Go,MySQL,Linux,Docker等">
+    <meta name="keywords" content="Elasticsearch-PHP API 的使用, PHP,Java,Go,MySQL,Linux,Docker等">
     <meta name="description" content="PHP Go MySQL 后端开发">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>设计模式之-结构型模式-组合模式 (Composite Pattern) | 一代键客</title>
+    <title>Elasticsearch-PHP API 的使用 | 一代键客</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -327,12 +327,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">设计模式之-结构型模式-组合模式 (Composite Pattern)</h1>
+                    <h1 class="description center-align post-title">Elasticsearch-PHP API 的使用</h1>
                 </div>
             </div>
         </div>
@@ -452,8 +452,8 @@
                                 <span class="chip bg-color">PHP</span>
                             </a>
                         
-                            <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
-                                <span class="chip bg-color">面向对象</span>
+                            <a href="/tags/Elasticsearch/">
+                                <span class="chip bg-color">Elasticsearch</span>
                             </a>
                         
                     </div>
@@ -464,8 +464,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-category">
-                                设计模式
+                            <a href="/categories/Elasticsearch/" class="post-category">
+                                Elasticsearch
                             </a>
                         
                     </div>
@@ -477,28 +477,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-07-08
+                    2021-12-05
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-11-26
+                    2021-12-05
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.7k
+                    1.2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    10 分
+                    5 分
                 </div>
                 
 
@@ -521,262 +521,372 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="组合模式-Composite-Pattern"><a href="#组合模式-Composite-Pattern" class="headerlink" title="组合模式 (Composite Pattern)"></a>组合模式 (Composite Pattern)</h1><hr>
-<h3 id="0-前言"><a href="#0-前言" class="headerlink" title="0. 前言"></a>0. 前言</h3><p>树形结构在软件中随处可见，例如操作系统中的目录结构、应用软件中的菜单、办公系统中的公司组织结构等等，如何运用面向对象的方式来处理这种树形结构是组合模式需要解决的问题，组合模式通过一种巧妙的设计方案使得用户可以一致性地处理整个树形结构或者树形结构的一部分，也可以一致性地处理树形结构中的叶子节点（不包含子节点的节点）和树枝节点（包含子节点的节点）。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/tree.png" alt="tree"></p>
-<h3 id="1-模式定义"><a href="#1-模式定义" class="headerlink" title="1. 模式定义"></a>1. 模式定义</h3><blockquote>
-<p>组合模式 (Composite Pattern)：组合多个对象形成树形结构以表示具有“整体—部分”关系的层次结构。组合模式对单个对象（即叶子对象）和组合对象（即树枝对象）的使用具有一致性，组合模式又可以称为“整体—部分”(Part-Whole)模式。</p>
-</blockquote>
-<p>组合模式是一种<strong>对象结构型模式</strong>。</p>
-<h3 id="2-组合模式结构"><a href="#2-组合模式结构" class="headerlink" title="2. 组合模式结构"></a>2. 组合模式结构</h3><p>组合模式包含如下角色：</p>
+                <hr>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>在<a target="_blank" rel="noopener" href="https://zhangquan.me/2021/06/29/elasticsearch-xue-xi-yan-jiu/">elasticsearch研究学习</a>文章中，详细的介绍了<code>ES</code>的重要概念、安装和配置、<strong>ik</strong> 中文分词插件的使用、基本的 <strong>Elasticsearch APIs</strong> 的使用。<code>ES</code>的官方客户端在<code>PHP</code>、<code>Java</code>、<code>Go</code>、<code>Python</code>等其他许多语言中都是可用的。</p>
+<p>本篇我们就来学习下<code>PHP</code>作为<code>ES</code>客户端的基本操作。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>在 <code>composer.json</code> 文件中增加 elasticsearch-php：</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">{
+    "require": {
+        "elasticsearch/elasticsearch": "~5.0"
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>使用<code>composer install</code>命令来安装客户端：</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">composer install --no-dev<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>最后加载 autoload.php，并实例化一个客户端对象：</p>
+<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token function">define</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'ES_SERVER'</span><span class="token punctuation">,</span>	 <span class="token string single-quoted-string">'es.servers.dev.ofc:9200'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">require_once</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'vendor/autoload.php'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">use</span> <span class="token package">Elasticsearch<span class="token punctuation">\</span>ClientBuilder</span><span class="token punctuation">;</span>
+
+<span class="token variable">$client</span> <span class="token operator">=</span> <span class="token class-name static-context">ClientBuilder</span><span class="token operator">::</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                            <span class="token operator">-&gt;</span><span class="token function">setHosts</span><span class="token punctuation">(</span><span class="token keyword">array</span><span class="token punctuation">(</span><span class="token constant">ES_SERVER</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                            <span class="token operator">-&gt;</span><span class="token function">setRetries</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+                            <span class="token operator">-&gt;</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="API-的使用"><a href="#API-的使用" class="headerlink" title="API 的使用"></a>API 的使用</h2><h3 id="索引的操作"><a href="#索引的操作" class="headerlink" title="索引的操作"></a>索引的操作</h3><p>索引管理操作可以使你管理<code>ES</code>集群中的索引，例如：创建、删除、更新索引以及索引的设置和索引的映射。</p>
+<h4 id="创建索引"><a href="#创建索引" class="headerlink" title="创建索引"></a>创建索引</h4><p>创建索引使用的是<code>create</code>函数：</p>
+<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token variable">$params</span> <span class="token operator">=</span> <span class="token punctuation">[</span>
+    <span class="token string single-quoted-string">'index'</span> <span class="token operator">=&gt;</span> <span class="token string single-quoted-string">'orders'</span>
+<span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token variable">$response</span> <span class="token operator">=</span> <span class="token variable">$client</span><span class="token operator">-&gt;</span><span class="token function">indices</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-&gt;</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token variable">$params</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>你可以在创建索引时把所需要的请求正文放到<code>body</code>参数中：</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$params = [
+    'index' =&gt; 'userdoor',	// 索引名字，类比数据库
+    'body' =&gt; [
+        'settings' =&gt; [
+            'number_of_replicas' =&gt; 1,
+            'number_of_shards'	=&gt;  5,
+            'max_result_window' =&gt; 1000,
+        ],
+        'mappings' =&gt; [
+            'person' =&gt; [	 // 类型名字，类比数据表
+                '_source' =&gt; ['enabled' =&gt; true],
+                'properties' =&gt; [ // 下面是包括字段名称，类比数据表中的字段
+                    'name' =&gt; ['type' =&gt; 'string', 'analyzer' =&gt; 'ik_max_word'], // 姓名
+                    'title' =&gt; ['type' =&gt; 'string', 'analyzer' =&gt; 'ik_max_word'], // 头衔
+                    'desc' =&gt; ['type' =&gt; 'string', 'analyzer' =&gt; 'ik_max_word'], // 备注
+                ]
+            ]
+        ]
+    ]
+];
+
+$response = $client-&gt;indices()-&gt;create($params);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>我们可以验证是否索引是否创建成功：</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ curl -X GET 'http://localhost:9200/userdoor?pretty' -d ''
+{
+  "userdoor" : {
+    "aliases" : { },
+    "mappings" : {
+      "person" : {
+        "properties" : {
+          "desc" : {
+            "type" : "text",
+            "analyzer" : "ik_max_word"
+          },
+          "name" : {
+            "type" : "text",
+            "analyzer" : "ik_max_word"
+          },
+          "title" : {
+            "type" : "text",
+            "analyzer" : "ik_max_word"
+          }
+        }
+      }
+    },
+    "settings" : {
+      "index" : {
+        "number_of_shards" : "5",
+        "provided_name" : "userdoor",
+        "max_result_window" : "1000",
+        "creation_date" : "1576396958776",
+        "number_of_replicas" : "1",
+        "uuid" : "kvwBns5gThOTB2qX2TIwbA",
+        "version" : {
+          "created" : "5050399"
+        }
+      }
+    }
+  }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+<h4 id="调整索引映射设置"><a href="#调整索引映射设置" class="headerlink" title="调整索引映射设置"></a>调整索引映射设置</h4><p><a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/client/php-api/5.0/_index_management_operations.html#_put_mappings_api">Put Mappings API</a> 允许你修改现有索引的映射，或添加新的映射</p>
+<p>比如我们可以再加两个字段<code>age</code>和<code>timeCreated</code>：</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$params = [
+    'index' =&gt; 'userdoor',
+    'type' =&gt; 'person',
+    'body' =&gt; [
+        'person' =&gt; [
+            'properties' =&gt; [
+                'timeCreated' =&gt; [
+                    'type' =&gt; 'date',
+                    'format' =&gt; 'yyyy-MM-dd HH:mm:ss'
+                ],
+                'age' =&gt; [
+                    'type' =&gt; 'integer'
+                ]
+            ]
+        ]
+    ]
+];
+
+// Update the index mapping
+$client-&gt;indices()-&gt;putMapping($params);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>我们可以验证是否更新成功：</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ curl -X GET 'http://localhost:9200/userdoor?pretty' -d ''
+{
+  "userdoor" : {
+    "aliases" : { },
+    "mappings" : {
+      "person" : {
+        "properties" : {
+          "age" : {
+            "type" : "integer"
+          },
+          "desc" : {
+            "type" : "text",
+            "analyzer" : "ik_max_word"
+          },
+          "name" : {
+            "type" : "text",
+            "analyzer" : "ik_max_word"
+          },
+          "timeCreated" : {
+            "type" : "date",
+            "format" : "yyyy-MM-dd HH:mm:ss"
+          },
+          "title" : {
+            "type" : "text",
+            "analyzer" : "ik_max_word"
+          }
+        }
+      }
+    },
+    "settings" : {
+      "index" : {
+        "number_of_shards" : "5",
+        "provided_name" : "userdoor",
+        "max_result_window" : "1000",
+        "creation_date" : "1576396958776",
+        "number_of_replicas" : "1",
+        "uuid" : "kvwBns5gThOTB2qX2TIwbA",
+        "version" : {
+          "created" : "5050399"
+        }
+      }
+    }
+  }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="删除索引"><a href="#删除索引" class="headerlink" title="删除索引"></a>删除索引</h4><p>使用<code>delete</code>函数来删除索引</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$params = ['index' =&gt; 'userdoor'];
+$response = $client-&gt;indices()-&gt;delete($params);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h3 id="文档的操作"><a href="#文档的操作" class="headerlink" title="文档的操作"></a>文档的操作</h3><h4 id="新增文档"><a href="#新增文档" class="headerlink" title="新增文档"></a>新增文档</h4><p>使用<code>index</code>函数来新增文档</p>
 <ul>
-<li><p><code>Component</code>：<strong>抽象构件</strong></p>
-<ul>
-<li>它可以是接口或抽象类，为树叶构件和树枝构件对象声明接口，在该角色中可以包含所有子类共有行为的声明和实现。在抽象构件中定义了访问及管理它的子构件的方法，如增加子构件、删除子构件、获取子构件等。</li>
+<li>单条文档的新增</li>
 </ul>
-</li>
-<li><p><code>Leaf</code>：<strong>树叶构件</strong></p>
-<ul>
-<li>它在组合结构中表示叶子节点对象，叶子节点没有子节点，它实现了在抽象构件中定义的行为。对于那些访问及管理子构件的方法，可以通过异常等方式进行处理。</li>
-</ul>
-</li>
-<li><p><code>Composite</code>：<strong>树枝构件</strong></p>
-<ul>
-<li>它在组合结构中表示树枝节点对象，树枝节点包含子节点，其子节点可以是叶子节点，也可以是树枝节点，它提供一个集合用于存储子节点，实现了在抽象构件中定义的行为，包括那些访问及管理子构件的方法，在其业务方法中可以递归调用其子节点的业务方法。</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/Composite-Pattern-0.jpg" alt="Composite-Pattern-0.jpg"></p>
-<h3 id="3-组合模式应用实例"><a href="#3-组合模式应用实例" class="headerlink" title="3. 组合模式应用实例"></a>3. 组合模式应用实例</h3><p>下面通过一个实例进一步学习和理解组合模式。</p>
-<h3 id="实例说明"><a href="#实例说明" class="headerlink" title="实例说明"></a>实例说明</h3><p>在Dendi软件公司的内部办公系统OA系统中，有一个与公司组织结构对应的树形菜单，行政人员可以给各级单位下发通知，这些单位可以是总公司的一个部门，也可以是一个分公司，还可以是分公司的一个部门。用户只需要选择一个根节点即可实现通知的下发操作，而无须关心具体的实现细节。</p>
-<pre class="line-numbers language-ssh" data-language="ssh"><code class="language-ssh">└── Dendi公司北京总部
-    ├── 上海分公司
-    │&nbsp;&nbsp; ├── 上海分公司财务部
-    │&nbsp;&nbsp; ├── 上海分公司人力资源部
-    │&nbsp;&nbsp; └── 上海分公司研发部
-    ├── 深圳分公司
-    │&nbsp;&nbsp; ├── 深圳分公司财务部
-    │&nbsp;&nbsp; ├── 深圳分公司人力资源部
-    │&nbsp;&nbsp; └── 深圳分公司研发部
-    ├── 总公司财务部
-    ├── 总公司人力资源部
-    └── 总公司研发部<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>提供<code>ID</code>值：</p>
+<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token variable">$params</span> <span class="token operator">=</span> <span class="token punctuation">[</span>
+    <span class="token string single-quoted-string">'index'</span> <span class="token operator">=&gt;</span> <span class="token string single-quoted-string">'userdoor'</span><span class="token punctuation">,</span>
+    <span class="token string single-quoted-string">'type'</span> <span class="token operator">=&gt;</span> <span class="token string single-quoted-string">'person'</span><span class="token punctuation">,</span>
+    <span class="token string single-quoted-string">'id'</span> <span class="token operator">=&gt;</span> <span class="token string single-quoted-string">'1'</span><span class="token punctuation">,</span>
+    <span class="token string single-quoted-string">'body'</span> <span class="token operator">=&gt;</span> <span class="token punctuation">[</span>
+        <span class="token string single-quoted-string">'name'</span> <span class="token operator">=&gt;</span> <span class="token string single-quoted-string">'张三'</span><span class="token punctuation">,</span>
+        <span class="token string single-quoted-string">'title'</span> <span class="token operator">=&gt;</span> <span class="token string single-quoted-string">'架构师'</span><span class="token punctuation">,</span>
+        <span class="token string single-quoted-string">'desc'</span> <span class="token operator">=&gt;</span> <span class="token string single-quoted-string">'系统架构师'</span><span class="token punctuation">,</span>
+        <span class="token string single-quoted-string">'age'</span> <span class="token operator">=&gt;</span> <span class="token number">28</span><span class="token punctuation">,</span>
+        <span class="token string single-quoted-string">'timeCreated'</span> <span class="token operator">=&gt;</span> <span class="token function">date</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'Y-m-d H:i:s'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">]</span>
+<span class="token punctuation">]</span><span class="token punctuation">;</span>
 
-<h3 id="实例代码"><a href="#实例代码" class="headerlink" title="实例代码"></a>实例代码</h3><ul>
-<li>Units：<code>抽象构件</code></li>
-</ul>
-<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token comment">/**
- * 抽象单位类：抽象构件
- * 这里单位即可以是某个部门，也可以某个公司
- *
- * @author     &lt;dendi875@163.com&gt;
- * @createDate 2018-07-22
- * @copyright  Copyright (c) 2018 dendi875@163.com
- */</span>
+<span class="token comment">// Document will be indexed to userdoor/person/1</span>
+<span class="token variable">$response</span> <span class="token operator">=</span> <span class="token variable">$client</span><span class="token operator">-&gt;</span><span class="token function">index</span><span class="token punctuation">(</span><span class="token variable">$params</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name-definition class-name">Units</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">protected</span> <span class="token variable">$name</span><span class="token punctuation">;</span>
+<p>让<code>ES</code>自已生成<code>ID</code>：</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$params = [
+    'index' =&gt; 'userdoor',
+    'type' =&gt; 'person',
+    'body' =&gt; [
+        'name' =&gt; '李四',
+        'title' =&gt; '程序员',
+        'desc' =&gt; '前端开发',
+        'age' =&gt; 28,
+        'timeCreated' =&gt; date('Y-m-d H:i:s'),
+    ]
+];
 
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">__construct</span><span class="token punctuation">(</span><span class="token keyword type-hint">string</span> <span class="token variable">$name</span><span class="token punctuation">)</span>
-    <span class="token punctuation">{</span>
-        <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">name</span> <span class="token operator">=</span> <span class="token variable">$name</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token comment">/* 下发通知 */</span>
-    <span class="token keyword">abstract</span> <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">sendNotify</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+// Document will be indexed to userdoor/person/&lt;autogenerated ID&gt;
+$response = $client-&gt;index($params);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <ul>
-<li>Company： <code>树枝构件角色</code></li>
+<li>批量文档的新增</li>
 </ul>
-<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token comment">/**
- * 公司类：树枝构件角色
- *
- * @author     &lt;dendi875@163.com&gt;
- * @createDate 2018-07-22
- * @copyright  Copyright (c) 2018 dendi875@163.com
- */</span>
+<p>使用<code>bulk</code>来批量增加文档。</p>
+<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token variable">$i</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token variable">$i</span> <span class="token operator">&lt;</span> <span class="token number">3</span><span class="token punctuation">;</span> <span class="token variable">$i</span><span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token variable">$params</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'body'</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span>
+        <span class="token string single-quoted-string">'index'</span> <span class="token operator">=&gt;</span> <span class="token punctuation">[</span>
+            <span class="token string single-quoted-string">'_index'</span> <span class="token operator">=&gt;</span> <span class="token string single-quoted-string">'userdoor'</span><span class="token punctuation">,</span>
+            <span class="token string single-quoted-string">'_type'</span> <span class="token operator">=&gt;</span> <span class="token string single-quoted-string">'person'</span><span class="token punctuation">,</span>
+        <span class="token punctuation">]</span>
+    <span class="token punctuation">]</span><span class="token punctuation">;</span>
 
-<span class="token keyword">class</span> <span class="token class-name-definition class-name">Company</span> <span class="token keyword">extends</span> <span class="token class-name">Units</span>
-<span class="token punctuation">{</span>
-    <span class="token comment">/**
-     * 单位的集合，用于存储Units类型的成员
-     *
-     * @var array
-     */</span>
-    <span class="token keyword">private</span> <span class="token variable">$unitList</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">add</span><span class="token punctuation">(</span><span class="token class-name type-declaration">Units</span> <span class="token variable">$u</span><span class="token punctuation">)</span>
-    <span class="token punctuation">{</span>
-        <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">unitList</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token variable">$u</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">remove</span><span class="token punctuation">(</span><span class="token class-name type-declaration">Units</span> <span class="token variable">$u</span><span class="token punctuation">)</span>
-    <span class="token punctuation">{</span>
-        <span class="token variable">$key</span> <span class="token operator">=</span> <span class="token function">array_search</span><span class="token punctuation">(</span><span class="token variable">$u</span><span class="token punctuation">,</span> <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">unitList</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$key</span> <span class="token operator">!==</span> <span class="token constant boolean">false</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">unset</span><span class="token punctuation">(</span><span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">unitList</span><span class="token punctuation">[</span><span class="token variable">$key</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">getChild</span><span class="token punctuation">(</span><span class="token keyword type-hint">int</span> <span class="token variable">$i</span><span class="token punctuation">)</span>
-    <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">unitList</span><span class="token punctuation">[</span><span class="token variable">$i</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">sendNotify</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">{</span>
-        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"*****%s收到通知*****\n"</span><span class="token punctuation">,</span> <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">name</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-        <span class="token comment">/* 递归调用子构件的sendNotify()方法 */</span>
-        <span class="token keyword">foreach</span> <span class="token punctuation">(</span><span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">unitList</span> <span class="token keyword">as</span> <span class="token variable">$unit</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token variable">$unit</span><span class="token operator">-&gt;</span><span class="token function">sendNotify</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<ul>
-<li>ResearchDepartment、FinanceDepartment、HRDepartment： <code>树叶构件角色</code></li>
-</ul>
-<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token comment">/**
- * 研发部：树叶构件角色
- *
- * @author     &lt;dendi875@163.com&gt;
- * @createDate 2018-07-22
- * @copyright  Copyright (c) 2018 dendi875@163.com
- */</span>
-
-<span class="token keyword">class</span> <span class="token class-name-definition class-name">ResearchDepartment</span> <span class="token keyword">extends</span> <span class="token class-name">Units</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">sendNotify</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">{</span>
-        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"-----%s收到通知-----\n"</span><span class="token punctuation">,</span> <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">name</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+    <span class="token variable">$params</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'body'</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span>
+        <span class="token string single-quoted-string">'name'</span> <span class="token operator">=&gt;</span> <span class="token string single-quoted-string">'王五'</span><span class="token operator">.</span><span class="token variable">$i</span><span class="token punctuation">,</span>
+        <span class="token string single-quoted-string">'title'</span> <span class="token operator">=&gt;</span> <span class="token string single-quoted-string">'测试'</span><span class="token punctuation">,</span>
+        <span class="token string single-quoted-string">'desc'</span> <span class="token operator">=&gt;</span> <span class="token string single-quoted-string">'自动化测试'</span><span class="token punctuation">,</span>
+        <span class="token string single-quoted-string">'age'</span> <span class="token operator">=&gt;</span> <span class="token number">26</span> <span class="token operator">+</span> <span class="token variable">$i</span><span class="token punctuation">,</span>
+        <span class="token string single-quoted-string">'timeCreated'</span> <span class="token operator">=&gt;</span> <span class="token function">date</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'Y-m-d H:i:s'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">]</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token comment">/**
- * 财务部：树叶构件角色
- *
- * @author     &lt;dendi875@163.com&gt;
- * @createDate 2018-07-22
- * @copyright  Copyright (c) 2018 dendi875@163.com
- */</span>
+<span class="token variable">$responses</span> <span class="token operator">=</span> <span class="token variable">$client</span><span class="token operator">-&gt;</span><span class="token function">bulk</span><span class="token punctuation">(</span><span class="token variable">$params</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<span class="token keyword">class</span> <span class="token class-name-definition class-name">FinanceDepartment</span> <span class="token keyword">extends</span> <span class="token class-name">Units</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">sendNotify</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">{</span>
-        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"-----%s收到通知-----\n"</span><span class="token punctuation">,</span> <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">name</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
+<h4 id="查看文档"><a href="#查看文档" class="headerlink" title="查看文档"></a>查看文档</h4><p>使用<code>get</code>函数来查看文档</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$params = [
+    'index' =&gt; 'userdoor',
+    'type' =&gt; 'person',
+    'id' =&gt; '1'
+];
 
-<span class="token comment">/**
- * 人力资源部：树叶构件角色
- *
- * @author     &lt;dendi875@163.com&gt;
- * @createDate 2018-07-22
- * @copyright  Copyright (c) 2018 dendi875@163.com
- */</span>
+// Get doc at /userdoor/person/1
+$response = $client-&gt;get($params);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="更新文档"><a href="#更新文档" class="headerlink" title="更新文档"></a>更新文档</h4><p>使用<code>update</code>函数来更新文档：</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$params = [
+    'index' =&gt; 'userdoor',
+    'type' =&gt; 'person',
+    'id' =&gt; '1',
+    'body' =&gt; [
+        'doc' =&gt; [
+            'desc' =&gt; '系统架构师，业务架构师'
+        ]
+    ]
+];
 
-<span class="token keyword">class</span> <span class="token class-name-definition class-name">HRDepartment</span> <span class="token keyword">extends</span> <span class="token class-name">Units</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">sendNotify</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">{</span>
-        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"-----%s收到通知-----\n"</span><span class="token punctuation">,</span> <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">name</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+// Update doc at /userdoor/person/1
+$response = $client-&gt;update($params);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="删除文档"><a href="#删除文档" class="headerlink" title="删除文档"></a>删除文档</h4><p>使用<code>delete</code>函数来删除文档：</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$params = [
+    'index' =&gt; 'userdoor',
+    'type' =&gt; 'person',
+    'id' =&gt; 1
+];
+
+// Delete doc at /userdoor/person/1
+$response = $client-&gt;delete($params);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+<h3 id="搜索的操作"><a href="#搜索的操作" class="headerlink" title="搜索的操作"></a>搜索的操作</h3><ul>
+<li>Match 查询</li>
+</ul>
+<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token variable">$params</span> <span class="token operator">=</span> <span class="token punctuation">[</span>
+    <span class="token string single-quoted-string">'index'</span> <span class="token operator">=&gt;</span> <span class="token string single-quoted-string">'userdoor'</span><span class="token punctuation">,</span>
+    <span class="token string single-quoted-string">'type'</span> <span class="token operator">=&gt;</span> <span class="token string single-quoted-string">'person'</span><span class="token punctuation">,</span>
+    <span class="token string single-quoted-string">'body'</span> <span class="token operator">=&gt;</span> <span class="token punctuation">[</span>
+        <span class="token string single-quoted-string">'query'</span> <span class="token operator">=&gt;</span> <span class="token punctuation">[</span>
+            <span class="token string single-quoted-string">'match'</span> <span class="token operator">=&gt;</span> <span class="token punctuation">[</span>
+                <span class="token string single-quoted-string">'desc'</span> <span class="token operator">=&gt;</span> <span class="token string single-quoted-string">'架构师'</span>
+            <span class="token punctuation">]</span>
+        <span class="token punctuation">]</span>
+    <span class="token punctuation">]</span>
+<span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token variable">$results</span> <span class="token operator">=</span> <span class="token variable">$client</span><span class="token operator">-&gt;</span><span class="token function">search</span><span class="token punctuation">(</span><span class="token variable">$params</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>以上示例输出：</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ php es.php
+Array
+(
+    [took] =&gt; 9
+    [timed_out] =&gt;
+    [_shards] =&gt; Array
+        (
+            [total] =&gt; 5
+            [successful] =&gt; 5
+            [failed] =&gt; 0
+        )
+
+    [hits] =&gt; Array
+        (
+            [total] =&gt; 1
+            [max_score] =&gt; 1.1000589
+            [hits] =&gt; Array
+                (
+                    [0] =&gt; Array
+                        (
+                            [_index] =&gt; userdoor
+                            [_type] =&gt; person
+                            [_id] =&gt; 1
+                            [_score] =&gt; 1.1000589
+                            [_source] =&gt; Array
+                                (
+                                    [name] =&gt; 张三
+                                    [title] =&gt; 架构师
+                                    [desc] =&gt; 系统架构师，业务架构师
+                                    [age] =&gt; 28
+                                    [timeCreated] =&gt; 2019-12-15 08:44:01
+                                )
+
+                        )
+
+                )
+
+        )
+
+)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>还可以使用原生<code>json</code>来代替数组：</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$json = '{
+	"query": {
+		"match": {
+			"desc": "架构师"
+		}
+	}
+}';
+
+$params = [
+    'index' =&gt; 'userdoor',
+    'type' =&gt; 'person',
+    'body' =&gt; $json
+];
+
+$results = $client-&gt;search($params);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <ul>
-<li>客户端测试代码</li>
+<li>Bool 查询</li>
 </ul>
-<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token comment">/**
- * 客户端测试代码
- *
- * @author     &lt;dendi875@163.com&gt;
- * @createDate 2018-07-22
- * @copyright  Copyright (c) 2018 dendi875@163.com
- */</span>
+<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token variable">$params</span> <span class="token operator">=</span> <span class="token punctuation">[</span>
+    <span class="token string single-quoted-string">'index'</span> <span class="token operator">=&gt;</span> <span class="token string single-quoted-string">'userdoor'</span><span class="token punctuation">,</span>
+    <span class="token string single-quoted-string">'type'</span> <span class="token operator">=&gt;</span> <span class="token string single-quoted-string">'person'</span><span class="token punctuation">,</span>
+    <span class="token string single-quoted-string">'body'</span> <span class="token operator">=&gt;</span> <span class="token punctuation">[</span>
+        <span class="token string single-quoted-string">'query'</span> <span class="token operator">=&gt;</span> <span class="token punctuation">[</span>
+            <span class="token string single-quoted-string">'bool'</span> <span class="token operator">=&gt;</span> <span class="token punctuation">[</span>
+                <span class="token string single-quoted-string">'must'</span> <span class="token operator">=&gt;</span> <span class="token punctuation">[</span>
+                    <span class="token punctuation">[</span><span class="token string single-quoted-string">'match'</span> <span class="token operator">=&gt;</span> <span class="token punctuation">[</span><span class="token string single-quoted-string">'name'</span> <span class="token operator">=&gt;</span> <span class="token string single-quoted-string">'王五'</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                    <span class="token punctuation">[</span><span class="token string single-quoted-string">'match'</span> <span class="token operator">=&gt;</span> <span class="token punctuation">[</span><span class="token string single-quoted-string">'age'</span> <span class="token operator">=&gt;</span> <span class="token number">28</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                <span class="token punctuation">]</span>
+            <span class="token punctuation">]</span>
+        <span class="token punctuation">]</span>
+    <span class="token punctuation">]</span>
+<span class="token punctuation">]</span><span class="token punctuation">;</span>
 
-<span class="token keyword">class</span> <span class="token class-name-definition class-name">Client</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword return-type">void</span>
-    <span class="token punctuation">{</span>
-        <span class="token variable">$rootCompany</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Company</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"Dendi公司北京总部"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$results</span> <span class="token operator">=</span> <span class="token variable">$client</span><span class="token operator">-&gt;</span><span class="token function">search</span><span class="token punctuation">(</span><span class="token variable">$params</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-        <span class="token variable">$shangHaiCompany</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Company</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"上海分公司"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token variable">$shenZhenCompany</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Company</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"深圳分公司"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token variable">$rootRD</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ResearchDepartment</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"总公司研发部"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token variable">$rootFD</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FinanceDepartment</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"总公司财务部"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token variable">$rootHRD</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HRDepartment</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"总公司人力资源部"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-        <span class="token variable">$shangHaiRD</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ResearchDepartment</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"上海分公司研发部"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token variable">$shangHaiFD</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FinanceDepartment</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"上海分公司财务部"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token variable">$shangHaiHRD</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HRDepartment</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"上海分公司人力资源部"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-        <span class="token variable">$shenZhenRD</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ResearchDepartment</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"深圳分公司研发部"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token variable">$shenZhenFD</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FinanceDepartment</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"深圳分公司财务部"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token variable">$shenZhenHRD</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HRDepartment</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"深圳分公司人力资源部"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-        <span class="token variable">$shangHaiCompany</span><span class="token operator">-&gt;</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token variable">$shangHaiRD</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token variable">$shangHaiCompany</span><span class="token operator">-&gt;</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token variable">$shangHaiFD</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token variable">$shangHaiCompany</span><span class="token operator">-&gt;</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token variable">$shangHaiHRD</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-        <span class="token variable">$shenZhenCompany</span><span class="token operator">-&gt;</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token variable">$shenZhenRD</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token variable">$shenZhenCompany</span><span class="token operator">-&gt;</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token variable">$shenZhenFD</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token variable">$shenZhenCompany</span><span class="token operator">-&gt;</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token variable">$shenZhenHRD</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-        <span class="token variable">$rootCompany</span><span class="token operator">-&gt;</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token variable">$rootRD</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token variable">$rootCompany</span><span class="token operator">-&gt;</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token variable">$rootFD</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token variable">$rootCompany</span><span class="token operator">-&gt;</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token variable">$rootHRD</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token variable">$rootCompany</span><span class="token operator">-&gt;</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token variable">$shangHaiCompany</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token variable">$rootCompany</span><span class="token operator">-&gt;</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token variable">$shenZhenCompany</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-        <span class="token comment">//从"北京总部"节点开始下发通知</span>
-        <span class="token variable">$rootCompany</span><span class="token operator">-&gt;</span><span class="token function">sendNotify</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-
-<span class="token variable">$c</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Client</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token variable">$c</span><span class="token operator">-&gt;</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-以上例程会输出：
-
-<span class="token operator">**</span><span class="token operator">**</span><span class="token operator">*</span>Dendi公司北京总部收到通知<span class="token operator">**</span><span class="token operator">**</span><span class="token operator">*</span><span class="token operator">&lt;</span>br<span class="token operator">/</span><span class="token operator">&gt;</span>
-<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span>总公司研发部收到通知<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span><span class="token operator">&lt;</span>br<span class="token operator">/</span><span class="token operator">&gt;</span>
-<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span>总公司财务部收到通知<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span><span class="token operator">&lt;</span>br<span class="token operator">/</span><span class="token operator">&gt;</span>
-<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span>总公司人力资源部收到通知<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span><span class="token operator">&lt;</span>br<span class="token operator">/</span><span class="token operator">&gt;</span>
-<span class="token operator">**</span><span class="token operator">**</span><span class="token operator">*</span>上海分公司收到通知<span class="token operator">**</span><span class="token operator">**</span><span class="token operator">*</span><span class="token operator">&lt;</span>br<span class="token operator">/</span><span class="token operator">&gt;</span>
-<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span>上海分公司研发部收到通知<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span><span class="token operator">&lt;</span>br<span class="token operator">/</span><span class="token operator">&gt;</span>
-<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span>上海分公司财务部收到通知<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span><span class="token operator">&lt;</span>br<span class="token operator">/</span><span class="token operator">&gt;</span>
-<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span>上海分公司人力资源部收到通知<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span><span class="token operator">&lt;</span>br<span class="token operator">/</span><span class="token operator">&gt;</span>
-<span class="token operator">**</span><span class="token operator">**</span><span class="token operator">*</span>深圳分公司收到通知<span class="token operator">**</span><span class="token operator">**</span><span class="token operator">*</span><span class="token operator">&lt;</span>br<span class="token operator">/</span><span class="token operator">&gt;</span>
-<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span>深圳分公司研发部收到通知<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span><span class="token operator">&lt;</span>br<span class="token operator">/</span><span class="token operator">&gt;</span>
-<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span>深圳分公司财务部收到通知<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span><span class="token operator">&lt;</span>br<span class="token operator">/</span><span class="token operator">&gt;</span>
-<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span>深圳分公司人力资源部收到通知<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span><span class="token operator">&lt;</span>br<span class="token operator">/</span><span class="token operator">&gt;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="4-UML类图"><a href="#4-UML类图" class="headerlink" title="4. UML类图"></a>4. UML类图</h3><p>示例代码UML图：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/Composite-Pattern-1.png" alt="Composite-Pattern-1"></p>
-<h3 id="5-组合模式总结"><a href="#5-组合模式总结" class="headerlink" title="5. 组合模式总结"></a>5. 组合模式总结</h3><ul>
-<li><p>组合模式的关键是定义了一个抽象构件类，它既可以代表叶子，又可以代表树枝，而客户端针对该抽象构件类进行编程，无须知道它到底表示的是叶子还是树枝，可以对其进行统一处理。同时树枝对象与抽象构件类之间还建立一个聚合关联关系，在树枝对象中既可以包含叶子，也可以包含树枝，以此实现递归组合，形成一个树形结构。</p>
-</li>
-<li><p>在使用组合模式时，根据抽象构件类的定义形式，我们可将组合模式分为透明组合模式和安全组合模式两种形式：</p>
-</li>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://zhangquan.me/2021/06/29/elasticsearch-xue-xi-yan-jiu/">elasticsearch研究学习</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/client/php-api/5.0/index.html">官方 Elasticsearch-PHP API 文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.elastic.co/guide/cn/elasticsearch/php/current/_quickstart.html">官方 Elasticsearch-PHP API 中文文档</a></li>
 </ul>
-<p>(1)透明组合模式<br>透明组合模式中，抽象构件Component中声明了所有用于管理成员对象的方法，包括add()、remove()以及getChild()等方法，这样做的好处是确保所有的构件类都有相同的接口。在客户端看来，叶子对象与树枝对象所提供的方法是一致的，客户端可以相同地对待所有的对象。透明组合模式也是组合模式的标准形式，因为在叶子构件中需要实现在抽象构件类中声明的所有方法，包括业务方法以及管理和访问子构件的方法，但是叶子构件不能再包含子构件，因此在叶子构件中实现子构件管理和访问方法时需要提供异常处理或错误提示。</p>
-<p>(2)安全组合模式<br>安全组合模式中，在抽象构件Component中没有声明任何用于管理成员对象的方法，而是在Composite类中声明并实现这些方法。这种做法是安全的，因为根本不向叶子对象提供这些管理成员对象的方法，对于叶子对象，客户端不可能调用到这些方法。</p>
-<p>安全组合模式的缺点是不够透明，因为叶子构件和树枝构件具有不同的方法，且树枝构件中那些用于管理成员对象的方法没有在抽象构件类中定义，因此客户端不能完全针对抽象编程，必须有区别地对待叶子构件和树枝构件。在实际应用中，安全组合模式的使用频率也非常高。</p>
-<h3 id="6-组合模式的优点"><a href="#6-组合模式的优点" class="headerlink" title="6. 组合模式的优点"></a>6. 组合模式的优点</h3><p>组合模式的主要优点如下：</p>
-<p>(1)组合模式可以清楚地定义分层次的复杂对象，表示对象的全部或部分层次，它让客户端忽略了层次的差异，方便对整个层次结构进行控制。</p>
-<p>(2)客户端可以一致地使用一个组合结构或其中单个对象，不必关心处理的是单个对象还是整个组合结构，简化了客户端代码。</p>
-<p>(3)在组合模式中增加新的树枝构件和叶子构件都很方便，无须对现有类库进行任何修改，符合“开闭原则”。</p>
-<p>(4)组合模式为树形结构的面向对象实现提供了一种灵活的解决方案，通过叶子对象和树枝对象的递归组合，可以形成复杂的树形结构，但对树形结构的控制却非常简单。</p>
-<h3 id="7-组合模式的缺点"><a href="#7-组合模式的缺点" class="headerlink" title="7. 组合模式的缺点"></a>7. 组合模式的缺点</h3><p>组合模式的主要缺点如下：</p>
-<p>在增加新构件时很难对树枝构件中的构件类型进行限制。有时候我们希望一个树枝构件中只能有某些特定类型的对象，例如在某个文件夹中只能包含文本文件，使用组合模式时，不能依赖类型系统来施加这些约束，因为它们都来自于相同的抽象层，在这种情况下，必须通过在运行时进行类型检查来实现，这个实现过程较为复杂。</p>
-<h3 id="8-组合模式适用场景"><a href="#8-组合模式适用场景" class="headerlink" title="8.组合模式适用场景"></a>8.组合模式适用场景</h3><p>在以下情况下可以考虑使用组合模式：</p>
-<p>(1)在具有整体和部分的层次结构中，希望通过一种方式忽略整体与部分的差异，客户端可以一致地对待它们。</p>
-<p>(2)在一个使用面向对象语言开发的系统中需要处理一个树形结构。</p>
-<p>(3)在一个系统中能够分离出叶子对象和树枝对象，而且它们的类型不固定，需要增加一些新的类型。</p>
 
                 
             </div>
@@ -803,7 +913,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://www.zhangquan.me/2021/07/08/she-ji-mo-shi-zhi-jie-gou-xing-mo-shi-zu-he-mo-shi-composite-pattern/">https://www.zhangquan.me/2021/07/08/she-ji-mo-shi-zhi-jie-gou-xing-mo-shi-zu-he-mo-shi-composite-pattern/</a>
+                    <a href="https://www.zhangquan.me/2021/12/05/elasticsearch-php-api-de-shi-yong/">https://www.zhangquan.me/2021/12/05/elasticsearch-php-api-de-shi-yong/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -845,8 +955,8 @@
                                     <span class="chip bg-color">PHP</span>
                                 </a>
                             
-                                <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
-                                    <span class="chip bg-color">面向对象</span>
+                                <a href="/tags/Elasticsearch/">
+                                    <span class="chip bg-color">Elasticsearch</span>
                                 </a>
                             
                         </div>
@@ -1341,41 +1451,43 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/07/09/she-ji-mo-shi-zhi-jie-gou-xing-mo-shi-wai-guan-mo-shi-facade-pattern/">
+                <a href="/2021/12/05/elasticsearch-php-api-de-shi-yong/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="设计模式之-结构型模式-外观模式 (Facade Pattern)">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="Elasticsearch-PHP API 的使用">
                         
-                        <span class="card-title">设计模式之-结构型模式-外观模式 (Facade Pattern)</span>
+                        <span class="card-title">Elasticsearch-PHP API 的使用</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Facade Pattern
+                            PHP 作为 Elasticsearch 客户端的基本操作
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-07-09
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-12-05
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-category">
-                                    设计模式
+                            <a href="/categories/Elasticsearch/" class="post-category">
+                                    Elasticsearch
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -1383,8 +1495,8 @@
                         <span class="chip bg-color">PHP</span>
                     </a>
                     
-                    <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
-                        <span class="chip bg-color">面向对象</span>
+                    <a href="/tags/Elasticsearch/">
+                        <span class="chip bg-color">Elasticsearch</span>
                     </a>
                     
                 </div>
@@ -1398,31 +1510,31 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/07/06/she-ji-mo-shi-zhi-jie-gou-xing-mo-shi-zhuang-shi-mo-shi-decorator-pattern/">
+                <a href="/2021/11/26/spring-boot-ji-cheng-cat-quan-lian-lu-jian-kong/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="设计模式之-结构型模式-装饰模式 (Decorator Pattern)">
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="Spring Boot 集成 CAT 全链路监控">
                         
-                        <span class="card-title">设计模式之-结构型模式-装饰模式 (Decorator Pattern)</span>
+                        <span class="card-title">Spring Boot 集成 CAT 全链路监控</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Decorator Pattern
+                            Spring Boot 集成 CAT的使用
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-07-06
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-26
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-category">
-                                    设计模式
+                            <a href="/categories/%E7%9B%91%E6%8E%A7/" class="post-category">
+                                    监控
                                 </a>
                             
                             
@@ -1432,12 +1544,20 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/PHP/">
-                        <span class="chip bg-color">PHP</span>
+                    <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/">
+                        <span class="chip bg-color">中间件</span>
                     </a>
                     
-                    <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
-                        <span class="chip bg-color">面向对象</span>
+                    <a href="/tags/CAT/">
+                        <span class="chip bg-color">CAT</span>
+                    </a>
+                    
+                    <a href="/tags/JAVA/">
+                        <span class="chip bg-color">JAVA</span>
+                    </a>
+                    
+                    <a href="/tags/Spring-Boot/">
+                        <span class="chip bg-color">Spring Boot</span>
                     </a>
                     
                 </div>
