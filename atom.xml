@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2021-12-05T10:43:11.763Z</updated>
+  <updated>2021-12-09T11:42:34.990Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,92 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>C和指针（二）</title>
+    <link href="https://www.zhangquan.me/2021/12/09/c-he-zhi-zhen-er/"/>
+    <id>https://www.zhangquan.me/2021/12/09/c-he-zhi-zhen-er/</id>
+    <published>2021-12-09T11:37:40.000Z</published>
+    <updated>2021-12-09T11:42:34.990Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;hr&gt;
+&lt;h2 id=&quot;一、数组指针&quot;&gt;&lt;a href=&quot;#一、数组指针&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="C" scheme="https://www.zhangquan.me/categories/C/"/>
+    
+    
+    <category term="C" scheme="https://www.zhangquan.me/tags/C/"/>
+    
+    <category term="指针" scheme="https://www.zhangquan.me/tags/%E6%8C%87%E9%92%88/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>C和指针（一）</title>
+    <link href="https://www.zhangquan.me/2021/12/09/c-he-zhi-zhen-yi/"/>
+    <id>https://www.zhangquan.me/2021/12/09/c-he-zhi-zhen-yi/</id>
+    <published>2021-12-09T11:35:58.000Z</published>
+    <updated>2021-12-09T11:43:29.013Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;hr&gt;
+&lt;h2 id=&quot;一、声明指针&quot;&gt;&lt;a href=&quot;#一、声明指针&quot; class=&quot;headerlink&quot; title=&quot;一、声明指针&quot;&gt;&lt;/a&gt;一、声明指针&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;例子1&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&quot;line-numbers</summary>
+        
+      
+    
+    
+    
+    <category term="C" scheme="https://www.zhangquan.me/categories/C/"/>
+    
+    
+    <category term="C" scheme="https://www.zhangquan.me/tags/C/"/>
+    
+    <category term="指针" scheme="https://www.zhangquan.me/tags/%E6%8C%87%E9%92%88/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Autotools简介（autoconf, automake）</title>
+    <link href="https://www.zhangquan.me/2021/12/09/autotools-jian-jie-autoconf-automake/"/>
+    <id>https://www.zhangquan.me/2021/12/09/autotools-jian-jie-autoconf-automake/</id>
+    <published>2021-12-09T07:07:24.000Z</published>
+    <updated>2021-12-09T11:17:02.690Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Autotools简介（autoconf-automake）&quot;&gt;&lt;a href=&quot;#Autotools简介（autoconf-automake）&quot; class=&quot;headerlink&quot; title=&quot;Autotools简介（autoconf,</summary>
+        
+      
+    
+    
+    
+    <category term="C" scheme="https://www.zhangquan.me/categories/C/"/>
+    
+    
+    <category term="Makefile" scheme="https://www.zhangquan.me/tags/Makefile/"/>
+    
+    <category term="Autoconf" scheme="https://www.zhangquan.me/tags/Autoconf/"/>
+    
+  </entry>
   
   <entry>
     <title>Elasticsearch-PHP API 的使用</title>
@@ -435,7 +521,7 @@
     <link href="https://www.zhangquan.me/2021/06/29/php-duo-jin-cheng-bian-cheng/"/>
     <id>https://www.zhangquan.me/2021/06/29/php-duo-jin-cheng-bian-cheng/</id>
     <published>2021-06-29T07:40:21.000Z</published>
-    <updated>2021-11-26T08:18:19.358Z</updated>
+    <updated>2021-12-09T11:43:52.938Z</updated>
     
     
       
@@ -478,82 +564,6 @@
     
     
     <category term="Git" scheme="https://www.zhangquan.me/tags/Git/"/>
-    
-    <category term="工具" scheme="https://www.zhangquan.me/tags/%E5%B7%A5%E5%85%B7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Elasticsearch 学习研究</title>
-    <link href="https://www.zhangquan.me/2021/06/29/elasticsearch-xue-xi-yan-jiu/"/>
-    <id>https://www.zhangquan.me/2021/06/29/elasticsearch-xue-xi-yan-jiu/</id>
-    <published>2021-06-29T07:22:28.000Z</published>
-    <updated>2021-11-26T08:17:00.443Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;Elasticsearch-学习研究&quot;&gt;&lt;a href=&quot;#Elasticsearch-学习研究&quot; class=&quot;headerlink&quot; title=&quot;Elasticsearch 学习研究&quot;&gt;&lt;/a&gt;Elasticsearch 学习研究&lt;/h1&gt;&lt;hr&gt;
-&lt;h2</summary>
-        
-      
-    
-    
-    
-    <category term="后端" scheme="https://www.zhangquan.me/categories/%E5%90%8E%E7%AB%AF/"/>
-    
-    
-    <category term="中间件" scheme="https://www.zhangquan.me/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用openssl自建CA和颁发多域名通配符证书</title>
-    <link href="https://www.zhangquan.me/2021/06/29/shi-yong-openssl-zi-jian-ca-he-ban-fa-duo-yu-ming-tong-pei-fu-zheng-shu/"/>
-    <id>https://www.zhangquan.me/2021/06/29/shi-yong-openssl-zi-jian-ca-he-ban-fa-duo-yu-ming-tong-pei-fu-zheng-shu/</id>
-    <published>2021-06-29T07:15:47.000Z</published>
-    <updated>2021-11-26T08:18:41.145Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;使用openssl自建CA和颁发多域名通配符证书&quot;&gt;&lt;a href=&quot;#使用openssl自建CA和颁发多域名通配符证书&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="Linux" scheme="https://www.zhangquan.me/categories/Linux/"/>
-    
-    
-    <category term="运维" scheme="https://www.zhangquan.me/tags/%E8%BF%90%E7%BB%B4/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>进程的守护神-daemontools</title>
-    <link href="https://www.zhangquan.me/2021/06/29/jin-cheng-de-shou-hu-shen-daemontools/"/>
-    <id>https://www.zhangquan.me/2021/06/29/jin-cheng-de-shou-hu-shen-daemontools/</id>
-    <published>2021-06-29T06:42:40.000Z</published>
-    <updated>2021-11-26T08:19:54.228Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;进程的守护神-daemontools&quot;&gt;&lt;a href=&quot;#进程的守护神-daemontools&quot; class=&quot;headerlink&quot; title=&quot;进程的守护神 - daemontools&quot;&gt;&lt;/a&gt;进程的守护神 -</summary>
-        
-      
-    
-    
-    
-    <category term="Linux" scheme="https://www.zhangquan.me/categories/Linux/"/>
-    
     
     <category term="工具" scheme="https://www.zhangquan.me/tags/%E5%B7%A5%E5%85%B7/"/>
     

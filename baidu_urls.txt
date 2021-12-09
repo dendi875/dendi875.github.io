@@ -1,3 +1,6 @@
+https://www.zhangquan.me/2021/12/09/c-he-zhi-zhen-er/
+https://www.zhangquan.me/2021/12/09/c-he-zhi-zhen-yi/
+https://www.zhangquan.me/2021/12/09/autotools-jian-jie-autoconf-automake/
 https://www.zhangquan.me/2021/12/05/elasticsearch-php-api-de-shi-yong/
 https://www.zhangquan.me/2021/11/26/spring-boot-ji-cheng-cat-quan-lian-lu-jian-kong/
 https://www.zhangquan.me/2021/11/26/cat-fu-wu-duan-an-zhuang/
