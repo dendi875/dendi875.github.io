@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2021-12-09T12:15:05.521Z</updated>
+  <updated>2022-03-01T02:00:11.105Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>在MacOS系统上编译OpenJDK12并使用CLion调试</title>
+    <link href="https://www.zhangquan.me/2022/03/01/zai-macos-xi-tong-shang-bian-yi-openjdk12-bing-shi-yong-clion-diao-shi/"/>
+    <id>https://www.zhangquan.me/2022/03/01/zai-macos-xi-tong-shang-bian-yi-openjdk12-bing-shi-yong-clion-diao-shi/</id>
+    <published>2022-03-01T01:55:13.000Z</published>
+    <updated>2022-03-01T02:00:11.105Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;1-MAC-环境&quot;&gt;&lt;a href=&quot;#1-MAC-环境&quot; class=&quot;headerlink&quot; title=&quot;1. MAC 环境&quot;&gt;&lt;/a&gt;1. MAC 环境&lt;/h2&gt;&lt;p&gt;macOS Catalina 版本 10.15.6&lt;/p&gt;
+&lt;h2</summary>
+        
+      
+    
+    
+    
+    <category term="JVM" scheme="https://www.zhangquan.me/categories/JVM/"/>
+    
+    
+    <category term="JAVA" scheme="https://www.zhangquan.me/tags/JAVA/"/>
+    
+  </entry>
   
   <entry>
     <title>C 语言中对链表的简单操作</title>
@@ -533,33 +559,6 @@
         
         
     <summary type="html">&lt;h1 id=&quot;简单工厂模式-Simple-Factory-Pattern&quot;&gt;&lt;a href=&quot;#简单工厂模式-Simple-Factory-Pattern&quot; class=&quot;headerlink&quot; title=&quot;简单工厂模式 (Simple Factory</summary>
-        
-      
-    
-    
-    
-    <category term="设计模式" scheme="https://www.zhangquan.me/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-    <category term="PHP" scheme="https://www.zhangquan.me/tags/PHP/"/>
-    
-    <category term="面向对象" scheme="https://www.zhangquan.me/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>设计模式之-创建型模式-单例模式（Singleton Pattern）</title>
-    <link href="https://www.zhangquan.me/2021/06/29/she-ji-mo-shi-zhi-chuang-jian-xing-mo-shi-dan-li-mo-shi-singleton-pattern/"/>
-    <id>https://www.zhangquan.me/2021/06/29/she-ji-mo-shi-zhi-chuang-jian-xing-mo-shi-dan-li-mo-shi-singleton-pattern/</id>
-    <published>2021-06-29T08:28:10.000Z</published>
-    <updated>2021-11-26T08:18:47.140Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;设计模式之-单例模式（Singleton-Pattern）&quot;&gt;&lt;a href=&quot;#设计模式之-单例模式（Singleton-Pattern）&quot; class=&quot;headerlink&quot; title=&quot;设计模式之-单例模式（Singleton</summary>
         
       
     
