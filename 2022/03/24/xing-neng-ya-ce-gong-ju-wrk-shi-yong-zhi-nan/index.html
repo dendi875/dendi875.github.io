@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="设计模式之-创建型模式-建造者模式 (Builder Pattern), PHP,Java,Go,MySQL,Linux,Docker等">
+    <meta name="keywords" content="性能压测工具 wrk 使用指南, PHP,Java,Go,MySQL,Linux,Docker等">
     <meta name="description" content="PHP Go MySQL 后端开发">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>设计模式之-创建型模式-建造者模式 (Builder Pattern) | 一代键客</title>
+    <title>性能压测工具 wrk 使用指南 | 一代键客</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -327,12 +327,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">设计模式之-创建型模式-建造者模式 (Builder Pattern)</h1>
+                    <h1 class="description center-align post-title">性能压测工具 wrk 使用指南</h1>
                 </div>
             </div>
         </div>
@@ -448,12 +448,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/PHP/">
-                                <span class="chip bg-color">PHP</span>
-                            </a>
-                        
-                            <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
-                                <span class="chip bg-color">面向对象</span>
+                            <a href="/tags/%E5%B7%A5%E5%85%B7/">
+                                <span class="chip bg-color">工具</span>
                             </a>
                         
                     </div>
@@ -464,8 +460,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-category">
-                                设计模式
+                            <a href="/categories/Linux%EF%BC%8C%E5%88%86%E5%B8%83%E5%BC%8F%EF%BC%8C%E6%9E%B6%E6%9E%84/" class="post-category">
+                                Linux，分布式，架构
                             </a>
                         
                     </div>
@@ -477,21 +473,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-06-30
+                    2022-03-24
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-11-26
+                    2022-03-24
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3k
+                    2.7k
                 </div>
                 
 
@@ -521,387 +517,231 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="建造者模式-Builder-Pattern"><a href="#建造者模式-Builder-Pattern" class="headerlink" title="建造者模式 (Builder Pattern)"></a>建造者模式 (Builder Pattern)</h1><hr>
-<h3 id="0-建造者模式概述"><a href="#0-建造者模式概述" class="headerlink" title="0. 建造者模式概述"></a>0. 建造者模式概述</h3><p>无论是在现实世界中还是在软件系统中，都存在一些复杂的对象，它们拥有多个组成部分，如汽车，它包括车轮、方向盘、发动机等各种部件。而对于大多数用户而言，无须知道这些部件的装配细节，也几乎不会使用单独某个部件，而是使用一辆完整的汽车，可以通过建造者模式对其进行设计与描述，建造者模式可以将部件和其组装过程分开，一步一步创建一个复杂的对象。用户只需要指定复杂对象的类型就可以得到该对象，而无须知道其内部的具体构造细节。</p>
-<p>在软件开发中，也存在大量类似汽车一样的复杂对象，它们拥有一系列成员属性，这些成员属性中有些是引用类型的成员对象。而且在这些复杂对象中，还可能存在一些限制条件，如某些属性没有赋值则复杂对象不能作为一个完整的产品使用；有些属性的赋值必须按照某个顺序，一个属性没有赋值之前，另一个属性可能无法赋值等。</p>
-<p>复杂对象相当于一辆有待建造的汽车，而对象的属性相当于汽车的部件，建造产品的过程就相当于组合部件的过程。由于组合部件的过程很复杂，因此，这些部件的组合过程往往被“外部化”到一个称作建造者的对象里，建造者返还给客户端的是一个已经建造完毕的完整产品对象，而用户无须关心该对象所包含的属性以及它们的组装方式，这就是建造者模式的模式动机。</p>
-<h3 id="1-模式定义"><a href="#1-模式定义" class="headerlink" title="1. 模式定义"></a>1. 模式定义</h3><blockquote>
-<p>建造者模式 (Builder Pattern)：将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。</p>
+                <p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/wrk-0.png"></p>
+<h1 id="一、什么是-wrk"><a href="#一、什么是-wrk" class="headerlink" title="一、什么是 wrk"></a>一、什么是 wrk</h1><p>wrk 是一个开源的、热门的、现代的单机 HTTP 基准测试工具，目前 GitHub 开源平台累计了 31.8k 的 star 数目，足以可见 wrk 在 HTTP 基准测试领域的热门程度。它结合了多线程设计和可扩展的事件通知系统，如 <a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man7/epoll.7.html">epoll</a> 和 <a target="_blank" rel="noopener" href="https://www.freebsd.org/cgi/man.cgi?query=kqueue&amp;sektion=2">kqueue</a> ，可以在有限的资源下对目标机器产生大量的负载。并且内置了一个可选的 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/LuaJIT">LuaJIT</a> 脚本执行引擎，可以处理复杂的 HTTP 请求生成、响应处理以及自定义压测报告。</p>
+<p>wrk项目地址：<a target="_blank" rel="noopener" href="https://github.com/wg/wrk">https://github.com/wg/wrk</a></p>
+<h1 id="二、wrk-的优缺点"><a href="#二、wrk-的优缺点" class="headerlink" title="二、wrk 的优缺点"></a>二、wrk 的优缺点</h1><h2 id="2-1-优点"><a href="#2-1-优点" class="headerlink" title="2.1 优点"></a>2.1 优点</h2><ul>
+<li>轻量级性能测试工具</li>
+<li>安装简单（相对 Apache ab 来说）</li>
+<li>学习曲线基本为零，几分钟就能学会如何使用了</li>
+<li>基于系统自带的高性能 I/O 机制，如 epoll, kqueue, 利用异步的事件驱动框架，通过很少的线程就可以压出很大的并发量</li>
+</ul>
+<h2 id="2-2-缺点"><a href="#2-2-缺点" class="headerlink" title="2.2 缺点"></a>2.2 缺点</h2><p>wrk 目前仅支持单机压测，后续也不太可能支持多机器对目标机压测，因为它本身的定位，并不是用来取代 JMeter, LoadRunner 等专业的测试工具，wrk 提供的功能，对我们后端开发人员来说，应付日常接口性能验证还是比较友好的。</p>
+<h1 id="三、安装-wrk"><a href="#三、安装-wrk" class="headerlink" title="三、安装 wrk"></a>三、安装 wrk</h1><h2 id="3-1-Linux-安装"><a href="#3-1-Linux-安装" class="headerlink" title="3.1 Linux 安装"></a>3.1 Linux 安装</h2><h3 id="3-1-1-Ubuntu-Debian"><a href="#3-1-1-Ubuntu-Debian" class="headerlink" title="3.1.1 Ubuntu/Debian"></a>3.1.1 Ubuntu/Debian</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ sudo apt-get install build-essential libssl-dev git -y
+$ git clone https://github.com/wg/wrk.git wrk
+$ cd wrk
+$ make
+# 将可执行文件移动到 /usr/local/bin 位置
+$ sudo cp wrk /usr/local/bin<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="3-1-2-CentOS-RedHat-Fedora"><a href="#3-1-2-CentOS-RedHat-Fedora" class="headerlink" title="3.1.2 CentOS/RedHat/Fedora"></a>3.1.2 CentOS/RedHat/Fedora</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ sudo yum groupinstall 'Development Tools'
+$ sudo yum install -y openssl-devel git 
+$ git clone https://github.com/wg/wrk.git wrk
+$ cd wrk
+$ make
+# 将可执行文件移动到 /usr/local/bin 位置
+$ sudo cp wrk /usr/local/bin<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="3-2-MacOS-安装"><a href="#3-2-MacOS-安装" class="headerlink" title="3.2 MacOS 安装"></a>3.2 MacOS 安装</h2><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">brew install wrk<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h1 id="四、如何使用"><a href="#四、如何使用" class="headerlink" title="四、如何使用"></a>四、如何使用</h1><h2 id="4-1-基础使用"><a href="#4-1-基础使用" class="headerlink" title="4.1 基础使用"></a>4.1 基础使用</h2><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ wrk -t12 -c400 -d30s http://www.zhangquan.me<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>这条命令表示，利用 wrk 对 <a href="http://www.zhangquan.me/">www.zhangquan.me</a> 发起压力测试，线程数为 12，模拟 400 个并发请求，持续 30 秒。</p>
+<h2 id="4-2-wrk-参数说明"><a href="#4-2-wrk-参数说明" class="headerlink" title="4.2 wrk 参数说明"></a>4.2 wrk 参数说明</h2><p>除了上面简单示例中使用到的子命令参数，wrk 还有其他更丰富的功能，命令行中输入 wrk –help, 可以看到支持以下子命令：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/wrk-2.png"></p>
+<pre class="line-numbers language-cmd" data-language="cmd"><code class="language-cmd">使用方法: wrk &lt;选项&gt; &lt;被测HTTP服务的URL&gt;                            
+  Options:                                            
+    -c, --connections &lt;N&gt;  跟服务器建立并保持的TCP连接数量  
+    -d, --duration    &lt;T&gt;  压测时间           
+    -t, --threads     &lt;N&gt;  使用多少个线程进行压测   
+                                                      
+    -s, --script      &lt;S&gt;  指定Lua脚本路径       
+    -H, --header      &lt;H&gt;  为每一个HTTP请求添加HTTP头      
+        --latency          在压测结束后，打印延迟直方图信息   
+        --timeout     &lt;T&gt;  如果在此时间内没有收到响应，则记录超时    
+    -v, --version          打印正在使用的wrk的详细版本信息
+                                                      
+  &lt;N&gt;代表数字参数，支持国际单位 (1k, 1M, 1G)
+  &lt;T&gt;代表时间参数，支持时间单位 (2s, 2m, 2h)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><code>-</code>开头的指令为简写的，后面两个打印延迟直方图和超时设置没有简写的，只能<code>--</code>开头指定</p>
+<blockquote>
+<p>PS: 关于线程数，并不是设置的越大，压测效果越好，线程设置过大，反而会导致线程切换过于频繁，效果降低，一般来说，推荐设置成压测机器 CPU 核心数的 2 倍到 4 倍就行了。</p>
 </blockquote>
-<p>建造者模式又称为生成器模式，它是一种<strong>对象创建型模式</strong>。</p>
-<h3 id="2-模式结构"><a href="#2-模式结构" class="headerlink" title="2. 模式结构"></a>2. 模式结构</h3><p>建造者模式包含如下角色：</p>
-<ul>
-<li><p><code>Builder</code>：<strong>抽象建造者</strong></p>
-<ul>
-<li>它为创建一个产品Product对象的各个部件指定抽象接口，在该接口中一般声明两类方法，一类方法是buildPartX()，它们用于创建复杂对象的各个部件；另一类方法是getResult()，它们用于返回复杂对象。Builder既可以是抽象类，也可以是接口。</li>
-</ul>
-</li>
-<li><p><code>ConcreteBuilder</code>：<strong>具体建造者</strong></p>
-<ul>
-<li>它实现了Builder接口，实现各个部件的具体构造和装配方法，定义并明确它所创建的复杂对象，也可以提供一个方法返回创建好的复杂产品对象。</li>
-</ul>
-</li>
-<li><p><code>Product</code>：<strong>产品角色</strong></p>
-<ul>
-<li>它是被构建的复杂对象，包含多个组成部件，具体建造者创建该产品的内部表示并定义它的装配过程。</li>
-</ul>
-</li>
-<li><p><code>Director</code>：<strong>指挥者</strong></p>
-<ul>
-<li>指挥者又称为导演类，它负责安排复杂对象的建造次序，指挥者与抽象建造者之间存在关联关系，可以在其construct()建造方法中调用建造者对象的部件构造与装配方法，完成复杂对象的建造。客户端一般只需要与指挥者进行交互，在客户端确定具体建造者的类型，并实例化具体建造者对象，然后通过指挥者类的构造函数或者Setter方法将该对象传入指挥者类中。</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/BuilderPattern-0.png" alt="BuilderPattern-0"></p>
-<h3 id="3-模式实现"><a href="#3-模式实现" class="headerlink" title="3. 模式实现"></a>3. 模式实现</h3><ul>
-<li><p>建造者模式是较为复杂的创建型模式，它将客户端与包含多个组成部分（或部件）的复杂对象的创建过程分离，客户端无须知道复杂对象的内部组成部分与装配方式，只需要知道所需建造者的类型即可。它关注如何一步一步创建一个的复杂对象，不同的具体建造者定义了不同的创建过程，且具体建造者相互独立，增加新的建造者非常方便，无须修改已有代码，系统具有较好的扩展性。</p>
-</li>
-<li><p>在建造者模式的结构中引入了一个指挥者类Director，该类主要有两个作用：一方面它隔离了客户端与产品创建的过程；另一方面它控制产品的创建过程，包括某个buildPartX()方法是否被调用以及多个buildPartX()方法调用的先后次序等。指挥者针对抽象建造者编程，客户端只需要知道具体建造者的类型，即可通过指挥者类调用建造者的相关方法，返回一个完整的产品对象。</p>
-</li>
-</ul>
-<h3 id="4-建造者模式应用实例"><a href="#4-建造者模式应用实例" class="headerlink" title="4. 建造者模式应用实例"></a>4. 建造者模式应用实例</h3><p>下面通过一个实例进一步学习和理解建造者模式。</p>
-<h3 id="实例说明"><a href="#实例说明" class="headerlink" title="实例说明"></a>实例说明</h3><p>现在需要开发一个创建RPG游戏角色的功能，像大多数RPG游戏一样不同类型的游戏角色，其性别、脸型、服装、发型等外部特性都有所差异，例如“天使”拥有美丽的面容和披肩的长发，并身穿一袭白裙；而“恶魔”极其丑陋，留着光头并穿一件刺眼的黑衣。</p>
-<p>现使用建造者模式来实现游戏角色的创建。</p>
-<h3 id="实例代码"><a href="#实例代码" class="headerlink" title="实例代码"></a>实例代码</h3><ul>
-<li>Actor：<code>产品角色类</code></li>
-</ul>
-<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token comment">/**
- * 游戏角色类(复杂产品类)，本例子成员属性(部件或零件)都是很简单的string，真实情况下
- *可能会存在多个成员属性是其它类的对象，所以才构成一个复杂对象
- *
- * @author     &lt;dendi875@163.com&gt;
- * @createDate 2018-05-12
- * @copyright  Copyright (c) 2018 dendi875@163.com
- */</span>
+<p>MAC 查看 CPU 物理处理器数量和逻辑处理器数量</p>
+<pre class="line-numbers language-cmd" data-language="cmd"><code class="language-cmd">$ sysctl hw.physicalcpu hw.logicalcpu
+hw.physicalcpu: 8
+hw.logicalcpu: 16<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-<span class="token keyword">class</span> <span class="token class-name-definition class-name">Actor</span>
-<span class="token punctuation">{</span>
-    <span class="token comment">/**
-     * 角色类型
-     * @var string
-     */</span>
-    <span class="token keyword">private</span> <span class="token variable">$type</span><span class="token punctuation">;</span>
+<h2 id="4-3-压测报告"><a href="#4-3-压测报告" class="headerlink" title="4.3 压测报告"></a>4.3 压测报告</h2><p>执行压测命令:</p>
+<pre class="line-numbers language-cmd" data-language="cmd"><code class="language-cmd">$ wrk -t12 -c400 -d30s --latency http://www.zhangquan.me  <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-    <span class="token comment">/**
-     * 角色性别
-     * @var string
-     */</span>
-    <span class="token keyword">private</span> <span class="token variable">$sex</span><span class="token punctuation">;</span>
+<p>生成如下压测报告：</p>
+<pre class="line-numbers language-cmd" data-language="cmd"><code class="language-cmd">Running 30s test @ http://www.zhangquan.me （运行30s测试）
+  12 threads and 400 connections （共12个测试线程，400个连接）
+                
+  Thread Stats   Avg（平均值）      Stdev（标准差）     Max (最大值)    +/- Stdev（正负一个标准差所占比例）
+    Latency (延迟）    79.18ms   24.43ms 737.24ms   97.75%
+    Req/Sec (每秒请求数)     423.57     38.26   530.00     87.14%
+  Latency Distribution (延迟直方图)
+     50%   76.95ms (50%请求延迟在76.95ms内)
+     75%   89.43ms (75%请求延迟在89.43ms内)
+     90%   95.05ms (90%请求延迟在95.05ms内)
+     99%  143.00ms (99%请求延迟在143.00ms内)
+  152148 requests in 30.09s, 94.74MB read (30.09s内处理了152148个请求，耗费流量94.74MB)
+Requests/sec:   5056.18 (QPS 5056.18,即平均每秒处理请求数为5056.18)
+Transfer/sec:      3.15MB (平均每秒流量3.15MB)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-    <span class="token comment">/**
-     * 角色脸形
-     * @var string
-     */</span>
-    <span class="token keyword">private</span> <span class="token variable">$face</span><span class="token punctuation">;</span>
+<blockquote>
+<p>标准差啥意思？标准差如果太大说明样本本身离散程度比较高，有可能系统性能波动较大。</p>
+</blockquote>
+<h2 id="4-4-使用-Lua-脚本进行复杂测试"><a href="#4-4-使用-Lua-脚本进行复杂测试" class="headerlink" title="4.4 使用 Lua 脚本进行复杂测试"></a>4.4 使用 Lua 脚本进行复杂测试</h2><p>您可能有疑问了，你这种进行 GET 请求还凑合，我想进行 POST 请求咋办？而且我想每次的请求参数都不一样，用来模拟用户使用的实际场景，又要怎么弄呢？</p>
+<p>对于这种需求，我们可以通过编写 Lua 脚本的方式，在运行压测命令时，通过参数 –script 来指定 Lua 脚本，来满足个性化需求。</p>
+<h3 id="4-4-1-wrk-对-Lua-脚本的支持"><a href="#4-4-1-wrk-对-Lua-脚本的支持" class="headerlink" title="4.4.1 wrk 对 Lua 脚本的支持"></a>4.4.1 wrk 对 Lua 脚本的支持</h3><p>wrk 支持在三个阶段对压测进行个性化，分别是启动阶段、运行阶段和结束阶段。每个测试线程，都拥有独立的Lua 运行环境。</p>
+<h4 id="启动阶段："><a href="#启动阶段：" class="headerlink" title="启动阶段："></a>启动阶段：</h4><pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token keyword">function</span> <span class="token function">setup</span><span class="token punctuation">(</span>thread<span class="token punctuation">)</span>
+    thread<span class="token punctuation">.</span>addr <span class="token operator">=</span> <span class="token string">"http://www.zhangquan.me"</span>        
+    thread<span class="token punctuation">:</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"name"</span><span class="token punctuation">)</span>      
+    thread<span class="token punctuation">:</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string">"name"</span><span class="token punctuation">,</span> <span class="token string">"zq"</span><span class="token punctuation">)</span> 
+    thread<span class="token punctuation">:</span><span class="token function">stop</span><span class="token punctuation">(</span><span class="token punctuation">)</span>          
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-    <span class="token comment">/**
-     * 角色服装
-     * @var string
-     */</span>
-    <span class="token keyword">private</span> <span class="token variable">$constume</span><span class="token punctuation">;</span>
+<p>在脚本文件中实现 setup 方法，wrk 就会在测试线程已经初始化，但还没有启动的时候调用该方法。wrk会为每一个测试线程调用一次 setup 方法，并传入代表测试线程的对象 thread 作为参数。setup 方法中可操作该 thread 对象，获取信息、存储信息、甚至关闭该线程。</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua">thread<span class="token punctuation">.</span>addr             <span class="token operator">-</span> get <span class="token keyword">or</span> set the thread's server address <span class="token operator">#</span> 获取或设置请求的地址
+thread<span class="token punctuation">:</span><span class="token function">get</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span>        <span class="token operator">-</span> get the value of a global <span class="token keyword">in</span> the thread's env <span class="token operator">#</span> 获取全局变量的值
+thread<span class="token punctuation">:</span><span class="token function">set</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span> value<span class="token punctuation">)</span> <span class="token operator">-</span> set the value of a global <span class="token keyword">in</span> the thread's  env <span class="token operator">#</span> 在线程的环境中设置全局变量的值
+thread<span class="token punctuation">:</span><span class="token function">stop</span><span class="token punctuation">(</span><span class="token punctuation">)</span>           <span class="token operator">-</span> stop the thread <span class="token operator">#</span> 停止线程<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
-    <span class="token comment">/**
-     * 角色发型
-     * @var string
-     */</span>
-    <span class="token keyword">private</span> <span class="token variable">$hairstype</span><span class="token punctuation">;</span>
+<h4 id="运行阶段："><a href="#运行阶段：" class="headerlink" title="运行阶段："></a>运行阶段：</h4><pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token keyword">function</span> <span class="token function">init</span><span class="token punctuation">(</span>args<span class="token punctuation">)</span> 
+    <span class="token function">print</span><span class="token punctuation">(</span>args<span class="token punctuation">)</span>
+<span class="token keyword">end</span>
 
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">setType</span><span class="token punctuation">(</span><span class="token keyword type-hint">string</span> <span class="token variable">$type</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword return-type">void</span>
-    <span class="token punctuation">{</span>
-        <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">type</span> <span class="token operator">=</span> <span class="token variable">$type</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+<span class="token keyword">function</span> <span class="token function">delay</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+   <span class="token keyword">return</span> <span class="token number">10</span>
+<span class="token keyword">end</span>
 
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">setSex</span><span class="token punctuation">(</span><span class="token keyword type-hint">string</span> <span class="token variable">$sex</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword return-type">void</span>
-    <span class="token punctuation">{</span>
-        <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">sex</span> <span class="token operator">=</span> <span class="token variable">$sex</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+<span class="token keyword">function</span> <span class="token function">request</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    requests <span class="token operator">=</span> requests <span class="token operator">+</span> <span class="token number">1</span>
+    <span class="token keyword">return</span> wrk<span class="token punctuation">.</span><span class="token function">request</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span>
 
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">setFace</span><span class="token punctuation">(</span><span class="token keyword type-hint">string</span> <span class="token variable">$face</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword return-type">void</span>
-    <span class="token punctuation">{</span>
-        <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">face</span> <span class="token operator">=</span> <span class="token variable">$face</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">setConstume</span><span class="token punctuation">(</span><span class="token keyword type-hint">string</span> <span class="token variable">$constume</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword return-type">void</span>
-    <span class="token punctuation">{</span>
-        <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">constume</span> <span class="token operator">=</span> <span class="token variable">$constume</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">setHairstype</span><span class="token punctuation">(</span><span class="token keyword type-hint">string</span> <span class="token variable">$hairstype</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword return-type">void</span>
-    <span class="token punctuation">{</span>
-        <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">hairstype</span> <span class="token operator">=</span> <span class="token variable">$hairstype</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">getType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword return-type">string</span>
-    <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">type</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">getSex</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword return-type">string</span>
-    <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">sex</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">getFace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword return-type">string</span>
-    <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">face</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">getConstume</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword return-type">string</span>
-    <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">constume</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">getHairstype</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword return-type">string</span>
-    <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">hairstype</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token keyword">function</span> <span class="token function">response</span><span class="token punctuation">(</span>status<span class="token punctuation">,</span> headers<span class="token punctuation">,</span> body<span class="token punctuation">)</span>
+    responses <span class="token operator">=</span> responses <span class="token operator">+</span> <span class="token number">1</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <ul>
-<li>ActorBuilder： <code>抽象建造者类</code></li>
+<li>init(args): <strong>初始化。</strong> 由测试线程调用，只会在进入运行阶段时，调用一次。支持从启动 wrk 的命令中，获取命令行参数；args为从命令行传过来的额外参数。</li>
+<li>delay()： <strong>每次请求前设置延迟。</strong> 在每次发送请求之前调用，如果需要定制延迟时间，可以在这个方法中设置。</li>
+<li>request():  <strong>发起请求。</strong>         每次请求执行一次，返回包含HTTP请求的字符串。每次构建新请求的开销都很大，在测试高性能服务器时，一种解决方案是在init()中预先生成所有请求，并在request()中进行快速查找。</li>
+<li>response(status, headers, body): <strong>响应处理。</strong> 在每次收到一个响应时被调用，为提升性能，如果没有定义该方法，那么wrk不会解析 headers 和 body。</li>
 </ul>
-<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token comment">/**
- * 角色建造器：抽象建造者
- *
- * @author     &lt;dendi875@163.com&gt;
- * @createDate 2018-05-12
- * @copyright  Copyright (c) 2018 dendi875@163.com
- */</span>
+<h4 id="结束阶段："><a href="#结束阶段：" class="headerlink" title="结束阶段："></a>结束阶段：</h4><pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token keyword">function</span> <span class="token function">done</span><span class="token punctuation">(</span>summary<span class="token punctuation">,</span> latency<span class="token punctuation">,</span> requests<span class="token punctuation">)</span>
+    <span class="token keyword">for</span> index<span class="token punctuation">,</span> thread <span class="token keyword">in</span> <span class="token function">ipairs</span><span class="token punctuation">(</span>threads<span class="token punctuation">)</span> <span class="token keyword">do</span>
+        <span class="token keyword">local</span> id <span class="token operator">=</span> thread<span class="token punctuation">:</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"id"</span><span class="token punctuation">)</span>
+        <span class="token keyword">local</span> requests <span class="token operator">=</span> thread<span class="token punctuation">:</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"requests"</span><span class="token punctuation">)</span>
+        <span class="token keyword">local</span> responses <span class="token operator">=</span> thread<span class="token punctuation">:</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"responses"</span><span class="token punctuation">)</span>
+        <span class="token keyword">local</span> msg <span class="token operator">=</span> <span class="token string">"thread %d made %d requests and got %d responses"</span>
+        <span class="token function">print</span><span class="token punctuation">(</span>msg<span class="token punctuation">:</span><span class="token function">format</span><span class="token punctuation">(</span>id<span class="token punctuation">,</span> requests<span class="token punctuation">,</span> responses<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">end</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>请求完成。</strong> done() 方法在整个测试过程中只会被调用一次，我们可以从给定的参数中，获取压测结果，生成定制化的测试报告。done()函数接收一个包含结果数据的表和两个统计数据对象，分别表示每个请求延迟和每个线程请求速率。<br>持续时间和延迟是微秒值，速率是以每秒请求数来度量的。</p>
+<h4 id="自定义-Lua-脚本中可访问的变量以及方法："><a href="#自定义-Lua-脚本中可访问的变量以及方法：" class="headerlink" title="自定义 Lua 脚本中可访问的变量以及方法："></a>自定义 Lua 脚本中可访问的变量以及方法：</h4><p>变量：wrk</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua">wrk <span class="token operator">=</span> <span class="token punctuation">{</span>
+    scheme  <span class="token operator">=</span> <span class="token string">"http"</span><span class="token punctuation">,</span>
+    host    <span class="token operator">=</span> <span class="token string">"localhost"</span><span class="token punctuation">,</span>
+    port    <span class="token operator">=</span> <span class="token number">8080</span><span class="token punctuation">,</span>
+    method  <span class="token operator">=</span> <span class="token string">"GET"</span><span class="token punctuation">,</span>
+    path    <span class="token operator">=</span> <span class="token string">"/"</span><span class="token punctuation">,</span>
+    headers <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    body    <span class="token operator">=</span> <span class="token keyword">nil</span><span class="token punctuation">,</span>
+    thread  <span class="token operator">=</span> <span class="token operator">&lt;</span>userdata<span class="token operator">&gt;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name-definition class-name">ActorBuilder</span>
-<span class="token punctuation">{</span>
-    <span class="token comment">/**
-     * 游戏角色产品对象
-     * @var Actor
-     */</span>
-    <span class="token keyword">protected</span> <span class="token variable">$actor</span><span class="token punctuation">;</span>
-
-    <span class="token comment">/**
-     *+-----------------------------------------------------------
-     *| 这里ActorBuilder 与 Actor 表现为组合关系。
-     *|----------------------------------------------------------
-     *| ActorBuilder为整体对象，Actor为成员对象。
-     *|-----------------------------------------------------------
-     *| 组合关系表示类之间整体和部分的关系，成员对象与整体对象之间
-     *| 具有同生共死的关系，一旦整体对象不存在，成员对象也将不存在。
-     *+-----------------------------------------------------------
-     *| 组合关系通常通过在整体类的构造方法中直接实例化成员类。
-     *+-----------------------------------------------------------
-     *
-     * @return Actor
-     */</span>
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">__construct</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">{</span>
-        <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">actor</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Actor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">abstract</span> <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">buildType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token keyword">abstract</span> <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">buildSex</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token keyword">abstract</span> <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">buildFace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token keyword">abstract</span> <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">buildConstume</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token keyword">abstract</span> <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">buildHairstyle</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token comment">/**
-     * 返回一个构建好的完整的游戏角色对象
-     *
-     * @return Actor
-     */</span>
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">createActor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token class-name return-type">Actor</span>
-    <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">actor</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+<p>以上定义了一个 table 类型的全局变量，修改该 wrk 变量，会影响所有请求。</p>
+<p>方法：</p>
 <ul>
-<li>HeroBuilder、AngelBuilder、DevilBuilder： <code>具体建造类</code></li>
+<li>wrk.fomat</li>
+<li>wrk.lookup</li>
+<li>wrk.connect</li>
 </ul>
-<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token comment">/**
- * 英雄角色建造器：具体建造者
- *
- * @author     &lt;dendi875@163.com&gt;
- * @createDate 2018-05-12
- * @copyright  Copyright (c) 2018 dendi875@163.com
- */</span>
+<p>上面三个方法解释如下：</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token keyword">function</span> wrk<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span>method<span class="token punctuation">,</span> path<span class="token punctuation">,</span> headers<span class="token punctuation">,</span> body<span class="token punctuation">)</span>
 
-<span class="token keyword">class</span> <span class="token class-name-definition class-name">HeroBuilder</span> <span class="token keyword">extends</span> <span class="token class-name">ActorBuilder</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">buildType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword return-type">void</span>
-    <span class="token punctuation">{</span>
-        <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">actor</span><span class="token operator">-&gt;</span><span class="token function">setType</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'英雄'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+    wrk<span class="token punctuation">.</span>format returns a HTTP request string containing the passed parameters
+    merged with values from the wrk table<span class="token punctuation">.</span>
+    <span class="token operator">#</span> 根据参数和全局变量 wrk，生成一个 HTTP rquest 字符串。获取域名的IP和端口，返回table，例如：返回 `<span class="token punctuation">{</span><span class="token number">127.0</span><span class="token number">.0</span><span class="token number">.1</span><span class="token punctuation">:</span><span class="token number">80</span><span class="token punctuation">}</span>`
 
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">buildSex</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword return-type">void</span>
-    <span class="token punctuation">{</span>
-        <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">actor</span><span class="token operator">-&gt;</span><span class="token function">setSex</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'男'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+<span class="token keyword">function</span> wrk<span class="token punctuation">.</span><span class="token function">lookup</span><span class="token punctuation">(</span>host<span class="token punctuation">,</span> service<span class="token punctuation">)</span>
 
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">buildFace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword return-type">void</span>
-    <span class="token punctuation">{</span>
-        <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">actor</span><span class="token operator">-&gt;</span><span class="token function">setFace</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'英俊'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+    wrk<span class="token punctuation">.</span>lookup returns a table containing all known addresses <span class="token keyword">for</span> the host
+    <span class="token keyword">and</span> service pair<span class="token punctuation">.</span> This corresponds to the POSIX <span class="token function">getaddrinfo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">function</span><span class="token punctuation">.</span>
+    <span class="token operator">#</span> 给定 host 和 service（port<span class="token operator">/</span>well known service name），返回所有可用的服务器地址信息。
 
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">buildConstume</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword return-type">void</span>
-    <span class="token punctuation">{</span>
-        <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">actor</span><span class="token operator">-&gt;</span><span class="token function">setConstume</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'盔甲'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+<span class="token keyword">function</span> wrk<span class="token punctuation">.</span><span class="token function">connect</span><span class="token punctuation">(</span>addr<span class="token punctuation">)</span>
 
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">buildHairstyle</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword return-type">void</span>
-    <span class="token punctuation">{</span>
-        <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">actor</span><span class="token operator">-&gt;</span><span class="token function">setHairstype</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'飘逸'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
+    wrk<span class="token punctuation">.</span>connect returns <span class="token keyword">true</span> <span class="token keyword">if</span> the address can be connected to<span class="token punctuation">,</span> otherwise
+    it returns <span class="token keyword">false</span><span class="token punctuation">.</span> The address must be one returned from wrk<span class="token punctuation">.</span><span class="token function">lookup</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>
+    <span class="token operator">#</span> 测试给定的服务器地址信息是否可以成功创建连接，例如：`<span class="token number">127.0</span><span class="token number">.0</span><span class="token number">.1</span><span class="token punctuation">:</span><span class="token number">80</span>`，返回 <span class="token keyword">true</span> 或 <span class="token keyword">false</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<span class="token comment">/**
- * 天使角色建造器：具体建造者
- *
- * @author     &lt;dendi875@163.com&gt;
- * @createDate 2018-05-12
- * @copyright  Copyright (c) 2018 dendi875@163.com
- */</span>
+<h3 id="4-4-2-通过-Lua-脚本压测示例"><a href="#4-4-2-通过-Lua-脚本压测示例" class="headerlink" title="4.4.2 通过 Lua 脚本压测示例"></a>4.4.2 通过 Lua 脚本压测示例</h3><h4 id="调用-POST-接口："><a href="#调用-POST-接口：" class="headerlink" title="调用 POST 接口："></a>调用 POST 接口：</h4><pre class="line-numbers language-cmd" data-language="cmd"><code class="language-cmd">wrk.method = "POST"
+wrk.body   = "id=1&amp;name=zq"
+wrk.headers["Content-Type"] = "application/x-www-form-urlencoded"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-<span class="token keyword">class</span> <span class="token class-name-definition class-name">AngelBuilder</span> <span class="token keyword">extends</span> <span class="token class-name">ActorBuilder</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">buildType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword return-type">void</span>
-    <span class="token punctuation">{</span>
-        <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">actor</span><span class="token operator">-&gt;</span><span class="token function">setType</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'天使'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+<p>注意: wrk 是个全局变量，这里对其做了修改，使得所有请求都使用 POST 的方式，并指定了 body 和 Content-Type头。</p>
+<h4 id="自定义每次请求的参数："><a href="#自定义每次请求的参数：" class="headerlink" title="自定义每次请求的参数："></a>自定义每次请求的参数：</h4><pre class="line-numbers language-lua" data-language="lua"><code class="language-lua">request <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+   uid <span class="token operator">=</span> math<span class="token punctuation">.</span><span class="token function">random</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">10000000</span><span class="token punctuation">)</span>
+   path <span class="token operator">=</span> <span class="token string">"/test?uid="</span> <span class="token operator">..</span> uid
+   <span class="token keyword">return</span> wrk<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token keyword">nil</span><span class="token punctuation">,</span> path<span class="token punctuation">)</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">buildSex</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword return-type">void</span>
-    <span class="token punctuation">{</span>
-        <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">actor</span><span class="token operator">-&gt;</span><span class="token function">setSex</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'女'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+<p>在 request 方法中，随机生成 1~10000000 之间的 uid，并动态生成请求 URL.</p>
+<h4 id="每次请求前，延迟-10ms"><a href="#每次请求前，延迟-10ms" class="headerlink" title="每次请求前，延迟 10ms:"></a>每次请求前，延迟 10ms:</h4><pre class="line-numbers language-lua" data-language="lua"><code class="language-lua"><span class="token keyword">function</span> <span class="token function">delay</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+   <span class="token keyword">return</span> <span class="token number">10</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">buildFace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword return-type">void</span>
-    <span class="token punctuation">{</span>
-        <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">actor</span><span class="token operator">-&gt;</span><span class="token function">setFace</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'漂亮'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+<h4 id="请求的接口需要先进行认证，获取-token-后，才能发起请求，咋办？"><a href="#请求的接口需要先进行认证，获取-token-后，才能发起请求，咋办？" class="headerlink" title="请求的接口需要先进行认证，获取 token 后，才能发起请求，咋办？"></a>请求的接口需要先进行认证，获取 token 后，才能发起请求，咋办？</h4><pre class="line-numbers language-lua" data-language="lua"><code class="language-lua">token <span class="token operator">=</span> <span class="token keyword">nil</span>
+path  <span class="token operator">=</span> <span class="token string">"/auth"</span>
 
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">buildConstume</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword return-type">void</span>
-    <span class="token punctuation">{</span>
-        <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">actor</span><span class="token operator">-&gt;</span><span class="token function">setConstume</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'白裙'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+request <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+   <span class="token keyword">return</span> wrk<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"GET"</span><span class="token punctuation">,</span> path<span class="token punctuation">)</span>
+<span class="token keyword">end</span>
 
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">buildHairstyle</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword return-type">void</span>
-    <span class="token punctuation">{</span>
-        <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">actor</span><span class="token operator">-&gt;</span><span class="token function">setHairstype</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'披肩长发'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
+response <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>status<span class="token punctuation">,</span> headers<span class="token punctuation">,</span> body<span class="token punctuation">)</span>
+   <span class="token keyword">if</span> <span class="token keyword">not</span> token <span class="token keyword">and</span> status <span class="token operator">==</span> <span class="token number">200</span> <span class="token keyword">then</span>
+      token <span class="token operator">=</span> headers<span class="token punctuation">[</span><span class="token string">"X-Token"</span><span class="token punctuation">]</span>
+      path  <span class="token operator">=</span> <span class="token string">"/test"</span>
+      wrk<span class="token punctuation">.</span>headers<span class="token punctuation">[</span><span class="token string">"X-Token"</span><span class="token punctuation">]</span> <span class="token operator">=</span> token
+   <span class="token keyword">end</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<span class="token comment">/**
- * 恶魔角色建造器：具体建造者
- *
- * @author     &lt;dendi875@163.com&gt;
- * @createDate 2018-05-12
- * @copyright  Copyright (c) 2018 dendi875@163.com
- */</span>
+<p>上面的脚本表示，在 token 为空的情况下，先请求 /auth 接口来认证，获取 token, 拿到 token 以后，将 token 放置到请求头中，再请求真正需要压测的 /test 接口。</p>
+<h4 id="压测支持-HTTP-pipeline-的服务："><a href="#压测支持-HTTP-pipeline-的服务：" class="headerlink" title="压测支持 HTTP pipeline 的服务："></a>压测支持 HTTP pipeline 的服务：</h4><pre class="line-numbers language-lua" data-language="lua"><code class="language-lua">init <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>args<span class="token punctuation">)</span>
+   <span class="token keyword">local</span> r <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+   r<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> wrk<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token keyword">nil</span><span class="token punctuation">,</span> <span class="token string">"/?foo"</span><span class="token punctuation">)</span>
+   r<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> wrk<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token keyword">nil</span><span class="token punctuation">,</span> <span class="token string">"/?bar"</span><span class="token punctuation">)</span>
+   r<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">=</span> wrk<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token keyword">nil</span><span class="token punctuation">,</span> <span class="token string">"/?baz"</span><span class="token punctuation">)</span>
 
-<span class="token keyword">class</span> <span class="token class-name-definition class-name">DevilBuilder</span> <span class="token keyword">extends</span> <span class="token class-name">ActorBuilder</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">buildType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword return-type">void</span>
-    <span class="token punctuation">{</span>
-        <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">actor</span><span class="token operator">-&gt;</span><span class="token function">setType</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'恶魔'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+   req <span class="token operator">=</span> table<span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span>r<span class="token punctuation">)</span>
+<span class="token keyword">end</span>
 
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">buildSex</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword return-type">void</span>
-    <span class="token punctuation">{</span>
-        <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">actor</span><span class="token operator">-&gt;</span><span class="token function">setSex</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'妖'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+request <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+   <span class="token keyword">return</span> req
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">buildFace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword return-type">void</span>
-    <span class="token punctuation">{</span>
-        <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">actor</span><span class="token operator">-&gt;</span><span class="token function">setFace</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'丑陋'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+<p>通过在 init 方法中将三个 HTTP请求拼接在一起，实现每次发送三个请求，以使用 HTTP pipeline。</p>
+<h3 id="4-4-3-通过-Lua-测试脚本案例分析"><a href="#4-4-3-通过-Lua-测试脚本案例分析" class="headerlink" title="4.4.3 通过 Lua 测试脚本案例分析"></a>4.4.3 通过 Lua 测试脚本案例分析</h3><p>案例：我们线上有一个带缓存场景的接口服务，根据 uid 的值的查询结果缓存，所以，如果单纯对指定的 uid 压测，就变成了测试缓存系统的负载了，测试不出实际的服务性能，这个场景就需要测试工具发起每次请求的测试参数都是动态的。根据这个场景我们定制了如下的 lua 测试脚本：</p>
+<p>测试指令：</p>
+<pre class="line-numbers language-none"><code class="language-none">wrk -t16 -c100 -d5s -sreview_digress_list.lua --latency htt://127.0.0.1:8081<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">buildConstume</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword return-type">void</span>
-    <span class="token punctuation">{</span>
-        <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">actor</span><span class="token operator">-&gt;</span><span class="token function">setConstume</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'黑衣'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+<p>Lua 脚本：</p>
+<pre class="line-numbers language-lua" data-language="lua"><code class="language-lua">wrk<span class="token punctuation">.</span>method <span class="token operator">=</span><span class="token string">"GET"</span>
+wrk<span class="token punctuation">.</span>path <span class="token operator">=</span> <span class="token string">"/app/{uid}/review_digress_list"</span>
 
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">buildHairstyle</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword return-type">void</span>
-    <span class="token punctuation">{</span>
-        <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">actor</span><span class="token operator">-&gt;</span><span class="token function">setHairstype</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'光头'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<ul>
-<li>ActorDirector： <code>指挥者类</code></li>
-</ul>
-<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token comment">/**
- * 游戏角色创建者：指挥者
- *
- * @author     &lt;dendi875@163.com&gt;
- * @createDate 2018-05-12
- * @copyright  Copyright (c) 2018 dendi875@163.com
- */</span>
-
-<span class="token keyword">class</span> <span class="token class-name-definition class-name">ActorDirector</span>
-<span class="token punctuation">{</span>
-
-    <span class="token comment">/**
-     * 逐步构建复杂产品对象
-     *+-----------------------------------------------------------
-     *| 这里ActorDirector 与 ActorBuilder 表现为是依赖关系。
-     *+-----------------------------------------------------------
-     *|依赖关系通常有三种方式来实现
-     *|1.将一个类的对象作为另一个类中方法的参数
-     *|2.一个类的方法中将另一个类的对象作为其局部变量
-     *|3.在一个类的方法中调用另一个类的静态方法
-     *+-----------------------------------------------------------
-     *
-     * @return Actor
-     */</span>
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">build</span><span class="token punctuation">(</span><span class="token class-name type-declaration">ActorBuilder</span> <span class="token variable">$actorBuilder</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token class-name return-type">Actor</span>
-    <span class="token punctuation">{</span>
-        <span class="token variable">$actorBuilder</span><span class="token operator">-&gt;</span><span class="token function">buildType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token variable">$actorBuilder</span><span class="token operator">-&gt;</span><span class="token function">buildSex</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token variable">$actorBuilder</span><span class="token operator">-&gt;</span><span class="token function">buildFace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token variable">$actorBuilder</span><span class="token operator">-&gt;</span><span class="token function">buildConstume</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token variable">$actorBuilder</span><span class="token operator">-&gt;</span><span class="token function">buildHairstyle</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-        <span class="token keyword">return</span> <span class="token variable">$actorBuilder</span><span class="token operator">-&gt;</span><span class="token function">createActor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<ul>
-<li>客户端测试代码</li>
-</ul>
-<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token comment">/* 指明要创造的具体建造者 */</span>
-<span class="token variable">$builder</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HeroBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span class="token comment">/* 实例化指挥者类 */</span>
-<span class="token variable">$actorDirector</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ActorDirector</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span class="token comment">/* 通过指挥者创建完整的产品 */</span>
-<span class="token variable">$actor</span> <span class="token operator">=</span> <span class="token variable">$actorDirector</span><span class="token operator">-&gt;</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token variable">$builder</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span class="token keyword">echo</span> <span class="token string double-quoted-string">"类型："</span><span class="token operator">.</span><span class="token variable">$actor</span><span class="token operator">-&gt;</span><span class="token function">getType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">.</span><span class="token constant">PHP_EOL</span><span class="token operator">.</span>
-     <span class="token string double-quoted-string">"性别："</span><span class="token operator">.</span><span class="token variable">$actor</span><span class="token operator">-&gt;</span><span class="token function">getSex</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">.</span><span class="token constant">PHP_EOL</span><span class="token operator">.</span>
-     <span class="token string double-quoted-string">"面容："</span><span class="token operator">.</span><span class="token variable">$actor</span><span class="token operator">-&gt;</span><span class="token function">getFace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">.</span><span class="token constant">PHP_EOL</span><span class="token operator">.</span>
-     <span class="token string double-quoted-string">"服装："</span><span class="token operator">.</span><span class="token variable">$actor</span><span class="token operator">-&gt;</span><span class="token function">getConstume</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">.</span><span class="token constant">PHP_EOL</span><span class="token operator">.</span>
-     <span class="token string double-quoted-string">"发型："</span><span class="token operator">.</span><span class="token variable">$actor</span><span class="token operator">-&gt;</span><span class="token function">getHairstype</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>以上例程会输出：</p>
-<p>类型：英雄<br>性别：男<br>面容：英俊<br>服装：盔甲<br>发型：飘逸</p>
-<h3 id="5-UML类图"><a href="#5-UML类图" class="headerlink" title="5. UML类图"></a>5. UML类图</h3><p>示例代码UML图：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/BuilderPattern-1.png" alt="BuilderPattern-1"></p>
-<h3 id="6-建造者模式的优点"><a href="#6-建造者模式的优点" class="headerlink" title="6. 建造者模式的优点"></a>6. 建造者模式的优点</h3><p>建造者模式的主要优点如下：</p>
-<p>(1)在建造者模式中，客户端不必知道产品内部组成的细节，将产品本身与产品的创建过程解耦，使得相同的创建过程可以创建不同的产品对象。</p>
-<p>(2)每一个具体建造者都相对独立，而与其他的具体建造者无关，因些可以很方便地替换具体建造者或增加新的具体建造者，用户使用不同的具体建造者即可得到不同的产品对象。</p>
-<p>(3)可以更加精细地控制产品的创建过程。将复杂产品的创建步骤分解在不同的方法中，使得创建过程更加清晰，也更方便使用程序来控制创建过程。</p>
-<p>(4)由于指挥者类针对抽象建造者编程，增加新的具体建造者无须修改原有类库的代码，系统扩展方便，符合“开闭原则”</p>
-<h3 id="7-建造者模式的缺点"><a href="#7-建造者模式的缺点" class="headerlink" title="7. 建造者模式的缺点"></a>7. 建造者模式的缺点</h3><p>建造者模式的主要缺点如下：</p>
-<p>(1)建造者模式所创建的产品一般具有较多的共同点，其组成部分相似，如果产品之间的差异性很大，例如很多组成部分都不相同，不适合使用建造者模式，因此其使用范围受到一定的限制。</p>
-<p>(2)如果产品的内部变化复杂，可能会导致需要定义很多具体建造者类来实现这种变化，导致系统变得很庞大，增加系统的理解难度和运行成本。</p>
-<h3 id="8-建造者模式适用场景"><a href="#8-建造者模式适用场景" class="headerlink" title="8. 建造者模式适用场景"></a>8. 建造者模式适用场景</h3><p>在以下情况下可以考虑使用建造者模式：</p>
-<p>(1)需要生成的产品对象有复杂的内部结构，这些产品对象通常包含多个成员属性。</p>
-<p>(2)需要生成的产品对象的属性相互依赖，需要指定其生成顺序。</p>
-<p>(3)对象的创建过程独立于创建该对象的类。在建造者模式中通过引入了指挥者类，将创建过程封装在指挥者类中，而不在建造者类和客户类中。</p>
-<p>(4)隔离复杂对象的创建和使用，并使得相同的创建过程可以创建不同的产品。</p>
-
+<span class="token keyword">function</span> <span class="token function">request</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token comment">-- 动态生成每个请求的url</span>
+    <span class="token keyword">local</span> requestPath <span class="token operator">=</span> string<span class="token punctuation">.</span><span class="token function">gsub</span><span class="token punctuation">(</span>wrk<span class="token punctuation">.</span>path<span class="token punctuation">,</span><span class="token string">"{uid}"</span><span class="token punctuation">,</span>math<span class="token punctuation">.</span><span class="token function">random</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">10000000</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token comment">-- 返回请求的完整字符串：http://127.0.0.1/app/666/review_digress_list</span>
+    <span class="token keyword">return</span> wrk<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token keyword">nil</span><span class="token punctuation">,</span> requestPath<span class="token punctuation">)</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
                 
             </div>
             <hr/>
@@ -927,7 +767,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://www.zhangquan.me/2021/06/30/she-ji-mo-shi-zhi-chuang-jian-xing-mo-shi-jian-zao-zhe-mo-shi-builder-pattern/">https://www.zhangquan.me/2021/06/30/she-ji-mo-shi-zhi-chuang-jian-xing-mo-shi-jian-zao-zhe-mo-shi-builder-pattern/</a>
+                    <a href="https://www.zhangquan.me/2022/03/24/xing-neng-ya-ce-gong-ju-wrk-shi-yong-zhi-nan/">https://www.zhangquan.me/2022/03/24/xing-neng-ya-ce-gong-ju-wrk-shi-yong-zhi-nan/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -965,12 +805,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/PHP/">
-                                    <span class="chip bg-color">PHP</span>
-                                </a>
-                            
-                                <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
-                                    <span class="chip bg-color">面向对象</span>
+                                <a href="/tags/%E5%B7%A5%E5%85%B7/">
+                                    <span class="chip bg-color">工具</span>
                                 </a>
                             
                         </div>
@@ -1465,50 +1301,48 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/06/30/she-ji-mo-shi-zhi-chuang-jian-xing-mo-shi-yuan-xing-mo-shi-prototype-pattern/">
+                <a href="/2022/03/24/xing-neng-ya-ce-gong-ju-wrk-shi-yong-zhi-nan/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="设计模式之-创建型模式-原型模式 (Prototype Pattern)">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="性能压测工具 wrk 使用指南">
                         
-                        <span class="card-title">设计模式之-创建型模式-原型模式 (Prototype Pattern)</span>
+                        <span class="card-title">性能压测工具 wrk 使用指南</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Prototype Pattern
+                            wrk 是一个开源的、热门的、现代的单机 HTTP 基准测试工具，目前 GitHub 开源平台累计了 31.8k 的 star 数目，足以可见 wrk 在 HTTP 基准测试领域的热门程度。它结合了多线程设计和可扩展的事件通知系统，如 [epoll](https://man7.org/linux/man-pages/man7/epoll.7.html) 和 [kqueue](https://www.freebsd.org/cgi/man.cgi?query=kqueue&sektion=2) ，可以在有限的资源下对目标机器产生大量的负载。并且内置了一个可选的 [LuaJIT](https://en.wikipedia.org/wiki/LuaJIT) 脚本执行引擎，可以处理复杂的 HTTP 请求生成、响应处理以及自定义压测报告。
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-06-30
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-24
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-category">
-                                    设计模式
+                            <a href="/categories/Linux%EF%BC%8C%E5%88%86%E5%B8%83%E5%BC%8F%EF%BC%8C%E6%9E%B6%E6%9E%84/" class="post-category">
+                                    Linux，分布式，架构
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/PHP/">
-                        <span class="chip bg-color">PHP</span>
-                    </a>
-                    
-                    <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
-                        <span class="chip bg-color">面向对象</span>
+                    <a href="/tags/%E5%B7%A5%E5%85%B7/">
+                        <span class="chip bg-color">工具</span>
                     </a>
                     
                 </div>
@@ -1522,31 +1356,31 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/06/30/she-ji-mo-shi-zhi-chuang-jian-xing-mo-shi-chou-xiang-gong-han-mo-shi-abstract-factory-pattern/">
+                <a href="/2022/03/01/zai-macos-xi-tong-shang-bian-yi-openjdk12-bing-shi-yong-clion-diao-shi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="设计模式之-创建型模式-抽象工厂模式 (Abstract Factory Pattern)">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="在MacOS系统上编译OpenJDK12并使用CLion调试">
                         
-                        <span class="card-title">设计模式之-创建型模式-抽象工厂模式 (Abstract Factory Pattern)</span>
+                        <span class="card-title">在MacOS系统上编译OpenJDK12并使用CLion调试</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Abstract Factory Pattern
+                            在MacOS系统上编译OpenJDK12并使用CLion调试
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-30
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-01
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-category">
-                                    设计模式
+                            <a href="/categories/JVM/" class="post-category">
+                                    JVM
                                 </a>
                             
                             
@@ -1556,12 +1390,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/PHP/">
-                        <span class="chip bg-color">PHP</span>
-                    </a>
-                    
-                    <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
-                        <span class="chip bg-color">面向对象</span>
+                    <a href="/tags/JAVA/">
+                        <span class="chip bg-color">JAVA</span>
                     </a>
                     
                 </div>

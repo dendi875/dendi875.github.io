@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.zhangquan.me/2022/03/24/xing-neng-ya-ce-gong-ju-wrk-shi-yong-zhi-nan/</loc>
+    
+    <lastmod>2022-03-24</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.zhangquan.me/2022/03/01/zai-macos-xi-tong-shang-bian-yi-openjdk12-bing-shi-yong-clion-diao-shi/</loc>
     
     <lastmod>2022-03-01</lastmod>
@@ -469,6 +476,13 @@
   
   <url>
     <loc>https://www.zhangquan.me/categories/JVM/</loc>
+    <lastmod>2022-03-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zhangquan.me/categories/Linux%EF%BC%8C%E5%88%86%E5%B8%83%E5%BC%8F%EF%BC%8C%E6%9E%B6%E6%9E%84/</loc>
     <lastmod>2022-03-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
