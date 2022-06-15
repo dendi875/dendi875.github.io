@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2022-03-24T09:04:10.046Z</updated>
+  <updated>2022-06-15T08:33:47.431Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Java 中确定理想线程池的大小和Linux 查看CPU核数</title>
+    <link href="https://www.zhangquan.me/2022/06/15/java-zhong-que-ding-li-xiang-xian-cheng-chi-de-da-xiao-he-linux-cha-kan-cpu-he-shu/"/>
+    <id>https://www.zhangquan.me/2022/06/15/java-zhong-que-ding-li-xiang-xian-cheng-chi-de-da-xiao-he-linux-cha-kan-cpu-he-shu/</id>
+    <published>2022-06-15T08:03:59.000Z</published>
+    <updated>2022-06-15T08:33:47.431Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;一、前言&quot;&gt;&lt;a href=&quot;#一、前言&quot; class=&quot;headerlink&quot; title=&quot;一、前言&quot;&gt;&lt;/a&gt;一、前言&lt;/h2&gt;&lt;p&gt;在进行 java</summary>
+        
+      
+    
+    
+    
+    <category term="线程池" scheme="https://www.zhangquan.me/categories/%E7%BA%BF%E7%A8%8B%E6%B1%A0/"/>
+    
+    
+    <category term="Java，并发，线程池" scheme="https://www.zhangquan.me/tags/Java%EF%BC%8C%E5%B9%B6%E5%8F%91%EF%BC%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0/"/>
+    
+  </entry>
   
   <entry>
     <title>性能压测工具 wrk 使用指南</title>
@@ -146,9 +171,9 @@
     
     <category term="C" scheme="https://www.zhangquan.me/tags/C/"/>
     
-    <category term="指针" scheme="https://www.zhangquan.me/tags/%E6%8C%87%E9%92%88/"/>
-    
     <category term="数组" scheme="https://www.zhangquan.me/tags/%E6%95%B0%E7%BB%84/"/>
+    
+    <category term="指针" scheme="https://www.zhangquan.me/tags/%E6%8C%87%E9%92%88/"/>
     
   </entry>
   
@@ -176,9 +201,9 @@
     
     <category term="C" scheme="https://www.zhangquan.me/tags/C/"/>
     
-    <category term="指针" scheme="https://www.zhangquan.me/tags/%E6%8C%87%E9%92%88/"/>
-    
     <category term="数组" scheme="https://www.zhangquan.me/tags/%E6%95%B0%E7%BB%84/"/>
+    
+    <category term="指针" scheme="https://www.zhangquan.me/tags/%E6%8C%87%E9%92%88/"/>
     
   </entry>
   
@@ -187,7 +212,7 @@
     <link href="https://www.zhangquan.me/2021/12/09/c-he-zhi-zhen-yi/"/>
     <id>https://www.zhangquan.me/2021/12/09/c-he-zhi-zhen-yi/</id>
     <published>2021-12-09T11:35:58.000Z</published>
-    <updated>2021-12-09T11:43:29.013Z</updated>
+    <updated>2021-12-09T12:10:43.878Z</updated>
     
     
       
@@ -531,33 +556,6 @@
         
         
     <summary type="html">&lt;h1 id=&quot;抽象工厂模式-Abstract-Factory-Pattern&quot;&gt;&lt;a href=&quot;#抽象工厂模式-Abstract-Factory-Pattern&quot; class=&quot;headerlink&quot; title=&quot;抽象工厂模式 (Abstract Factory</summary>
-        
-      
-    
-    
-    
-    <category term="设计模式" scheme="https://www.zhangquan.me/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-    <category term="PHP" scheme="https://www.zhangquan.me/tags/PHP/"/>
-    
-    <category term="面向对象" scheme="https://www.zhangquan.me/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>设计模式之-创建型模式-工厂方法模式 (Factory Method Pattern)</title>
-    <link href="https://www.zhangquan.me/2021/06/30/she-ji-mo-shi-zhi-chuang-jian-xing-mo-shi-gong-han-fang-fa-mo-shi-factory-method-pattern/"/>
-    <id>https://www.zhangquan.me/2021/06/30/she-ji-mo-shi-zhi-chuang-jian-xing-mo-shi-gong-han-fang-fa-mo-shi-factory-method-pattern/</id>
-    <published>2021-06-30T05:40:37.000Z</published>
-    <updated>2021-11-26T08:18:58.584Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;工厂方法模式-Factory-Method-Pattern&quot;&gt;&lt;a href=&quot;#工厂方法模式-Factory-Method-Pattern&quot; class=&quot;headerlink&quot; title=&quot;工厂方法模式 (Factory Method</summary>
         
       
     
