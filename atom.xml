@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2022-06-15T08:33:47.431Z</updated>
+  <updated>2022-06-19T12:53:00.908Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Java 中 Optional 类详解</title>
+    <link href="https://www.zhangquan.me/2022/06/19/java-zhong-optional-lei-xiang-jie/"/>
+    <id>https://www.zhangquan.me/2022/06/19/java-zhong-optional-lei-xiang-jie/</id>
+    <published>2022-06-19T12:43:50.000Z</published>
+    <updated>2022-06-19T12:53:00.908Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;一、介绍&quot;&gt;&lt;a href=&quot;#一、介绍&quot; class=&quot;headerlink&quot; title=&quot;一、介绍&quot;&gt;&lt;/a&gt;一、介绍&lt;/h2&gt;&lt;p&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    <category term="Java" scheme="https://www.zhangquan.me/categories/Java/"/>
+    
+    
+    <category term="Java8" scheme="https://www.zhangquan.me/tags/Java8/"/>
+    
+    <category term="Optional" scheme="https://www.zhangquan.me/tags/Optional/"/>
+    
+  </entry>
   
   <entry>
     <title>Java 中确定理想线程池的大小和Linux 查看CPU核数</title>
@@ -529,33 +556,6 @@
         
         
     <summary type="html">&lt;h1 id=&quot;建造者模式-Builder-Pattern&quot;&gt;&lt;a href=&quot;#建造者模式-Builder-Pattern&quot; class=&quot;headerlink&quot; title=&quot;建造者模式 (Builder Pattern)&quot;&gt;&lt;/a&gt;建造者模式 (Builder</summary>
-        
-      
-    
-    
-    
-    <category term="设计模式" scheme="https://www.zhangquan.me/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-    <category term="PHP" scheme="https://www.zhangquan.me/tags/PHP/"/>
-    
-    <category term="面向对象" scheme="https://www.zhangquan.me/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>设计模式之-创建型模式-抽象工厂模式 (Abstract Factory Pattern)</title>
-    <link href="https://www.zhangquan.me/2021/06/30/she-ji-mo-shi-zhi-chuang-jian-xing-mo-shi-chou-xiang-gong-han-mo-shi-abstract-factory-pattern/"/>
-    <id>https://www.zhangquan.me/2021/06/30/she-ji-mo-shi-zhi-chuang-jian-xing-mo-shi-chou-xiang-gong-han-mo-shi-abstract-factory-pattern/</id>
-    <published>2021-06-30T05:46:18.000Z</published>
-    <updated>2021-11-26T08:19:10.226Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;抽象工厂模式-Abstract-Factory-Pattern&quot;&gt;&lt;a href=&quot;#抽象工厂模式-Abstract-Factory-Pattern&quot; class=&quot;headerlink&quot; title=&quot;抽象工厂模式 (Abstract Factory</summary>
         
       
     
