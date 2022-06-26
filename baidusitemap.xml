@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.zhangquan.me/2022/06/26/java8-lambda-biao-da-shi/</loc>
+    <lastmod>2022-06-26</lastmod>
+  </url>
+  <url>
     <loc>https://www.zhangquan.me/2022/06/19/java-zhong-optional-lei-xiang-jie/</loc>
     <lastmod>2022-06-20</lastmod>
   </url>
