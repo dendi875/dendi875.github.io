@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2022-06-26T10:17:45.820Z</updated>
+  <updated>2022-07-10T10:42:44.410Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>不停服不修改代码条件下重建 Elasticsearch 索引</title>
+    <link href="https://www.zhangquan.me/2022/07/10/bu-ting-fu-bu-xiu-gai-dai-ma-tiao-jian-xia-chong-jian-elasticsearch-suo-yin/"/>
+    <id>https://www.zhangquan.me/2022/07/10/bu-ting-fu-bu-xiu-gai-dai-ma-tiao-jian-xia-chong-jian-elasticsearch-suo-yin/</id>
+    <published>2022-07-10T10:40:02.000Z</published>
+    <updated>2022-07-10T10:42:44.410Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/es.png&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;一、前言&quot;&gt;&lt;a href=&quot;#一、前言&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Elasticsearch" scheme="https://www.zhangquan.me/categories/Elasticsearch/"/>
+    
+    
+    <category term="中间件" scheme="https://www.zhangquan.me/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
+    
+    <category term="Elasticsearch" scheme="https://www.zhangquan.me/tags/Elasticsearch/"/>
+    
+  </entry>
   
   <entry>
     <title>Java8 Lambda 表达式</title>
@@ -324,7 +352,7 @@
     <link href="https://www.zhangquan.me/2021/12/05/elasticsearch-php-api-de-shi-yong/"/>
     <id>https://www.zhangquan.me/2021/12/05/elasticsearch-php-api-de-shi-yong/</id>
     <published>2021-12-05T10:37:19.000Z</published>
-    <updated>2021-12-05T10:43:11.763Z</updated>
+    <updated>2022-07-10T10:41:51.954Z</updated>
     
     
       
@@ -343,7 +371,7 @@
     
     <category term="PHP" scheme="https://www.zhangquan.me/tags/PHP/"/>
     
-    <category term="Elasticsearch" scheme="https://www.zhangquan.me/tags/Elasticsearch/"/>
+    <category term="Elasticsearch - 中间件" scheme="https://www.zhangquan.me/tags/Elasticsearch-%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
     
   </entry>
   
@@ -529,33 +557,6 @@
         
         
     <summary type="html">&lt;h1 id=&quot;适配器模式-Adapter-Pattern&quot;&gt;&lt;a href=&quot;#适配器模式-Adapter-Pattern&quot; class=&quot;headerlink&quot; title=&quot;适配器模式 (Adapter Pattern)&quot;&gt;&lt;/a&gt;适配器模式 (Adapter</summary>
-        
-      
-    
-    
-    
-    <category term="设计模式" scheme="https://www.zhangquan.me/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-    <category term="PHP" scheme="https://www.zhangquan.me/tags/PHP/"/>
-    
-    <category term="面向对象" scheme="https://www.zhangquan.me/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>设计模式之-创建型模式-原型模式 (Prototype Pattern)</title>
-    <link href="https://www.zhangquan.me/2021/06/30/she-ji-mo-shi-zhi-chuang-jian-xing-mo-shi-yuan-xing-mo-shi-prototype-pattern/"/>
-    <id>https://www.zhangquan.me/2021/06/30/she-ji-mo-shi-zhi-chuang-jian-xing-mo-shi-yuan-xing-mo-shi-prototype-pattern/</id>
-    <published>2021-06-30T06:32:37.000Z</published>
-    <updated>2021-11-26T08:18:52.740Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;原型模式-Prototype-Pattern&quot;&gt;&lt;a href=&quot;#原型模式-Prototype-Pattern&quot; class=&quot;headerlink&quot; title=&quot;原型模式 (Prototype Pattern)&quot;&gt;&lt;/a&gt;原型模式 (Prototype</summary>
         
       
     
