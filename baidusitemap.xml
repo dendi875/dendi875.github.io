@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.zhangquan.me/2022/07/17/java-8-streams-api-xiang-jie/</loc>
+    <lastmod>2022-07-17</lastmod>
+  </url>
+  <url>
     <loc>https://www.zhangquan.me/2022/07/10/bu-ting-fu-bu-xiu-gai-dai-ma-tiao-jian-xia-chong-jian-elasticsearch-suo-yin/</loc>
     <lastmod>2022-07-10</lastmod>
   </url>
