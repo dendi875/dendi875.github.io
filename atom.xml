@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2022-07-17T11:40:46.828Z</updated>
+  <updated>2022-08-07T10:27:34.544Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Apollo 添加自定义环境并使用 docker-compose 部署</title>
+    <link href="https://www.zhangquan.me/2022/08/07/apollo-tian-jia-zi-ding-yi-huan-jing-bing-shi-yong-docker-compose-bu-shu/"/>
+    <id>https://www.zhangquan.me/2022/08/07/apollo-tian-jia-zi-ding-yi-huan-jing-bing-shi-yong-docker-compose-bu-shu/</id>
+    <published>2022-08-07T10:24:48.000Z</published>
+    <updated>2022-08-07T10:27:34.544Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;一、前言&quot;&gt;&lt;a href=&quot;#一、前言&quot; class=&quot;headerlink&quot; title=&quot;一、前言&quot;&gt;&lt;/a&gt;一、前言&lt;/h2&gt;&lt;p&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    <category term="Apollo" scheme="https://www.zhangquan.me/categories/Apollo/"/>
+    
+    
+    <category term="Apollo、Java" scheme="https://www.zhangquan.me/tags/Apollo%E3%80%81Java/"/>
+    
+  </entry>
   
   <entry>
     <title>Java 8 Streams API 详解</title>
@@ -533,33 +558,6 @@
         
         
     <summary type="html">&lt;h1 id=&quot;组合模式-Composite-Pattern&quot;&gt;&lt;a href=&quot;#组合模式-Composite-Pattern&quot; class=&quot;headerlink&quot; title=&quot;组合模式 (Composite Pattern)&quot;&gt;&lt;/a&gt;组合模式 (Composite</summary>
-        
-      
-    
-    
-    
-    <category term="设计模式" scheme="https://www.zhangquan.me/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-    <category term="PHP" scheme="https://www.zhangquan.me/tags/PHP/"/>
-    
-    <category term="面向对象" scheme="https://www.zhangquan.me/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>设计模式之-结构型模式-装饰模式 (Decorator Pattern)</title>
-    <link href="https://www.zhangquan.me/2021/07/06/she-ji-mo-shi-zhi-jie-gou-xing-mo-shi-zhuang-shi-mo-shi-decorator-pattern/"/>
-    <id>https://www.zhangquan.me/2021/07/06/she-ji-mo-shi-zhi-jie-gou-xing-mo-shi-zhuang-shi-mo-shi-decorator-pattern/</id>
-    <published>2021-07-06T02:16:25.000Z</published>
-    <updated>2021-11-26T08:19:34.004Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;装饰模式-Decorator-Pattern&quot;&gt;&lt;a href=&quot;#装饰模式-Decorator-Pattern&quot; class=&quot;headerlink&quot; title=&quot;装饰模式 (Decorator Pattern)&quot;&gt;&lt;/a&gt;装饰模式 (Decorator</summary>
         
       
     
