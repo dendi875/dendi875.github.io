@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.zhangquan.me/2022/08/14/kubernetes-jiao-cheng-yi-shi-yong-kubeadm-chuang-jian-k8s-ji-qun/</loc>
+    <lastmod>2022-08-14</lastmod>
+  </url>
+  <url>
     <loc>https://www.zhangquan.me/2022/08/07/apollo-tian-jia-zi-ding-yi-huan-jing-bing-shi-yong-docker-compose-bu-shu/</loc>
     <lastmod>2022-08-07</lastmod>
   </url>

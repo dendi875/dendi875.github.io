@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2022-08-07T10:27:34.544Z</updated>
+  <updated>2022-08-14T07:24:35.818Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Kubernetes教程(一) 使用 kubeadm 创建 k8s 集群</title>
+    <link href="https://www.zhangquan.me/2022/08/14/kubernetes-jiao-cheng-yi-shi-yong-kubeadm-chuang-jian-k8s-ji-qun/"/>
+    <id>https://www.zhangquan.me/2022/08/14/kubernetes-jiao-cheng-yi-shi-yong-kubeadm-chuang-jian-k8s-ji-qun/</id>
+    <published>2022-08-14T07:17:59.000Z</published>
+    <updated>2022-08-14T07:24:35.818Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Kubernetes教程-一-使用-kubeadm-创建-k8s-集群&quot;&gt;&lt;a href=&quot;#Kubernetes教程-一-使用-kubeadm-创建-k8s-集群&quot; class=&quot;headerlink&quot; title=&quot;Kubernetes教程(一) 使用</summary>
+        
+      
+    
+    
+    
+    <category term="Kubernetes" scheme="https://www.zhangquan.me/categories/Kubernetes/"/>
+    
+    
+    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
+    
+  </entry>
   
   <entry>
     <title>Apollo 添加自定义环境并使用 docker-compose 部署</title>
@@ -531,33 +556,6 @@
         
         
     <summary type="html">&lt;h1 id=&quot;外观模式-Facade-Pattern&quot;&gt;&lt;a href=&quot;#外观模式-Facade-Pattern&quot; class=&quot;headerlink&quot; title=&quot;外观模式 (Facade Pattern)&quot;&gt;&lt;/a&gt;外观模式 (Facade</summary>
-        
-      
-    
-    
-    
-    <category term="设计模式" scheme="https://www.zhangquan.me/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-    <category term="PHP" scheme="https://www.zhangquan.me/tags/PHP/"/>
-    
-    <category term="面向对象" scheme="https://www.zhangquan.me/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>设计模式之-结构型模式-组合模式 (Composite Pattern)</title>
-    <link href="https://www.zhangquan.me/2021/07/08/she-ji-mo-shi-zhi-jie-gou-xing-mo-shi-zu-he-mo-shi-composite-pattern/"/>
-    <id>https://www.zhangquan.me/2021/07/08/she-ji-mo-shi-zhi-jie-gou-xing-mo-shi-zu-he-mo-shi-composite-pattern/</id>
-    <published>2021-07-08T10:42:48.000Z</published>
-    <updated>2021-11-26T08:19:28.984Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;组合模式-Composite-Pattern&quot;&gt;&lt;a href=&quot;#组合模式-Composite-Pattern&quot; class=&quot;headerlink&quot; title=&quot;组合模式 (Composite Pattern)&quot;&gt;&lt;/a&gt;组合模式 (Composite</summary>
         
       
     

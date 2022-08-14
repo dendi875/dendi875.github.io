@@ -1437,48 +1437,46 @@ docker-compose up<span aria-hidden="true" class="line-numbers-rows"><span></span
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/08/07/apollo-tian-jia-zi-ding-yi-huan-jing-bing-shi-yong-docker-compose-bu-shu/">
+                <a href="/2022/08/14/kubernetes-jiao-cheng-yi-shi-yong-kubeadm-chuang-jian-k8s-ji-qun/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="Apollo 添加自定义环境并使用 docker-compose 部署">
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="Kubernetes教程(一) 使用 kubeadm 创建 k8s 集群">
                         
-                        <span class="card-title">Apollo 添加自定义环境并使用 docker-compose 部署</span>
+                        <span class="card-title">Kubernetes教程(一) 使用 kubeadm 创建 k8s 集群</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            如何在 Apollo 中添加自定义环境并使用 docker-compose 部署使用
+                            本文记录了使用 kubeadm 从头搭建一个使用 docker 作为容器运行时的 Kubernetes 集群的过程。
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-07
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-08-14
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Apollo/" class="post-category">
-                                    Apollo
+                            <a href="/categories/Kubernetes/" class="post-category">
+                                    Kubernetes
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Apollo%E3%80%81Java/">
-                        <span class="chip bg-color">Apollo、Java</span>
+                    <a href="/tags/Kubernetes/">
+                        <span class="chip bg-color">Kubernetes</span>
                     </a>
                     
                 </div>
@@ -1544,43 +1542,6 @@ docker-compose up<span aria-hidden="true" class="line-numbers-rows"><span></span
 
 </div>
 
-
-<script>
-    $('#articleContent').on('copy', function (e) {
-        // IE8 or earlier browser is 'undefined'
-        if (typeof window.getSelection === 'undefined') return;
-
-        var selection = window.getSelection();
-        // if the selection is short let's not annoy our users.
-        if (('' + selection).length < Number.parseInt('120')) {
-            return;
-        }
-
-        // create a div outside of the visible area and fill it with the selected text.
-        var bodyElement = document.getElementsByTagName('body')[0];
-        var newdiv = document.createElement('div');
-        newdiv.style.position = 'absolute';
-        newdiv.style.left = '-99999px';
-        bodyElement.appendChild(newdiv);
-        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
-
-        // we need a <pre> tag workaround.
-        // otherwise the text inside "pre" loses all the line breaks!
-        //if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
-            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
-        //}
-
-        var url = document.location.href;
-        newdiv.innerHTML += '<br />'
-            + '来源: 一代键客<br />'
-            + '文章作者: 张权<br />'
-            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
-            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
-
-        selection.selectAllChildren(newdiv);
-        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
-    });
-</script>
 
 
 <!-- 代码块功能依赖 -->
@@ -1777,7 +1738,7 @@ docker-compose up<span aria-hidden="true" class="line-numbers-rows"><span></span
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">76.6k</span>
+                        class="white-color">79.7k</span>
             
             
             

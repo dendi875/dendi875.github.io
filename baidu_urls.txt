@@ -1,3 +1,4 @@
+https://www.zhangquan.me/2022/08/14/kubernetes-jiao-cheng-yi-shi-yong-kubeadm-chuang-jian-k8s-ji-qun/
 https://www.zhangquan.me/2022/08/07/apollo-tian-jia-zi-ding-yi-huan-jing-bing-shi-yong-docker-compose-bu-shu/
 https://www.zhangquan.me/2022/07/17/java-8-streams-api-xiang-jie/
 https://www.zhangquan.me/2022/07/10/bu-ting-fu-bu-xiu-gai-dai-ma-tiao-jian-xia-chong-jian-elasticsearch-suo-yin/
