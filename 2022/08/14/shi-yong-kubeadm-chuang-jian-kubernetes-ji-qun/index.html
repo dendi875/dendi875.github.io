@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="设计模式之-创建型模式-简单工厂模式 (Simple Factory Pattern), PHP,Java,Go,MySQL,Linux,Docker等">
+    <meta name="keywords" content="使用 kubeadm 创建 Kubernetes 集群, PHP,Java,Go,MySQL,Linux,Docker等">
     <meta name="description" content="PHP Go MySQL 后端开发">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>设计模式之-创建型模式-简单工厂模式 (Simple Factory Pattern) | 一代键客</title>
+    <title>使用 kubeadm 创建 Kubernetes 集群 | 一代键客</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -327,12 +327,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">设计模式之-创建型模式-简单工厂模式 (Simple Factory Pattern)</h1>
+                    <h1 class="description center-align post-title">使用 kubeadm 创建 Kubernetes 集群</h1>
                 </div>
             </div>
         </div>
@@ -448,12 +448,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/PHP/">
-                                <span class="chip bg-color">PHP</span>
-                            </a>
-                        
-                            <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
-                                <span class="chip bg-color">面向对象</span>
+                            <a href="/tags/Kubernetes/">
+                                <span class="chip bg-color">Kubernetes</span>
                             </a>
                         
                     </div>
@@ -464,8 +460,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-category">
-                                设计模式
+                            <a href="/categories/Kubernetes/" class="post-category">
+                                Kubernetes
                             </a>
                         
                     </div>
@@ -477,28 +473,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-06-30
+                    2022-08-14
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-11-26
+                    2022-08-18
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    906
+                    3k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    3 分
+                    14 分
                 </div>
                 
 
@@ -521,155 +517,398 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="简单工厂模式-Simple-Factory-Pattern"><a href="#简单工厂模式-Simple-Factory-Pattern" class="headerlink" title="简单工厂模式 (Simple Factory Pattern)"></a>简单工厂模式 (Simple Factory Pattern)</h1><hr>
-<h3 id="1-模式定义"><a href="#1-模式定义" class="headerlink" title="1. 模式定义"></a>1. 模式定义</h3><p>简单工厂模式(Simple Factory Pattern)：又称为静态工厂方法(Static Factory Method)模式，它属于类创建型模式。在简单工厂模式中，可以根据参数的不同返回不同的实例。简单工厂模式专门定义一个类来负责创建其他类的实例，被创建的实例通常都具有相同的接口或父类。</p>
-<h3 id="2-模式结构"><a href="#2-模式结构" class="headerlink" title="2. 模式结构"></a>2. 模式结构</h3><p>简单工厂模式包含如下角色：</p>
+                <h1 id="使用-kubeadm-创建-Kubernetes-集群"><a href="#使用-kubeadm-创建-Kubernetes-集群" class="headerlink" title="使用 kubeadm 创建 Kubernetes 集群"></a>使用 kubeadm 创建 Kubernetes 集群</h1><p>本文记录了使用 kubeadm 从头搭建一个使用 docker 作为容器运行时的 Kubernetes 集群的过程。</p>
+<p>kubeadm 的源代码，直接就在 kubernetes/cmd/kubeadm 目录下，是kubernetes项目的一部分。</p>
+<p>kubeadm几乎完全是一位高中生的作品。他叫Lucas Käldström，芬兰人，kubeadm 是他17岁时用业余时间完成的一个社区项目。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/lucas.png"></p>
+<h2 id="Kubeadm是什么"><a href="#Kubeadm是什么" class="headerlink" title="Kubeadm是什么"></a>Kubeadm是什么</h2><p>Kubeadm 是一个命令行工具，它主要提供了 <code>kubeadm init</code> 以及 <code>kubeadm join</code>这两个命令来快速创建和初始化kubernetes 集群。</p>
+<p>Kubeadm 通过执行必要的操作来启动和运行一个最小可用的集群。它被故意设计为只关心启动集群，而不是之前的节点准备工作。同样的，诸如安装各种各样的插件，例如 Kubernetes Dashboard、监控解决方案以及特定云提供商的插件，这些都不在它负责的范围。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/kubeadm-1.png"></p>
+<h2 id="实践环境"><a href="#实践环境" class="headerlink" title="实践环境"></a>实践环境</h2><p>本次实验用到的机器如下：</p>
+<table>
+<thead>
+<tr>
+<th>主机名</th>
+<th><strong>系统版本</strong></th>
+<th>配置</th>
+<th><strong>IP</strong></th>
+<th>角色</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>k8s-master</td>
+<td>CentOS 7.9 64bit</td>
+<td>2C4G</td>
+<td>172.31.0.2</td>
+<td>master</td>
+</tr>
+<tr>
+<td>k8s-node1</td>
+<td>CentOS 7.9 64bit</td>
+<td>2C4G</td>
+<td>172.31.0.3</td>
+<td>worker</td>
+</tr>
+<tr>
+<td>k8s-node2</td>
+<td>CentOS 7.9 64bit</td>
+<td>2C4G</td>
+<td>172.31.0.4</td>
+<td>worker</td>
+</tr>
+</tbody></table>
+<p>软件版本：</p>
 <ul>
-<li><p>Factory：工厂</p>
+<li><p>Docker：Docker-ce-20.10.7，Docker-ce-cli-20.10.7，Containerd.io-1.4.6</p>
+</li>
+<li><p>Kubernetes version：v1.20.9</p>
+</li>
+<li><p>Calico：3.21</p>
+</li>
+</ul>
+<h2 id="开始之前"><a href="#开始之前" class="headerlink" title="开始之前"></a>开始之前</h2><ul>
+<li><p>每台机器 2 GB 或更多的 RAM（如果少于这个数字将会影响你应用的运行内存）</p>
+</li>
+<li><p>每台机器 CPU 2 核心及以上</p>
+</li>
+<li><p>集群中的所有机器的网络彼此均能相互连接（公网和内网都可以）</p>
+</li>
+<li><p>禁用交换分区。为了保证 kubelet 正常工作，你 <strong>必须</strong> 禁用交换分区</p>
+</li>
+</ul>
+<p>相关环境的搭建和初始化笔者这里先行略过，可以选择阿里云、青云等</p>
+<p>以下内容均使用root账户安装和配置。</p>
+<h2 id="安装指导"><a href="#安装指导" class="headerlink" title="安装指导"></a>安装指导</h2><h3 id="安装Docker（所有节点）"><a href="#安装Docker（所有节点）" class="headerlink" title="安装Docker（所有节点）"></a>安装Docker（所有节点）</h3><ul>
+<li><p>配置 yum 源</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 安装 yum的工具包
+yum install -y yum-utils
+
+# 配置 docker 的 yum 源，告诉 Linux docker 去哪里下载
+yum-config-manager \
+--add-repo \
+http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>安装 docker</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">yum install -y docker-ce-20.10.7 docker-ce-cli-20.10.7  containerd.io-1.4.6<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li><p>启动 docker 并设置开机自启动</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">systemctl enable docker --now<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li><p>验证安装成功</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">docker info<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li><p>配置镜像加速器地址</p>
+<p>我们可以注册一个阿里云账号，然后使用阿里云容器镜像服务中的免费镜像</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/aliyun-mirror.png"></p>
+<p>这里我们额外添加了docker的生产环境核心配置cgroup</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">mkdir -p /etc/docker
+
+tee /etc/docker/daemon.json &lt;&lt;-'EOF'
+{
+  "registry-mirrors": ["https://txuroz75.mirror.aliyuncs.com"],
+  "exec-opts": ["native.cgroupdriver=systemd"],
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "100m"
+  },
+  "storage-driver": "overlay2"
+}
+EOF
+
+systemctl daemon-reload
+systemctl restart docker<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>验证配置生效</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">docker info<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+</ul>
+<h3 id="k8s-环境准备（所有节点）"><a href="#k8s-环境准备（所有节点）" class="headerlink" title="k8s 环境准备（所有节点）"></a>k8s 环境准备（所有节点）</h3><ul>
+<li><p>设置主机名</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">#各个机器设置自己的域名
+hostnamectl set-hostname &lt;myhostname&gt;
+
+# 我自己的三台机器这样设置
+hostnamectl set-hostname k8s-master
+hostnamectl set-hostname k8s-node1
+hostnamectl set-hostname k8s-node2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>关闭交换分区</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 临时关闭
+swapoff -a  
+# 永久关闭
+sed -ri 's/.*swap.*/#&amp;/' /etc/fstab<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>禁用 SELinux</p>
+<p>将 SELinux 设置为 permissive 模式（相当于将其禁用）， 这是允许容器访问主机文件系统所必需的</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 临时禁用
+setenforce 0
+# 永久禁用
+sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>允许 iptables 检查桥接流量</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cat &lt;&lt;EOF | sudo tee /etc/modules-load.d/k8s.conf
+br_netfilter
+EOF
+
+cat &lt;&lt;EOF | sudo tee /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+EOF
+
+# 让配置生效
+sudo sysctl --system<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+<h3 id="安装-kubelet、kubectl、kubeadm（所有节点）"><a href="#安装-kubelet、kubectl、kubeadm（所有节点）" class="headerlink" title="安装 kubelet、kubectl、kubeadm（所有节点）"></a>安装 kubelet、kubectl、kubeadm（所有节点）</h3><ul>
+<li><p>配置 yum 源</p>
+<p>官网提供的 google 源一般用不了，这里直接换成阿里的源</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cat &lt;&lt;EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=http://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=0
+repo_gpgcheck=0
+gpgkey=http://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg
+   http://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg
+exclude=kubelet kubeadm kubectl
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>执行安装</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># --disableexcludes 禁掉除了kubernetes之外的别的仓库
+# 由于官网未开放同步方式, 替换成阿里源后可能会有索引 gpg 检查失败的情况, 这时请带上`--nogpgcheck`选项安装
+# 指定安装 1.20.9 版本
+
+sudo yum install -y kubelet-1.20.9 kubeadm-1.20.9 kubectl-1.20.9 --disableexcludes=kubernetes --nogpgcheck<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>kubelet 设置开机启动</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo systemctl enable kubelet --now <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+</ul>
+<h3 id="初始化-master-节点（k8s-master）"><a href="#初始化-master-节点（k8s-master）" class="headerlink" title="初始化 master 节点（k8s-master）"></a>初始化 master 节点（k8s-master）</h3><ul>
+<li><p>生成 kubeadm.yaml 文件</p>
+<p>首先导出 kubeadm 配置文件</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">kubeadm config print init-defaults --kubeconfig ClusterConfiguration &gt; kubeadm.yml<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>查看所需镜像列表</p>
+<pre class="line-numbers language-she" data-language="she"><code class="language-she">[root@k8s-master ~]# kubeadm config images list --config kubeadm.yml
+k8s.gcr.io/kube-apiserver:v1.20.0
+k8s.gcr.io/kube-controller-manager:v1.20.0
+k8s.gcr.io/kube-scheduler:v1.20.0
+k8s.gcr.io/kube-proxy:v1.20.0
+k8s.gcr.io/pause:3.2
+k8s.gcr.io/etcd:3.4.13-0
+k8s.gcr.io/coredns:1.7.0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>使用国内源拉取所需要的镜像</p>
+<p>其它两个节点需要 kube-proxy ，我们为了方便就全部都安装，所以其它两个节点也执行下面的命令</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo tee ./images.sh &lt;&lt;-'EOF'
+#!/bin/bash
+images=(
+kube-apiserver:v1.20.9
+kube-proxy:v1.20.9
+kube-controller-manager:v1.20.9
+kube-scheduler:v1.20.9
+coredns:1.7.0
+etcd:3.4.13-0
+pause:3.2
+)
+for imageName in ${images[@]} ; do
+docker pull registry.cn-hangzhou.aliyuncs.com/lfy_k8s_images/$imageName
+done
+EOF
+   
+   
+chmod +x ./images.sh &amp;&amp; ./images.sh<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>执行初始化</p>
+<p>镜像拉取下来后就可以开始安装了，执行以下命令初始化主节点，只在主节点上执行</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">#所有机器添加 master 域名映射，以下需要修改为自己的ip，master节点我们也叫做集群入口节点，让所有节点知道 master节点在哪
+echo "172.31.0.2  cluster-endpoint" &gt;&gt; /etc/hosts
+
+#主节点初始化
+# 注意：
+# --apiserver-advertise-address 修改成自己 master 节点机器的ip
+# --control-plane-endpoint 是上面 hosts 映射的值
+# --kubernetes-version 的版本号要对应
+# --service-cidr，--pod-network-cidr 值最好不要修改
+# 所有网络范围不能重叠： --service-cidr，--pod-network-cidr，三台机器ip都不能有重叠
+
+kubeadm init \
+--apiserver-advertise-address=172.31.0.2 \
+--control-plane-endpoint=cluster-endpoint \
+--image-repository registry.cn-hangzhou.aliyuncs.com/lfy_k8s_images \
+--kubernetes-version v1.20.9 \
+--service-cidr=10.96.0.0/16 \
+--pod-network-cidr=192.168.0.0/16<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+<p>​        输出如下恭喜你安装成功了</p>
+<pre><code>   <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 出现这个就说明安装成功了
+Your Kubernetes control-plane has initialized successfully!
+# 执行下面的命令配置 kubeconfig
+To start using your cluster, you need to run the following as a regular user:
+
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+Alternatively, if you are the root user, you can run:
+
+  export KUBECONFIG=/etc/kubernetes/admin.conf
+# 配置 pod 网络的命令
+You should now deploy a pod network to the cluster.
+Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
+  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+
+You can now join any number of control-plane nodes by copying certificate authorities
+and service account keys on each node and then running the following as root:
+# 哪个机器需要变成主节点执行该命令，这是为了多 master 集群
+  kubeadm join cluster-endpoint:6443 --token z9wjde.ewp0hefm2swxupn6 \
+    --discovery-token-ca-cert-hash sha256:336a976225818ce72ed9cf1b87bebda2b094f11732a0b622becc5a1b71b733be \
+    --control-plane 
+
+Then you can join any number of worker nodes by running the following on each as root:
+# 哪个 node 节点想要加入集群需要执行如下指令
+kubeadm join cluster-endpoint:6443 --token z9wjde.ewp0hefm2swxupn6 \
+    --discovery-token-ca-cert-hash sha256:336a976225818ce72ed9cf1b87bebda2b094f11732a0b622becc5a1b71b733be<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</code></pre>
+<p>​    按照提示配置 kubeconfig</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>配置好后查看一下 node 状态</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get node
+NAME         STATUS     ROLES                  AGE   VERSION
+k8s-master   NotReady   control-plane,master   10m   v1.20.9<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>状态为 NotReady，因为此时还没有安装网络插件。</p>
+<h3 id="部署Calico（k8s-master）"><a href="#部署Calico（k8s-master）" class="headerlink" title="部署Calico（k8s-master）"></a>部署Calico（k8s-master）</h3><p>注意 Calio 版本需要与 K8s 版本对应，具体要求看  <a target="_blank" rel="noopener" href="https://projectcalico.docs.tigera.io/archive/v3.21/getting-started/kubernetes/requirements">requirements</a></p>
+<p>安装参考官网：<a target="_blank" rel="noopener" href="https://projectcalico.docs.tigera.io/archive/v3.21/getting-started/kubernetes/self-managed-onprem/onpremises">install calico</a></p>
 <ul>
-<li>工厂负责实现创建所需类的实例</li>
+<li><p>下载配置文件并拉取镜像，只在 master 节点上执行</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">curl https://docs.projectcalico.org/archive/v3.21/manifests/calico.yaml -O<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li><p>部署，只在 master 节点上执行</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">kubectl apply -f calico.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>如果不错意外的话等一会 calico 就安装好了，可以通过以下命令查看：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get pods -A
+NAMESPACE     NAME                                       READY   STATUS    RESTARTS   AGE
+kube-system   calico-kube-controllers-5bb48c55fd-ghkdz   1/1     Running   0          8m10s
+kube-system   calico-node-6vwgq                          1/1     Running   0          8m10s
+kube-system   coredns-5897cd56c4-kqfn2                   1/1     Running   0          31m
+kube-system   coredns-5897cd56c4-wcgdh                   1/1     Running   0          31m
+kube-system   etcd-k8s-master                            1/1     Running   0          31m
+kube-system   kube-apiserver-k8s-master                  1/1     Running   0          31m
+kube-system   kube-controller-manager-k8s-master         1/1     Running   0          31m
+kube-system   kube-proxy-rnt4v                           1/1     Running   0          31m
+kube-system   kube-scheduler-k8s-master                  1/1     Running   0          31m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get node
+NAME         STATUS   ROLES                  AGE   VERSION
+k8s-master   Ready    control-plane,master   32m   v1.20.9<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+<h3 id="Node节点加入集群（k8s-node1-k8s-node2）"><a href="#Node节点加入集群（k8s-node1-k8s-node2）" class="headerlink" title="Node节点加入集群（k8s-node1,k8s-node2）"></a>Node节点加入集群（k8s-node1,k8s-node2）</h3><ul>
+<li>在k8s-node1,k8s-node2上执行该步骤，将节点加入到集群中</li>
+</ul>
+<p>先在  k8s-node1 、 k8s-node2节点执行</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">kubeadm join cluster-endpoint:6443 --token z9wjde.ewp0hefm2swxupn6 \
+    --discovery-token-ca-cert-hash sha256:336a976225818ce72ed9cf1b87bebda2b094f11732a0b622becc5a1b71b733be<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>输出如下：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-node1 ~]# kubeadm join cluster-endpoint:6443 --token z9wjde.ewp0hefm2swxupn6 \
+&gt;     --discovery-token-ca-cert-hash sha256:336a976225818ce72ed9cf1b87bebda2b094f11732a0b622becc5a1b71b733be
+[preflight] Running pre-flight checks
+        [WARNING SystemVerification]: this Docker version is not on the list of validated versions: 20.10.7. Latest validated version: 19.03
+        [WARNING Hostname]: hostname "k8s-node1" could not be reached
+        [WARNING Hostname]: hostname "k8s-node1": lookup k8s-node1 on 100.64.7.3:53: no such host
+[preflight] Reading configuration from the cluster...
+[preflight] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -o yaml'
+[kubelet-start] Writing kubelet configuration to file "/var/lib/kubelet/config.yaml"
+[kubelet-start] Writing kubelet environment file with flags to file "/var/lib/kubelet/kubeadm-flags.env"
+[kubelet-start] Starting the kubelet
+[kubelet-start] Waiting for the kubelet to perform the TLS Bootstrap...
+
+This node has joined the cluster:
+* Certificate signing request was sent to apiserver and a response was received.
+* The Kubelet was informed of the new secure connection details.
+
+Run 'kubectl get nodes' on the control-plane to see this node join the cluster.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li><p>检查集群状态，在 k8s-master 上执行</p>
+<ul>
+<li><p>检查各组件运行状态</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]#  kubectl get cs
+Warning: v1 ComponentStatus is deprecated in v1.19+
+NAME                 STATUS      MESSAGE                                                                                       ERROR
+scheduler            Unhealthy   Get "http://127.0.0.1:10251/healthz": dial tcp 127.0.0.1:10251: connect: connection refused   
+controller-manager   Unhealthy   Get "http://127.0.0.1:10252/healthz": dial tcp 127.0.0.1:10252: connect: connection refused   
+etcd-0               Healthy     {"health":"true"}   <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>参考解决办法 ：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/54608441/kubectl-connectivity-issue">https://stackoverflow.com/questions/54608441/kubectl-connectivity-issue</a></p>
+<p>出现这个问题的原因是 /etc/kubernetes/manifests/下的kube-controller-manager.yaml和kube-scheduler.yaml中启动参数设置的默认端口是0。<br>解决方法：将相应的<code>--port 0</code>参数注释掉，然后重启kubelet服务即可</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master manifests]#  kubectl get cs
+Warning: v1 ComponentStatus is deprecated in v1.19+
+NAME                 STATUS    MESSAGE             ERROR
+scheduler            Healthy   ok                  
+controller-manager   Healthy   ok                  
+etcd-0               Healthy   {"health":"true"}  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>查看集群信息</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl cluster-info
+Kubernetes control plane is running at https://cluster-endpoint:6443
+KubeDNS is running at https://cluster-endpoint:6443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+
+To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>查看节点状态</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get nodes
+NAME         STATUS   ROLES                  AGE     VERSION
+k8s-master   Ready    control-plane,master   42m     v1.20.9
+k8s-node1    Ready    &lt;none&gt;                 5m15s   v1.20.9
+k8s-node2    Ready    &lt;none&gt;                 5m10s   v1.20.9<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 </li>
-<li><p>AbstractProduct: 抽象产品</p>
-<ul>
-<li>抽象产品是所有具体产品类的父类</li>
 </ul>
+<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><h3 id="kubeadm-token"><a href="#kubeadm-token" class="headerlink" title="kubeadm token"></a>kubeadm token</h3><p><code>kubeadm init</code> 创建了一个有效期为 24 小时的令牌，过期之后要需要生成新的令牌。</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">#  --print-join-command  不仅仅打印令牌，而是打印使用令牌加入集群所需的完整 'kubeadm join' 参数。
+kubeadm token create --print-join-command<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h3 id="kubernetes-dashboard"><a href="#kubernetes-dashboard" class="headerlink" title="kubernetes dashboard"></a>kubernetes dashboard</h3><blockquote>
+<p>该步骤只在 master 节点上执行</p>
+</blockquote>
+<p>Dashboard 是基于网页的 Kubernetes 用户界面。您可以使用 Dashboard 将容器应用部署到 Kubernetes 集群中，也可以对容器应用排错，还能管理集群本身及其附属资源。您可以使用 Dashboard 获取运行在集群中的应用的概览信息，也可以创建或者修改 Kubernetes 资源（如 Deployment，Job，DaemonSet 等等）。例如，您可以对 Deployment 实现弹性伸缩、发起滚动升级、重启 Pod 或者使用向导创建新的应用。</p>
+<ul>
+<li><p>下载配置文件</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">wget https://raw.githubusercontent.com/kubernetes/dashboard/v2.3.1/aio/deploy/recommended.yaml -O  dashboard.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li><p>部署</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">kubectl apply -f dashboard.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li><p>设置访问端口</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">kubectl edit svc kubernetes-dashboard -n kubernetes-dashboard<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><strong>type: ClusterIP 改为 type: NodePort</strong></p>
 </li>
-<li><p>ConcreteProduct：具体产品</p>
-<ul>
-<li>具体产品是创建目标</li>
-</ul>
+<li><p>找到端口，在云服务器上的安全组放行</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">kubectl get svc -A |grep kubernetes-dashboard<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li><p> 创建访问账号</p>
+</li>
+<li><p>创建访问账号，准备一个yaml文件； vi  dash-user.yaml</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ServiceAccount
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> admin<span class="token punctuation">-</span>user
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> kubernetes<span class="token punctuation">-</span>dashboard
+<span class="token punctuation">---</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> rbac.authorization.k8s.io/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ClusterRoleBinding
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> admin<span class="token punctuation">-</span>user
+<span class="token key atrule">roleRef</span><span class="token punctuation">:</span>
+  <span class="token key atrule">apiGroup</span><span class="token punctuation">:</span> rbac.authorization.k8s.io
+  <span class="token key atrule">kind</span><span class="token punctuation">:</span> ClusterRole
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> cluster<span class="token punctuation">-</span>admin
+<span class="token key atrule">subjects</span><span class="token punctuation">:</span>
+<span class="token punctuation">-</span> <span class="token key atrule">kind</span><span class="token punctuation">:</span> ServiceAccount
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> admin<span class="token punctuation">-</span>user
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> kubernetes<span class="token punctuation">-</span>dashboard<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>部署</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">kubectl apply -f dash-user.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li><p>获取访问令牌</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">kubectl -n kubernetes-dashboard get secret $(kubectl -n kubernetes-dashboard get sa/admin-user -o jsonpath="{.secrets[0].name}") -o go-template="{{.data.token | base64decode}}"<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li><p>三个节点中任何一个节点都可以使用令牌登录</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/dashboard.png"></p>
 </li>
 </ul>
-<h3 id="3-示例"><a href="#3-示例" class="headerlink" title="3. 示例"></a>3. 示例</h3><p>以一个简单的计算器功能来说明下各角色的应用：</p>
-<ul>
-<li>OperationFactory.php：工厂</li>
-</ul>
-<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token comment">/**
- * 运算工厂类
- * 一、根据不同的参数来创建加法、减法类等实例。
- * 二、通常createOperate方法为公开的静态方法。
- * 三、通常createOperate方法中包含简单的switch...case判断逻辑。
- *
- * @author    &lt;dendi875@163.com&gt;
- * @createDate 2018-03-08 20:03:21
- * @copyright Copyright (c) 2017 dendi875@163.com
- */</span>
-
-<span class="token keyword">class</span> <span class="token class-name-definition class-name">OperationFactory</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">function</span> <span class="token function-definition function">createOperate</span><span class="token punctuation">(</span><span class="token variable">$operate</span><span class="token punctuation">)</span>
-    <span class="token punctuation">{</span>
-        <span class="token variable">$operation</span> <span class="token operator">=</span> <span class="token constant">null</span><span class="token punctuation">;</span>
-        <span class="token keyword">switch</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword type-casting">string</span><span class="token punctuation">)</span><span class="token variable">$operate</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">case</span> <span class="token string single-quoted-string">'+'</span><span class="token punctuation">:</span>
-                <span class="token variable">$operation</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">OperationAdd</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                <span class="token keyword">break</span><span class="token punctuation">;</span>
-            <span class="token keyword">case</span> <span class="token string single-quoted-string">'-'</span><span class="token punctuation">:</span>
-                <span class="token variable">$operation</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">OperationSub</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                <span class="token keyword">break</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> <span class="token variable">$operation</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-<ul>
-<li>Operation.php：抽象产品</li>
-</ul>
-<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token comment">/**
- * 运算抽象类
- *
- * @author    &lt;dendi875@163.com&gt;
- * @createDate 2018-03-08 20:00:07
- * @copyright Copyright (c) 2017 dendi875@163.com
- */</span>
-
-<span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name-definition class-name">Operation</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">protected</span> <span class="token variable">$numberA</span><span class="token punctuation">;</span>
-
-    <span class="token keyword">protected</span> <span class="token variable">$numberB</span><span class="token punctuation">;</span>
-
-    <span class="token keyword">abstract</span> <span class="token keyword">protected</span> <span class="token keyword">function</span> <span class="token function-definition function">getResult</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">setNumberA</span><span class="token punctuation">(</span><span class="token variable">$numberA</span><span class="token punctuation">)</span>
-    <span class="token punctuation">{</span>
-        <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">numberA</span> <span class="token operator">=</span> <span class="token variable">$numberA</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">getNumberA</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">numberA</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">setNumberB</span><span class="token punctuation">(</span><span class="token variable">$numberB</span><span class="token punctuation">)</span>
-    <span class="token punctuation">{</span>
-        <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">numberB</span> <span class="token operator">=</span> <span class="token variable">$numberB</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">getNumberB</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">numberB</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<ul>
-<li>OperationAdd.php、OperationSub.php：具体产品</li>
-</ul>
-<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token comment">/**
- * 加法运算类
- *
- * @author    &lt;dendi875@163.com&gt;
- * @createDate 2018-03-08 20:02:42
- * @copyright Copyright (c) 2017 dendi875@163.com
- */</span>
-
-<span class="token keyword">class</span> <span class="token class-name-definition class-name">OperationAdd</span> <span class="token keyword">extends</span> <span class="token class-name">Operation</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">getResult</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token function">bcadd</span><span class="token punctuation">(</span><span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">numberA</span><span class="token punctuation">,</span> <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">numberB</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-
-<span class="token comment">/**
- * 减法运算类
- *
- * @author    &lt;dendi875@163.com&gt;
- * @createDate 2018-03-08 20:03:01
- * @copyright Copyright (c) 2017 dendi875@163.com
- */</span>
-
-<span class="token keyword">class</span> <span class="token class-name-definition class-name">OperationSub</span> <span class="token keyword">extends</span> <span class="token class-name">Operation</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">getResult</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token function">bcsub</span><span class="token punctuation">(</span><span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">numberA</span><span class="token punctuation">,</span> <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">numberB</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="4-客户端的使用"><a href="#4-客户端的使用" class="headerlink" title="4. 客户端的使用"></a>4. 客户端的使用</h3><pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token variable">$operation</span> <span class="token operator">=</span> <span class="token class-name static-context">OperationFactory</span><span class="token operator">::</span><span class="token function">createOperate</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'+'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token variable">$operation</span><span class="token operator">-&gt;</span><span class="token function">setNumberA</span><span class="token punctuation">(</span><span class="token number">2000.30</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token variable">$operation</span><span class="token operator">-&gt;</span><span class="token function">setNumberB</span><span class="token punctuation">(</span><span class="token number">299.40</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token variable">$result</span> <span class="token operator">=</span> <span class="token variable">$operation</span><span class="token operator">-&gt;</span><span class="token function">getResult</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="5-UML类图"><a href="#5-UML类图" class="headerlink" title="5. UML类图"></a>5. UML类图</h3><p>简单工厂模式实现的计算器示例代码UML图：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/SimpleFactoryPattern-0.png" alt="SimpleFactoryPattern-0"></p>
-<h3 id="6-简单工厂模式的优点"><a href="#6-简单工厂模式的优点" class="headerlink" title="6. 简单工厂模式的优点"></a>6. 简单工厂模式的优点</h3><ul>
-<li>简单工厂模式的最大优点在于工厂类中包含了必要的逻辑判断，根据客户端的选择条件动态实例化相关的类，对于客户端来说，去除了与具体产品的依赖。</li>
-<li>客户端无须知道所创建产品类的类名，只需要知道具体产品类所对应的参数，对于一些复杂的类名，通过简单工厂模式可以减少使用者的记忆量</li>
-</ul>
-<h3 id="7-简单工厂模式的缺点"><a href="#7-简单工厂模式的缺点" class="headerlink" title="7. 简单工厂模式的缺点"></a>7. 简单工厂模式的缺点</h3><ul>
-<li>使用简单工厂模式将会增加系统中类的个数，在一定程度上增加了系统的复杂度和理解难度。</li>
-<li>在产品类型较多时，有可能造成工厂类逻辑过于复杂，不利于系统的扩展和维护。</li>
-<li>一旦添加新的产品就不得不修改工厂类逻辑，在工厂类的方法中增加“Case”条件分支，修改了原生的类，这就违背了开放－封闭原则</li>
-</ul>
-<h3 id="8-适用场景"><a href="#8-适用场景" class="headerlink" title="8. 适用场景"></a>8. 适用场景</h3><p>以下情况可以使用简单工厂模式：</p>
-<ul>
-<li>工厂类负责创建的对象比较少：由于创建的对象较少，不会造成工厂方法中的业务逻辑太过复杂。</li>
-<li>客户端只关心传入工厂类的参数，对于如何创建对象不关心：客户端既不需要关心创建细节，甚至连类名都不需要记住，只需要知道各产品类所对应的参数。</li>
-</ul>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/install/centos/">install-docker</a></p>
+<p><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm">install-kubeadm</a></p>
+<p><a target="_blank" rel="noopener" href="https://kubernetes.io/zh/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/">create-cluster-kubeadm</a></p>
+<p><a target="_blank" rel="noopener" href="https://projectcalico.docs.tigera.io/archive/v3.22/getting-started/kubernetes/self-managed-onprem/onpremises">Install Calico</a></p>
+<p><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-token/">kubeadm-token</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/kubernetes/dashboard">kubernetes dashboard</a></p>
 
                 
             </div>
@@ -696,7 +935,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://www.zhangquan.me/2021/06/30/she-ji-mo-shi-zhi-chuang-jian-xing-mo-shi-jian-dan-gong-han-mo-shi-simple-factory-pattern/">https://www.zhangquan.me/2021/06/30/she-ji-mo-shi-zhi-chuang-jian-xing-mo-shi-jian-dan-gong-han-mo-shi-simple-factory-pattern/</a>
+                    <a href="https://www.zhangquan.me/2022/08/14/shi-yong-kubeadm-chuang-jian-kubernetes-ji-qun/">https://www.zhangquan.me/2022/08/14/shi-yong-kubeadm-chuang-jian-kubernetes-ji-qun/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -734,12 +973,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/PHP/">
-                                    <span class="chip bg-color">PHP</span>
-                                </a>
-                            
-                                <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
-                                    <span class="chip bg-color">面向对象</span>
+                                <a href="/tags/Kubernetes/">
+                                    <span class="chip bg-color">Kubernetes</span>
                                 </a>
                             
                         </div>
@@ -1238,31 +1473,31 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/06/30/she-ji-mo-shi-zhi-chuang-jian-xing-mo-shi-gong-han-fang-fa-mo-shi-factory-method-pattern/">
+                <a href="/2022/08/18/kubernetes-zhong-zi-yuan-dui-xiang-de-jian-dan-shi-yong/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="设计模式之-创建型模式-工厂方法模式 (Factory Method Pattern)">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="Kubernetes 中资源对象的简单使用">
                         
-                        <span class="card-title">设计模式之-创建型模式-工厂方法模式 (Factory Method Pattern)</span>
+                        <span class="card-title">Kubernetes 中资源对象的简单使用</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Factory Method Pattern
+                            在本文中，记录了 Namespaces、Pod 资源对象的简单使用
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-06-30
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-08-18
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-category">
-                                    设计模式
+                            <a href="/categories/Kubernetes/" class="post-category">
+                                    Kubernetes
                                 </a>
                             
                             
@@ -1272,12 +1507,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/PHP/">
-                        <span class="chip bg-color">PHP</span>
-                    </a>
-                    
-                    <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
-                        <span class="chip bg-color">面向对象</span>
+                    <a href="/tags/Kubernetes/">
+                        <span class="chip bg-color">Kubernetes</span>
                     </a>
                     
                 </div>
@@ -1291,31 +1522,31 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/06/29/she-ji-mo-shi-zhi-chuang-jian-xing-mo-shi-dan-li-mo-shi-singleton-pattern/">
+                <a href="/2022/08/07/apollo-tian-jia-zi-ding-yi-huan-jing-bing-shi-yong-docker-compose-bu-shu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="设计模式之-创建型模式-单例模式（Singleton Pattern）">
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="Apollo 添加自定义环境并使用 docker-compose 部署">
                         
-                        <span class="card-title">设计模式之-创建型模式-单例模式（Singleton Pattern）</span>
+                        <span class="card-title">Apollo 添加自定义环境并使用 docker-compose 部署</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Singleton Pattern
+                            如何在 Apollo 中添加自定义环境并使用 docker-compose 部署使用
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-29
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-07
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-category">
-                                    设计模式
+                            <a href="/categories/Apollo/" class="post-category">
+                                    Apollo
                                 </a>
                             
                             
@@ -1325,12 +1556,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/PHP/">
-                        <span class="chip bg-color">PHP</span>
-                    </a>
-                    
-                    <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
-                        <span class="chip bg-color">面向对象</span>
+                    <a href="/tags/Apollo%E3%80%81Java/">
+                        <span class="chip bg-color">Apollo、Java</span>
                     </a>
                     
                 </div>
