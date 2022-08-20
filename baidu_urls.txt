@@ -1,3 +1,4 @@
+https://www.zhangquan.me/2022/08/20/kubernetes-deployment-kong-zhi-qi/
 https://www.zhangquan.me/2022/08/18/kubernetes-zhong-zi-yuan-dui-xiang-de-jian-dan-shi-yong/
 https://www.zhangquan.me/2022/08/14/shi-yong-kubeadm-chuang-jian-kubernetes-ji-qun/
 https://www.zhangquan.me/2022/08/07/apollo-tian-jia-zi-ding-yi-huan-jing-bing-shi-yong-docker-compose-bu-shu/

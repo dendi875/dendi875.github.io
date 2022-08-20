@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="进程的守护神-daemontools, PHP,Java,Go,MySQL,Linux,Docker等">
+    <meta name="keywords" content="Kubernetes Deployment 控制器, PHP,Java,Go,MySQL,Linux,Docker等">
     <meta name="description" content="PHP Go MySQL 后端开发">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>进程的守护神-daemontools | 一代键客</title>
+    <title>Kubernetes Deployment 控制器 | 一代键客</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -327,12 +327,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">进程的守护神-daemontools</h1>
+                    <h1 class="description center-align post-title">Kubernetes Deployment 控制器</h1>
                 </div>
             </div>
         </div>
@@ -448,8 +448,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E5%B7%A5%E5%85%B7/">
-                                <span class="chip bg-color">工具</span>
+                            <a href="/tags/Kubernetes/">
+                                <span class="chip bg-color">Kubernetes</span>
                             </a>
                         
                     </div>
@@ -460,8 +460,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Linux/" class="post-category">
-                                Linux
+                            <a href="/categories/Kubernetes/" class="post-category">
+                                Kubernetes
                             </a>
                         
                     </div>
@@ -473,28 +473,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-06-29
+                    2022-08-20
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-02-28
+                    2022-08-20
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.3k
+                    2.5k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    9 分
+                    13 分
                 </div>
                 
 
@@ -517,228 +517,334 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="进程的守护神-daemontools"><a href="#进程的守护神-daemontools" class="headerlink" title="进程的守护神 - daemontools"></a>进程的守护神 - daemontools</h1><hr>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>我们在日常的开发中可能需要写一些<code>常驻内存的程序</code>，<code>常驻内存的程序</code>和<code>守护进程</code>程序是不一样的，<code>守护进程</code>的实现步骤稍微麻烦点，感兴趣的读者可以参考我用<code>C</code>实现的一个守护进程<a target="_blank" rel="noopener" href="https://github.com/dendi875/APUE/blob/master/Chapter-13-Daemon%20Processes/daemonize.c">daemonize.c</a>，我们重点关注下<code>常驻内存的程序</code>，<br>以<code>PHP</code>为例来说<code>常驻内存的程序</code>实现一般是这样的：</p>
-<p>首先使用<code>while (1) {}</code>结构使程序无限循环，并且在程序内部对各种可能出现的异常进行捕捉处理，目的是防止程序意外退出。</p>
-<p>hello.php</p>
-<pre class="line-numbers language-php" data-language="php"><code class="language-php">#!/usr/bin/env php
-<span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
-
-<span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">try</span> <span class="token punctuation">{</span>
-        <span class="token comment">// dostuff();</span>
-        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"hello, %d\n"</span><span class="token punctuation">,</span> <span class="token variable">$i</span><span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> <span class="token variable">$e</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token comment">// exception handling</span>
-    <span class="token punctuation">}</span>
-    <span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>接着，通过命令行把它放到后台执行，例如：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ nohup php hello.php &amp;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>但这种实现方式是有一定的缺陷的，那就是当<code>PHP</code>执行过程中遇到错误的时候，就会退出程序，不官你程序中使用多少层<code>while (1) {}</code>，也不管你使用<code>try...catch</code>多少<code>Exception</code>，你还是阻止不了程序的意外退出（比如程序产生奇怪的<code>coredump</code>或者<code>kill</code>时手误杀错了程序）。如果这个常驻内存的程序是一个队列消费者程序，那么这种缺陷是很致命的，因为在流量高峰时如果程序一旦意外退出没有即时恢复，那么将导致队列中的消息一直堆积无法被消费掉，从而影响正常业务流程。再严重点，如果队列没有最大内存限制的策略，那么消息的堆积将会导致内存使用暴涨从而拖垮机器。怎么办？你可以用<code>crontab</code>脚本每分钟监视你的程序，看到没有在执行就启动起来。当然，还有更好的办法就是使用成熟的进程管理工具，它会监控你的程序，一旦发现进程退出了，立刻启动起来。<code>Linux</code>下对常驻内存的进程的管理通常使用<code>Daemontools</code>和<code>Supervisor</code> 这两个工具。今天我们就来研究学习下<code>Daemontools</code></p>
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p><code>daemontools</code>是用于管理<code>UNIX</code>服务的工具的集合，它分为三类工具：</p>
+                <h1 id="Kubernetes-Deployment控制器"><a href="#Kubernetes-Deployment控制器" class="headerlink" title="Kubernetes Deployment控制器"></a>Kubernetes Deployment控制器</h1><p>Deployment 是 Kubernetes 中最常见的控制器，实际上它是一个<strong>两层控制器</strong>。</p>
 <ul>
-<li>常驻进程管理工具</li>
+<li>首先，它通过 <strong>ReplicaSet 的个数</strong>来描述应用的版本；</li>
+<li>然后，它再通过 <strong>ReplicaSet 的属性</strong>（比如 replicas 的值），来保证 Pod 的副本数量。</li>
 </ul>
-<p><a target="_blank" rel="noopener" href="http://cr.yp.to/daemontools/svscanboot.html">The svscanboot program</a></p>
-<p><a target="_blank" rel="noopener" href="http://cr.yp.to/daemontools/svscan.html">The svscan program</a></p>
-<p><a target="_blank" rel="noopener" href="http://cr.yp.to/daemontools/supervise.html">The supervise program</a></p>
-<p><a target="_blank" rel="noopener" href="http://cr.yp.to/daemontools/svc.html">The svc program</a></p>
-<p><a target="_blank" rel="noopener" href="http://cr.yp.to/daemontools/svok.html">The svok program</a></p>
-<p><a target="_blank" rel="noopener" href="http://cr.yp.to/daemontools/svstat.html">The svstat program</a></p>
-<p><a target="_blank" rel="noopener" href="http://cr.yp.to/daemontools/fghack.html">The fghack program</a></p>
-<p><a target="_blank" rel="noopener" href="http://cr.yp.to/daemontools/pgrphack.html">The pgrphack program</a></p>
-<ul>
-<li>日志管理工具</li>
-</ul>
-<p><a target="_blank" rel="noopener" href="http://cr.yp.to/daemontools/readproctitle.html">The readproctitle program</a></p>
-<p><a target="_blank" rel="noopener" href="http://cr.yp.to/daemontools/multilog.html">The multilog program</a></p>
-<p><a target="_blank" rel="noopener" href="http://cr.yp.to/daemontools/tai64n.html">The tai64n program</a></p>
-<p><a target="_blank" rel="noopener" href="http://cr.yp.to/daemontools/tai64nlocal.html">The tai64nlocal program</a></p>
-<ul>
-<li>环境管理工具</li>
-</ul>
-<p><a target="_blank" rel="noopener" href="http://cr.yp.to/daemontools/setuidgid.html">The setuidgid program</a></p>
-<p><a target="_blank" rel="noopener" href="http://cr.yp.to/daemontools/envuidgid.html">The envuidgid program</a></p>
-<p><a target="_blank" rel="noopener" href="http://cr.yp.to/daemontools/envdir.html">The envdir program</a></p>
-<p><a target="_blank" rel="noopener" href="http://cr.yp.to/daemontools/softlimit.html">The softlimit program</a></p>
-<p><a target="_blank" rel="noopener" href="http://cr.yp.to/daemontools/setlock.html">The setlock program</a></p>
-<p>我们重点关注对常驻进程管理工具的使用，日志管理工具和环境管理工具主要是辅助进程管理做一些额外的功能，进程管理工具主要是通过<code>svscanboot</code>、<code>svscan</code>、<code>supervise</code>、<code>svc</code>、<code>svok</code>、<code>svstat</code>命令来管理常驻进程的</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ cd /usr/local/software/
-$ wget http://cr.yp.to/daemontools/daemontools-0.76.tar.gz
-$ tar -zxvf daemontools-0.76.tar.gz -C /usr/local/
-$ cd /usr/local/admin/daemontools-0.76/
-$ package/install<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>如果在<code>Linux</code>下安装出现如下错误：　</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">/usr/bin/ld: errno: TLS definition in /lib/libc.so.6 section .tbss mismatches non-TLS reference in envdir.o<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<blockquote>
+<p>注：Deployment 控制 ReplicaSet（版本），ReplicaSet 控制 Pod（副本数）。这个两层控制关系一定要牢记。</p>
+</blockquote>
+<p>Deployment 是 Kubernetes 编排能力的一种提现，通过 Deployment 我们可以让 Pod 稳定的维持在指定的数量，除此之外还有滚动更新、版本回滚等功能。</p>
+<h2 id="Deployment"><a href="#Deployment" class="headerlink" title="Deployment"></a>Deployment</h2><h3 id="自愈能力"><a href="#自愈能力" class="headerlink" title="自愈能力"></a>自愈能力</h3><p>我们通过一个例子来演示来Deployment的自愈能力。</p>
+<p>通过 kubectl run 来创建一个 mynginx Pod</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl run mynginx --image=nginx
+pod/mynginx created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<p>修复很简单将<em>admin/daemontools-0.76/src/error.h</em>中的<code>extern int errno;</code>替换为<code>include &lt;errno.h&gt;</code>之后再重新执行<code>package/install</code></p>
-<p>安装完成之后，会创建<code>/service</code>和<code>/command</code>两个目录</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">/command/
-├── envdir -&gt; /usr/local/admin/daemontools/command/envdir
-├── envuidgid -&gt; /usr/local/admin/daemontools/command/envuidgid
-├── fghack -&gt; /usr/local/admin/daemontools/command/fghack
-├── multilog -&gt; /usr/local/admin/daemontools/command/multilog
-├── pgrphack -&gt; /usr/local/admin/daemontools/command/pgrphack
-├── readproctitle -&gt; /usr/local/admin/daemontools/command/readproctitle
-├── setlock -&gt; /usr/local/admin/daemontools/command/setlock
-├── setuidgid -&gt; /usr/local/admin/daemontools/command/setuidgid
-├── softlimit -&gt; /usr/local/admin/daemontools/command/softlimit
-├── supervise -&gt; /usr/local/admin/daemontools/command/supervise
-├── svc -&gt; /usr/local/admin/daemontools/command/svc
-├── svok -&gt; /usr/local/admin/daemontools/command/svok
-├── svscan -&gt; /usr/local/admin/daemontools/command/svscan
-├── svscanboot -&gt; /usr/local/admin/daemontools/command/svscanboot
-├── svstat -&gt; /usr/local/admin/daemontools/command/svstat
-├── tai64n -&gt; /usr/local/admin/daemontools/command/tai64n
-└── tai64nlocal -&gt; /usr/local/admin/daemontools/command/tai64nlocal<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>通过 kubectl create deployment 来创建一个 mytomcat Pod</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl create deployment mytomcat --image=tomcat:8.5.68
+deployment.apps/mytomcat created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<h3 id="启动daemontools"><a href="#启动daemontools" class="headerlink" title="启动daemontools"></a>启动daemontools</h3><p>启动<code>svscanboot</code></p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># /command/svscanboot &amp;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>我们比较下这两种方式分别创建的 Pod 有什么不同？</p>
+<p>首先把 kubectl run 修建的 mynginx  Pod 删除了</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get pod
+NAME                        READY   STATUS    RESTARTS   AGE
+mynginx                     1/1     Running   0          94s
+mytomcat-6f5f895f4f-b5ckr   1/1     Running   0          83s
 
-<p>也可以设置开机启动，具体参考：</p>
-<p><a target="_blank" rel="noopener" href="http://cr.yp.to/daemontools/start.html">How to start daemontools</a></p>
-<p>启动之后，查看进程，可以发现<code>svscan</code>做为<code>svscanboot</code>的子进程在运行</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># ps -ef | grep sv
-root      7547  5172  0 20:44 pts/0    00:00:00 /bin/sh /command/svscanboot
-root      7549  7547  0 20:44 pts/0    00:00:00 svscan /service<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+[root@k8s-master ~]# kubectl delete pod mynginx
+pod "mynginx" deleted
 
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="制作并测试你的脚本"><a href="#制作并测试你的脚本" class="headerlink" title="制作并测试你的脚本"></a>制作并测试你的脚本</h3><p>这步的主要目的就是在尝试把程序变为常驻内存进程之前，先确保它可以作为前台程序正常工作。如果脚本有误在前台都不能正常运行，那变为常驻程序后观察结果肯定是达不到预期的。比如我们制作了一个下面这样的<code>PHP</code>脚本</p>
-<pre class="line-numbers language-php" data-language="php"><code class="language-php">cat /data1/www/test/php/process/hello.php
-#!/usr/bin/env php
-<span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+[root@k8s-master ~]# kubectl get pod           
+NAME                        READY   STATUS    RESTARTS   AGE
+mytomcat-6f5f895f4f-b5ckr   1/1     Running   0          100s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"hello, %d\n"</span><span class="token punctuation">,</span> <span class="token variable">$i</span><span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>接着再删除 mytomcat Pod</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl delete pod mytomcat-6f5f895f4f-b5ckr 
+pod "mytomcat-6f5f895f4f-b5ckr" deleted<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<h3 id="构建-daemontools-Service"><a href="#构建-daemontools-Service" class="headerlink" title="构建 daemontools Service"></a>构建 daemontools Service</h3><p>我们把所有的服务统一放到<code>/scratch/service</code>（临时服务）目录下，服务的名称是任意的，比如我们称为<strong>hello</strong></p>
-<p>创建 <code>/scratch/service</code> 目录</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># mkdir -p /scratch/service
-# cd /scratch/service/
-# mkdir hello
-# cd hello<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>再次查看 Pod</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get pod
+NAME                        READY   STATUS    RESTARTS   AGE
+mytomcat-6f5f895f4f-j7w22   1/1     Running   0          17s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-<p>创建一个<code>run</code>文件，其中包含：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">#!/bin/sh
-exec 2&gt;&amp;1
-exec su - root -c "php /data1/www/test/php/process/hello.php" 1&gt;&gt; /data1/www/test/php/process/hello.log<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>总结：通过 Deployment 创建的 Pod，不怕机器宕机或应用崩溃，Deployment创建的Pod它有<strong>自愈能力</strong></p>
+<p>如果想要删除呢？那就是删除本次部署</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 查看 deployment
+[root@k8s-master ~]# kubectl get deploy
+NAME       READY   UP-TO-DATE   AVAILABLE   AGE
+mytomcat   1/1     1     <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>赋予执行权限</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># chmod u+x run<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 删除 deployment
+[root@k8s-master ~]# kubectl delete deploy mytomcat
+deployment.apps "mytomcat" deleted<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-<p>安装<strong>hello</strong>服务并实际开始运行它</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># ln -s /scratch/service/hello/ /service/hello<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get deploy   
+No resources found in default namespace.
+[root@k8s-master ~]# kubectl get pod
+No resources found in default namespace.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><strong>注意：</strong> 上面的命令执行后正常情况下服务就已经开始运行了</p>
-<p>打开另一个终端，验证程序是否正在运行</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ tail -f /data1/www/test/php/process/hello.log
-hello, 67
-hello, 68
-hello, 69
-hello, 70<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="多副本"><a href="#多副本" class="headerlink" title="多副本"></a>多副本</h3><ul>
+<li><p>命令行方式</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl create deployment my-nginx-deployment --image=nginx --replicas=3
+deployment.apps/my-nginx-deployment created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<p>如果<code>tail</code>命令未产生输出，请执行<code>svc -u hello</code>，虽然前面的命令如<code>/command/svscanboot &amp;</code>已经打开了服务，以防万一由于某种原因关闭了服务，而这本不应该被关闭。</p>
-<pre class="line-numbers language-none"><code class="language-none"># pstree -a -p 7547
-svscanboot,7547 /command/svscanboot
-  ├─readproctitle,7550 service errors:...
-  └─svscan,7549 /service
-      └─supervise,7578 hello
-          └─su,7579 - root -c php\040/data1/www/test/php/process/hello.php
-              └─php,7580 /data1/www/test/php/process/hello.php<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>我们使用<code>pstree</code>命令查看进程树，可以看到<code>supervise</code>作为<code>svscan</code>的子进程在运行，<code>su</code>作为<code>supervise</code>的子进程在运行，最终执行的<code>php /data1/www/test/php/process/hello.php</code>又作为<code>su</code>的子进程在运行。</p>
-<h3 id="操作和监视你的服务"><a href="#操作和监视你的服务" class="headerlink" title="操作和监视你的服务"></a>操作和监视你的服务</h3><ul>
-<li>操作服务</li>
-</ul>
-<p>你可以使用<code>svc</code>命令来操作你的服务，可以使用<code>svstat</code>命令来监视你的服务。</p>
-<p><code>svc</code>命令通过向守护进程发送信号来对其进行操作。该命令以<code>root</code>身份在<code>/service</code>目录中执行。例如：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># svc -d hello<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>使用 <code>--replicas</code> 表示本次部署起多少个 Pod</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get deploy
+NAME                  READY   UP-TO-DATE   AVAILABLE   AGE
+my-nginx-deployment   3/3     3            3           17s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-<p>上面的命令意思是关闭（<code>down</code>）或停止守护程序。下表是<code>svc</code>参数，它们的含义和信号的表：</p>
-<table>
-<thead>
-<tr>
-<th>Arg</th>
-<th>Action</th>
-<th>Signal</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>-u</td>
-<td>Start (up)</td>
-<td>-</td>
-</tr>
-<tr>
-<td>-d</td>
-<td>Stop (down)</td>
-<td>TERM, then CONT</td>
-</tr>
-<tr>
-<td>-t</td>
-<td>Restart if running</td>
-<td>TERM</td>
-</tr>
-</tbody></table>
-<p>有关该命令的其它参数，请参见： <a target="_blank" rel="noopener" href="http://cr.yp.to/daemontools/svc.html">http://cr.yp.to/daemontools/svc.html</a></p>
-<ul>
-<li>监控服务</li>
-</ul>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># svstat hello
-hello: up (pid 7917) 5 seconds<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get pod -owide
+NAME                                   READY   STATUS    RESTARTS   AGE     IP                NODE        NOMINATED NODE   READINESS GATES
+my-nginx-deployment-799847ccc9-dx59g   1/1     Running   0          2m50s   192.168.36.70     k8s-node1   &lt;none&gt;           &lt;none&gt;
+my-nginx-deployment-799847ccc9-mfhpz   1/1     Running   0          2m50s   192.168.169.133   k8s-node2   &lt;none&gt;           &lt;none&gt;
+my-nginx-deployment-799847ccc9-xwlx4   1/1     Running   0          2m50s   192.168.36.71     k8s-node1   &lt;none&gt;           &lt;none&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><code>svstat</code>可以告诉我们以下信息</p>
-<ol>
-<li>服务目录的名称（hello）</li>
-<li>当前状态（up or down）</li>
-<li>进程<code>PID</code></li>
-<li>处于当前状态的秒数</li>
+<p>因为在我们有台node2机器，可以看到 my-nginx-deployment Pod 分散到两台机器上部署</p>
+</li>
+<li><p>配置文件方式</p>
+<ol start="0">
+<li><p>先删除命令行方式创建的</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl delete deploy my-nginx-deployment
+deployment.apps "my-nginx-deployment" deleted<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
+<li><p>准备  my-nginx-deployment.yaml</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token key atrule">app</span><span class="token punctuation">:</span> my<span class="token punctuation">-</span>nginx<span class="token punctuation">-</span>deployment
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> my<span class="token punctuation">-</span>nginx<span class="token punctuation">-</span>deployment
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">replicas</span><span class="token punctuation">:</span> <span class="token number">3</span>
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+      <span class="token key atrule">app</span><span class="token punctuation">:</span> my<span class="token punctuation">-</span>nginx<span class="token punctuation">-</span>deployment
+  <span class="token key atrule">template</span><span class="token punctuation">:</span>
+    <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+        <span class="token key atrule">app</span><span class="token punctuation">:</span> my<span class="token punctuation">-</span>nginx<span class="token punctuation">-</span>deployment
+    <span class="token key atrule">spec</span><span class="token punctuation">:</span>
+      <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">image</span><span class="token punctuation">:</span> nginx
+        <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>创建实例</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl apply -f deployment/my-nginx-deployment.yaml 
+deployment.apps/my-nginx-deployment created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
+<li><p>查看</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get deployment
+NAME                  READY   UP-TO-DATE   AVAILABLE   AGE
+my-nginx-deployment   3/3     3            3           34s
+
+[root@k8s-master ~]# kubectl get pod
+NAME                                   READY   STATUS    RESTARTS   AGE
+my-nginx-deployment-799847ccc9-fj85l   1/1     Running   0          37s
+my-nginx-deployment-799847ccc9-n2xtn   1/1     Running   0          37s
+my-nginx-deployment-799847ccc9-tdtgx   1/1     Running   0          37s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ol>
-<h2 id="Daemontools-架构模型"><a href="#Daemontools-架构模型" class="headerlink" title="Daemontools 架构模型"></a>Daemontools 架构模型</h2><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/daemontools.png" alt="daemontools"></p>
-<p>上图的“Connector A: Service”实际上是服务的<code>run</code>脚本，或者是任何二进制可执行文件，<code>shell</code>脚本或<code>PHP/Python/Perl/Ruby/ Lua</code>脚本，它们都是通过<code>exec</code>命令为其分配了一个<code>PID</code>的运行脚本。</p>
-<p>通过上图可以知道<code>daemontools</code>的工作方式，计算机首先初始化，然后系统引导运行<code>/command/svscanboot</code>，接着<code>/command/svscanboot</code>依次引导运行<code>/command/readproctitle</code>和<code>/command/svscan</code>。<code>/command/readproctitle </code>只是一个可以运行的调试工具。</p>
-<p><code>svscan /service </code>是daemontools的一个最重要的机制，每五秒钟它会扫描<code>/service</code>目录（假设<code>/ service</code>是传递给<code>svscan</code>的命令行参数）以查找符号链接目录，并运行该符号连接目录中的<code>run</code>命令（如果尚未运行）</p>
-<p><code>svscan</code>程序会永远一直循环，每次循环做两件事：</p>
-<p>1）扫描<code>/service</code>查找所有符号链接目录</p>
-<p>2）对于查找到的每个符号链接目录，如果该目录还未运行<code>supervise</code>程序，则在该目录上运行<code>supervise</code>程序</p>
-<p><code>supervise</code>程序它基于我们监控的服务目录（如/service/hello）中的 supervise 目录树中的内容来运行和停止运行<code>run</code>脚本</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">tree /service/hello/supervise/
-/service/hello/supervise/
-├── control
-├── lock
-├── ok
-└── status<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-<h2 id="基本故障排查"><a href="#基本故障排查" class="headerlink" title="基本故障排查"></a>基本故障排查</h2><p>对daemontools问题进行故障排除的第一步就是找出正在运行的东西和没有运行的东西，可以参照架构模型将范围一步步缩小。</p>
-<p>下面几个<code>ps</code>命令，用于查看正在运行的和未运行的进程：</p>
-<ul>
-<li><p><code>ps -ef | grep sv</code>，查看<code>svscanboot</code>和<code>svscan</code>是否正常在运行</p>
-</li>
-<li><p><code># ps -ef | grep supervise</code>，查看<code>supervise </code>是否在正常运行</p>
-</li>
-<li><p><code>ps ax | grep myprogram</code>，查看你<code>run</code>命令中执行的程序是否在运行，例如，在前面的救命中，它是 <code>hello.php</code></p>
 </li>
 </ul>
-<h2 id="正确的卸载服务"><a href="#正确的卸载服务" class="headerlink" title="正确的卸载服务"></a>正确的卸载服务</h2><p>卸载服务指的不仅仅是停止它，而是停止使用服务。正确的执行步骤如下：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># cd /service/hello/
-# rm -rf /service/hello
-# svc -dx .<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h3 id="扩缩容能力"><a href="#扩缩容能力" class="headerlink" title="扩缩容能力"></a>扩缩容能力</h3><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-scale.png"></p>
+<p>首先我们部署 3 个实例的 Pod</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get deployment
+NAME                  READY   UP-TO-DATE   AVAILABLE   AGE
+my-nginx-deployment   3/3     3            3           20m
+[root@k8s-master ~]# kubectl get pod
+NAME                                   READY   STATUS    RESTARTS   AGE
+my-nginx-deployment-799847ccc9-fj85l   1/1     Running   0          20m
+my-nginx-deployment-799847ccc9-n2xtn   1/1     Running   0          20m
+my-nginx-deployment-799847ccc9-tdtgx   1/1     Running   0          20m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><strong>注意：</strong> 是首先<code>cd</code>到服务目录下，再使用<strong>绝对路径</strong>删除软链接，最后在执行<code>svc -dx .</code></p>
-<p>验证是否卸载成功：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># ps -ef | grep hello<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ul>
+<li><p>命令行方式扩缩容</p>
+<p>进行扩容， –replicas=5 表示扩容到5个Pod</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl scale --replicas=5 deployment/my-nginx-deployment
+deployment.apps/my-nginx-deployment scaled<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<p>还有一种终极大招来卸载服务，那就是关闭服务并杀死正在运行所有的守护进程和其子进程。</p>
+<p>查看扩容后的Pod</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get pod
+NAME                                   READY   STATUS    RESTARTS   AGE
+my-nginx-deployment-799847ccc9-blrss   1/1     Running   0          56s
+my-nginx-deployment-799847ccc9-fj85l   1/1     Running   0          23m
+my-nginx-deployment-799847ccc9-n2xtn   1/1     Running   0          23m
+my-nginx-deployment-799847ccc9-tdtgx   1/1     Running   0          23m
+my-nginx-deployment-799847ccc9-v96gh   1/1     Running   0          56s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>进行缩容</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl scale --replicas=3 deployment/my-nginx-deployment
+deployment.apps/my-nginx-deployment scaled<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>查看缩容后的Pod</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get pod
+NAME                                   READY   STATUS    RESTARTS   AGE
+my-nginx-deployment-799847ccc9-fj85l   1/1     Running   0          24m
+my-nginx-deployment-799847ccc9-n2xtn   1/1     Running   0          24m
+my-nginx-deployment-799847ccc9-tdtgx   1/1     Running   0          24m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>配置文件方式扩缩容</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get deploy
+NAME                  READY   UP-TO-DATE   AVAILABLE   AGE
+my-nginx-deployment   3/3     3            3           27m
+
+# 修改 replicas: 4
+[root@k8s-master ~]# kubectl edit deployment my-nginx-deployment
+
+# 查看效果
+[root@k8s-master ~]# kubectl get pod
+NAME                                   READY   STATUS    RESTARTS   AGE
+my-nginx-deployment-799847ccc9-fj85l   1/1     Running   0          28m
+my-nginx-deployment-799847ccc9-n2xtn   1/1     Running   0          28m
+my-nginx-deployment-799847ccc9-nzm8x   1/1     Running   0          23s
+my-nginx-deployment-799847ccc9-tdtgx   1/1     Running   0          28m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+<h3 id="故障转移能力"><a href="#故障转移能力" class="headerlink" title="故障转移能力"></a>故障转移能力</h3><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-deployment.png"></p>
+<p>下面我们来演示下自愈&amp;故障转移能力</p>
+<p>查看 pod </p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get pod -owide
+NAME                                   READY   STATUS    RESTARTS   AGE   IP                NODE        NOMINATED NODE   READINESS GATES
+my-nginx-deployment-799847ccc9-fj85l   1/1     Running   0          40m   192.168.169.134   k8s-node2   &lt;none&gt;           &lt;none&gt;
+my-nginx-deployment-799847ccc9-n2xtn   1/1     Running   0          40m   192.168.36.73     k8s-node1   &lt;none&gt;           &lt;none&gt;
+my-nginx-deployment-799847ccc9-nzm8x   1/1     Running   0          11m   192.168.169.137   k8s-node2   &lt;none&gt;           &lt;none&gt;
+my-nginx-deployment-799847ccc9-tdtgx   1/1     Running   0          40m   192.168.36.72     k8s-node1   &lt;none&gt;           &lt;none&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>监控pod</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# watch -n 1 kubectl get pod
+Every 1.0s: kubectl get pod                                                                                                                                               Sun Aug 14 19:13:41 2022
+
+NAME                                   READY   STATUS    RESTARTS   AGE
+my-nginx-deployment-799847ccc9-fj85l   1/1     Running   0          41m
+my-nginx-deployment-799847ccc9-n2xtn   1/1     Running   0          41m
+my-nginx-deployment-799847ccc9-nzm8x   1/1     Running   0          13m
+my-nginx-deployment-799847ccc9-tdtgx   1/1     Running   0          41m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在 k8s-node1 节点上停止容器</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-node1 ~]# docker ps | grep my-nginx
+4da287650d27   nginx                                                        "/docker-entrypoint.…"   42 minutes ago   Up 42 minutes             k8s_nginx_my-nginx-deployment-799847ccc9-n2xtn_default_8feb6cd8-1c8e-41ba-8f85-d365fd1cb88c_0
+16e18c7b9c0d   nginx                                                        "/docker-entrypoint.…"   43 minutes ago   Up 43 minutes             k8s_nginx_my-nginx-deployment-799847ccc9-tdtgx_default_79e17be3-4d3c-4534-a1e0-efb03af8c282_0
+1f201df2a201   registry.cn-hangzhou.aliyuncs.com/lfy_k8s_images/pause:3.2   "/pause"                 43 minutes ago   Up 43 minutes             k8s_POD_my-nginx-deployment-799847ccc9-n2xtn_default_8feb6cd8-1c8e-41ba-8f85-d365fd1cb88c_0
+16b0091c2ea6   registry.cn-hangzhou.aliyuncs.com/lfy_k8s_images/pause:3.2   "/pause"                 43 minutes ago   Up 43 minutes             k8s_POD_my-nginx-deployment-799847ccc9-tdtgx_default_79e17be3-4d3c-4534-a1e0-
+efb03af8c282_0
+
+[root@k8s-node1 ~]# docker stop 4da287650d27
+4da287650d27<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>观察 pod 的变化</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# watch -n 1 kubectl get pod
+Every 1.0s: kubectl get pod                                                                                                                                               Sun Aug 14 19:16:38 2022
+
+NAME                                   READY   STATUS    RESTARTS   AGE  
+my-nginx-deployment-799847ccc9-fj85l   1/1     Running   0          44m  
+my-nginx-deployment-799847ccc9-n2xtn   1/1     Running   1          44m  
+my-nginx-deployment-799847ccc9-nzm8x   1/1     Running   0          15m  
+my-nginx-deployment-799847ccc9-tdtgx   1/1     Running   0          44m  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可以看到  my-nginx-deployment-799847ccc9-n2xtn Pod 重启了一次</p>
+<p>故障转移，我们可以对 k8s-node1 节点机器关机，关机后观察 pod 变化</p>
+<h3 id="滚动更新"><a href="#滚动更新" class="headerlink" title="滚动更新"></a>滚动更新</h3><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-deployment-rollout.png"></p>
+<p><strong>将一个集群中正在运行的多个 Pod 版本，交替地逐一升级的过程，就是“滚动更新”。</strong></p>
+<p>先将新版本的V2从0个扩容到1个Pod，接着将旧版本的V1 从3个缩容到2个，这样慢慢的最后V1缩为0个，V2扩到3个。</p>
+<blockquote>
+<p>滚动更新好处就是，即使V2版本出现异常，此时也会有两个V1版本在运行，然后用户可以手动处理这种情况，比如停止更新或者回滚到V1版本</p>
+</blockquote>
+<p>下面我们测试滚动更新</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get deploy
+NAME                  READY   UP-TO-DATE   AVAILABLE   AGE
+my-nginx-deployment   3/3     3            3           56m
+
+[root@k8s-master ~]# kubectl get pod
+NAME                                   READY   STATUS    RESTARTS   AGE
+my-nginx-deployment-799847ccc9-fj85l   1/1     Running   0          56m
+my-nginx-deployment-799847ccc9-n2xtn   1/1     Running   2          56m
+my-nginx-deployment-799847ccc9-nzm8x   1/1     Running   0          28m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li><p>命令行方式</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl set image deployment/my-nginx-deployment nginx=nginx:1.16.1 --record
+deployment.apps/my-nginx-deployment image updated
+
+# 观察变化
+[root@k8s-master ~]# watch -n 1 kubectl get pod
+Every 1.0s: kubectl get pod                                                                                                                                               Sun Aug 14 19:35:18 2022
+
+NAME                                   READY   STATUS              RESTARTS   AGE
+my-nginx-deployment-69dfcd645b-vptn2   0/1     ContainerCreating   0          17s
+my-nginx-deployment-799847ccc9-fj85l   1/1     Running             0          63m
+my-nginx-deployment-799847ccc9-n2xtn   1/1     Running             2          63m
+my-nginx-deployment-799847ccc9-nzm8x   1/1     Running             0          34m
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>set image 表示我们要改变镜像，改变哪个镜像？改变的是 deployment/my-nginx-deployment 这个deployment 中的 nginx 镜像，把它镜像变为 nginx:1.16.1版本，–record 表示记录下本次版本的更新</p>
+</li>
+<li><p>配置文件方式</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 修改 spec.template.spec.containers.image 值为 nginx:1.9.1
+kubectl edit deployment/my-nginx-deployment<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
+</ul>
+<h3 id="版本回退"><a href="#版本回退" class="headerlink" title="版本回退"></a>版本回退</h3><p>首先，我需要使用 <code>kubectl rollout history</code> 命令，查看每次 Deployment 变更对应的版本</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 查看历史记录
+
+[root@k8s-master ~]#  kubectl rollout history deployment/my-nginx-deployment
+deployment.apps/my-nginx-deployment 
+REVISION  CHANGE-CAUSE
+1         &lt;none&gt;
+2         kubectl set image deployment/my-nginx-deployment nginx=nginx:1.16.1 --record=true
+3         kubectl set image deployment/my-nginx-deployment nginx=nginx:1.16.1 --record=true
+4         kubectl set image deployment/my-nginx-deployment nginx=nginx:1.16.1 --record=true
+
+
+#查看某个历史详情
+[root@k8s-master ~]# kubectl rollout history deployment/my-nginx-deployment --revision=2
+deployment.apps/my-nginx-deployment with revision #2
+Pod Template:
+  Labels:       app=my-nginx-deployment
+        pod-template-hash=69dfcd645b
+  Annotations:  kubernetes.io/change-cause: kubectl set image deployment/my-nginx-deployment nginx=nginx:1.16.1 --record=true
+  Containers:
+   nginx:
+    Image:      nginx:1.16.1
+    Port:       &lt;none&gt;
+    Host Port:  &lt;none&gt;
+    Environment:        &lt;none&gt;
+    Mounts:     &lt;none&gt;
+  Volumes:      &lt;none&gt;
+
+[root@k8s-master ~]# kubectl rollout history deployment/my-nginx-deployment --revision=3
+deployment.apps/my-nginx-deployment with revision #3
+Pod Template:
+  Labels:       app=my-nginx-deployment
+        pod-template-hash=dc798486d
+  Annotations:  kubernetes.io/change-cause: kubectl set image deployment/my-nginx-deployment nginx=nginx:1.16.1 --record=true
+  Containers:
+   nginx:
+    Image:      nginx:1.91
+    Port:       &lt;none&gt;
+    Host Port:  &lt;none&gt;
+    Environment:        &lt;none&gt;
+    Mounts:     &lt;none&gt;
+  Volumes:      &lt;none&gt;
+
+[root@k8s-master ~]# kubectl rollout history deployment/my-nginx-deployment --revision=4
+deployment.apps/my-nginx-deployment with revision #4
+Pod Template:
+  Labels:       app=my-nginx-deployment
+        pod-template-hash=64f546978b
+  Annotations:  kubernetes.io/change-cause: kubectl set image deployment/my-nginx-deployment nginx=nginx:1.16.1 --record=true
+  Containers:
+   nginx:
+    Image:      nginx:1.9.1
+    Port:       &lt;none&gt;
+    Host Port:  &lt;none&gt;
+    Environment:        &lt;none&gt;
+    Mounts:     &lt;none&gt;
+  Volumes:      &lt;none&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>然后，我们就可以在 <code>kubectl rollout undo</code> 命令行最后，加上要回滚到的指定版本的版本号，就可以回滚到指定版本了。</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">#回滚(回到上次)
+kubectl rollout undo deployment/my-nginx-deployment
+
+#回滚(回到指定版本)
+[root@k8s-master ~]# kubectl rollout undo deployment/my-nginx-deployment --to-revision=2
+deployment.apps/my-nginx-deployment rolled back
+
+#验证回退到了 1.16.1 版本
+[root@k8s-master ~]# kubectl get deploy/my-nginx-deployment -oyaml | grep image
+      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app":"my-nginx-deployment"},"name":"my-nginx-deployment","namespace":"default"},"spec":{"replicas":3,"selector":{"matchLabels":{"app":"my-nginx-deployment"}},"template":{"metadata":{"labels":{"app":"my-nginx-deployment"}},"spec":{"containers":[{"image":"nginx","name":"nginx"}]}}}}
+    kubernetes.io/change-cause: kubectl set image deployment/my-nginx-deployment nginx=nginx:1.16.1
+                f:imagePullPolicy: {}
+                f:image: {}
+      - image: nginx:1.16.1
+        imagePullPolicy: Always<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
-<li><p><a target="_blank" rel="noopener" href="http://cr.yp.to/daemontools.html">Daemontools</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="http://cr.yp.to/daemontools/faq/create.html">FAQ of daemontools</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="http://www.troubleshooters.com/linux/djbdns/daemontools_intro.htm">daemontools_intro</a></p>
-</li>
+<li><a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/deployment/">https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/deployment/</a></li>
+<li><a target="_blank" rel="noopener" href="https://kubernetes.io/zh/docs/concepts/workloads/controllers/">https://kubernetes.io/zh/docs/concepts/workloads/controllers/</a></li>
 </ul>
 
                 
@@ -766,7 +872,7 @@ hello: up (pid 7917) 5 seconds<span aria-hidden="true" class="line-numbers-rows"
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://www.zhangquan.me/2021/06/29/jin-cheng-de-shou-hu-shen-daemontools/">https://www.zhangquan.me/2021/06/29/jin-cheng-de-shou-hu-shen-daemontools/</a>
+                    <a href="https://www.zhangquan.me/2022/08/20/kubernetes-deployment-kong-zhi-qi/">https://www.zhangquan.me/2022/08/20/kubernetes-deployment-kong-zhi-qi/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -804,8 +910,8 @@ hello: up (pid 7917) 5 seconds<span aria-hidden="true" class="line-numbers-rows"
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E5%B7%A5%E5%85%B7/">
-                                    <span class="chip bg-color">工具</span>
+                                <a href="/tags/Kubernetes/">
+                                    <span class="chip bg-color">Kubernetes</span>
                                 </a>
                             
                         </div>
@@ -1300,46 +1406,48 @@ hello: up (pid 7917) 5 seconds<span aria-hidden="true" class="line-numbers-rows"
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/06/29/shi-yong-openssl-zi-jian-ca-he-ban-fa-duo-yu-ming-tong-pei-fu-zheng-shu/">
+                <a href="/2022/08/20/kubernetes-deployment-kong-zhi-qi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="使用openssl自建CA和颁发多域名通配符证书">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="Kubernetes Deployment 控制器">
                         
-                        <span class="card-title">使用openssl自建CA和颁发多域名通配符证书</span>
+                        <span class="card-title">Kubernetes Deployment 控制器</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            使用openssl自建CA和颁发多域名通配符证书
+                            通过实践来理解 Kubernetes Deployment控制器的能力
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-06-29
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-20
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Linux/" class="post-category">
-                                    Linux
+                            <a href="/categories/Kubernetes/" class="post-category">
+                                    Kubernetes
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E8%BF%90%E7%BB%B4/">
-                        <span class="chip bg-color">运维</span>
+                    <a href="/tags/Kubernetes/">
+                        <span class="chip bg-color">Kubernetes</span>
                     </a>
                     
                 </div>
@@ -1353,31 +1461,31 @@ hello: up (pid 7917) 5 seconds<span aria-hidden="true" class="line-numbers-rows"
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/06/29/mysql-si-chong-shi-wu-ge-chi-ji-bie-shuo-ming/">
+                <a href="/2022/08/18/kubernetes-zhong-zi-yuan-dui-xiang-de-jian-dan-shi-yong/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="MySQL 四种事务隔离级别说明">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="Kubernetes 中资源对象的简单使用">
                         
-                        <span class="card-title">MySQL 四种事务隔离级别说明</span>
+                        <span class="card-title">Kubernetes 中资源对象的简单使用</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            彻底搞懂 MySQL 四种事务的隔离级别
+                            在本文中，记录了 Namespaces、Pod 资源对象的简单使用
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-29
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-18
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-category">
-                                    数据库
+                            <a href="/categories/Kubernetes/" class="post-category">
+                                    Kubernetes
                                 </a>
                             
                             
@@ -1387,8 +1495,8 @@ hello: up (pid 7917) 5 seconds<span aria-hidden="true" class="line-numbers-rows"
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/MySQL/">
-                        <span class="chip bg-color">MySQL</span>
+                    <a href="/tags/Kubernetes/">
+                        <span class="chip bg-color">Kubernetes</span>
                     </a>
                     
                 </div>
