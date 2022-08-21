@@ -1,3 +1,8 @@
+https://www.zhangquan.me/2022/08/21/kubernetes-chi-jiu-hua-cun-chu-pv-he-pvc-de-shi-yong/
+https://www.zhangquan.me/2022/08/21/kubernetes-ingress-shi-jian-lian-xi/
+https://www.zhangquan.me/2022/08/21/tu-jie-kubernetes-ingress/
+https://www.zhangquan.me/2022/08/21/kubernetes-service-shi-jian-lian-xi/
+https://www.zhangquan.me/2022/08/21/tu-jie-kubernetes-service/
 https://www.zhangquan.me/2022/08/20/kubernetes-deployment-kong-zhi-qi/
 https://www.zhangquan.me/2022/08/18/kubernetes-zhong-zi-yuan-dui-xiang-de-jian-dan-shi-yong/
 https://www.zhangquan.me/2022/08/14/shi-yong-kubeadm-chuang-jian-kubernetes-ji-qun/
