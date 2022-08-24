@@ -43,9 +43,9 @@
         s.parentNode.insertBefore(bp, s);
     })();
     </script>
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="一代键客" type="application/atom+xml">
+
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="一代键客" type="application/atom+xml">
 </head>
 
 
@@ -494,7 +494,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    13 分
+                    12 分
                 </div>
                 
 
@@ -579,7 +579,7 @@ $ kubectl describe configmap ConfigMap名称<span aria-hidden="true" class="line
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl create -f cm/cm-demo.yaml 
 configmap/cm-demo created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<h3 id="从一个给定的目录来创建ConfigMap"><a href="#从一个给定的目录来创建ConfigMap" class="headerlink" title="从一个给定的目录来创建ConfigMap"></a>从一个给定的目录来创建ConfigMap</h3><p>我们可以看到可以从一个给定的目录来创建一个 <code>ConfigMap</code> 对象，比如我们有一个 testcm 的目录，该目录下面包含一些配置文件，redis 和 mysql 的连接信息，如下：</p>
+<h3 id="从一个给定的目录来创建ConfigMap"><a href="#从一个给定的目录来创建ConfigMap" class="headerlink" title="从一个给定的目录来创建ConfigMap"></a>从一个给定的目录来创建ConfigMap</h3><p>我们可以从一个给定的目录来创建一个 <code>ConfigMap</code> 对象，比如我们有一个 testcm 的目录，该目录下面包含一些配置文件，redis 和 mysql 的连接信息，如下：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ ls testcm
 redis.conf
 mysql.conf
@@ -753,7 +753,7 @@ metadata:
 
 <h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p><code>ConfigMap</code> 创建成功了，那么我们应该怎么在 Pod 中来使用呢？ <code>ConfigMap</code> 这些配置数据可以通过很多种方式在 Pod 里使用，主要有以下几种方式：</p>
 <ul>
-<li>将 ConfigMap 中的数据设置为环境变量</li>
+<li>用作环境变量</li>
 <li>在容器里设置命令行参数</li>
 <li>使用 Volume 将 ConfigMap 作为文件或目录挂载</li>
 </ul>
@@ -842,11 +842,9 @@ localhost 3306<span aria-hidden="true" class="line-numbers-rows"><span></span><s
 <ul>
 <li><p>先创建 ConfigMap</p>
 <ul>
-<li><p>创建命令</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">kubectl create cm redis-conf --from-file=cm/redis.conf		<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
 <li><p>redis.conf 文件内容如下</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">appendonly yes<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
-<li><p>根据以上 yaml 文件创建 configMap</p>
+<li><p>创建 ConfigMap</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl create cm redis-conf --from-file=cm/redis.conf
 configmap/redis-conf created
 
