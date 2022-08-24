@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="MySQL 四种事务隔离级别说明, PHP,Java,Go,MySQL,Linux,Docker等">
+    <meta name="keywords" content="Kubernetes Secret 敏感信息配置管理, PHP,Java,Go,MySQL,Linux,Docker等">
     <meta name="description" content="PHP Go MySQL 后端开发">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>MySQL 四种事务隔离级别说明 | 一代键客</title>
+    <title>Kubernetes Secret 敏感信息配置管理 | 一代键客</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -327,12 +327,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">MySQL 四种事务隔离级别说明</h1>
+                    <h1 class="description center-align post-title">Kubernetes Secret 敏感信息配置管理</h1>
                 </div>
             </div>
         </div>
@@ -448,8 +448,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/MySQL/">
-                                <span class="chip bg-color">MySQL</span>
+                            <a href="/tags/Kubernetes/">
+                                <span class="chip bg-color">Kubernetes</span>
                             </a>
                         
                     </div>
@@ -460,8 +460,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-category">
-                                数据库
+                            <a href="/categories/Kubernetes/" class="post-category">
+                                Kubernetes
                             </a>
                         
                     </div>
@@ -473,28 +473,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-06-29
+                    2022-08-24
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-06-29
+                    2022-08-24
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.4k
+                    1.9k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    10 分
+                    8 分
                 </div>
                 
 
@@ -517,430 +517,325 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="MySQL-四种事务隔离级别说明"><a href="#MySQL-四种事务隔离级别说明" class="headerlink" title="MySQL 四种事务隔离级别说明"></a>MySQL 四种事务隔离级别说明</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在 <code>MySQL</code> 中，为了保证并发读取数据的正确性，提出了四种事务隔离级别，下面我们就说明如何设置隔离级别，以及用示例来说明每种隔离级别的使用情况</p>
-<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><h3 id="设置隔离级别"><a href="#设置隔离级别" class="headerlink" title="设置隔离级别"></a>设置隔离级别</h3><p>你可以在 <code>MySQL</code> 配置文件 <code>my.cnf</code> 的 <code>[mysqld]</code>节中设置如下选项来为所有连接设置默认的隔离级别</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[mysqld]
-transaction-isolation = {READ-UNCOMMITTED | READ-COMMITTED | REPEATABLE-READ | SERIALIZABLE}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>如果未设置此选项，则 <code>InnoDB</code>默认是可重复读（<code>REPEATABLE-READ</code>）。</p>
-<p>你也可以用 <code>set session</code>语句来改变单个会话或所有新进来连接的隔离级别。</p>
-<p>语法如下：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">set [session | global] transaction isolation level {read uncommitted | read committed | repeatable read | serializable}<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
+                <h1 id="Kubernetes-Secret-敏感信息配置管理"><a href="#Kubernetes-Secret-敏感信息配置管理" class="headerlink" title="Kubernetes Secret 敏感信息配置管理"></a>Kubernetes Secret 敏感信息配置管理</h1><p>Secret 和 Configmap 类似，不过 Secret 是加密后的，一般用于存储敏感数据，如 比如密码，token，密钥等。</p>
+<p>Secret 主要使用的有以下几种类型：</p>
 <ul>
-<li>如果使用 <code>global</code> 关键字，则表示在全局（多个 session中）对从那点开始创建的所有连接设置默认事务级别</li>
-<li>如果使用 <code>session</code>关键字，则表示为将来在当前连接上执行的所有事务设置默认事务级别</li>
-<li>不带<code>global</code>和<code>session</code>是为下一个（未开始）事务设置隔离级别</li>
+<li><code>Opaque</code>：base64 编码格式的 Secret，用来存储密码、密钥等；但数据也可以通过<code>base64 –decode</code>解码得到原始数据，所有加密性很弱。</li>
+<li><code>kubernetes.io/dockerconfigjson</code>：用来存储私有<code>docker registry</code>的认证信息。</li>
+<li><code>kubernetes.io/service-account-token</code>：用来访问Kubernetes API，由Kubernetes自动创建，并且会自动挂载到Pod的 /run/secrets/kubernetes.io/serviceaccount 目录中</li>
 </ul>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">set session transaction isolation level read uncommitted;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="Opaque"><a href="#Opaque" class="headerlink" title="Opaque"></a>Opaque</h2><p><code>Opaque</code> 类型的数据是一个 map 类型，要求 value 必须是 <code>base64</code> 编码格式，比如我们来创建一个用户名为 admin，密码为 admin321 的 <code>Secret</code> 对象，首先我们需要先把用户名和密码做 <code>base64</code>编码：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ echo -n "admin" | base64
+YWRtaW4=
+$ echo -n "admin321" | base64
+YWRtaW4zMjE=<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>上面的命令表示：为接下来在当前会话连接上执行的所有事务设置读未提交隔离级别</p>
-<p>注意：使用<code>set</code> 命令来设置隔离级别的方式在 <code>MySQL</code> 重启后会恢复到配置文件中设置的隔离级别</p>
-<h3 id="查询隔离级别"><a href="#查询隔离级别" class="headerlink" title="查询隔离级别"></a>查询隔离级别</h3><ul>
-<li>查询全局的隔离级别</li>
-</ul>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">select @@global.tx_isolation;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>然后我们就可以利用上面编码过后的数据来编写一个 YAML 文件：(secret-demo.yaml)</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Secret
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> mysecret
+<span class="token key atrule">type</span><span class="token punctuation">:</span> Opaque
+<span class="token key atrule">data</span><span class="token punctuation">:</span>
+  <span class="token key atrule">username</span><span class="token punctuation">:</span> YWRtaW4=
+  <span class="token key atrule">password</span><span class="token punctuation">:</span> YWRtaW4zMjE=<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<p>然后我们就可以使用 kubectl 命令来创建了：</p>
+<pre class="line-numbers language-none"><code class="language-none">[root@k8s-master ~]# kubectl create -f secret/secret-demo.yaml 
+secret/mysecret created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>利用<code>get secret</code>命令查看：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get secret
+NAME                  TYPE                                  DATA   AGE
+default-token-pvpv2   kubernetes.io/service-account-token   3      8d
+mysecret              Opaque                                2      11s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>其中 default-token-pvpv2为创建集群时默认创建的 Secret，被 <code>serviceacount/default</code> 引用。我们可以使用 <code>describe</code> 命令查看详情：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl describe secret mysecret
+Name:         mysecret
+Namespace:    default
+Labels:       &lt;none&gt;
+Annotations:  &lt;none&gt;
+
+Type:  Opaque
+
+Data
+====
+password:  8 bytes
+username:  5 bytes<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>我们可以看到利用 describe 命令查看到的 Data 没有直接显示出来，如果想看到 Data 里面的详细信息，同样我们可以输出成YAML 文件进行查看：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">[</span>root@k8s<span class="token punctuation">-</span>master ~<span class="token punctuation">]</span><span class="token comment"># kubectl describe secret mysecret</span>
+<span class="token key atrule">Name</span><span class="token punctuation">:</span>         mysecret
+<span class="token key atrule">Namespace</span><span class="token punctuation">:</span>    default
+<span class="token key atrule">Labels</span><span class="token punctuation">:</span>       &lt;none<span class="token punctuation">&gt;</span>
+<span class="token key atrule">Annotations</span><span class="token punctuation">:</span>  &lt;none<span class="token punctuation">&gt;</span>
+
+<span class="token key atrule">Type</span><span class="token punctuation">:</span>  Opaque
+
+Data
+====
+<span class="token key atrule">password</span><span class="token punctuation">:</span>  8 bytes
+<span class="token key atrule">username</span><span class="token punctuation">:</span>  5 bytes
+<span class="token punctuation">[</span>root@k8s<span class="token punctuation">-</span>master ~<span class="token punctuation">]</span><span class="token comment"># kubectl get secret mysecret -o yaml</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">data</span><span class="token punctuation">:</span>
+  <span class="token key atrule">password</span><span class="token punctuation">:</span> YWRtaW4zMjE=
+  <span class="token key atrule">username</span><span class="token punctuation">:</span> YWRtaW4=
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Secret
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">creationTimestamp</span><span class="token punctuation">:</span> <span class="token string">"2022-08-22T08:18:53Z"</span>
+  <span class="token key atrule">managedFields</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+    <span class="token key atrule">fieldsType</span><span class="token punctuation">:</span> FieldsV1
+    <span class="token key atrule">fieldsV1</span><span class="token punctuation">:</span>
+      <span class="token key atrule">f:data</span><span class="token punctuation">:</span>
+        <span class="token key atrule">.</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+        <span class="token key atrule">f:password</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+        <span class="token key atrule">f:username</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+      <span class="token key atrule">f:type</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token key atrule">manager</span><span class="token punctuation">:</span> kubectl<span class="token punctuation">-</span>create
+    <span class="token key atrule">operation</span><span class="token punctuation">:</span> Update
+    <span class="token key atrule">time</span><span class="token punctuation">:</span> <span class="token string">"2022-08-22T08:18:53Z"</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> mysecret
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> default
+  <span class="token key atrule">resourceVersion</span><span class="token punctuation">:</span> <span class="token string">"87952"</span>
+  <span class="token key atrule">uid</span><span class="token punctuation">:</span> eff0b3d4<span class="token punctuation">-</span>8b5e<span class="token punctuation">-</span>43e2<span class="token punctuation">-</span>b198<span class="token punctuation">-</span>46d9fcbecc5c
+<span class="token key atrule">type</span><span class="token punctuation">:</span> Opaque<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>创建好 <code>Secret</code>对象后，有两种方式来使用它：</p>
 <ul>
-<li>查询一个会话的隔离级别</li>
+<li>以环境变量的形式</li>
+<li>以Volume的形式挂载</li>
 </ul>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">select @@session.tx_isolation;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h3><p>首先我们来测试下环境变量的方式，同样的，我们来使用一个简单的 busybox 镜像来测试下:(secret1-pod.yaml)</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> secret1<span class="token punctuation">-</span>pod
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> secret1
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> busybox
+    <span class="token key atrule">command</span><span class="token punctuation">:</span> <span class="token punctuation">[</span> <span class="token string">"/bin/sh"</span><span class="token punctuation">,</span> <span class="token string">"-c"</span><span class="token punctuation">,</span> <span class="token string">"env"</span> <span class="token punctuation">]</span>
+    <span class="token key atrule">env</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> USERNAME
+      <span class="token key atrule">valueFrom</span><span class="token punctuation">:</span>
+        <span class="token key atrule">secretKeyRef</span><span class="token punctuation">:</span>
+          <span class="token key atrule">name</span><span class="token punctuation">:</span> mysecret
+          <span class="token key atrule">key</span><span class="token punctuation">:</span> username
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> PASSWORD
+      <span class="token key atrule">valueFrom</span><span class="token punctuation">:</span>
+        <span class="token key atrule">secretKeyRef</span><span class="token punctuation">:</span>
+          <span class="token key atrule">name</span><span class="token punctuation">:</span> mysecret
+          <span class="token key atrule">key</span><span class="token punctuation">:</span> password<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<ul>
-<li>查询一个事务的隔离级别</li>
+<p>主要需要注意的是上面环境变量中定义的 <code>secretKeyRef</code> 字段，和ConfigMap中的 <code>configMapKeyRef</code> 类似，一个是从 <code>Secret</code> 对象中获取，一个是从 <code>ConfigMap</code> 对象中获取，创建上面的 Pod并查看日志：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl create -f secret/secret1-pod.yaml 
+pod/secret1-pod created
+ 
+[root@k8s-master ~]# kubectl logs secret1-pod
+......
+USERNAME=admin
+PASSWORD=admin321
+......<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="Volume-挂载"><a href="#Volume-挂载" class="headerlink" title="Volume 挂载"></a>Volume 挂载</h3><p>同样的我们用一个 Pod 来验证下 <code>Volume</code> 挂载，创建一个 Pod 文件：(secret2-pod.yaml)</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> secret2<span class="token punctuation">-</span>pod
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> secret2
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> busybox
+    <span class="token key atrule">command</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"/bin/sh"</span><span class="token punctuation">,</span> <span class="token string">"-c"</span><span class="token punctuation">,</span> <span class="token string">"ls /etc/secrets"</span><span class="token punctuation">]</span>
+    <span class="token key atrule">volumeMounts</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> secrets
+      <span class="token key atrule">mountPath</span><span class="token punctuation">:</span> /etc/secrets
+  <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> secrets
+    <span class="token key atrule">secret</span><span class="token punctuation">:</span>
+     <span class="token key atrule">secretName</span><span class="token punctuation">:</span> mysecret<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>创建 Pod，然后查看输出日志：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl create -f secret/secret2-pod.yaml 
+pod/secret2-pod created
+
+[root@k8s-master ~]# kubectl logs secret2-pod
+password
+username<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="kubernetes-io-dockerconfigjson"><a href="#kubernetes-io-dockerconfigjson" class="headerlink" title="kubernetes.io/dockerconfigjson"></a>kubernetes.io/dockerconfigjson</h2><p>除了上面的 <code>Opaque</code> 这种类型外，我们还可以来创建用户 <code>docker registry</code> 认证的 <code>Secret</code>，比如我们把自己在 docker hub 上某个仓库镜像设置为私有的</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-secret-dockerhub.png"></p>
+<p>然后观察下创建 Pod 时 docker hub 上的私有仓库来拉取镜像会发生什么 </p>
+<p>做准备创建Pod的资源文件 secret-private-php.yaml</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> private<span class="token punctuation">-</span>php
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> private<span class="token punctuation">-</span>php
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> dendi875/php<span class="token punctuation">-</span>php<span class="token punctuation">:</span><span class="token number">7.3</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>接着创建 Pod</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl apply -f secret/secret-private-php.yaml 
+pod/private-php created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>观察事件</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-secret-dockerhub-2.png"></p>
+<p>可以看到这个  Pod 是创建失败，因为我们的仓库镜像是私有的</p>
+<p>我们先删除这个 Pod</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl delete -f secret/secret-private-php.yaml 
+pod "private-php" deleted<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>如果这时我们需要从私有仓库拉取镜像怎么办呢？</p>
+<p>我们可以使用 <code>kubectl create secret docker-registry </code> 来创建一个 secret，如下：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl create secret docker-registry myregistry \
+--docker-server=&lt;你的镜像仓库服务器&gt; \
+--docker-username=&lt;你的用户名&gt; \
+--docker-password=&lt;你的密码&gt; \
+--docker-email=&lt;你的邮箱地址&gt;
+
+secret/myregistry created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>然后查看 Secret 列表：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get secret
+NAME                  TYPE                                  DATA   AGE
+default-token-pvpv2   kubernetes.io/service-account-token   3      8d
+myregistry            kubernetes.io/dockerconfigjson        1      14s
+mysecret              Opaque                                2      73m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>注意看上面的 TYPE 类型，myregistry 对应的是 <code>kubernetes.io/dockerconfigjson</code>，同样的可以使用 describe 或 get -o yaml 命令来查看详细信息：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]#  kubectl describe secret myregistry
+Name:         myregistry
+Namespace:    default
+Labels:       &lt;none&gt;
+Annotations:  &lt;none&gt;
+
+Type:  kubernetes.io/dockerconfigjson
+
+Data
+====
+.dockerconfigjson:  152 bytes<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-secret-dockerhub-4.png"></p>
+<p>把上面的 <code>data.dockerconfigjson</code> 下面的数据做一个 <code>base64</code> 解码，内容就如下：</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">{</span>
+    <span class="token property">"auths"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"DOCKER_SERVER"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+            <span class="token property">"username"</span><span class="token operator">:</span> <span class="token string">"DOCKER_USER"</span><span class="token punctuation">,</span>
+            <span class="token property">"password"</span><span class="token operator">:</span> <span class="token string">"DOCKER_PASSWORD"</span><span class="token punctuation">,</span>
+            <span class="token property">"email"</span><span class="token operator">:</span> <span class="token string">"DOCKER_EMAIL"</span><span class="token punctuation">,</span>
+            <span class="token property">"auth"</span><span class="token operator">:</span> <span class="token string">"RE9DS0VSX1VTRVI6RE9DS0VSX1BBU1NXT1JE"</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>我们需要拉取私有仓库镜像，我们就需要在 Pod 中指定 <code>imagePullSecrets</code>，在 secret-private-php.yaml中加入 <code>imagePullSecrets</code></p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> private<span class="token punctuation">-</span>php
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> private<span class="token punctuation">-</span>php
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> dendi875/php<span class="token punctuation">-</span>php<span class="token punctuation">:</span><span class="token number">7.3</span>
+  <span class="token key atrule">imagePullSecrets</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> myregistry  <span class="token comment"># 创建的 secret 名字  </span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>重新创建</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl apply -f secret/secret-private-php.yaml 
+pod/private-php created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>在次观察</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-secret-dockerhub-3.png"></p>
+<p>可以发现镜像已经成功拉取</p>
+<p>去 node2机器上也能看到镜像被成功拉取</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-node2 ~]# docker images | grep dendi875
+dendi875/php-php                                                            7.3        d5a49dc91b8c   2 years ago     183MB<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+
+
+<blockquote>
+<p><code>ImagePullSecrets</code> 与 <code>Secrets</code> 不同，因为 <code>Secrets</code> 可以挂载到 Pod 中，但是 <code>ImagePullSecrets</code> 只能由 Kubelet 访问。</p>
+</blockquote>
+<p>除了设置 <code>Pod.spec.imagePullSecrets</code> 这种方式来获取私有镜像之外，我们还可以通过在 <code>ServiceAccount</code> 中设置 <code>imagePullSecrets</code>，然后就会自动为使用该 ServiceAccount 的 Pod 注入 <code>imagePullSecrets</code>信息：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ServiceAccount
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">creationTimestamp</span><span class="token punctuation">:</span> <span class="token string">"2019-11-08T12:00:04Z"</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> default
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> default
+  <span class="token key atrule">resourceVersion</span><span class="token punctuation">:</span> <span class="token string">"332"</span>
+  <span class="token key atrule">selfLink</span><span class="token punctuation">:</span> /api/v1/namespaces/default/serviceaccounts/default
+  <span class="token key atrule">uid</span><span class="token punctuation">:</span> cc37a719<span class="token punctuation">-</span>c4fe<span class="token punctuation">-</span>4ebf<span class="token punctuation">-</span>92da<span class="token punctuation">-</span>e92c3e24d5d0
+<span class="token key atrule">secrets</span><span class="token punctuation">:</span>
+<span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> default<span class="token punctuation">-</span>token<span class="token punctuation">-</span>5tsh4
+<span class="token key atrule">imagePullSecrets</span><span class="token punctuation">:</span>
+<span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> myregistry<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="kubernetes-io-service-account-token"><a href="#kubernetes-io-service-account-token" class="headerlink" title="kubernetes.io/service-account-token"></a>kubernetes.io/service-account-token</h2><p>另外一种 <code>Secret</code> 类型就是 <code>kubernetes.io/service-account-token</code>，用于被 <code>ServiceAccount</code> 引用。<code>ServiceAccout</code> 创建时 Kubernetes 会默认创建对应的 <code>Secret</code>。Pod 如果使用了 <code>ServiceAccount</code>，对应的 <code>Secret</code> 会自动挂载到 Pod 的 <code>/var/run/secrets/kubernetes.io/serviceaccount/</code> 目录中。如下所示我们随意创建一个 Pod：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl run secret-pod3 --image nginx:1.7.9
+pod/secret-pod3 created
+
+[root@k8s-master ~]# kubectl get pods
+NAME          READY   STATUS             RESTARTS   AGE
+......
+secret-pod3   1/1     Running            0          57s
+......<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>我们可以直接查看这个 Pod 的详细信息：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">......
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: default-token-pvpv2
+      readOnly: true
+  ......
+  serviceAccount: default
+  serviceAccountName: default
+  ......
+  volumes:
+  - name: default-token-pvpv2
+    secret:
+      defaultMode: 420
+      secretName: default-token-pvpv2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可以看到默认把名为 <code>default</code>（自动创建的）的 <code>ServiceAccount</code> 对应的 Secret 对象通过 Volume 挂载到了容器的 <code>/var/run/secrets/kubernetes.io/serviceaccount</code> 的目录中</p>
+<h2 id="Secret-vs-ConfigMap"><a href="#Secret-vs-ConfigMap" class="headerlink" title="Secret vs ConfigMap"></a>Secret vs ConfigMap</h2><p>最后我们来对比下 <code>Secret</code> 和 <code>ConfigMap</code>这两种资源对象的异同点：</p>
+<h3 id="相同点"><a href="#相同点" class="headerlink" title="相同点"></a>相同点</h3><ul>
+<li><p>key/value的形式</p>
+</li>
+<li><p>属于某个特定的命名空间</p>
+</li>
+<li><p>可以导出到环境变量</p>
+</li>
+<li><p>可以通过目录/文件形式挂载</p>
+</li>
+<li><p>通过 volume 挂载的配置信息均可热更新</p>
+</li>
 </ul>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">select @@tx_isolation;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<h3 id="四种隔离级别的示例"><a href="#四种隔离级别的示例" class="headerlink" title="四种隔离级别的示例"></a>四种隔离级别的示例</h3><ol>
-<li>各隔离级别会再现的问题</li>
-</ol>
-<table>
-<thead>
-<tr>
-<th>隔离级别</th>
-<th>脏读</th>
-<th>不可重复读</th>
-<th>幻读</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>读未提交</td>
-<td>可能</td>
-<td>可能</td>
-<td>可能</td>
-</tr>
-<tr>
-<td>读已提交</td>
-<td>不可能</td>
-<td>可能</td>
-<td>可能</td>
-</tr>
-<tr>
-<td>可重复读</td>
-<td>不可能</td>
-<td>不可能</td>
-<td>可能</td>
-</tr>
-<tr>
-<td>可串行化</td>
-<td>不可能</td>
-<td>不可能</td>
-<td>不可能</td>
-</tr>
-</tbody></table>
-<ul>
-<li>读未提交：该隔离级别下可能会出现 <strong>脏读</strong>，也就是可能会读取到其它会话中修改了但还未提交的数据</li>
-<li>读已提交：该隔离级别解决了脏读问题，但可能会出现<strong>不可重复读</strong></li>
-<li>可重复读： 该隔离级别解决了不可重复读问题，但可能会出现<strong>幻读</strong></li>
-<li>可串行化：该隔离级别解决了幻读问题，它是完全串行化的读，每次读都需要获得表级共享锁，读写相互都会阻塞</li>
+<h3 id="不同点"><a href="#不同点" class="headerlink" title="不同点"></a>不同点</h3><ul>
+<li><p>Secret 可以被 ServerAccount 关联</p>
+</li>
+<li><p>Secret 可以存储 <code>docker register</code> 的鉴权信息，用在 <code>ImagePullSecret</code> 参数中，用于拉取私有仓库的镜像</p>
+</li>
+<li><p>Secret 支持 <code>Base64</code> 加密</p>
+</li>
+<li><p>Secret 分为 <code>kubernetes.io/service-account-token</code>、<code>kubernetes.io/dockerconfigjson</code>、<code>Opaque</code> 三种类型，而 <code>Configmap</code> 不区分类型</p>
+<blockquote>
+<p><strong>Warning</strong></p>
+<p>同样 Secret 文件大小限制为 <code>1MB</code>（ETCD 的要求）；Secret 虽然采用 <code>Base64</code> 编码，但是我们还是可以很方便解码获取到原始信息，所以对于非常重要的数据还是需要慎重考虑，可以考虑使用 <a target="_blank" rel="noopener" href="https://www.vaultproject.io/">Vault</a> 来进行加密管理。</p>
+</blockquote>
+</li>
 </ul>
-<ol start="2">
-<li>示例来说明每种隔离级别的使用情况</li>
-</ol>
-<p>准备一张测试表，插入一些测试数据，然后开启两个<code>MySQL</code>终端，在此命令为<code>session1</code>和<code>session2</code></p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">CREATE TABLE `goods` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) NOT NULL DEFAULT '' COMMENT '商品名称',
-  `stock` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '库存',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `uk_name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='商品';
-
-insert into `goods` (`name`, `stock`) values 
-('p1', '1000'),
-('p2', '1000'),
-('p3', '1000'),
-('p4', '1000'),
-('p5', '1000'),
-('p6', '1000'),
-('p7', '1000'),
-('p8', '1000'),
-('p9', '1000');<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h4 id="脏读"><a href="#脏读" class="headerlink" title="脏读"></a>脏读</h4><p>脏读就是指当一个事务正在访问数据，并且对数据进行了修改，而这种修改还没有提交到数据库中，这时，另外一个事务也访问这个数据，然后使用了这个数据。</p>
-<p>session1：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">// 关闭自动提交，设置隔离级别为读未提交
-mysql&gt; set autocommit=0;
-mysql&gt; set session transaction isolation level read uncommitted;
-
-// 确认
-mysql&gt; show variables like '%autocommit%';
-+---------------+-------+
-| Variable_name | Value |
-+---------------+-------+
-| autocommit    | OFF   |
-+---------------+-------+
-
-mysql&gt; select @@session.tx_isolation;
-+------------------------+
-| @@session.tx_isolation |
-+------------------------+
-| READ-UNCOMMITTED       |
-+------------------------+
-
-// 开启事务，查询 id = 1 的记录
-
-mysql&gt; start transaction;
-
-mysql&gt; select * from goods where id=1;
-+----+------+-------+
-| id | name | stock |
-+----+------+-------+
-|  1 | p1   |  1000 |
-+----+------+-------+
-1 row in set (0.01 sec)
-
-mysql&gt; select * from goods where id=1;
-+----+------+-------+
-| id | name | stock |
-+----+------+-------+
-|  1 | p1   |  1000 |
-+----+------+-------+
-1 row in set (0.00 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>session2：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mysql&gt; set autocommit=0;
-mysql&gt; set session transaction isolation level read uncommitted;
-
-// 确认
-
-// 开启事务，把 id = 1记录的库存更新至 1
-mysql&gt; start transaction;
-Query OK, 0 rows affected (0.00 sec)
-
-mysql&gt; select * from goods where id=1;
-+----+------+-------+
-| id | name | stock |
-+----+------+-------+
-|  1 | p1   |  1000 |
-+----+------+-------+
-1 row in set (0.00 sec)
-
-mysql&gt; update goods set stock=1 where id=1;
-Query OK, 1 row affected (0.00 sec)
-Rows matched: 1  Changed: 1  Warnings: 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>session1：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mysql&gt; select * from goods where id=1; 
-+----+------+-------+
-| id | name | stock |
-+----+------+-------+
-|  1 | p1   |     1 |
-+----+------+-------+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p><strong>注意：</strong> 这时 session1 读取到了 session2 未提交的内容，如果 session2 回滚刚才更新的数据，session1 读取到的数据就是错误的</p>
-<h4 id="不可重复读"><a href="#不可重复读" class="headerlink" title="不可重复读"></a>不可重复读</h4><p>事务一一直读，事务二修改数据并提交，有可能就会出现事务一内两次读取到的数据不一样</p>
-<p>session1：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">// 取消自动提交，并设置隔离级别为读已提交
-mysql&gt; set autocommit=0;
-mysql&gt; set session transaction isolation level read committed;
-
-// 确认
-mysql&gt; select @@session.tx_isolation;
-+------------------------+
-| @@session.tx_isolation |
-+------------------------+
-| READ-COMMITTED         |
-+------------------------+
-
-// 开启事务，查询 id=1 的记录
-mysql&gt; start transaction;
-Query OK, 0 rows affected (0.00 sec)
-
-mysql&gt; select * from goods where id=1;
-+----+------+-------+
-| id | name | stock |
-+----+------+-------+
-|  1 | p1   |  1000 |
-+----+------+-------+
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>session2：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">// 取消自动提交，并设置隔离级别为读已提交
-mysql&gt; set autocommit=0;
-mysql&gt; set session transaction isolation level read committed;
-
-// 确认
-mysql&gt; select @@session.tx_isolation;
-+------------------------+
-| @@session.tx_isolation |
-+------------------------+
-| READ-COMMITTED         |
-+------------------------+
-
-mysql&gt; start transaction;
-mysql&gt; select * from goods where id=1;
-mysql&gt; update goods set stock=1 where id=1;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>这时返回到 session1</p>
-<p>session1：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mysql&gt; select * from goods where id=1;
-+----+------+-------+
-| id | name | stock |
-+----+------+-------+
-|  1 | p1   |  1000 |
-+----+------+-------+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>可以观察到在读已提交的隔离级别下，session1 没出现<strong>脏读</strong>。</p>
-<p>继续返回到 session2 执行手动提交</p>
-<p>session2：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mysql&gt; commit;
-Query OK, 0 rows affected (0.01 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<p>再返回到 session1 查看 id = 1的记录</p>
-<p>session1：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mysql&gt; select * from goods where id=1;
-+----+------+-------+
-| id | name | stock |
-+----+------+-------+
-|  1 | p1   |     1 |
-+----+------+-------+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p><strong>注意：</strong> 在 session2 提交后，session1 连接两次读取到的数据不一致了，这就是<strong>读已提交隔离级别可能会出现不可重复读的情况</strong></p>
-<p>在演示幻读之前，我们先演示下<strong>可重复读</strong></p>
-<h4 id="可重复读"><a href="#可重复读" class="headerlink" title="可重复读"></a>可重复读</h4><p>session1：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mysql&gt; set autocommit=0;
-mysql&gt; set session transaction isolation level repeatable read;
-
-mysql&gt; select @@session.tx_isolation;
-+------------------------+
-| @@session.tx_isolation |
-+------------------------+
-| REPEATABLE-READ        |
-+------------------------+
-
-mysql&gt; select * from goods where id=1;
-+----+------+-------+
-| id | name | stock |
-+----+------+-------+
-|  1 | p1   |  1000 |
-+----+------+-------+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>session2：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mysql&gt; set autocommit=0;
-mysql&gt; set session transaction isolation level repeatable read;
-
-mysql&gt; select @@session.tx_isolation;
-+------------------------+
-| @@session.tx_isolation |
-+------------------------+
-| REPEATABLE-READ        |
-+------------------------+
-
-mysql&gt; start transaction;
-Query OK, 0 rows affected (0.00 sec)
-
-mysql&gt; select * from goods where id=1;
-+----+------+-------+
-| id | name | stock |
-+----+------+-------+
-|  1 | p1   |  1000 |
-+----+------+-------+
-1 row in set (0.00 sec)
-
-mysql&gt; update goods set stock=1 where id=1;
-Query OK, 1 row affected (0.00 sec)
-Rows matched: 1  Changed: 1  Warnings: 0
-
-mysql&gt;  commit;
-Query OK, 0 rows affected (0.00 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>再返回到 session1 查询 id=1 的记录</p>
-<p>session1：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mysql&gt; select * from goods where id=1;
-+----+------+-------+
-| id | name | stock |
-+----+------+-------+
-|  1 | p1   |  1000 |
-+----+------+-------+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>可以观察到<strong>在可重复读隔离级别下</strong>，session1 连续多次读取的数据是一致的，也就是它是可重复读的</p>
-<h4 id="幻读"><a href="#幻读" class="headerlink" title="幻读"></a>幻读</h4><p>两个事务彼此隔离，互相并不知道对方操作了什么，当第一个事务插入了一条数据并提交后，因为隔离级别是可重复读，在第二个事务里并不知道第一个事务已经插入了数据，所以第二个事务查询出来的数据还是没插入之前的，这时第二个事务再次插入数据时就可能会报数据已存在，以为自己出现了幻觉</p>
-<p>session1：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mysql&gt; set autocommit=0;
-mysql&gt; set session transaction isolation level repeatable read;
-
-// 开启事务，插入数据并提交
-mysql&gt; start transaction;
-Query OK, 0 rows affected (0.00 sec)
-
-mysql&gt; select * from goods;
-+----+------+-------+
-| id | name | stock |
-+----+------+-------+
-|  1 | p1   |     1 |
-|  2 | p2   |  1000 |
-|  3 | p3   |  1000 |
-|  4 | p4   |  1000 |
-|  5 | p5   |  1000 |
-|  6 | p6   |  1000 |
-|  7 | p7   |  1000 |
-|  8 | p8   |  1000 |
-|  9 | p9   |  1000 |
-+----+------+-------+
-9 rows in set (0.00 sec)
-
-mysql&gt; insert into goods(`name`,`stock`) values('p10', 1000);      
-Query OK, 1 row affected (0.00 sec)
-
-mysql&gt; commit;
-Query OK, 0 rows affected (0.00 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>切换到 session2 </p>
-<p>session2：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mysql&gt; set autocommit=0;
-mysql&gt; set session transaction isolation level repeatable read;
-
-// 开启事务，查询后再插入
-mysql&gt; start transaction;
-
-mysql&gt; select * from goods;
-+----+------+-------+
-| id | name | stock |
-+----+------+-------+
-|  1 | p1   |     1 |
-|  2 | p2   |  1000 |
-|  3 | p3   |  1000 |
-|  4 | p4   |  1000 |
-|  5 | p5   |  1000 |
-|  6 | p6   |  1000 |
-|  7 | p7   |  1000 |
-|  8 | p8   |  1000 |
-|  9 | p9   |  1000 |
-+----+------+-------+
-9 rows in set (0.00 sec)
-
-mysql&gt; insert into goods(`name`, `stock`) values('p10', 1000);     
-ERROR 1062 (23000): Duplicate entry 'p10' for key 'uk_name'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h4 id="SERIALIZABLE（可串行化）"><a href="#SERIALIZABLE（可串行化）" class="headerlink" title="SERIALIZABLE（可串行化）"></a>SERIALIZABLE（可串行化）</h4><p>在该隔离级别下事务都是串行顺序执行的，<code>MySQL</code> 数据库的 <code>InnoDB</code> 引擎会给读操作隐式加一把读共享锁，从而避免了脏读、不可重读复读和幻读问题。</p>
-<p>session1：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mysql&gt; set autocommit=0;
-Query OK, 0 rows affected (0.00 sec)
-
-mysql&gt; set session transaction isolation level serializable;
-Query OK, 0 rows affected (0.00 sec)
-
-mysql&gt; select @@session.tx_isolation;
-+------------------------+
-| @@session.tx_isolation |
-+------------------------+
-| SERIALIZABLE           |
-+------------------------+
-1 row in set (0.00 sec)
-
-// 开启一个事务，插入一条数据但不提交
-mysql&gt; start transaction;
-Query OK, 0 rows affected (0.00 sec)
-
-mysql&gt; insert into goods(`name`, `stock`) values('p10', 1000); 
-Query OK, 1 row affected (0.00 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>切换到 session2 ，开启一个事务然后查询数据</p>
-<p>session2：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mysql&gt; set autocommit=0;
-Query OK, 0 rows affected (0.00 sec)
-
-mysql&gt; set session transaction isolation level serializable;
-Query OK, 0 rows affected (0.00 sec)
-
-mysql&gt; select @@session.tx_isolation;
-+------------------------+
-| @@session.tx_isolation |
-+------------------------+
-| SERIALIZABLE           |
-+------------------------+
-1 row in set (0.00 sec)
-
-mysql&gt; select * from goods; // 些时会一直卡住<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>立马切换到 session1，提交事务</p>
-<p>session1：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mysql&gt; commit;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>再切换到 session2</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mysql&gt; select * from goods;
-+----+------+-------+
-| id | name | stock |
-+----+------+-------+
-|  1 | p1   |  1000 |
-|  2 | p2   |  1000 |
-|  3 | p3   |  1000 |
-|  4 | p4   |  1000 |
-|  5 | p5   |  1000 |
-|  6 | p6   |  1000 |
-|  7 | p7   |  1000 |
-|  8 | p8   |  1000 |
-|  9 | p9   |  1000 |
-| 10 | p10  |  1000 |
-+----+------+-------+
-10 rows in set (1.12 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>session2 也有可能获取锁超时</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mysql&gt; select * from goods;
-ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<p><strong>注意：</strong>　一旦事务提交，session2 会立马返回插入的记录，否则会一直卡住，直到超时，其中超时参数是由 <code>innodb_lock_wait_timeout</code> 控制。由于每条 <code>select</code>语句都会加锁，所以该隔离级别的数据库并发能力最弱</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>四个级别逐渐增强，每个级别解决一个问题。事务级别越高，性能越差。<code>InnoDB</code>默认级别是可重复读。 </p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><p><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/configuration/secret/">https://kubernetes.io/docs/concepts/configuration/secret/</a></p>
+</li>
+<li><p> <a target="_blank" rel="noopener" href="https://www.qikqiak.com/k8strain/config/secret/#opaque-secret">https://www.qikqiak.com/k8strain/config/secret/#opaque-secret</a></p>
+</li>
+</ul>
 
                 
             </div>
@@ -967,7 +862,7 @@ ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction<span 
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://www.zhangquan.me/2021/06/29/mysql-si-chong-shi-wu-ge-chi-ji-bie-shuo-ming/">https://www.zhangquan.me/2021/06/29/mysql-si-chong-shi-wu-ge-chi-ji-bie-shuo-ming/</a>
+                    <a href="https://www.zhangquan.me/2022/08/24/kubernetes-secret-min-gan-xin-xi-pei-zhi-guan-li/">https://www.zhangquan.me/2022/08/24/kubernetes-secret-min-gan-xin-xi-pei-zhi-guan-li/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1005,8 +900,8 @@ ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction<span 
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/MySQL/">
-                                    <span class="chip bg-color">MySQL</span>
+                                <a href="/tags/Kubernetes/">
+                                    <span class="chip bg-color">Kubernetes</span>
                                 </a>
                             
                         </div>
@@ -1501,84 +1396,36 @@ ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction<span 
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/06/29/jin-cheng-de-shou-hu-shen-daemontools/">
+                <a href="/2022/08/24/kubernetes-secret-min-gan-xin-xi-pei-zhi-guan-li/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="进程的守护神-daemontools">
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="Kubernetes Secret 敏感信息配置管理">
                         
-                        <span class="card-title">进程的守护神-daemontools</span>
+                        <span class="card-title">Kubernetes Secret 敏感信息配置管理</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            守护进程管理工具的安装和使用
-                        
-                    </div>
-                    <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-06-29
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Linux/" class="post-category">
-                                    Linux
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E5%B7%A5%E5%85%B7/">
-                        <span class="chip bg-color">工具</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
-            </div>
-            <div class="card">
-                <a href="/2021/06/29/mysql-si-chong-shi-wu-ge-chi-ji-bie-shuo-ming/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="MySQL 四种事务隔离级别说明">
-                        
-                        <span class="card-title">MySQL 四种事务隔离级别说明</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            彻底搞懂 MySQL 四种事务的隔离级别
+                            Kubernetes Secret 敏感信息配置管理
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-29
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-24
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-category">
-                                    数据库
+                            <a href="/categories/Kubernetes/" class="post-category">
+                                    Kubernetes
                                 </a>
                             
                             
@@ -1589,8 +1436,57 @@ ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction<span 
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/MySQL/">
-                        <span class="chip bg-color">MySQL</span>
+                    <a href="/tags/Kubernetes/">
+                        <span class="chip bg-color">Kubernetes</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2022/08/24/kubernetes-configmap-ke-bian-pei-zhi-guan-li/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Kubernetes ConfigMap 可变配置管理">
+                        
+                        <span class="card-title">Kubernetes ConfigMap 可变配置管理</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Kubernetes ConfigMap 可变配置管理
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-24
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Kubernetes/" class="post-category">
+                                    Kubernetes
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Kubernetes/">
+                        <span class="chip bg-color">Kubernetes</span>
                     </a>
                     
                 </div>

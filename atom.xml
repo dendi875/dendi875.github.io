@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2022-08-21T14:45:48.592Z</updated>
+  <updated>2022-08-24T10:44:41.975Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,56 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Kubernetes Secret 敏感信息配置管理</title>
+    <link href="https://www.zhangquan.me/2022/08/24/kubernetes-secret-min-gan-xin-xi-pei-zhi-guan-li/"/>
+    <id>https://www.zhangquan.me/2022/08/24/kubernetes-secret-min-gan-xin-xi-pei-zhi-guan-li/</id>
+    <published>2022-08-24T10:42:45.000Z</published>
+    <updated>2022-08-24T10:44:41.975Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Kubernetes-Secret-敏感信息配置管理&quot;&gt;&lt;a href=&quot;#Kubernetes-Secret-敏感信息配置管理&quot; class=&quot;headerlink&quot; title=&quot;Kubernetes Secret</summary>
+        
+      
+    
+    
+    
+    <category term="Kubernetes" scheme="https://www.zhangquan.me/categories/Kubernetes/"/>
+    
+    
+    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Kubernetes ConfigMap 可变配置管理</title>
+    <link href="https://www.zhangquan.me/2022/08/24/kubernetes-configmap-ke-bian-pei-zhi-guan-li/"/>
+    <id>https://www.zhangquan.me/2022/08/24/kubernetes-configmap-ke-bian-pei-zhi-guan-li/</id>
+    <published>2022-08-24T10:42:41.000Z</published>
+    <updated>2022-08-24T10:44:11.352Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Kubernetes-ConfigMap-可变配置管理&quot;&gt;&lt;a href=&quot;#Kubernetes-ConfigMap-可变配置管理&quot; class=&quot;headerlink&quot; title=&quot;Kubernetes ConfigMap</summary>
+        
+      
+    
+    
+    
+    <category term="Kubernetes" scheme="https://www.zhangquan.me/categories/Kubernetes/"/>
+    
+    
+    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
+    
+  </entry>
   
   <entry>
     <title>kubernetes 持久化存储PV 和 PVC 的使用</title>
@@ -481,66 +531,6 @@
     
     
     <category term="C" scheme="https://www.zhangquan.me/tags/C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>C 语言中数组并非指针</title>
-    <link href="https://www.zhangquan.me/2021/12/09/c-yu-yan-zhong-shu-zu-bing-fei-zhi-zhen/"/>
-    <id>https://www.zhangquan.me/2021/12/09/c-yu-yan-zhong-shu-zu-bing-fei-zhi-zhen/</id>
-    <published>2021-12-09T12:08:03.000Z</published>
-    <updated>2021-12-09T12:15:09.410Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;数组并非指针&quot;&gt;&lt;a href=&quot;#数组并非指针&quot; class=&quot;headerlink&quot; title=&quot;数组并非指针&quot;&gt;&lt;/a&gt;数组并非指针&lt;/h1&gt;&lt;hr&gt;
-&lt;h2 id=&quot;一、什么是声明，什么是定义&quot;&gt;&lt;a href=&quot;#一、什么是声明，什么是定义&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="C" scheme="https://www.zhangquan.me/categories/C/"/>
-    
-    
-    <category term="C" scheme="https://www.zhangquan.me/tags/C/"/>
-    
-    <category term="数组" scheme="https://www.zhangquan.me/tags/%E6%95%B0%E7%BB%84/"/>
-    
-    <category term="指针" scheme="https://www.zhangquan.me/tags/%E6%8C%87%E9%92%88/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>C和指针（二）</title>
-    <link href="https://www.zhangquan.me/2021/12/09/c-he-zhi-zhen-er/"/>
-    <id>https://www.zhangquan.me/2021/12/09/c-he-zhi-zhen-er/</id>
-    <published>2021-12-09T11:37:40.000Z</published>
-    <updated>2021-12-09T12:10:52.591Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;hr&gt;
-&lt;h2 id=&quot;一、数组指针&quot;&gt;&lt;a href=&quot;#一、数组指针&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="C" scheme="https://www.zhangquan.me/categories/C/"/>
-    
-    
-    <category term="C" scheme="https://www.zhangquan.me/tags/C/"/>
-    
-    <category term="数组" scheme="https://www.zhangquan.me/tags/%E6%95%B0%E7%BB%84/"/>
-    
-    <category term="指针" scheme="https://www.zhangquan.me/tags/%E6%8C%87%E9%92%88/"/>
     
   </entry>
   
