@@ -43,9 +43,9 @@
         s.parentNode.insertBefore(bp, s);
     })();
     </script>
-<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="一代键客" type="application/atom+xml">
-
+<meta name="generator" content="Hexo 5.4.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="一代键客" type="application/atom+xml">
 </head>
 
 
@@ -872,9 +872,6 @@ metadata:
   uid: 309e08bc-1ea3-4370-9998-332eb3d22016<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 </li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-configMap-1.png"></p>
-<ul>
 <li><p>创建测试 Pod，如下资源对象所示：testcmredis.yaml</p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod
@@ -903,6 +900,9 @@ metadata:
         <span class="token key atrule">items</span><span class="token punctuation">:</span>
         <span class="token punctuation">-</span> <span class="token key atrule">key</span><span class="token punctuation">:</span> redis.conf
           <span class="token key atrule">path</span><span class="token punctuation">:</span> redis.conf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-configMap-1.png"></p>
+<ul>
 <li><p>根据以上 yaml 文件创建 pod</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl apply -f cm/testcmredis.yaml 
 pod/redis created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
