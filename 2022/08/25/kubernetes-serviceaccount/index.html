@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Autotools简介（autoconf, automake）, PHP,Java,Go,MySQL,Linux,Docker等">
+    <meta name="keywords" content="Kubernetes ServiceAccount, PHP,Java,Go,MySQL,Linux,Docker等">
     <meta name="description" content="PHP Go MySQL 后端开发">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Autotools简介（autoconf, automake） | 一代键客</title>
+    <title>Kubernetes ServiceAccount | 一代键客</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -327,12 +327,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Autotools简介（autoconf, automake）</h1>
+                    <h1 class="description center-align post-title">Kubernetes ServiceAccount</h1>
                 </div>
             </div>
         </div>
@@ -448,12 +448,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Makefile/">
-                                <span class="chip bg-color">Makefile</span>
-                            </a>
-                        
-                            <a href="/tags/Autoconf/">
-                                <span class="chip bg-color">Autoconf</span>
+                            <a href="/tags/Kubernetes/">
+                                <span class="chip bg-color">Kubernetes</span>
                             </a>
                         
                     </div>
@@ -464,8 +460,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/C/" class="post-category">
-                                C
+                            <a href="/categories/Kubernetes/" class="post-category">
+                                Kubernetes
                             </a>
                         
                     </div>
@@ -477,28 +473,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-12-09
+                    2022-08-25
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-06-15
+                    2022-08-25
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.2k
+                    893
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    5 分
+                    4 分
                 </div>
                 
 
@@ -521,175 +517,96 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Autotools简介（autoconf-automake）"><a href="#Autotools简介（autoconf-automake）" class="headerlink" title="Autotools简介（autoconf, automake）"></a>Autotools简介（autoconf, automake）</h1><hr>
-<h2 id="一、引言"><a href="#一、引言" class="headerlink" title="一、引言"></a>一、引言</h2><p>无论是在Linux还是在Unix环境中，make都是一个非常重要的编译命令。不管是自己进行项目开发还是安装应用软件，我们都经常要用到make或 make install。利用make工具，我们可以将大型的开发项目分解成为多个更易于管理的模块，对于一个包括几百个源文件的应用程序，使用make和 makefile工具就可以轻而易举的理顺各个源文件之间纷繁复杂的相互关系。</p>
-<p>但是如果通过查阅make的帮助文档来手工编写Makefile,对任何程序员都是一场挑战。幸而有GNU 提供的Autoconf及Automake这两套工具使得编写makefile不再是一个难题。</p>
-<p>本文将介绍如何利用 GNU Autoconf 及 Automake 这两套工具来协助我们自动产生 Makefile文件，并且让开发出来的软件可以像大多数源码包那样，只需”./configure”, “make”,”make install” 就可以把程序安装到系统中。</p>
-<h2 id="二、从epoch程序开始"><a href="#二、从epoch程序开始" class="headerlink" title="二、从epoch程序开始"></a>二、从epoch程序开始</h2><p>我们从一个获取系统时间的程序为例开始讲解。</p>
-<p>1）新建目录</p>
-<p>在你的工作目录下新建一个epoch目录，我们用它来存放epoch程序及相关文件。</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ mkdir epoch
-$ cd epoch<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+                <h1 id="Kubernetes-ServiceAccount"><a href="#Kubernetes-ServiceAccount" class="headerlink" title="Kubernetes ServiceAccount"></a>Kubernetes ServiceAccount</h1><p><code>ServiceAccount</code> 主要是用于解决 Pod 在集群中的身份认证问题。认证使用的授权信息其实就是利用一个类型为 <code>kubernetes.io/service-account-token</code> 进行管理的。</p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p><code>ServiceAccount</code> 是命名空间级别的，每一个命名空间创建的时候就会自动创建一个名为 <code>default</code> 的 <code>ServiceAccount</code> 对象:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl create ns kube-test
+namespace/kube-test created
 
-<p>2）epoch.c</p>
-<p>编写一个epoch.c程序，内容如下</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;sys/time.h&gt;</span></span>
+[root@k8s-master ~]# kubectl get ServiceAccount -n kube-test 
+NAME      SECRETS   AGE
+default   1         29s
 
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"config.h"</span></span>
+[root@k8s-master ~]# kubectl get secret -n kube-test
+NAME                  TYPE                                  DATA   AGE
+default-token-5ppzb   kubernetes.io/service-account-token   3      47s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<span class="token keyword">double</span> <span class="token function">get_epoch</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">double</span> sec<span class="token punctuation">;</span>
+<p>可以看到 <code>ServiceAccount</code> 会自动关联到一个 <code>Secret</code> 对象上：</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">[root@k8s-master ~]# kubectl get sa default -n kube-test -o yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  creationTimestamp: "2022-08-24T12:26:22Z"
+  name: default
+  namespace: kube-test
+  resourceVersion: "98033"
+  uid: 0424a9f9-9df3-4a09-afed-9f1fa1329ee3
+secrets:
+- name: default-token-5ppzb<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">ifdef</span> <span class="token expression">HAVE_GETTIMEOFDAY</span></span>
-    <span class="token keyword">struct</span> <span class="token class-name">timeval</span> tv<span class="token punctuation">;</span>
-
-    <span class="token function">gettimeofday</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>tv<span class="token punctuation">,</span> <span class="token constant">NULL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    sec <span class="token operator">=</span> tv<span class="token punctuation">.</span>tv_sec<span class="token punctuation">;</span>
-    sec <span class="token operator">+=</span> tv<span class="token punctuation">.</span>tv_usec <span class="token operator">/</span> <span class="token number">1000000.0</span><span class="token punctuation">;</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">else</span></span>
-    sec <span class="token operator">=</span> <span class="token function">time</span><span class="token punctuation">(</span><span class="token constant">NULL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">endif</span></span>
-
-    <span class="token keyword">return</span> sec<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span>argv<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%f\n"</span><span class="token punctuation">,</span> <span class="token function">get_epoch</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>3）生成configure</p>
-<p>我们使用autoscan命令来帮助我们根据目录下的源代码生成一个configure.ac的模板文件</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ autoscan
-$ ls
-autoscan.log  configure.scan  epoch.c<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-<p>执行后在epoch目录下会生成一个文件configure.scan，我们可以拿它作为configure.ac的模板。现在将configure.scan改名为configure.ac，并且编辑它，修改成下面的内容：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ mv configure.scan configure.ac<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">#                                               -*- Autoconf -*-
-# Process this file with autoconf to produce a configure script.
-
-AC_PREREQ([2.63])
-AC_INIT(epoch, 1.0, quanzhang875@gmail.com)
-AM_INIT_AUTOMAKE(epoch, 1.0)
-AC_CONFIG_SRCDIR([epoch.c])
-AC_CONFIG_HEADERS([config.h])
-
-# Checks for programs.
-AC_PROG_CC
-
-# Checks for libraries.
-
-# Checks for header files.
-AC_CHECK_HEADERS([sys/time.h])
-
-# Checks for typedefs, structures, and compiler characteristics.
-
-# Checks for library functions.
-AC_CHECK_FUNCS([gettimeofday])
-
-AC_OUTPUT(Makefile)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>然后执行命令<strong>aclocal</strong>和<strong>autoconf</strong>及<strong>autoheader</strong>，就会分别生成<strong>aclocal.m4</strong>和<strong>configure</strong>及<strong>config.h.in</strong>文件：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ aclocal
-$ ls
-aclocal.m4  autom4te.cache  autoscan.log  configure.ac  epoch.c
-
-$ autoconf
-$ ls
-aclocal.m4  autom4te.cache  autoscan.log  configure  configure.ac  epoch.c
-
-$ autoheader
-$ ls
-aclocal.m4  autom4te.cache  autoscan.log  config.h.in  configure  configure.ac  epoch.c<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>4）新建 Makefile.am</p>
-<p>Makefile.am文件内容：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ vi Makefile.am<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">AUTOMAKE_OPTIONS=foreign
-bin_PROGRAMS=epoch
-epoch_SOURCES=epoch.c<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-
-<p>automake会根据你写的Makefile.am来自动生成Makefile.in。</p>
-<p>Makefile.am中定义的宏和目标，会指导automake生成指定的代码。例如，宏bin_PROGRAMS将导致编译和连接的目标被生成。</p>
-<p>5）运行automake</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ automake --add-missing
-configure.ac:6: installing `./install-sh'
-configure.ac:6: installing `./missing'
-Makefile.am: installing `./depcomp'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-<p>6）运行configure生成Makefile和config.h</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ ./configure
-checking for a BSD-compatible install... /usr/bin/install -c
-checking whether build environment is sane... yes
-checking for a thread-safe mkdir -p... /bin/mkdir -p
-checking for gawk... gawk
-checking whether make sets $(MAKE)... yes
-checking for gcc... gcc
-checking for C compiler default output file name... a.out
-checking whether the C compiler works... yes
-checking whether we are cross compiling... no
-checking for suffix of executables...
-checking for suffix of object files... o
-checking whether we are using the GNU C compiler... yes
-checking whether gcc accepts -g... yes
-checking for gcc option to accept ISO C89... none needed
-checking for style of include used by make... GNU
-checking dependency style of gcc... gcc3
-checking how to run the C preprocessor... gcc -E
-checking for grep that handles long lines and -e... /bin/grep
-checking for egrep... /bin/grep -E
-checking for ANSI C header files... yes
-checking for sys/types.h... yes
-checking for sys/stat.h... yes
-checking for stdlib.h... yes
-checking for string.h... yes
-checking for memory.h... yes
-checking for strings.h... yes
-checking for inttypes.h... yes
-checking for stdint.h... yes
-checking for unistd.h... yes
-checking sys/time.h usability... yes
-checking sys/time.h presence... yes
-checking for sys/time.h... yes
-checking for gettimeofday... yes
-configure: creating ./config.status
-config.status: creating Makefile
-config.status: creating config.h
-config.status: executing depfiles commands<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">ls
-aclocal.m4      autoscan.log  config.h.in  config.status  configure.ac  epoch.c     Makefile     Makefile.in  stamp-h1
-autom4te.cache  config.h      config.log   configure      depcomp       install-sh  Makefile.am  missing<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-<p>可以看到此时<strong>Makefile</strong>和<strong>config.h</strong>已经产生出来了。</p>
-<p>7）使用Makefile编译代码</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ make
-make  all-am
-make[1]: Entering directory `/home/dendi875/auto/epoch'
-gcc -DHAVE_CONFIG_H -I.     -g -O2 -MT epoch.o -MD -MP -MF .deps/epoch.Tpo -c -o epoch.o epoch.c
-mv -f .deps/epoch.Tpo .deps/epoch.Po
-gcc  -g -O2   -o epoch epoch.o
-make[1]: Leaving directory `/home/dendi875/auto/epoch'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>8）运行epoch</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ ./epoch
-1561952071.857380<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<p>这样epoch就编译出来了，你还可以试着使用一些其它的make命令，如<strong>make clean</strong>，<strong>make install</strong>，<strong>make dist</strong>。</p>
-<h2 id="三、流程图"><a href="#三、流程图" class="headerlink" title="三、流程图"></a>三、流程图</h2><p>我们用一张图来表示产生<strong>Makefile</strong>和<strong>config.h</strong>的流程</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/afp2.png"></p>
-<h2 id="四、参考资料"><a href="#四、参考资料" class="headerlink" title="四、参考资料"></a>四、参考资料</h2><ul>
-<li><a target="_blank" rel="noopener" href="http://www.laruence.com/2009/11/18/1154.html">automake，autoconf使用详解</a></li>
+<p>这个 Secret 对象是 ServiceAccount 控制器自动创建的，我们可以查看这个关联的 <code>Secret</code> 对象信息：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-service-account.png"></p>
+<p>在 <code>data</code> 区域我们可以看到有3个信息：</p>
+<ul>
+<li><code>ca.crt</code>：用于校验服务端的证书信息</li>
+<li><code>namespace</code>：表示当前管理的命名空间</li>
+<li><code>token</code>：用于 Pod 身份认证的 Token</li>
 </ul>
+<p>默认情况下当前 namespace 下面的 Pod 会默认使用 <code>default</code> 这个 ServiceAccount，对应的 <code>Secret</code> 会自动挂载到 Pod 的 <code>/var/run/secrets/kubernetes.io/serviceaccount/</code> 目录中，这样我们就可以在 Pod 里面获取到用于身份认证的信息了。</p>
+<h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><p>如下所示我们随意创建一个 Pod：</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">[root@k8s-master ~]# kubectl run nginx-sa --image nginx:1.7.9
+pod/nginx-sa created
+
+[root@k8s-master ~]# kubectl get pods
+NAME          READY   STATUS             RESTARTS   AGE
+nginx-sa      1/1     Running            0          12s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>进入这个 Pod 中查看：</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">[root@k8s-master ~]# kubectl exec -it nginx-sa /bin/bash -- /bin/bash
+root@nginx-sa:/# ls
+bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  selinux  srv  sys  tmp  usr  var
+root@nginx-sa:/#  ls /run/secrets/kubernetes.io/serviceaccount/
+ca.crt  namespace  token
+root@nginx-sa:/# ls /var/run/secrets/kubernetes.io/serviceaccount/
+ca.crt  namespace  token
+
+#可以看到在 /var/run/secrets/kubernetes.io/serviceaccount/中的确有三个文件<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>查看这个 Pod 的详细信息：</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">[root@k8s-master ~]# kubectl get pod nginx-sa -o yaml | grep serviceAccount
+  serviceAccount: default
+  serviceAccountName: default
+  
+# 可以看到 Pod 的确有名字为 default的 ServiceAccount，serviceAccountName是新版本推荐使用的  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>查看这个 Pod 使用的 <code>default</code> 这个 ServiceAccount：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get sa 
+NAME      SECRETS   AGE
+default   1         11d<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>查看 default 的ServiceAccount详细信息，可以看到它 Mount 了一个 secret ：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl describe sa default
+Name:                default
+Namespace:           default
+Labels:              &lt;none&gt;
+Annotations:         &lt;none&gt;
+Image pull secrets:  &lt;none&gt;
+Mountable secrets:   default-token-pvpv2
+Tokens:              default-token-pvpv2
+Events:              &lt;none&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>查看 secret</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get secret
+NAME                  TYPE                                  DATA   AGE
+default-token-pvpv2   kubernetes.io/service-account-token   3      11d
+myregistry            kubernetes.io/dockerconfigjson        1      2d3h
+mysecret              Opaque                                2      2d4h<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>实际上这个自动挂载过程是在 Pod 创建的时候通过 <code>Admisson Controller（准入控制器）</code> 来实现的。</p>
+<p><code>Admission Controller（准入控制）</code>是 Kubernetes API Server 用于拦截请求的一种手段。<code>Admission</code> 可以做到对请求的资源对象进行校验，修改，Pod 创建时 <code>Admission Controller</code> 会根据指定的的 <code>ServiceAccount</code>（默认的 default）把对应的 <code>Secret</code> 挂载到容器中的固定目录下 <code>/var/run/secrets/kubernetes.io/serviceaccount/</code>。</p>
+<blockquote>
+<p>Admission Controller（准入控制）<code>是 Kubernetes API Server 用于拦截请求的一种手段。</code>Admission<code>可以做到对请求的资源对象进行校验，修改，Pod 创建时</code>Admission Controller<code>会根据指定的的</code>ServiceAccount<code>（默认的 default）把对应的 </code>Secret<code>挂载到容器中的固定目录下</code>/var/run/secrets/kubernetes.io/serviceaccount/`。</p>
+</blockquote>
+<p>然后当我们在 Pod 里面访问集群的时候，就可以默认利用挂载到 Pod 内部的 <code>token</code> 文件来认证 Pod 的身份，<code>ca.crt</code> 则用来校验服务端。</p>
 
                 
             </div>
@@ -716,7 +633,7 @@ make[1]: Leaving directory `/home/dendi875/auto/epoch'<span aria-hidden="true" c
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://www.zhangquan.me/2021/12/09/autotools-jian-jie-autoconf-automake/">https://www.zhangquan.me/2021/12/09/autotools-jian-jie-autoconf-automake/</a>
+                    <a href="https://www.zhangquan.me/2022/08/25/kubernetes-serviceaccount/">https://www.zhangquan.me/2022/08/25/kubernetes-serviceaccount/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -754,12 +671,8 @@ make[1]: Leaving directory `/home/dendi875/auto/epoch'<span aria-hidden="true" c
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Makefile/">
-                                    <span class="chip bg-color">Makefile</span>
-                                </a>
-                            
-                                <a href="/tags/Autoconf/">
-                                    <span class="chip bg-color">Autoconf</span>
+                                <a href="/tags/Kubernetes/">
+                                    <span class="chip bg-color">Kubernetes</span>
                                 </a>
                             
                         </div>
@@ -1258,31 +1171,31 @@ make[1]: Leaving directory `/home/dendi875/auto/epoch'<span aria-hidden="true" c
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/12/09/c-he-zhi-zhen-yi/">
+                <a href="/2022/08/25/kubernetes-rbac-quan-xian-kong-zhi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="C和指针（一）">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Kubernetes RBAC 权限控制">
                         
-                        <span class="card-title">C和指针（一）</span>
+                        <span class="card-title">Kubernetes RBAC 权限控制</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            在 C 语言里关于声明指针、NULL指针、指针常量、指向指针的指什、通用型指针的介绍
+                            Kubernetes RBAC 权限控制
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-12-09
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-08-25
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/C/" class="post-category">
-                                    C
+                            <a href="/categories/Kubernetes/" class="post-category">
+                                    Kubernetes
                                 </a>
                             
                             
@@ -1292,12 +1205,8 @@ make[1]: Leaving directory `/home/dendi875/auto/epoch'<span aria-hidden="true" c
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/C/">
-                        <span class="chip bg-color">C</span>
-                    </a>
-                    
-                    <a href="/tags/%E6%8C%87%E9%92%88/">
-                        <span class="chip bg-color">指针</span>
+                    <a href="/tags/Kubernetes/">
+                        <span class="chip bg-color">Kubernetes</span>
                     </a>
                     
                 </div>
@@ -1311,31 +1220,31 @@ make[1]: Leaving directory `/home/dendi875/auto/epoch'<span aria-hidden="true" c
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/12/05/elasticsearch-php-api-de-shi-yong/">
+                <a href="/2022/08/24/kubernetes-secret-min-gan-xin-xi-pei-zhi-guan-li/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="Elasticsearch-PHP API 的使用">
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="Kubernetes Secret 敏感信息配置管理">
                         
-                        <span class="card-title">Elasticsearch-PHP API 的使用</span>
+                        <span class="card-title">Kubernetes Secret 敏感信息配置管理</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            PHP 作为 Elasticsearch 客户端的基本操作
+                            Kubernetes Secret 敏感信息配置管理
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-12-05
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-24
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Elasticsearch/" class="post-category">
-                                    Elasticsearch
+                            <a href="/categories/Kubernetes/" class="post-category">
+                                    Kubernetes
                                 </a>
                             
                             
@@ -1345,12 +1254,8 @@ make[1]: Leaving directory `/home/dendi875/auto/epoch'<span aria-hidden="true" c
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/PHP/">
-                        <span class="chip bg-color">PHP</span>
-                    </a>
-                    
-                    <a href="/tags/Elasticsearch-%E4%B8%AD%E9%97%B4%E4%BB%B6/">
-                        <span class="chip bg-color">Elasticsearch - 中间件</span>
+                    <a href="/tags/Kubernetes/">
+                        <span class="chip bg-color">Kubernetes</span>
                     </a>
                     
                 </div>

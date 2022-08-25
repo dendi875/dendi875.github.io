@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2022-08-24T11:47:30.942Z</updated>
+  <updated>2022-08-25T09:40:10.781Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,56 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Kubernetes RBAC 权限控制</title>
+    <link href="https://www.zhangquan.me/2022/08/25/kubernetes-rbac-quan-xian-kong-zhi/"/>
+    <id>https://www.zhangquan.me/2022/08/25/kubernetes-rbac-quan-xian-kong-zhi/</id>
+    <published>2022-08-25T09:39:14.000Z</published>
+    <updated>2022-08-25T09:40:10.781Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Kubernetes-RBAC-权限控制&quot;&gt;&lt;a href=&quot;#Kubernetes-RBAC-权限控制&quot; class=&quot;headerlink&quot; title=&quot;Kubernetes RBAC 权限控制&quot;&gt;&lt;/a&gt;Kubernetes RBAC</summary>
+        
+      
+    
+    
+    
+    <category term="Kubernetes" scheme="https://www.zhangquan.me/categories/Kubernetes/"/>
+    
+    
+    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Kubernetes ServiceAccount</title>
+    <link href="https://www.zhangquan.me/2022/08/25/kubernetes-serviceaccount/"/>
+    <id>https://www.zhangquan.me/2022/08/25/kubernetes-serviceaccount/</id>
+    <published>2022-08-25T09:39:10.000Z</published>
+    <updated>2022-08-25T09:39:47.883Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Kubernetes-ServiceAccount&quot;&gt;&lt;a href=&quot;#Kubernetes-ServiceAccount&quot; class=&quot;headerlink&quot; title=&quot;Kubernetes ServiceAccount&quot;&gt;&lt;/a&gt;Kubernetes</summary>
+        
+      
+    
+    
+    
+    <category term="Kubernetes" scheme="https://www.zhangquan.me/categories/Kubernetes/"/>
+    
+    
+    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
+    
+  </entry>
   
   <entry>
     <title>Kubernetes Secret 敏感信息配置管理</title>
@@ -477,60 +527,6 @@
     
     
     <category term="JAVA" scheme="https://www.zhangquan.me/tags/JAVA/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>C 语言中对链表的简单操作</title>
-    <link href="https://www.zhangquan.me/2021/12/09/c-yu-yan-zhong-dui-lian-biao-de-jian-dan-cao-zuo/"/>
-    <id>https://www.zhangquan.me/2021/12/09/c-yu-yan-zhong-dui-lian-biao-de-jian-dan-cao-zuo/</id>
-    <published>2021-12-09T12:14:13.000Z</published>
-    <updated>2021-12-09T12:15:05.521Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;hr&gt;
-&lt;h3 id=&quot;一、链表&quot;&gt;&lt;a href=&quot;#一、链表&quot; class=&quot;headerlink&quot; title=&quot;一、链表&quot;&gt;&lt;/a&gt;一、链表&lt;/h3&gt;&lt;p&gt;链表（linked</summary>
-        
-      
-    
-    
-    
-    <category term="C" scheme="https://www.zhangquan.me/categories/C/"/>
-    
-    
-    <category term="C" scheme="https://www.zhangquan.me/tags/C/"/>
-    
-    <category term="链表" scheme="https://www.zhangquan.me/tags/%E9%93%BE%E8%A1%A8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>C 语言中字符串处理函数</title>
-    <link href="https://www.zhangquan.me/2021/12/09/c-yu-yan-zhong-zi-fu-chuan-chu-li-han-shu/"/>
-    <id>https://www.zhangquan.me/2021/12/09/c-yu-yan-zhong-zi-fu-chuan-chu-li-han-shu/</id>
-    <published>2021-12-09T12:11:41.000Z</published>
-    <updated>2021-12-09T12:16:49.840Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;hr&gt;
-&lt;h2 id=&quot;一、字符串基础&quot;&gt;&lt;a href=&quot;#一、字符串基础&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="C" scheme="https://www.zhangquan.me/categories/C/"/>
-    
-    
-    <category term="C" scheme="https://www.zhangquan.me/tags/C/"/>
     
   </entry>
   
