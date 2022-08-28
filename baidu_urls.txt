@@ -1,3 +1,4 @@
+https://www.zhangquan.me/2022/08/28/kubernetes-ingress-traefik-de-an-zhuang-ji-jian-dan-shi-yong/
 https://www.zhangquan.me/2022/08/28/kubernetes-hpa/
 https://www.zhangquan.me/2022/08/28/kubernetes-security-context/
 https://www.zhangquan.me/2022/08/25/kubernetes-rbac-quan-xian-kong-zhi/

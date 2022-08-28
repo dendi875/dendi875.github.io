@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="在MacOS系统上编译OpenJDK12并使用CLion调试, PHP,Java,Go,MySQL,Linux,Docker等">
+    <meta name="keywords" content="Kubernetes Ingress Traefik 的安装及简单使用, PHP,Java,Go,MySQL,Linux,Docker等">
     <meta name="description" content="PHP Go MySQL 后端开发">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>在MacOS系统上编译OpenJDK12并使用CLion调试 | 一代键客</title>
+    <title>Kubernetes Ingress Traefik 的安装及简单使用 | 一代键客</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -327,12 +327,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">在MacOS系统上编译OpenJDK12并使用CLion调试</h1>
+                    <h1 class="description center-align post-title">Kubernetes Ingress Traefik 的安装及简单使用</h1>
                 </div>
             </div>
         </div>
@@ -448,8 +448,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/JAVA/">
-                                <span class="chip bg-color">JAVA</span>
+                            <a href="/tags/Kubernetes/">
+                                <span class="chip bg-color">Kubernetes</span>
                             </a>
                         
                     </div>
@@ -460,8 +460,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/JVM/" class="post-category">
-                                JVM
+                            <a href="/categories/Kubernetes/" class="post-category">
+                                Kubernetes
                             </a>
                         
                     </div>
@@ -473,28 +473,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-03-01
+                    2022-08-28
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-03-01
+                    2022-08-28
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.9k
+                    2.5k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    8 分
+                    10 分
                 </div>
                 
 
@@ -517,145 +517,240 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="1-MAC-环境"><a href="#1-MAC-环境" class="headerlink" title="1. MAC 环境"></a>1. MAC 环境</h2><p>macOS Catalina 版本 10.15.6</p>
-<h2 id="2-准备"><a href="#2-准备" class="headerlink" title="2. 准备"></a>2. 准备</h2><h3 id="2-1-获取源码"><a href="#2-1-获取源码" class="headerlink" title="2.1 获取源码"></a>2.1 获取源码</h3><p>直接通过页面下载 <a target="_blank" rel="noopener" href="https://hg.openjdk.java.net/jdk/jdk12/">OpenJdk12源码压缩包</a> ，然后点击左边菜单中的 “Browse”，将显示如图的源码根目录页面。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/openjdk-12-source-code.png" alt="openjdk12-source-code.png"></p>
-<p>此时点击左边的 “zip” 链接即可下载打包好的源码。</p>
-<h3 id="2-2-Bootstrap-JDK"><a href="#2-2-Bootstrap-JDK" class="headerlink" title="2.2 Bootstrap JDK"></a>2.2 Bootstrap JDK</h3><p>因为OpenJDK的各个组成部分有的是使用C++编写的,有的是使用Java编写的，因此编译这些Java代码需要使用到一个可用的JDK，官方称这个JDK为“Bootstrap JDK”，一般来说只需要比编译的JDK低一个版本，这里采用OpenJDK11，可以通过这个网址 jdk.java.net/archive/ 下载<br>记住一定要下载一个适合Mac平台的OpenJDK11。</p>
-<p>1）<a target="_blank" rel="noopener" href="https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_osx-x64_bin.tar.gz">下载 JDK 11</a></p>
-<p>2）解压安装包</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ sudo tar -zxf /Users/zhangquan/Downloads/openjdk-11.0.2_osx-x64_bin.tar.gz -C /Library/Java/JavaVirtualMachines/ <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+                <h1 id="Kubernetes-Ingress-Traefik-的安装及简单使用"><a href="#Kubernetes-Ingress-Traefik-的安装及简单使用" class="headerlink" title="Kubernetes Ingress Traefik 的安装及简单使用"></a>Kubernetes Ingress Traefik 的安装及简单使用</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p><code>Ingress</code>其实就是从 kuberenets 集群外部访问集群的一个入口，将外部的请求转发到集群内不同的 Service 上，其实就相当于 nginx、haproxy 等负载均衡代理服务器，有的同学可能觉得我们直接使用 nginx 就实现了，但是只使用 nginx 这种方式有很大缺陷，每次有新服务加入的时候怎么改 Nginx 配置？不可能让我们去手动更改或者滚动更新前端的 Nginx Pod 吧？那我们再加上一个服务发现的工具比如 consul 如何？貌似是可以，对吧？而且在之前单独使用 docker 的时候，这种方式已经使用得很普遍了，Ingress 实际上就是这样实现的，只是服务发现的功能自己实现了，不需要使用第三方的服务了，然后再加上一个域名规则定义，路由信息的刷新需要一个靠 Ingress controller 来提供。</p>
+<p>Ingress controller 可以理解为一个监听器，通过不断地与 kube-apiserver 打交道，实时的感知后端 service、pod 的变化，当得到这些变化信息后，Ingress controller 再结合 Ingress 的配置，更新反向代理负载均衡器，达到服务发现的作用。其实这点和服务发现工具 consul consul-template 非常类似。</p>
+<p>现在可以供大家使用的 Ingress controller 有很多，比如 <a target="_blank" rel="noopener" href="https://traefik.io/">traefik</a>、<a target="_blank" rel="noopener" href="https://kubernetes.github.io/ingress-nginx/">nginx-controller</a>、<a target="_blank" rel="noopener" href="https://konghq.com/blog/kubernetes-ingress-controller-for-kong/">Kubernetes Ingress Controller for Kong</a>、<a target="_blank" rel="noopener" href="https://github.com/jcmoraisjr/haproxy-ingress">HAProxy Ingress controller</a>，当然你也可以自己实现一个 Ingress Controller，现在普遍用得较多的是 traefik 和 nginx-controller，traefik 的性能较 nginx-controller 差，但是配置使用要简单许多，我们这里会以更简单的 traefik 为例给大家介绍 ingress 的使用。</p>
+<h2 id="Traefik"><a href="#Traefik" class="headerlink" title="Traefik"></a>Traefik</h2><p>Traefik 是一款开源的反向代理与负载均衡工具。它最大的优点是能够与常见的微服务系统直接整合，可以实现自动化动态配置。目前支持 Docker、Swarm、Mesos/Marathon、 Mesos、Kubernetes、Consul、Etcd、Zookeeper、BoltDB、Rest API 等等后端模型。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220828194506.png"></p>
+<p>要使用 traefik，我们同样需要部署 traefik 的 Pod，我们将 traefik 部署到 master 节点上。</p>
+<p>创建存放 traefik 资源清单目录</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">mkdir ~/traefik
 
-<p>3）使用 jenv add 命令将 JDK 11 加入  jenv 中</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ jenv add /Library/Java/JavaVirtualMachines/jdk-11.0.2.jdk/Contents/Home/<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+cd ~/traefik<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>首先，为安全起见我们这里使用 RBAC 安全认证方式：(rbac.yaml)：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ServiceAccount
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> traefik<span class="token punctuation">-</span>ingress<span class="token punctuation">-</span>controller
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> kube<span class="token punctuation">-</span>system
+<span class="token punctuation">---</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> rbac.authorization.k8s.io/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ClusterRole
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> traefik<span class="token punctuation">-</span>ingress<span class="token punctuation">-</span>controller
+<span class="token key atrule">rules</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">apiGroups</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token string">""</span>
+    <span class="token key atrule">resources</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> services
+      <span class="token punctuation">-</span> endpoints
+      <span class="token punctuation">-</span> secrets
+    <span class="token key atrule">verbs</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> get
+      <span class="token punctuation">-</span> list
+      <span class="token punctuation">-</span> watch
+  <span class="token punctuation">-</span> <span class="token key atrule">apiGroups</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> extensions
+    <span class="token key atrule">resources</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> ingresses
+    <span class="token key atrule">verbs</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> get
+      <span class="token punctuation">-</span> list
+      <span class="token punctuation">-</span> watch
+<span class="token punctuation">---</span>
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ClusterRoleBinding
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> rbac.authorization.k8s.io/v1
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> traefik<span class="token punctuation">-</span>ingress<span class="token punctuation">-</span>controller
+<span class="token key atrule">roleRef</span><span class="token punctuation">:</span>
+  <span class="token key atrule">apiGroup</span><span class="token punctuation">:</span> rbac.authorization.k8s.io
+  <span class="token key atrule">kind</span><span class="token punctuation">:</span> ClusterRole
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> traefik<span class="token punctuation">-</span>ingress<span class="token punctuation">-</span>controller
+<span class="token key atrule">subjects</span><span class="token punctuation">:</span>
+<span class="token punctuation">-</span> <span class="token key atrule">kind</span><span class="token punctuation">:</span> ServiceAccount
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> traefik<span class="token punctuation">-</span>ingress<span class="token punctuation">-</span>controller
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> kube<span class="token punctuation">-</span>system<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>直接在集群中创建即可：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master traefik]# kubectl create -f rbac.yaml 
+serviceaccount/traefik-ingress-controller created
+clusterrole.rbac.authorization.k8s.io/traefik-ingress-controller created
+clusterrolebinding.rbac.authorization.k8s.io/traefik-ingress-controller created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>查看创建的资源：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master traefik]# kubectl get sa traefik-ingress-controller -n kube-system
+NAME                         SECRETS   AGE
+traefik-ingress-controller   1         104s
+
+[root@k8s-master traefik]# kubectl get clusterrole  traefik-ingress-controller -n kube-system   
+NAME                         CREATED AT
+traefik-ingress-controller   2022-08-28T11:59:53Z
+
+[root@k8s-master traefik]# kubectl get clusterrolebinding traefik-ingress-controller -n kube-sysgem
+NAME                         ROLE                                     AGE
+traefik-ingress-controller   ClusterRole/traefik-ingress-controller   2m14s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>然后使用 Deployment 来管理 Pod，直接使用官方的 traefik 镜像部署即可（traefik.yaml）</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> traefik<span class="token punctuation">-</span>ingress<span class="token punctuation">-</span>controller
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> kube<span class="token punctuation">-</span>system
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token key atrule">k8s-app</span><span class="token punctuation">:</span> traefik<span class="token punctuation">-</span>ingress<span class="token punctuation">-</span>lb
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">replicas</span><span class="token punctuation">:</span> <span class="token number">1</span>
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+      <span class="token key atrule">k8s-app</span><span class="token punctuation">:</span> traefik<span class="token punctuation">-</span>ingress<span class="token punctuation">-</span>lb
+  <span class="token key atrule">template</span><span class="token punctuation">:</span>
+    <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+        <span class="token key atrule">k8s-app</span><span class="token punctuation">:</span> traefik<span class="token punctuation">-</span>ingress<span class="token punctuation">-</span>lb
+        <span class="token key atrule">name</span><span class="token punctuation">:</span> traefik<span class="token punctuation">-</span>ingress<span class="token punctuation">-</span>lb
+    <span class="token key atrule">spec</span><span class="token punctuation">:</span>
+      <span class="token key atrule">serviceAccountName</span><span class="token punctuation">:</span> traefik<span class="token punctuation">-</span>ingress<span class="token punctuation">-</span>controller
+      <span class="token key atrule">terminationGracePeriodSeconds</span><span class="token punctuation">:</span> <span class="token number">60</span>
+      <span class="token key atrule">tolerations</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">operator</span><span class="token punctuation">:</span> <span class="token string">"Exists"</span>
+      <span class="token key atrule">nodeSelector</span><span class="token punctuation">:</span>
+        <span class="token key atrule">kubernetes.io/hostname</span><span class="token punctuation">:</span> k8s<span class="token punctuation">-</span>master
+      <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">image</span><span class="token punctuation">:</span> traefik<span class="token punctuation">:</span>v1.7.17 <span class="token comment">#使用的traefik官方镜像</span>
+        <span class="token key atrule">name</span><span class="token punctuation">:</span> traefik<span class="token punctuation">-</span>ingress<span class="token punctuation">-</span>lb
+        <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> http
+          <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">80</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> admin
+          <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">8080</span>
+        <span class="token key atrule">args</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token punctuation">-</span><span class="token punctuation">-</span>api
+        <span class="token punctuation">-</span> <span class="token punctuation">-</span><span class="token punctuation">-</span>kubernetes
+        <span class="token punctuation">-</span> <span class="token punctuation">-</span><span class="token punctuation">-</span>logLevel=INFO
+<span class="token punctuation">---</span>
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Service
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> traefik<span class="token punctuation">-</span>ingress<span class="token punctuation">-</span>service
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> kube<span class="token punctuation">-</span>system
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">k8s-app</span><span class="token punctuation">:</span> traefik<span class="token punctuation">-</span>ingress<span class="token punctuation">-</span>lb
+  <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">protocol</span><span class="token punctuation">:</span> TCP
+      <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">80</span>
+      <span class="token key atrule">name</span><span class="token punctuation">:</span> web
+    <span class="token punctuation">-</span> <span class="token key atrule">protocol</span><span class="token punctuation">:</span> TCP
+      <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">8080</span>
+      <span class="token key atrule">name</span><span class="token punctuation">:</span> admin  <span class="token comment">#端口名称</span>
+  <span class="token key atrule">type</span><span class="token punctuation">:</span> NodePort<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>直接创建上面的资源对象即可：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master traefik]# kubectl create -f traefik.yaml
+deployment.apps/traefik-ingress-controller created
+service/traefik-ingress-service created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>要注意上面 yaml 文件：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">tolerations</span><span class="token punctuation">:</span>
+<span class="token punctuation">-</span> <span class="token key atrule">operator</span><span class="token punctuation">:</span> <span class="token string">"Exists"</span>
+<span class="token key atrule">nodeSelector</span><span class="token punctuation">:</span>
+  <span class="token key atrule">kubernetes.io/hostname</span><span class="token punctuation">:</span> k8<span class="token punctuation">-</span>master<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>所以我们使用<code>nodeSelector</code>标签将<code>traefik</code>的固定调度到<code>master</code>这个节点上，那么上面的<strong>tolerations</strong>是干什么的呢？这个是因为我们集群使用的 kubeadm 安装的，master 节点默认是不能被普通应用调度的，要被调度的话就需要添加这里的 tolerations 属性，当然如果你的集群和我们的不太一样，直接去掉这里的调度策略就行。</p>
+<blockquote>
+<p>nodeSelector 和 tolerations 都属于 Pod 的调度策略</p>
+</blockquote>
+<p>可以使用下面的命令查看 master 节点的 labels：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master traefik]# kubectl get nodes
+NAME         STATUS   ROLES                  AGE   VERSION
+k8s-master   Ready    control-plane,master   15d   v1.20.9
+k8s-node1    Ready    &lt;none&gt;                 15d   v1.20.9
+k8s-node2    Ready    &lt;none&gt;                 15d   v1.20.9
+
+[root@k8s-master traefik]# kubectl get nodes --show-labels
+NAME         STATUS   ROLES                  AGE   VERSION   LABELS
+k8s-master   Ready    control-plane,master   15d   v1.20.9   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,kubernetes.io/arch=amd64,kubernetes.io/hostname=k8s-master,kubernetes.io/os=linux,node-role.kubernetes.io/control-plane=,node-role.kubernetes.io/master=
+k8s-node1    Ready    &lt;none&gt;                 15d   v1.20.9   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,kubernetes.io/arch=amd64,kubernetes.io/hostname=k8s-node1,kubernetes.io/os=linux
+k8s-node2    Ready    &lt;none&gt;                 15d   v1.20.9   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,kubernetes.io/arch=amd64,kubernetes.io/hostname=k8s-node2,kubernetes.io/os=linux<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>traefik 还提供了一个 web ui 工具，就是上面的 8080 端口对应的服务，为了能够访问到该服务，我们这里将服务设置成的 NodePort：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master traefik]# kubectl get deployment traefik-ingress-controller -n kube-system  
+NAME                         READY   UP-TO-DATE   AVAILABLE   AGE
+traefik-ingress-controller   1/1     1            1           5s
+
+[root@k8s-master traefik]# kubectl get svc traefik-ingress-service -n kube-system
+NAME                      TYPE       CLUSTER-IP    EXTERNAL-IP   PORT(S)                       AGE
+traefik-ingress-service   NodePort   10.96.144.7   &lt;none&gt;        80:31000/TCP,8080:32313/TCP   8s
 
 
-<p>我使用的Bootstrap JDK版本如下</p>
-<pre class="line-numbers language-none"><code class="language-none">$ java -version
-openjdk version "11.0.2" 2019-01-15
-OpenJDK Runtime Environment 18.9 (build 11.0.2+9)
-OpenJDK 64-Bit Server VM 18.9 (build 11.0.2+9, mixed mode)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+[root@k8s-master traefik]# kubectl get pods -n kube-system -l k8s-app=traefik-ingress-lb -o wide
+NAME                                          READY   STATUS    RESTARTS   AGE   IP                NODE         NOMINATED NODE   READINESS GATES
+traefik-ingress-controller-574b6698df-7cc59   1/1     Running   0          12s   192.168.235.234   k8s-master   &lt;none&gt;           &lt;none&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="3-安装依赖"><a href="#3-安装依赖" class="headerlink" title="3. 安装依赖"></a>3. 安装依赖</h2><p>用于生成shell脚本的工具,可以使软件包在不同的系统下都可以编译</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ brew install autoconf<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>现在在浏览器中输入 master_node_ip:32313 就可以访问到 traefik 的 dashboard 了：（hosts 文件中增加了 traefik.zq.io 对 master ip的映射）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-ingress-traefik-1.png"></p>
+<h2 id="Ingress-对象"><a href="#Ingress-对象" class="headerlink" title="Ingress 对象"></a>Ingress 对象</h2><p>现在我们是通过 NodePort 来访问 traefik 的 Dashboard 的，那怎样通过 ingress 来访问呢？ 首先，需要创建一个 ingress 对象：(ingress.yaml)</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> extensions/v1beta1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Ingress
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> traefik<span class="token punctuation">-</span>web<span class="token punctuation">-</span>ui
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> kube<span class="token punctuation">-</span>system
+  <span class="token key atrule">annotations</span><span class="token punctuation">:</span>
+    <span class="token key atrule">kubernetes.io/ingress.class</span><span class="token punctuation">:</span> traefik  <span class="token comment">#固定的</span>
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">rules</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">host</span><span class="token punctuation">:</span> zq.ingress<span class="token punctuation">-</span>traefik.io
+    <span class="token key atrule">http</span><span class="token punctuation">:</span>
+      <span class="token key atrule">paths</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">backend</span><span class="token punctuation">:</span>
+          <span class="token key atrule">serviceName</span><span class="token punctuation">:</span> traefik<span class="token punctuation">-</span>ingress<span class="token punctuation">-</span>service <span class="token comment">#代理到哪个服务上去</span>
+          <span class="token key atrule">servicePort</span><span class="token punctuation">:</span> <span class="token number">8080</span>  <span class="token comment">#代理到哪个端口，可以使用端口名称 admin</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>字体引擎</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ brew install freetype<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>然后为 traefik dashboard 创建对应的 ingress 对象：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master traefik]# kubectl create -f ingress.yaml 
+Warning: extensions/v1beta1 Ingress is deprecated in v1.14+, unavailable in v1.22+; use networking.k8s.io/v1 Ingress
+ingress.extensions/traefik-web-ui created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="3-1-XCode-和-Command-Line-Tools-for-Xcode"><a href="#3-1-XCode-和-Command-Line-Tools-for-Xcode" class="headerlink" title="3.1 XCode 和 Command Line Tools for Xcode"></a>3.1 XCode 和 Command Line Tools for Xcode</h3><p>这两个SDK提供了OpenJDK所需的编译器以及Makefile中用到的外部命令。一般电脑上都自带安装了。</p>
-<p>验证 Xcode Command Line Tools 安装成功</p>
-<pre class="line-numbers language-none"><code class="language-none">$ xcode-select -p 
-/Library/Developer/CommandLineTools<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<p>Xcode 各版本下载地址<br><a target="_blank" rel="noopener" href="https://xcodereleases.com/">https://xcodereleases.com/</a></p>
-<p> Catalina 上运行的最新版本的 Xcode 是 Xcode 12.4 和命令行工具 12.4。</p>
-<h2 id="4-编译jdk"><a href="#4-编译jdk" class="headerlink" title="4. 编译jdk"></a>4. 编译jdk</h2><p>源码下载好之后，我解压放到了 <code> /Users/zhangquan/jvm/jdk12-06222165c35f</code> 这个目录下，下面的命令均是在这个目录下执行的。</p>
-<p>使用以下命令来查看编译参数帮助说明</p>
-<pre class="line-numbers language-none"><code class="language-none">$ bash configure --help<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>执行以下命令进行编译检查</p>
-<pre class="line-numbers language-none"><code class="language-none">bash configure \
---with-boot-jdk='/Library/Java/JavaVirtualMachines/jdk-11.0.2.jdk/Contents/Home' \
---with-debug-level=slowdebug \
---with-target-bits=64 \
---disable-warnings-as-errors \
---enable-dtrace \
---with-jvm-variants=server<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+<p>要注意上面的 ingress 对象的规则，特别是 rules 区域，我们这里是要为 traefik 的 dashboard 建立一个 ingress 对象，所以这里的 serviceName 对应的是上面我们创建的 traefik-ingress-service，端口也要注意对应 8080 端口，为了避免端口更改，这里的 servicePort 的值也可以替换成上面定义的 port 的名字：<strong>admin</strong></p>
+<p>创建完成后，我们应该怎么来测试呢？</p>
 <ul>
-<li>–with-boot-jdk：指定Bootstrap JDK路径</li>
-<li>–with-debug-level：编译级别,可选值为release、fastdebug、slowdebug和optimized,默认值为release,如果我们要调试的话,需要设定为fastdebug或者slowdebug,建议设置为slowdebug</li>
-<li>–with-target-bits：指定编译32位还是64位的虚拟机</li>
-<li>–disable-warnings-as-errors：避免因为警告而导致编译过程中断</li>
-<li>–enable-dtrace：开启一个性能工具</li>
-<li>–with-jvm-variants：编译特定模式下的虚拟机,一般这里编译server模式</li>
-<li>–with-conf-name：指定编译配置的名称,如果没有指定,则会生成默认的配置名称macosx-x86_64-server-slowdebug,我这里采用默认生成配置</li>
+<li>第一步，在本地的**/etc/hosts**里面添加上 zq.ingress-traefik.io与 master 节点外网 IP 的映射关系</li>
 </ul>
-<p>报错</p>
-<pre class="line-numbers language-none"><code class="language-none">configure: error: No xcodebuild tool and no system framework headers found, use --with-sysroot or --with-sdk-name to provide a path to a valid SDK<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>执行</p>
-<pre class="line-numbers language-none"><code class="language-none">$ sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>继续执行 bash configure 得到如下配置成功的提示，并且输出调试级别，Java 虚拟机的模式、特性，使用的编译器版本等配置信息。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/buid-success.png" alt="buid-success.pn"></p>
-<h3 id="4-1-开始编译"><a href="#4-1-开始编译" class="headerlink" title="4.1  开始编译"></a>4.1  开始编译</h3><pre class="line-numbers language-none"><code class="language-none">$ make images<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>这里 “images” 是 “product-images” 编译目标（Target）的简写，这个目标的作用是编译出整个 JDK镜像，除了 “product-images”外，其他编译目标还有</p>
 <ul>
-<li>hotspot：只编译HotSpot虚拟机 </li>
-<li>hotspot-<variant>：只编译特定模式的 HotSpot 虚拟机</variant></li>
-<li>docs-image：产生 JDK 的文档镜像</li>
-<li>test-image：产生 JDK 的测试镜像</li>
-<li>all-images：相当于连续调用 product、docs、test 三个编译目标</li>
-<li>bootcycle-images：编译两次 JDK，其中第二次使用第一次编译结果作为 Bootstrap JDK</li>
-<li>clean：清理 make 命令产生的临时文件</li>
-<li>dist-clean：清理make 和 configure 命令产生的临时文件</li>
+<li>第二步，在浏览器中访问：zq.ingress-traefik.io，我们会发现并没有得到我们期望的 dashboard 界面，这是因为我们上面部署 traefik 的时候使用的是 NodePort 这种 Service 对象，所以我们只能通过上面的 32313 端口访问到我们的目标对象：<a href="zq.ingress-traefik.io:32313">zq.ingress-traefik.io:32313</a>，第一种 dashboard 的访问方式是通过 NodePort 方式，现在这种 dashboard 是通过自定义域名通过 ingress 来访问：</li>
 </ul>
-<p>在 configure 命令以及 make images 命令的执行过程 中，会在 “build/macosx-x86_64-server-slowdebug”目录 下产生如下目录结构</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">├── Makefile
-├── bootcycle-spec.gmk
-├── build.log
-├── buildjdk-spec.gmk
-├── buildtools  用于生成、存放编译过程中用到的工具
-├── compare.sh
-├── configure-support
-├── configure.log
-├── hotspot  HotSpot虚拟机编译的中间文件
-├── images 使用 make *-image 产生的镜像存放在这里
-├── jdk  编译后产生的 JDK 就放在这里
-├── make-support 
-├── spec.gmk
-└── support 存放编译时产生的中间文件<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220828205440.png"></p>
+<p>加上端口后我们发现可以访问到 dashboard 了，而且在 dashboard 当中多了一条记录，正是上面我们创建的 ingress 对象的数据，我们还可以切换到 HEALTH 界面中，可以查看当前 traefik 代理的服务的整体的健康状态：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220828205700.png"></p>
+<ul>
+<li>第三步，上面我们可以通过自定义域名加上端口可以访问我们的服务了，但是我们平时服务别人的服务是不是都是直接用的域名啊，http 或者 https 的，几乎很少有在域名后面加上端口访问的吧？为什么？太麻烦啊，端口也记不住，要解决这个问题，怎么办，我们只需要把我们上面的 traefik 的核心应用的端口隐射到 master 节点上的 80 端口，是不是就可以了，因为 http 默认就是访问 80 端口，但是我们在 Service 里面是添加的一个 NodePort 类型的服务，没办法隐射 80 端口，怎么办？这里就可以直接在 Pod 中指定一个 hostPort 即可，更改上面的 traefik.yaml 文件中的容器端口：</li>
+</ul>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">containers</span><span class="token punctuation">:</span>
+<span class="token punctuation">-</span> <span class="token key atrule">image</span><span class="token punctuation">:</span> traefik<span class="token punctuation">:</span>v1.7.17 <span class="token comment">#使用的traefik官方镜像</span>
+<span class="token key atrule">name</span><span class="token punctuation">:</span> traefik<span class="token punctuation">-</span>ingress<span class="token punctuation">-</span>lb
+<span class="token key atrule">ports</span><span class="token punctuation">:</span>
+<span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> http
+  <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">80</span>
+  <span class="token key atrule">hostPort</span><span class="token punctuation">:</span> <span class="token number">80</span>  <span class="token comment"># 添加这一行，traefik 的80端口映射到主机的 80</span>
+<span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> admin
+  <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">8080</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>编译完成之后，进入 OpenJDK 源码的 “build/配置名称/jdk” 目录下就可以看到 OpenJDK 的完整编译结果了</p>
-<p>验证编译成功</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ /Users/zhangquan/jvm/jdk12-06222165c35f/jdk12-06222165c35f/build/macosx-x86_64-server-slowdebug/jdk/bin/java -version
-openjdk version "12-internal" 2019-03-19
-OpenJDK Runtime Environment (slowdebug build 12-internal+0-adhoc.zhangquan.jdk12-06222165c35f)
-OpenJDK 64-Bit Server VM (slowdebug build 12-internal+0-adhoc.zhangquan.jdk12-06222165c35f, mixed mode)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>添加以后<code>hostPort: 80</code>，然后更新应用：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">kubectl apply -f traefik.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-
-<h3 id="4-2-生成Compilation-Database"><a href="#4-2-生成Compilation-Database" class="headerlink" title="4.2 生成Compilation Database"></a>4.2 生成Compilation Database</h3><p>在配置CLion的时候,直接import编译好之后的jdk源码,你会发现头文件都是红色的,无法找到提示,是因为CLion生产的CMakeLists.txt有问题,如果想要解决这个问题就需要修改这个文件,很明显我不会修。<br>最后通过JetBrains说的利用Compilation Database (blog.jetbrains.com/clion/2020/…) 在CLion中构建OpenJDK解决了这个问题。</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ make CONF=macosx-x86_64-server-slowdebug compile-commands
-Building target 'compile-commands' in configuration 'macosx-x86_64-server-slowdebug'
-Updating compile_commands.json
-Finished building target 'compile-commands' in configuration 'macosx-x86_64-server-slowdebug'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>执行完该命令,就会在${source_root}/build/macosx-x86_64-server-slowdebug下生成compile_commands.json文件。</p>
-<h2 id="5-Clion-导入源码"><a href="#5-Clion-导入源码" class="headerlink" title="5. Clion 导入源码"></a>5. Clion 导入源码</h2><h3 id="5-1-导入-project"><a href="#5-1-导入-project" class="headerlink" title="5.1 导入 project"></a>5.1 导入 project</h3><p>在导入project 之前先配置好 Toolchains</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/Toolchanis.png" alt="Toolchains"></p>
-<p>配置好 Toolchains 后，通过 File -&gt; Open 功能，选中 ${source_root}/build/macosx-x86_64-server-slowdebug/compile_commands.json,As a project 打开，这样就导入了 Compilation Database 文件，接下来 CLion 开始进行索引。</p>
-<p>这时候，你会发现你是看不到源码的，所以下面需要修改项目的根目录，通过 Tools -&gt; Compilation Database -&gt; Change Project Root 功能，选中你的源码目录，也就是 ${source_root}, 这样设置就可以在 CLion 中看到源代码啦。</p>
-<pre class="line-numbers language-none"><code class="language-none">${source_root} 指的是 ~/jvm/jdk12-06222165c35f/jdk12-06222165c35f<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<h3 id="5-2-debug-之前配置"><a href="#5-2-debug-之前配置" class="headerlink" title="5.2 debug 之前配置"></a>5.2 debug 之前配置</h3><p>需要在 <code>Preferences --&gt; Build, Exceution, Deployment --&gt; Custom Build Targets</code> 配置构建目标</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/make.png" alt="make"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/clean.png" alt="clean"></p>
-<p>通过这两个配置每次构建之前都会重新编译我们的 jdk, 修改 jvm 代码之后可以直接进行重新调试。</p>
-<h3 id="5-3-debug-配置"><a href="#5-3-debug-配置" class="headerlink" title="5.3 debug 配置"></a>5.3 debug 配置</h3><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/debug_config.png" alt="debug_config"></p>
-<p>Executable：选择 ${source_root}/build/macosx-x86_64-server-slowdebug/jdk/bin/java, 或者其它你想调试的文件，比如 javac；<br>Before luanch：这个下面新增的时候有一个 bug, 去掉就不会每次执行都去 Build, 节省时间，但其实 OpenJDK 增量编译的方式，每次 Build 都很快，所以就看个人选择了。</p>
-<h3 id="5-4-debug"><a href="#5-4-debug" class="headerlink" title="5.4 debug"></a>5.4 debug</h3><p>在 <code>${source_root}/src/java.base/share/native/libjli/java.c</code>的 401 行打断点，点击 Debug, 然后 F9 放掉，</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/debug1.png" alt="debug1"></p>
-<p>不出意外你会遇到下面这个问题</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/debug2.png" alt="debug2"></p>
-<p>由于我们使用的 LLDB 进行 debug 的，所以在进入第一个断点的时候在 LLDB 下执行以下命令可以避免此类问题</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">pro hand -p true -s false SIGSEGV SIGBUS<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/debug3.png" alt="debug3"></p>
-<p>最终就可以看到 java -version 的输出效果如下<br><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/debug4.png" alt="debug4"></p>
-<p>不过每次 debug 的时候都要输入这么一句就很麻烦，所以我们可以在 <strong>~/.lldbinit</strong> 文件中，使用如下命令，实现每次 Debug 时自动打个断点，然后输入 pro hand -p true -s false SIGSEGV SIGBUS, 最后继续执行后续流程，文件内容如下 (其中 main.c 文件的路径自行替换)</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">breakpoint set --file /Users/zhangquan/jvm/jdk12-06222165c35f/jdk12-06222165c35f/src/java.base/share/native/launcher/main.c --line 98 -C "pro hand -p true -s false SIGSEGV SIGBUS" --auto-continue true<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<h3 id="5-5-与-Java-程序联合-debug"><a href="#5-5-与-Java-程序联合-debug" class="headerlink" title="5.5 与 Java 程序联合 debug"></a>5.5 与 Java 程序联合 debug</h3><p>上面演示的实际是 java -version 如何 debug, 那么如何做到通过自己编写的 java 代码作为程序入口来调试呢？</p>
-<p>首先 java 代码如下 (我用 idea 编写的):</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/main.png" alt="main"></p>
-<p>CLion 中配置如下</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/main2.png" alt="main2"></p>
-<p>运行结果如下:</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/main3.png" alt="main3"></p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
-<li>&lt;&lt;深入理解 Java 虚拟机：JVM 高级特性与最佳实践&gt;&gt;</li>
+<p>更新完成后，这个时候我们在浏览器中直接使用域名方法测试下。</p>
+<ul>
+<li>第四步，正常来说，我们如果有自己的域名，我们可以将我们的域名添加一条 DNS 记录，解析到 master 的外网 IP 上面，这样任何人都可以通过域名来访问我的暴露的服务了。</li>
+</ul>
+<blockquote>
+<p>如果你有多个边缘节点的话，可以在每个边缘节点上部署一个 ingress-controller 服务，然后在边缘节点前面挂一个负载均衡器，比如 nginx，将所有的边缘节点均作为这个负载均衡器的后端，这样就可以实现 ingress-controller 的高可用和负载均衡了。</p>
+</blockquote>
+<p>到这里我们就通过 ingress 对象对外成功暴露了一个服务，当然 traefik 还有更多的用法。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.qikqiak.com/post/ingress-traefik1/">https://www.qikqiak.com/post/ingress-traefik1/</a></li>
 </ul>
 
                 
@@ -683,7 +778,7 @@ Finished building target 'compile-commands' in configuration 'macosx-x86_64-serv
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://www.zhangquan.me/2022/03/01/zai-macos-xi-tong-shang-bian-yi-openjdk12-bing-shi-yong-clion-diao-shi/">https://www.zhangquan.me/2022/03/01/zai-macos-xi-tong-shang-bian-yi-openjdk12-bing-shi-yong-clion-diao-shi/</a>
+                    <a href="https://www.zhangquan.me/2022/08/28/kubernetes-ingress-traefik-de-an-zhuang-ji-jian-dan-shi-yong/">https://www.zhangquan.me/2022/08/28/kubernetes-ingress-traefik-de-an-zhuang-ji-jian-dan-shi-yong/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -721,8 +816,8 @@ Finished building target 'compile-commands' in configuration 'macosx-x86_64-serv
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/JAVA/">
-                                    <span class="chip bg-color">JAVA</span>
+                                <a href="/tags/Kubernetes/">
+                                    <span class="chip bg-color">Kubernetes</span>
                                 </a>
                             
                         </div>
@@ -1217,46 +1312,48 @@ Finished building target 'compile-commands' in configuration 'macosx-x86_64-serv
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2022/03/24/xing-neng-ya-ce-gong-ju-wrk-shi-yong-zhi-nan/">
+                <a href="/2022/08/28/kubernetes-ingress-traefik-de-an-zhuang-ji-jian-dan-shi-yong/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="性能压测工具 wrk 使用指南">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="Kubernetes Ingress Traefik 的安装及简单使用">
                         
-                        <span class="card-title">性能压测工具 wrk 使用指南</span>
+                        <span class="card-title">Kubernetes Ingress Traefik 的安装及简单使用</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            wrk 是一个开源的、热门的、现代的单机 HTTP 基准测试工具，目前 GitHub 开源平台累计了 31.8k 的 star 数目，足以可见 wrk 在 HTTP 基准测试领域的热门程度。它结合了多线程设计和可扩展的事件通知系统，如 [epoll](https://man7.org/linux/man-pages/man7/epoll.7.html) 和 [kqueue](https://www.freebsd.org/cgi/man.cgi?query=kqueue&sektion=2) ，可以在有限的资源下对目标机器产生大量的负载。并且内置了一个可选的 [LuaJIT](https://en.wikipedia.org/wiki/LuaJIT) 脚本执行引擎，可以处理复杂的 HTTP 请求生成、响应处理以及自定义压测报告。
+                            Kubernetes Ingress Traefik 的安装及简单使用
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-03-24
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-28
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Linux%EF%BC%8C%E5%88%86%E5%B8%83%E5%BC%8F%EF%BC%8C%E6%9E%B6%E6%9E%84/" class="post-category">
-                                    Linux，分布式，架构
+                            <a href="/categories/Kubernetes/" class="post-category">
+                                    Kubernetes
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%B7%A5%E5%85%B7/">
-                        <span class="chip bg-color">工具</span>
+                    <a href="/tags/Kubernetes/">
+                        <span class="chip bg-color">Kubernetes</span>
                     </a>
                     
                 </div>
@@ -1270,31 +1367,31 @@ Finished building target 'compile-commands' in configuration 'macosx-x86_64-serv
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/12/09/c-yu-yan-zhong-dui-lian-biao-de-jian-dan-cao-zuo/">
+                <a href="/2022/08/28/kubernetes-hpa/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="C 语言中对链表的简单操作">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="Kubernetes HPA">
                         
-                        <span class="card-title">C 语言中对链表的简单操作</span>
+                        <span class="card-title">Kubernetes HPA</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            C 语言中对链表的简单操作
+                            Kubernetes Horizontal Pod Autoscaling（Pod 水平自动伸缩）
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-12-09
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-28
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/C/" class="post-category">
-                                    C
+                            <a href="/categories/Kubernetes/" class="post-category">
+                                    Kubernetes
                                 </a>
                             
                             
@@ -1304,12 +1401,8 @@ Finished building target 'compile-commands' in configuration 'macosx-x86_64-serv
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/C/">
-                        <span class="chip bg-color">C</span>
-                    </a>
-                    
-                    <a href="/tags/%E9%93%BE%E8%A1%A8/">
-                        <span class="chip bg-color">链表</span>
+                    <a href="/tags/Kubernetes/">
+                        <span class="chip bg-color">Kubernetes</span>
                     </a>
                     
                 </div>

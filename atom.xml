@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2022-08-28T09:41:18.976Z</updated>
+  <updated>2022-08-28T13:07:50.865Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Kubernetes Ingress Traefik 的安装及简单使用</title>
+    <link href="https://www.zhangquan.me/2022/08/28/kubernetes-ingress-traefik-de-an-zhuang-ji-jian-dan-shi-yong/"/>
+    <id>https://www.zhangquan.me/2022/08/28/kubernetes-ingress-traefik-de-an-zhuang-ji-jian-dan-shi-yong/</id>
+    <published>2022-08-28T13:07:06.000Z</published>
+    <updated>2022-08-28T13:07:50.865Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Kubernetes-Ingress-Traefik-的安装及简单使用&quot;&gt;&lt;a href=&quot;#Kubernetes-Ingress-Traefik-的安装及简单使用&quot; class=&quot;headerlink&quot; title=&quot;Kubernetes Ingress</summary>
+        
+      
+    
+    
+    
+    <category term="Kubernetes" scheme="https://www.zhangquan.me/categories/Kubernetes/"/>
+    
+    
+    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
+    
+  </entry>
   
   <entry>
     <title>Kubernetes HPA</title>
@@ -500,31 +525,6 @@
     <category term="Java8" scheme="https://www.zhangquan.me/tags/Java8/"/>
     
     <category term="Optional" scheme="https://www.zhangquan.me/tags/Optional/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java 中确定理想线程池的大小和Linux 查看CPU核数</title>
-    <link href="https://www.zhangquan.me/2022/06/15/java-zhong-que-ding-li-xiang-xian-cheng-chi-de-da-xiao-he-linux-cha-kan-cpu-he-shu/"/>
-    <id>https://www.zhangquan.me/2022/06/15/java-zhong-que-ding-li-xiang-xian-cheng-chi-de-da-xiao-he-linux-cha-kan-cpu-he-shu/</id>
-    <published>2022-06-15T08:03:59.000Z</published>
-    <updated>2022-06-15T08:33:47.431Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;一、前言&quot;&gt;&lt;a href=&quot;#一、前言&quot; class=&quot;headerlink&quot; title=&quot;一、前言&quot;&gt;&lt;/a&gt;一、前言&lt;/h2&gt;&lt;p&gt;在进行 java</summary>
-        
-      
-    
-    
-    
-    <category term="线程池" scheme="https://www.zhangquan.me/categories/%E7%BA%BF%E7%A8%8B%E6%B1%A0/"/>
-    
-    
-    <category term="Java，并发，线程池" scheme="https://www.zhangquan.me/tags/Java%EF%BC%8C%E5%B9%B6%E5%8F%91%EF%BC%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0/"/>
     
   </entry>
   
