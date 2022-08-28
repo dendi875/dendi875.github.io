@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Beanstalkd 学习研究, PHP,Java,Go,MySQL,Linux,Docker等">
+    <meta name="keywords" content="Kubernetes HPA, PHP,Java,Go,MySQL,Linux,Docker等">
     <meta name="description" content="PHP Go MySQL 后端开发">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Beanstalkd 学习研究 | 一代键客</title>
+    <title>Kubernetes HPA | 一代键客</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -327,12 +327,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Beanstalkd 学习研究</h1>
+                    <h1 class="description center-align post-title">Kubernetes HPA</h1>
                 </div>
             </div>
         </div>
@@ -448,12 +448,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/">
-                                <span class="chip bg-color">中间件</span>
-                            </a>
-                        
-                            <a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">
-                                <span class="chip bg-color">消息队列</span>
+                            <a href="/tags/Kubernetes/">
+                                <span class="chip bg-color">Kubernetes</span>
                             </a>
                         
                     </div>
@@ -464,8 +460,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" class="post-category">
-                                消息队列
+                            <a href="/categories/Kubernetes/" class="post-category">
+                                Kubernetes
                             </a>
                         
                     </div>
@@ -477,28 +473,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-06-29
+                    2022-08-28
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-11-26
+                    2022-08-28
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.7k
+                    4.2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    11 分
+                    21 分
                 </div>
                 
 
@@ -521,259 +517,409 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Beanstalkd-学习研究"><a href="#Beanstalkd-学习研究" class="headerlink" title="Beanstalkd 学习研究"></a>Beanstalkd 学习研究</h1><hr>
-<h2 id="1-Beanstalkd-介绍"><a href="#1-Beanstalkd-介绍" class="headerlink" title="1. Beanstalkd 介绍"></a>1. Beanstalkd 介绍</h2><p>Beanstalkd是一个简单、高效的工作队列系统，其最初设计目的是通过后台异步执行耗时任务方式降低高容量Web应用的页面延时。而其简单、轻量、易用等特点，和对<code>任务优先级（priority）</code>、<code>任务延时（delay）</code>、<code>任务超时重发（time-to-run）</code>和<code>任务预留（buired）</code>等控制，以及众多语言版本的客户端的良好支持，使其能够很好的支持分布式的后台任务和定时任务处理。</p>
-<p>beanstalkd还提供了<code>binlog</code>机制，当重启beanstalkd，当前任务的状态能够从记录的本地<code>binlog</code>中恢复。</p>
-<h2 id="2-Beanstalkd-中的重要概念"><a href="#2-Beanstalkd-中的重要概念" class="headerlink" title="2. Beanstalkd 中的重要概念"></a>2. Beanstalkd 中的重要概念</h2><h3 id="2-1-核心概念"><a href="#2-1-核心概念" class="headerlink" title="2.1 核心概念"></a>2.1 核心概念</h3><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/beanstalkd-architecture.png" alt="beanstalkd-architecture"></p>
-<p><code>Beanstalkd</code> 使用 <code>Producer-Consumer</code>设计模式，无论是其协议结构还是使用方式都是类似<code>Memcached</code>风格的。以下是<code>Beanstalkd</code>设计思想中核心概念：</p>
-<h4 id="job-任务"><a href="#job-任务" class="headerlink" title="job - 任务"></a>job - 任务</h4><p><code>job</code>是一个需要异步处理的处理，是 <code>Beanstalkd</code>中的基本单元，每个<code>job</code>都会有一个id和优先级，<code>job</code>需要放在一个<code>tube</code>中。 <code>Beanstalkd</code>中的任务（<code>job</code>）类似于其消息队列中的消息（<code>message</code>）的概念。</p>
-<h4 id="tube-管道"><a href="#tube-管道" class="headerlink" title="tube - 管道"></a>tube - 管道</h4><p>管道即某一种类型的任务队列，其类似于消息的主题（<code>topic</code>），是<code>Producer</code>和<code>Consumer</code>的操作对象。一个<code>Beanstalkd</code>中可以有多个管道，每个管道都有自己的生产者（<code>Producer</code>）和消费者（<code>Consumer</code>），管道之间互相不影响。</p>
-<h4 id="producer-生产者"><a href="#producer-生产者" class="headerlink" title="producer - 生产者"></a>producer - 生产者</h4><p>任务（<code>job</code>）的生产者，通过<code>put</code>命令来将一个<code>job</code>放到一个<code>tube</code>中。</p>
-<h4 id="consumer-消费者"><a href="#consumer-消费者" class="headerlink" title="consumer - 消费者"></a>consumer - 消费者</h4><p>任务（<code>job</code>）的消费者，通过<code>reserve</code>来获取<code>job</code>，通过<code>delete</code>、<code>release</code>、<code>bury</code>来改变<code>job</code>的状态。</p>
-<h3 id="2-2-任务生命周期"><a href="#2-2-任务生命周期" class="headerlink" title="2.2 任务生命周期"></a>2.2 任务生命周期</h3><p><code>Beanstalkd</code>中的任务（<code>job</code>）替代了消息（<code>message</code>）的概念，任务会有一系列状态。任务的生命周期如下：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/beanstalkd-job-status.png" alt="beanstalkd-job-status"></p>
-<p>一个 <code>Beanstalkd</code>任务可能会包含以下状态：</p>
+                <h1 id="Kubernetes-HPA"><a href="#Kubernetes-HPA" class="headerlink" title="Kubernetes HPA"></a>Kubernetes HPA</h1><p>在  k8s 中我们可以使用 <code>kubectl scale</code> 命令可以来实现 Pod 的扩缩容功能，但是这个毕竟是完全手动操作的，要应对线上的各种复杂情况，我们需要能够做到自动化去感知业务，来自动进行扩缩容。为此，Kubernetes 也为我们提供了这样的一个资源对象：<code>Horizontal Pod Autoscaling（Pod 水平自动伸缩）</code>，简称<code>HPA</code>，HPA 通过监控分析一些控制器控制的所有 Pod 的负载变化情况来确定是否需要调整 Pod 的副本数量，这是 HPA 最基本的原理：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-hpa-1.jpeg"></p>
+<p>我们可以简单的通过 <code>kubectl autoscale</code> 命令来创建一个 HPA 资源对象，<code>HPA Controller</code>默认<code>30s</code>轮询一次（可通过 <code>kube-controller-manager</code> 的<code>--horizontal-pod-autoscaler-sync-period</code> 参数进行设置），查询指定的资源中的 Pod 资源使用率，并且与创建时设定的值和指标做对比，从而实现自动伸缩的功能。</p>
+<h2 id="Metrics-Server"><a href="#Metrics-Server" class="headerlink" title="Metrics Server"></a>Metrics Server</h2><p><code>Metrics Server</code> 可以通过标准的 Kubernetes API 把监控数据暴露出来，有了 <code>Metrics Server</code> 之后，我们就完全可以通过标准的 Kubernetes API 来访问我们想要获取的监控数据了</p>
+<p>参考说明：<a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/">https://kubernetes.io/zh-cn/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/</a></p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">kubectl get --raw "/apis/metrics.k8s.io/v1beta1/namespaces/&lt;namespace-name&gt;/pods/&lt;pod-name&gt;" | jq '.'<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>这是使用 <code>curl</code> 来完成的相同 API 调用：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">curl https://localhost:8080/apis/metrics.k8s.io/v1beta1/namespaces/&lt;namespace-name&gt;/pods/&lt;pod-name&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>比如当我们访问上面的 API 的时候，我们就可以获取到该 Pod 的资源数据，这些数据其实是来自于 kubelet 的 <code>Summary API</code> 采集而来的。不过需要说明的是我们这里可以通过标准的 API 来获取资源监控数据，并不是因为 <code>Metrics Server</code> 就是 APIServer 的一部分，而是通过 Kubernetes 提供的 <code>Aggregator</code> 汇聚插件来实现的，是独立于 APIServer 之外运行的。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220828161732.png"></p>
+<h3 id="聚合-API"><a href="#聚合-API" class="headerlink" title="聚合 API"></a>聚合 API</h3><p><code>Aggregator</code> 允许开发人员编写一个自己的服务，把这个服务注册到 Kubernetes 的 APIServer 里面去，这样我们就可以像原生的 APIServer 提供的 API 使用自己的 API 了，我们把自己的服务运行在 Kubernetes 集群里面，然后 Kubernetes 的 <code>Aggregator</code> 通过 Service 名称就可以转发到我们自己写的 Service 里面去了。这样这个聚合层就带来了很多好处：</p>
 <ul>
-<li><strong>READY</strong> - 需要立即处理的任务。当<code>producter</code>直接<code>put</code>一个任务时，任务就处理<code>READY</code>状态，以等待<code>consumer</code>来处理。当延时（<code>DELAYED</code>）任务到期后会自动成为当前<code>READY</code>状态的任务</li>
-<li><strong>RESERVED</strong> - 已经被消费者获取，正在执行的任务。当<code>consumer</code>获取了当前<code>READY</code>的任务后，该任务的状态就会迁移到<code>RESERVED</code>状态，这时其它的<code>consumer</code>就不能再操作该任务。<code>Beanstalkd</code>会检查任务是否在<code>TTR</code>（<code>time-to-run</code>）内完成</li>
-<li><strong>DELETED</strong> - 消息被删除，<code>Beanstalkd</code>不再维持这些消息。即任务生命周期结束</li>
-<li><strong>DELAYED</strong> - 延迟执行的任务。当任务被延时<code>put</code>时，任务就处理<code>DELAYED</code>状态。等待时间过后，任务会被迁移到<code>READY</code>状态。当消费者处理任务后，可以将任务再次放回<code>DELAYED</code>队列延迟执行</li>
-<li><strong>BURIED</strong> - 埋葬的任务，这时任务不会被执行，也不会消失。当<code>consumer</code>完成该任务后，可以选择<code>delete</code>或<code>release</code>或<code>bury</code>操作<ul>
-<li><code>delete</code>后，任务被删除，生命周期结束</li>
-<li><code>release</code>操作可以把任务状态迁移回<code>READY</code>状态或<code>DELAYED</code>状态，使其它<code>consumer</code>可以继续获取和执行该任务</li>
-<li><code>bury</code>操作会埋葬任务，等需要该任务时，再将埋葬的任务<code>kick</code>回<code>READY</code>，也可以通过<code>delete</code>删除<code>BURIED</code>状态的任务</li>
+<li>增加了 API 的扩展性，开发人员可以编写自己的 API 服务来暴露他们想要的 API。</li>
+<li>丰富了 API，核心 kubernetes 团队阻止了很多新的 API 提案，通过允许开发人员将他们的 API 作为单独的服务公开，这样就无须社区繁杂的审查了。</li>
+<li>开发分阶段实验性 API，新的 API 可以在单独的聚合服务中开发，当它稳定之后，在合并会 APIServer 就很容易了。</li>
+<li>确保新 API 遵循 Kubernetes 约定，如果没有这里提出的机制，社区成员可能会被迫推出自己的东西，这样很可能造成社区成员和社区约定不一致。</li>
 </ul>
-</li>
-</ul>
-<h3 id="2-3-Beanstalkd特点"><a href="#2-3-Beanstalkd特点" class="headerlink" title="2.3 Beanstalkd特点"></a>2.3 Beanstalkd特点</h3><ul>
-<li><strong>任务优先级（priority）</strong></li>
-</ul>
-<p>任务（<code>job</code>）可以有<code>0~2^32</code>个优先级，<code>0</code>表示优先级最高。<code>Beanstalkd</code>采用最大最小堆（Minx-max heap）处理任务优先级排序，任何时刻调用<code>reverse</code>命令的消费者总是能拿到当前优先级最高的任务，时间复杂度为<code>O(logn)</code></p>
-<ul>
-<li><strong>任务延时（delay）</strong></li>
-</ul>
-<p><code>Beanstalkd</code>中可以通过两种方式延时执行任务：生产者发布任务时指定延时；或者当任务处理完毕后，消费者再次将任务放入队列延时执行（<code>release with delay</code>）。这种机制可以实现分布式定时任务，这种任务机制的优势是：如果某个消费者节点故障，任务超时重发（<code>time-to-run</code>）以保证任务转移到其它节点执行</p>
-<ul>
-<li><strong>任务超时重发（time-to-run）</strong></li>
-</ul>
-<p><code>Beanstalkd</code>把任务返回给消费者后，消费者必须在预设的<code>TTR</code>(<code>time-to-run</code>)时间内发送<code>delete</code>、或<code>release</code>、或<code>bury</code>命令改变任务的状态；否则<code>Beanstalkd</code>会认为任务处理失败，然后把任务交给另外的消费者节点执行。如果消费者预计在<code>TTR</code>时间内无法完成任务，可以发送<code>touch</code>命令，以使<code>Beanstalkd</code>重新计算<code>TTR</code></p>
-<ul>
-<li><strong>任务预留（buried）</strong></li>
-</ul>
-<p>当<code>RESERVED</code>状态的任务因为某些原因无法执行时，消费者可以使用<code>bury</code>命令将其设置为<code>buried</code>状态，这时<code>Beanstalkd</code>会继续保留这些任务。在具备任务执行条件时，再通过<code>kick</code>将任务迁移回<code>READY</code>状态</p>
-<h2 id="3-beanstalkd安装使用"><a href="#3-beanstalkd安装使用" class="headerlink" title="3. beanstalkd安装使用"></a>3. beanstalkd安装使用</h2><p>Beanstalkd分为服务端和客户端两部分。可以在其官网查找相关安装包及安装方法：</p>
-<ul>
-<li>服务端：<a target="_blank" rel="noopener" href="http://kr.github.io/beanstalkd/download.html">http://kr.github.io/beanstalkd/download.html</a></li>
-<li>客户端：<a target="_blank" rel="noopener" href="https://github.com/kr/beanstalkd/wiki/client-libraries">https://github.com/kr/beanstalkd/wiki/client-libraries</a></li>
-</ul>
-<h3 id="3-1-服务端"><a href="#3-1-服务端" class="headerlink" title="3.1 服务端"></a>3.1 服务端</h3><h4 id="源码安装"><a href="#源码安装" class="headerlink" title="源码安装"></a>源码安装</h4><p>下载、解压并进入源码目录后，执行<code>make</code>或<code>make install</code>命令即可：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ sudo make
-// 或
-$ sudo make install
-// 或
-$ sudo make install PERFIX=/usr/bin/beanstalkd<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>我们要使用 HPA，就需要在集群中安装 <code>Metrics Server</code> 服务，要安装 <code>Metrics Server</code> 就需要开启 <code>Aggregator</code>，因为 <code>Metrics Server</code> 就是通过该代理进行扩展的，不过我们集群是通过 Kubeadm 搭建的，默认已经开启了。</p>
+<p><code>Aggregator</code> 聚合层启动完成后，就可以来安装 <code>Metrics Server</code> 了，我们可以获取该仓库的官方安装资源清单：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 官方仓库地址：https://github.com/kubernetes-sigs/metrics-server
 
-<h4 id="安装包安装"><a href="#安装包安装" class="headerlink" title="安装包安装"></a>安装包安装</h4><p>在Unbuntu或Debian系统中，可以使用以下命令安装：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ sudo apt-get install beanstalkd<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+$ wget https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.3.6/components.yaml -O ~/download/metrics-server.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-<p>在CentOS或RHEL系统中，首先需要更新<code>EPEL</code>源，然后再使用<code>yum</code>命令安装。</p>
-<p>小提示：更多关于<code>EPEL</code>的知识可以查阅下面的资料：</p>
-<ul>
-<li><p><a target="_blank" rel="noopener" href="https://fedoraproject.org/wiki/EPEL">Information on EPEL</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://fedoraproject.org/wiki/EPEL/FAQ#howtouse">How to use EPEL</a></p>
-</li>
-</ul>
-<p>在RHEL6/CentOS6中使用以下命令更新源：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ su -c 'rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm'<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>在部署之前，修改 <code>components.yaml</code> 的镜像地址为：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">containers:
+- name: metrics-server
+  image: registry.aliyuncs.com/google_containers/metrics-server-amd64:v0.3.6<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-<p>在RHEL7中：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ su -c 'rpm -Uvh http://download.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-9.noarch.rpm'<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>等部署完成后，可以查看 Pod 日志是否正常：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl apply -f download/metrics-server.yaml 
+ 
+[root@k8s-master ~]# kubectl get pods -n kube-system -l k8s-app=metrics-server
+NAME                             READY   STATUS    RESTARTS   AGE
+metrics-server-75665d756-jdpw5   1/1     Running   0          2m22s
 
-<p>检查<code>EPEL</code>源是否更新成功：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ yum repolist enabled | grep epel
- * epel: mirrors.yun-idc.com
-epel                  Extra Packages for Enterprise Linux 6 - i386        10,254<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+[root@k8s-master ~]# kubectl logs -f metrics-server-75665d756-jdpw5 -n kube-system
+......
+E0828 08:29:03.977217       1 manager.go:111] unable to fully collect metrics: [unable to fully scrape metrics from source kubelet_summary:k8s-node2: unable to fetch metrics from Kubelet k8s-node2 (k8s-node2): Get https://k8s-node2:10250/stats/summary?only_cpu_and_memory=true: dial tcp: lookup k8s-node2 on 10.96.0.10:53: no such host, unable to fully scrape metrics from source kubelet_summary:k8s-node1: unable to fetch metrics from Kubelet k8s-node1 (k8s-node1): Get https://k8s-node1:10250/stats/summary?only_cpu_and_memory=true: dial tcp: lookup k8s-node1 on 10.96.0.10:53: no such host, unable to fully scrape metrics from source kubelet_summary:k8s-master: unable to fetch metrics from Kubelet k8s-master (k8s-master): Get https://k8s-master:10250/stats/summary?only_cpu_and_memory=true: dial tcp: lookup k8s-master on 10.96.0.10:53: no such host]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>执行安装：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ yum install -y beanstalkd<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>加入开启自启动：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ chkconfig beanstalkd  on<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>添加用户组：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ groupadd beanstalkd<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>添加用户：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ useradd -M -g beanstalkd -s /sbin/nologin beanstalkd<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>创建<code>binlog</code>存放目录并修改所有者/所属组（有权限写入）：</p>
-<pre class="line-numbers language-none"><code class="language-none">$ mkdir -p /data/beanstalkd/binlog/
-$ chown -R beanstalkd:beanstalkd  /data/beanstalkd<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<p>修改配置文件中存放<code>binlog</code>的目录：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ vi /etc/sysconfig/beanstalkd<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p><em>BEANSTALKD_BINLOG_DIR=/data/beanstalkd/binlog</em></p>
-<h4 id="运行beanstalkd"><a href="#运行beanstalkd" class="headerlink" title="运行beanstalkd"></a>运行beanstalkd</h4><p>Beanstalkd安装后，就可以通过beanstalkd命令来启动或配置Beanstalkd。该命令的使用格式如下：</p>
-<pre class="line-numbers language-none"><code class="language-none">beanstalkd [OPTIONS]<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>可选[OPTIONS]参数有：</p>
-<ul>
-<li>-b DIR - wal目录（开启binlog，断电重启后会自动恢复任务）</li>
-<li>-f MS  - 指定MS毫秒内的 fsync (-f0 为”always fsync”)</li>
-<li>-F - 从不 fsync (默认)</li>
-<li>-l ADDR - 指定监听地址（默认为：0.0.0.0）</li>
-<li>-p PORT - 指定监听端口（默认为：11300）</li>
-<li>-u USER - 用户与用户组</li>
-<li>-z BYTE - 最大的任务大小（默认为：65535）</li>
-<li>-s BYTE - 每个wal文件的大小（默认为：10485760）</li>
-<li>-c - 压缩binlog（默认）</li>
-<li>-n - 不压缩binlog</li>
-<li>-v - 显示版本信息</li>
-<li>-h - 显示帮助</li>
-</ul>
-<p>我们使用<code>nohup</code>和<code>&amp;</code>来配合启动程序，这样能免疫 <strong>Ctrl-C发送的SIGINT信号和关闭session发送的SIGHUP信号</strong></p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ nohup beanstalkd -l 0.0.0.0 -p 11300 -b /data/beanstalkd/binlog/ -u beanstalkd &amp;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<h3 id="3-2-客户端"><a href="#3-2-客户端" class="headerlink" title="3.2 客户端"></a>3.2 客户端</h3><p>客户端包含了Beanstalkd设计概念中的任务<code>生产者（Producer）</code>和<code>消费者（Consumer）</code>。Beanstalkd有很多语言版本客户端的实现，点击<a target="_blank" rel="noopener" href="https://github.com/beanstalkd/beanstalkd/wiki/Client-Libraries">Beanstalkd 客户端</a>查找自已所需要的版本，如果都不能满足需要，还可以根据<a target="_blank" rel="noopener" href="https://github.com/beanstalkd/beanstalkd/blob/v1.3/doc/protocol.txt">Beanstalkd 协议</a>自行实现。</p>
-<p>笔者日常工作中，接触PHP语言较多，以下用一个PHP版本的Beanstalkd 客户端：<a target="_blank" rel="noopener" href="https://packagist.org/packages/pda/pheanstalk">pda/pheanstalk</a>为例，简单演示Beanstalkd的任务处理流程。</p>
-<p>安装 pda/pheanstalk</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ composer require pda/pheanstalk<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<h4 id="生产-job"><a href="#生产-job" class="headerlink" title="生产 job"></a>生产 job</h4><p>创建一个 producer 来生产 job</p>
-<p>producer.php</p>
-<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
-
-<span class="token keyword">require_once</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'./vendor/autoload.php'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span class="token keyword">use</span> <span class="token package">Pheanstalk<span class="token punctuation">\</span>Pheanstalk</span><span class="token punctuation">;</span>
-
-<span class="token variable">$pheanstalk</span>  <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Pheanstalk</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'127.0.0.1'</span><span class="token punctuation">,</span> <span class="token number">11300</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span class="token variable">$tubeName</span> <span class="token operator">=</span> <span class="token string single-quoted-string">'syslog'</span><span class="token punctuation">;</span>
-
-<span class="token variable">$jobData</span> <span class="token operator">=</span> <span class="token punctuation">[</span>
-    <span class="token string single-quoted-string">'type'</span> <span class="token operator">=&gt;</span> <span class="token string single-quoted-string">'Debug'</span><span class="token punctuation">,</span>
-    <span class="token string single-quoted-string">'level'</span> <span class="token operator">=&gt;</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token comment">// error log</span>
-    <span class="token string single-quoted-string">'content'</span> <span class="token operator">=&gt;</span> <span class="token string single-quoted-string">'queue connect failed'</span><span class="token punctuation">,</span>
-    <span class="token string single-quoted-string">'timestamp'</span> <span class="token operator">=&gt;</span> <span class="token function">round</span><span class="token punctuation">(</span><span class="token function">microtime</span><span class="token punctuation">(</span><span class="token constant boolean">true</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token string single-quoted-string">'timeCreated'</span> <span class="token operator">=&gt;</span> <span class="token function">date</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'Y-m-d H:i:s'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-<span class="token punctuation">]</span><span class="token punctuation">;</span>
-
-<span class="token variable">$pheanstalk</span>
-    <span class="token operator">-&gt;</span><span class="token function">useTube</span><span class="token punctuation">(</span><span class="token variable">$tubeName</span><span class="token punctuation">)</span>
-    <span class="token operator">-&gt;</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token function">json_encode</span><span class="token punctuation">(</span><span class="token variable">$jobData</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>运行 producer.php</p>
-<pre class="line-numbers language-php" data-language="php"><code class="language-php">$ php producer<span class="token operator">.</span>php<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<h4 id="消费-job"><a href="#消费-job" class="headerlink" title="消费 job"></a>消费 job</h4><p>创建一个 consumer 来消费 job</p>
-<p>consumer.php</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">&lt;?php
-
-if (PHP_SAPI !== 'cli') {
-    echo 'Warning: should be invoked via the CLI version of PHP, not the '.PHP_SAPI.' SAPI'.PHP_EOL;
-}
-
-require_once('./vendor/autoload.php');
-
-use Pheanstalk\Pheanstalk;
-
-$pheanstalk  = new Pheanstalk('127.0.0.1', 11300);
-
-$tubeName = 'syslog';
-
-while (true) {
-    // 从指定队列获取信息，reserve 阻塞获取
-    $job = $pheanstalk-&gt;useTube($tubeName)-&gt;watch($tubeName)-&gt;ignore('default')-&gt;reserve(60);
-
-    if ($job !== false) {
-        // do stuff
-        echo $data = $job-&gt;getData();
-        // 处理完成，删除 job
-        $pheanstalk-&gt;delete($job);
+<p>我们可以发现 Pod 中出现了一些错误信息：<code>xxx: no such host</code>，我们看到这个错误信息一般就可以确定是 DNS 解析不了造成的，我们可以看到 Metrics Server 会通过 kubelet 的 10250 端口获取信息，使用的是 hostname，我们部署集群的时候在节点的 <code>/etc/hosts</code> 里面添加了节点的 hostname 和 ip 的映射，但是是我们的 Metrics Server 的 Pod 内部并没有这个 hosts 信息，当然也就不识别 hostname 了，要解决这个问题，有两种方法：</p>
+<p>第一种方法就是在集群内部的 DNS 服务里面添加上 hostname 的解析，比如我们这里集群中使用的是 <code>CoreDNS</code>，我们就可以去修改下 CoreDNS 的 Configmap 信息，添加上 hosts 信息：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ kubectl edit configmap coredns -n kube-system
+apiVersion: v1
+data:
+  Corefile: |
+    .:53 {
+        errors
+        health
+        hosts {  # 添加集群节点hosts隐射信息
+          172.31.0.2 k8s-master
+          172.31.0.3 k8s-node1
+          172.31.0.4 k8s-node2
+          fallthrough
+        }
+        kubernetes cluster.local in-addr.arpa ip6.arpa {
+           pods insecure
+           upstream
+           fallthrough in-addr.arpa ip6.arpa
+        }
+        prometheus :9153
+        proxy . /etc/resolv.conf
+        cache 30
+        reload
     }
+kind: ConfigMap
+metadata:
+  creationTimestamp: 2019-05-18T11:07:46Z
+  name: coredns
+  namespace: kube-system<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-    usleep(500000); // 0.5 s
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这样当在集群内部的 Pod 访问集群节点的 hostname 的时候就可以解析到对应的 ip 了，另外一种方法（<a target="_blank" rel="noopener" href="https://github.com/kubernetes-sigs/metrics-server%EF%BC%89%E5%B0%B1%E6%98%AF%E5%9C%A8">https://github.com/kubernetes-sigs/metrics-server）就是在</a> metrics-server 的启动参数中修改 <code>kubelet-preferred-address-types</code> 参数，如下：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">args:
+- --cert-dir=/tmp
+- --secure-port=4443
+- --kubelet-preferred-address-types=InternalIP<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>运行 consumer.php</p>
-<pre class="line-numbers language-php" data-language="php"><code class="language-php">$ php consumer<span class="token operator">.</span>php
-<span class="token punctuation">{</span><span class="token string double-quoted-string">"type"</span><span class="token punctuation">:</span><span class="token string double-quoted-string">"Debug"</span><span class="token punctuation">,</span><span class="token string double-quoted-string">"level"</span><span class="token punctuation">:</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token string double-quoted-string">"content"</span><span class="token punctuation">:</span><span class="token string double-quoted-string">"queue connect failed"</span><span class="token punctuation">,</span><span class="token string double-quoted-string">"timestamp"</span><span class="token punctuation">:</span><span class="token number">1576113851568</span><span class="token punctuation">,</span><span class="token string double-quoted-string">"timeCreated"</span><span class="token punctuation">:</span><span class="token string double-quoted-string">"2019-12-12 01:24:11"</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>我们这里使用第二种方式，然后重新安装：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl delete -f download/metrics-server.yaml
+[root@k8s-master ~]# kubectl apply -f download/metrics-server.yaml 
 
-<p>可以使用<strong>deamontools</strong>和<strong>supervisor</strong>等将<code>php consumer.php</code>变为常驻内存的进程。</p>
-<h4 id="监控-beanstalkd-状态"><a href="#监控-beanstalkd-状态" class="headerlink" title="监控 beanstalkd 状态"></a>监控 beanstalkd 状态</h4><p>创建一个 heartbeat 来检查与服务器的连接状态</p>
-<p>heartbeat.php</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">&lt;?php
-/**
- * 心跳检查脚本：定期在定时任务系统（crontab、MySQL Event Scheduler、Elastic-Job）上运行并收集与服务器连接状态信息，
- * 如果连接不是活的状态，则可以发送消息报警（sms、email）
- */
+[root@k8s-master ~]# kubectl get pods -n kube-system -l k8s-app=metrics-server
+NAME                              READY   STATUS    RESTARTS   AGE
+metrics-server-78f654ccdd-wcf8t   1/1     Running   0          91s
 
-if (PHP_SAPI !== 'cli') {
-    echo 'Warning: should be invoked via the CLI version of PHP, not the '.PHP_SAPI.' SAPI'.PHP_EOL;
-}
+[root@k8s-master ~]# kubectl logs -f metrics-server-78f654ccdd-wcf8t -n kube-system
+......
+E0828 08:47:12.412582       1 manager.go:111] unable to fully collect metrics: [unable to fully scrape metrics from source kubelet_summary:k8s-node1: unable to fetch metrics from Kubelet k8s-node1 (172.31.0.3): Get https://172.31.0.3:10250/stats/summary?only_cpu_and_memory=true: x509: cannot validate certificate for 172.31.0.3 because it doesn't contain any IP SANs, unable to fully scrape metrics from source kubelet_summary:k8s-master: unable to fetch metrics from Kubelet k8s-master (172.31.0.2): Get https://172.31.0.2:10250/stats/summary?only_cpu_and_memory=true: x509: cannot validate certificate for 172.31.0.2 because it doesn't contain any IP SANs, unable to fully scrape metrics from source kubelet_summary:k8s-node2: unable to fetch metrics from Kubelet k8s-node2 (172.31.0.4): Get https://172.31.0.4:10250/stats/summary?only_cpu_and_memory=true: x509: cannot validate certificate for 172.31.0.4 because it doesn't contain any IP SANs]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-require_once('./vendor/autoload.php');
+<p>因为部署集群的时候，CA 证书并没有把各个节点的 IP 签上去，所以这里 <code>Metrics Server</code> 通过 IP 去请求时，提示签的证书没有对应的 IP（错误：<code>x509: cannot validate certificate for 172.31.0.3 because it doesn’t contain any IP SANs</code>），我们可以添加一个<code>--kubelet-insecure-tls</code>参数跳过证书校验：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">args:
+- --cert-dir=/tmp
+- --secure-port=4443
+- --kubelet-insecure-tls
+- --kubelet-preferred-address-types=InternalIP<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-use Pheanstalk\Pheanstalk;
+<p>然后再重新安装即可成功！可以通过如下命令来验证：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl delete -f download/metrics-server.yaml
+[root@k8s-master ~]# kubectl apply -f download/metrics-server.yaml 
 
-$pheanstalk  = new Pheanstalk('127.0.0.1', 11300);
+[root@k8s-master ~]# kubectl get pods -n kube-system -l k8s-app=metrics-server
+NAME                             READY   STATUS    RESTARTS   AGE
+metrics-server-9b4dc89d7-jnmr7   1/1     Running   0          14s
 
-$isAlive = $pheanstalk-&gt;getConnection()-&gt;isServiceListening();
+[root@k8s-master ~]# kubectl logs -f metrics-server-9b4dc89d7-jnmr7 -n kube-system
+I0828 08:51:12.584555       1 serving.go:312] Generated self-signed cert (/tmp/apiserver.crt, /tmp/apiserver.key)
+I0828 08:51:13.012958       1 secure_serving.go:116] Serving securely on [::]:4443
+......
 
-var_dump($isAlive);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+[root@k8s-master ~]#  kubectl get apiservice | grep metrics
+v1beta1.metrics.k8s.io                 kube-system/metrics-server   True        67s
 
-<p>运行 heartbeat.php</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ php heartbeat.php
-bool(true)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<h2 id="4-beanstalkd-管理工具"><a href="#4-beanstalkd-管理工具" class="headerlink" title="4. beanstalkd 管理工具"></a>4. beanstalkd 管理工具</h2><p>Tools：<a target="_blank" rel="noopener" href="https://github.com/beanstalkd/beanstalkd/wiki/Tools">https://github.com/beanstalkd/beanstalkd/wiki/Tools</a></p>
-<p>笔者经常使用的两款工具：</p>
-<p>web 界面：<a target="_blank" rel="noopener" href="https://github.com/ptrofimov/beanstalk_console">https://github.com/ptrofimov/beanstalk_console</a></p>
-<p>命令行：<a target="_blank" rel="noopener" href="https://github.com/src-d/beanstool">https://github.com/src-d/beanstool</a></p>
-<p>对 beanstalkd 的操作也可以使用<code>telnet</code>，比如 <code>telnet 127.0.0.1 11300</code>。然后便可以执行 beanstalkd 的各命令，如 <code>stats</code> 查看信息，<code>use</code>, <code>put</code>, <code>watch</code> 等等。</p>
-<p><code>telnet</code>对beanstalkd的操作：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ telnet 127.0.0.1 11300
-stats
-OK 929
----
-current-jobs-urgent: 0
-current-jobs-ready: 0
-current-jobs-reserved: 0
-current-jobs-delayed: 0
-current-jobs-buried: 0
-...
+[root@k8s-master ~]# kubectl get --raw "/apis/metrics.k8s.io/v1beta1/nodes"
+{"kind":"NodeMetricsList","apiVersion":"metrics.k8s.io/v1beta1","metadata":{"selfLink":"/apis/metrics.k8s.io/v1beta1/nodes"},"items":[{"metadata":{"name":"k8s-master","selfLink":"/apis/metrics.k8s.io/v1beta1/nodes/k8s-master","creationTimestamp":"2022-08-28T08:53:06Z"},"timestamp":"2022-08-28T08:52:05Z","window":"30s","usage":{"cpu":"135321453n","memory":"1509068Ki"}},{"metadata":{"name":"k8s-node1","selfLink":"/apis/metrics.k8s.io/v1beta1/nodes/k8s-node1","creationTimestamp":"2022-08-28T08:53:06Z"},"timestamp":"2022-08-28T08:52:11Z","window":"30s","usage":{"cpu":"64140701n","memory":"708528Ki"}},{"metadata":{"name":"k8s-node2","selfLink":"/apis/metrics.k8s.io/v1beta1/nodes/k8s-node2","creationTimestamp":"2022-08-28T08:53:06Z"},"timestamp":"2022-08-28T08:52:04Z","window":"30s","usage":{"cpu":"63743191n","memory":"830800Ki"}}]}
 
-list-tubes
-OK 23
----
-- default
-- syslog<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="5-Beanstalkd-使用总结"><a href="#5-Beanstalkd-使用总结" class="headerlink" title="5. Beanstalkd 使用总结"></a>5. Beanstalkd 使用总结</h2><ul>
-<li><p>如果需要对<code>job</code>有<strong>持久化</strong>的需要，在启动beanstalkd时可以使用<code>-b</code>参数来开启<code>binlog</code>（二进制日志）， 通过<code>binlog</code>可以将<code>job</code>及其状态记录到文件里，如果断电，则可以使用相同的选项重新启动beanstalkd，它将读取<code>binlog</code>来恢复之前的<code>job</code>及状态</p>
-</li>
-<li><p><code>put</code>前先要<code>use tube xxxtube</code>，这样<code>put</code>的时候就会把<code>job</code>放到指定名称的<code>tube</code>中，否则会放到一个<code>default</code>的<code>tube</code>中</p>
-</li>
-<li><p><code>reserve</code>或<code>reserve-with-timeout</code>前先要<code>watch xxxtube</code>，可以同时监控多个<code>tube</code>，这样可以同时取几个队列的任务。但是，千万要小心，如果在一个进程中，不小心<code>watch</code>到了多个<code>tube</code>，那么有时候会取错任务，一般取<code>job</code>的步骤为：<code>useTube xxxtube -&gt; watch xxxtube -&gt; ignore default -&gt; reserve</code></p>
-</li>
-<li><p><code>job</code>处理完成，应该<code>delete</code>删除掉，或者<code>release</code>再放回队列，或者<code>bury</code>把它埋葬掉，这个取决于你的设计</p>
-</li>
-</ul>
-<h2 id="6-Beanstalkd-不足"><a href="#6-Beanstalkd-不足" class="headerlink" title="6. Beanstalkd 不足"></a>6. Beanstalkd 不足</h2><ul>
-<li><p>无最大内存控制，如果有消息堆积或者业务使用方式有误，而导致内存暴涨拖垮机器</p>
-</li>
-<li><p>跟<code>Memcached</code>类似，没有<code>master-slave</code>故障切换机制，需要自己解决单点问题</p>
-</li>
-</ul>
-<h2 id="7-参考资料"><a href="#7-参考资料" class="headerlink" title="7. 参考资料"></a>7. 参考资料</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://beanstalkd.github.io/">beanstalkd 官网</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/beanstalkd/beanstalkd/wiki/Client-Libraries">Beanstalkd 客户端</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/beanstalkd/beanstalkd/wiki/FAQ">beanstalkd FAQ</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/beanstalkd/beanstalkd/blob/master/doc/protocol.zh-CN.md">Beanstalkd 中文协议</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/pheanstalk/pheanstalk">pheanstalk</a></li>
+[root@k8s-master ~]# kubectl top nodes
+NAME         CPU(cores)   CPU%   MEMORY(bytes)   MEMORY%   
+k8s-master   151m         7%     1456Mi          37%       
+k8s-node1    72m          3%     689Mi           17%       
+k8s-node2    65m          3%     811Mi           21% <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>现在我们可以通过 <code>kubectl top</code> 命令来获取到资源数据了，证明 <code>Metrics Server</code> 已经安装成功了。</p>
+<h2 id="HAP"><a href="#HAP" class="headerlink" title="HAP"></a>HAP</h2><p>现在我们用 Deployment 来创建一个 Nginx Pod，然后利用 <code>HPA</code> 来进行自动扩缩容。资源清单如下所示：（hpa-demo.yaml）</p>
+<p>把 hap 相关资源文件统一放在 hap 目录下</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# mkdir ~/hap<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> hpa<span class="token punctuation">-</span>demo
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+      <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
+  <span class="token key atrule">template</span><span class="token punctuation">:</span>
+    <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+        <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
+    <span class="token key atrule">spec</span><span class="token punctuation">:</span>
+      <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
+        <span class="token key atrule">image</span><span class="token punctuation">:</span> nginx
+        <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">80</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>然后直接创建 Deployment：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl apply -f hpa/hpa-demo.yaml 
+deployment.apps/hpa-demo created
+
+[root@k8s-master ~]# kubectl get pods -l app=nginx
+NAME                        READY   STATUS    RESTARTS   AGE
+hpa-demo-7848d4b86f-9sw8b   1/1     Running   0          18s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>现在我们来创建一个 <code>HPA</code> 资源对象，可以使用<code>kubectl autoscale</code>命令来创建：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl autoscale deployment hpa-demo --cpu-percent=10 --min=1 --max=10  
+horizontalpodautoscaler.autoscaling/hpa-demo autoscaled
+
+[root@k8s-master ~]# kubectl get hpa
+NAME       REFERENCE             TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+hpa-demo   Deployment/hpa-demo   &lt;unknown&gt;/10%   1         10        0          11s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>此命令创建了一个关联资源 hpa-demo 的 HPA，最小的 Pod 副本数为1，最大为10。HPA 会根据设定的 cpu 使用率（10%）动态的增加或者减少 Pod 数量。</p>
+<p>当然我们依然还是可以通过创建 YAML 文件的形式来创建 HPA 资源对象。如果我们不知道怎么编写的话，可以查看上面命令行创建的HPA的YAML文件：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get hpa hpa-demo -o yaml
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  annotations:
+    autoscaling.alpha.kubernetes.io/conditions: '[{"type":"AbleToScale","status":"True","lastTransitionTime":"2022-08-28T09:04:49Z","reason":"SucceededGetScale","message":"the
+      HPA controller was able to get the target''s current scale"},{"type":"ScalingActive","status":"False","lastTransitionTime":"2022-08-28T09:04:49Z","reason":"FailedGetResourceMetric","message":"the
+      HPA was unable to compute the replica count: failed to get cpu utilization:
+      missing request for cpu"}]'
+  creationTimestamp: "2022-08-28T09:04:34Z"
+  managedFields:
+  - apiVersion: autoscaling/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:spec:
+        f:maxReplicas: {}
+        f:minReplicas: {}
+        f:scaleTargetRef:
+          f:apiVersion: {}
+          f:kind: {}
+          f:name: {}
+        f:targetCPUUtilizationPercentage: {}
+    manager: kubectl-autoscale
+    operation: Update
+    time: "2022-08-28T09:04:34Z"
+  - apiVersion: autoscaling/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:annotations:
+          .: {}
+          f:autoscaling.alpha.kubernetes.io/conditions: {}
+      f:status:
+        f:currentReplicas: {}
+    manager: kube-controller-manager
+    operation: Update
+    time: "2022-08-28T09:04:49Z"
+  name: hpa-demo
+  namespace: default
+  resourceVersion: "126191"
+  uid: c9a2ee21-cced-4518-863f-61fcf4f76c8e
+spec:
+  maxReplicas: 10
+  minReplicas: 1
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: hpa-demo
+  targetCPUUtilizationPercentage: 10
+status:
+  currentReplicas: 1
+  desiredReplicas: 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>然后我们可以根据上面的 YAML 文件就可以自己来创建一个基于 YAML 的 HPA 描述文件了。但是我们发现上面信息里面出现了一些 Fail 信息，我们来查看下这个 HPA 对象的信息：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl describe hpa hpa-demo
+Name:                                                  hpa-demo
+Namespace:                                             default
+Labels:                                                &lt;none&gt;
+Annotations:                                           &lt;none&gt;
+CreationTimestamp:                                     Sun, 28 Aug 2022 17:04:34 +0800
+Reference:                                             Deployment/hpa-demo
+Metrics:                                               ( current / target )
+  resource cpu on pods  (as a percentage of request):  &lt;unknown&gt; / 10%
+Min replicas:                                          1
+Max replicas:                                          10
+Deployment pods:                                       1 current / 0 desired
+Conditions:
+  Type           Status  Reason                   Message
+  ----           ------  ------                   -------
+  AbleToScale    True    SucceededGetScale        the HPA controller was able to get the target's current scale
+  ScalingActive  False   FailedGetResourceMetric  the HPA was unable to compute the replica count: failed to get cpu utilization: missing request for cpu
+Events:
+  Type     Reason                        Age               From                       Message
+  ----     ------                        ----              ----                       -------
+  Warning  FailedGetResourceMetric       4s (x5 over 66s)  horizontal-pod-autoscaler  failed to get cpu utilization: missing request for cpu
+  Warning  FailedComputeMetricsReplicas  4s (x5 over 66s)  horizontal-pod-autoscaler  invalid metrics (1 invalid out of 1), first error is: failed to get cpu utilization: missing request for cpu<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>我们可以看到上面的事件信息里面出现了 <code>failed to get cpu utilization: missing request for cpu</code> 这样的错误信息。这是因为我们上面创建的 Pod 对象没有添加 request 资源声明，这样导致 HPA 读取不到 CPU 指标信息，所以如果要想让 HPA 生效，对应的 Pod 资源必须添加 requests 资源声明，更新我们的资源清单文件（hpa-demo.yaml）：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> hpa<span class="token punctuation">-</span>demo
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+      <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
+  <span class="token key atrule">template</span><span class="token punctuation">:</span>
+    <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+        <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
+    <span class="token key atrule">spec</span><span class="token punctuation">:</span>
+      <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
+        <span class="token key atrule">image</span><span class="token punctuation">:</span> nginx
+        <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">80</span>
+        <span class="token key atrule">resources</span><span class="token punctuation">:</span>
+          <span class="token key atrule">requests</span><span class="token punctuation">:</span>
+            <span class="token key atrule">memory</span><span class="token punctuation">:</span> 50Mi
+            <span class="token key atrule">cpu</span><span class="token punctuation">:</span> 50m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>然后重新更新 Deployment，重新创建 HPA 对象：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl delete -f hpa/hpa-demo.yaml 
+deployment.apps "hpa-demo" deleted
+
+[root@k8s-master ~]# kubectl apply -f hpa/hpa-demo.yaml 
+deployment.apps/hpa-demo created
+
+[root@k8s-master ~]# kubectl get pods -o wide -l app=nginx
+NAME                        READY   STATUS    RESTARTS   AGE   IP              NODE        NOMINATED NODE   READINESS GATES
+hpa-demo-6b4467b546-lndbp   1/1     Running   0          59s   192.168.36.72   k8s-node1   &lt;none&gt;           &lt;none&gt;
+
+[root@k8s-master ~]# kubectl get hpa 
+NAME       REFERENCE             TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+hpa-demo   Deployment/hpa-demo   &lt;unknown&gt;/10%   1         10        1          5m46s
+
+[root@k8s-master ~]# kubectl delete hpa hpa-demo
+horizontalpodautoscaler.autoscaling "hpa-demo" deleted
+
+[root@k8s-master ~]# kubectl autoscale deployment hpa-demo --cpu-percent=10 --min=1 --max=10  
+horizontalpodautoscaler.autoscaling/hpa-demo autoscaled
+
+
+[root@k8s-master ~]# kubectl describe hpa hpa-demo
+Name:                                                  hpa-demo
+Namespace:                                             default
+Labels:                                                &lt;none&gt;
+Annotations:                                           &lt;none&gt;
+CreationTimestamp:                                     Sun, 28 Aug 2022 17:11:37 +0800
+Reference:                                             Deployment/hpa-demo
+Metrics:                                               ( current / target )
+  resource cpu on pods  (as a percentage of request):  0% (0) / 10%
+Min replicas:                                          1
+Max replicas:                                          10
+Deployment pods:                                       1 current / 1 desired
+Conditions:
+  Type            Status  Reason               Message
+  ----            ------  ------               -------
+  AbleToScale     True    ScaleDownStabilized  recent recommendations were higher than current one, applying the highest recent recommendation
+  ScalingActive   True    ValidMetricFound     the HPA was able to successfully calculate a replica count from cpu resource utilization (percentage of request)
+  ScalingLimited  False   DesiredWithinRange   the desired count is within the acceptable range
+Events:           &lt;none&gt;
+
+
+[root@k8s-master ~]# kubectl get hpa
+NAME       REFERENCE             TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
+hpa-demo   Deployment/hpa-demo   0%/10%    1         10        1          68s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>现在可以看到 HPA 资源对象已经正常了，现在我们来增大负载进行测试：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 开启另一个终端查看 hap-demo Pod 的 ip
+[root@k8s-master ~]# kubectl get pods 
+NAME                        READY   STATUS    RESTARTS   AGE
+hpa-demo-6b4467b546-lndbp   1/1     Running   0          10m
+
+[root@k8s-master ~]# kubectl get pod hpa-demo-6b4467b546-lndbp -o wide
+NAME                        READY   STATUS    RESTARTS   AGE   IP              NODE        NOMINATED NODE   READINESS GATES
+hpa-demo-6b4467b546-lndbp   1/1     Running   0          11m   192.168.36.72   k8s-node1   &lt;none&gt;           &lt;none&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>我们来创建一个 busybox 的 Pod，并且循环访问上面创建的 Pod：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]#  kubectl run -it --image busybox test-hpa --restart=Never --rm /bin/sh
+If you don't see a command prompt, try pressing enter.
+/ # while true; do wget -q -O- http://192.168.36.72; done<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>下图可以看到，HPA 已经开始工作：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get hpa
+NAME       REFERENCE             TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
+hpa-demo   Deployment/hpa-demo   0%/10%    1         10        10         17m
+
+
+[root@k8s-master ~]#  kubectl get pods -l app=nginx --watch
+NAME                        READY   STATUS    RESTARTS   AGE
+hpa-demo-6b4467b546-dlgk5   0/1     ContainerCreating   0          1s
+hpa-demo-6b4467b546-5plpg   0/1     ContainerCreating   0          1s
+hpa-demo-6b4467b546-wprxt   1/1     Running             0          17s
+hpa-demo-6b4467b546-dlgk5   1/1     Running             0          2s
+hpa-demo-6b4467b546-nd5rh   1/1     Running             0          18s
+hpa-demo-6b4467b546-rbv2x   0/1     Pending             0          0s
+hpa-demo-6b4467b546-rbv2x   0/1     Pending             0          0s
+hpa-demo-6b4467b546-6bcg2   0/1     Pending             0          0s
+hpa-demo-6b4467b546-6bcg2   0/1     Pending             0          0s
+hpa-demo-6b4467b546-6bcg2   0/1     ContainerCreating   0          0s
+hpa-demo-6b4467b546-rbv2x   0/1     ContainerCreating   0          0s
+hpa-demo-6b4467b546-6bcg2   0/1     ContainerCreating   0          0s
+hpa-demo-6b4467b546-rbv2x   0/1     ContainerCreating   0          0s
+hpa-demo-6b4467b546-nphlm   1/1     Running             0          33s
+hpa-demo-6b4467b546-5plpg   1/1     Running             0          17s
+hpa-demo-6b4467b546-rbv2x   1/1     Running             0          2s
+hpa-demo-6b4467b546-rpwpf   1/1     Running             0          32s
+hpa-demo-6b4467b546-6bcg2   1/1     Running             0          32s
+hpa-demo-6b4467b546-rxp2d   1/1     Running             0          47s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>我们可以看到已经自动拉起了很多新的 Pod，最后定格在了我们上面设置的 10 个 Pod，同时查看资源 hpa-demo 的副本数量，副本数量已经从原来的1变成了10个：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get deployment hpa-demo
+NAME       READY   UP-TO-DATE   AVAILABLE   AGE
+hpa-demo   10/10   10           10          15m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>查看 HPA 资源的对象了解工作过程：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl describe hpa hpa-demo
+Name:                                                  hpa-demo
+Namespace:                                             default
+Labels:                                                &lt;none&gt;
+Annotations:                                           &lt;none&gt;
+CreationTimestamp:                                     Sun, 28 Aug 2022 17:11:37 +0800
+Reference:                                             Deployment/hpa-demo
+Metrics:                                               ( current / target )
+  resource cpu on pods  (as a percentage of request):  0% (0) / 10%
+Min replicas:                                          1
+Max replicas:                                          10
+Deployment pods:                                       10 current / 10 desired
+Conditions:
+  Type            Status  Reason               Message
+  ----            ------  ------               -------
+  AbleToScale     True    ScaleDownStabilized  recent recommendations were higher than current one, applying the highest recent recommendation
+  ScalingActive   True    ValidMetricFound     the HPA was able to successfully calculate a replica count from cpu resource utilization (percentage of request)
+  ScalingLimited  True    TooManyReplicas      the desired replica count is more than the maximum replica count
+Events:
+  Type    Reason             Age    From                       Message
+  ----    ------             ----   ----                       -------
+  Normal  SuccessfulRescale  7m     horizontal-pod-autoscaler  New size: 4; reason: cpu resource utilization (percentage of request) above target
+  Normal  SuccessfulRescale  6m44s  horizontal-pod-autoscaler  New size: 8; reason: cpu resource utilization (percentage of request) above target
+  Normal  SuccessfulRescale  6m29s  horizontal-pod-autoscaler  New size: 10; reason: cpu resource utilization (percentage of request) above target<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>同样的这个时候我们来关掉 busybox 来减少负载，然后等待一段时间观察下 HPA 和 Deployment 对象：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get hpa
+NAME       REFERENCE             TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
+hpa-demo   Deployment/hpa-demo   0%/10%    1         10        1          19m
+
+[root@k8s-master ~]# kubectl get deployment hpa-demo
+NAME       READY   UP-TO-DATE   AVAILABLE   AGE
+hpa-demo   1/1     1            1           21m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可以看到副本数量已经由 10 变为 1，当前我们只是演示了 CPU 使用率这一个指标，我们还可以根据自定义的监控指标来自动对 Pod 进行扩缩容。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://v1-21.docs.kubernetes.io/zh/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/">https://v1-21.docs.kubernetes.io/zh/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/</a></li>
+<li><a target="_blank" rel="noopener" href="https://v1-21.docs.kubernetes.io/zh/docs/tasks/run-application/horizontal-pod-autoscale/">https://v1-21.docs.kubernetes.io/zh/docs/tasks/run-application/horizontal-pod-autoscale/</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/kubernetes-sigs/metrics-server">https://github.com/kubernetes-sigs/metrics-server</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.qikqiak.com/k8strain/controller/hpa/">https://www.qikqiak.com/k8strain/controller/hpa/</a></li>
 </ul>
 
                 
@@ -801,7 +947,7 @@ OK 23
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://www.zhangquan.me/2021/06/29/beanstalkd-xue-xi-yan-jiu/">https://www.zhangquan.me/2021/06/29/beanstalkd-xue-xi-yan-jiu/</a>
+                    <a href="https://www.zhangquan.me/2022/08/28/kubernetes-hpa/">https://www.zhangquan.me/2022/08/28/kubernetes-hpa/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -839,12 +985,8 @@ OK 23
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/">
-                                    <span class="chip bg-color">中间件</span>
-                                </a>
-                            
-                                <a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">
-                                    <span class="chip bg-color">消息队列</span>
+                                <a href="/tags/Kubernetes/">
+                                    <span class="chip bg-color">Kubernetes</span>
                                 </a>
                             
                         </div>
@@ -1339,50 +1481,48 @@ OK 23
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/06/29/she-ji-mo-shi-zhi-chuang-jian-xing-mo-shi-dan-li-mo-shi-singleton-pattern/">
+                <a href="/2022/08/28/kubernetes-hpa/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="设计模式之-创建型模式-单例模式（Singleton Pattern）">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="Kubernetes HPA">
                         
-                        <span class="card-title">设计模式之-创建型模式-单例模式（Singleton Pattern）</span>
+                        <span class="card-title">Kubernetes HPA</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Singleton Pattern
+                            Kubernetes Horizontal Pod Autoscaling（Pod 水平自动伸缩）
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-06-29
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-28
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-category">
-                                    设计模式
+                            <a href="/categories/Kubernetes/" class="post-category">
+                                    Kubernetes
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/PHP/">
-                        <span class="chip bg-color">PHP</span>
-                    </a>
-                    
-                    <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
-                        <span class="chip bg-color">面向对象</span>
+                    <a href="/tags/Kubernetes/">
+                        <span class="chip bg-color">Kubernetes</span>
                     </a>
                     
                 </div>
@@ -1396,31 +1536,31 @@ OK 23
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/06/29/php-duo-jin-cheng-bian-cheng/">
+                <a href="/2022/08/28/kubernetes-security-context/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="PHP 多进程编程">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="Kubernetes Security Context">
                         
-                        <span class="card-title">PHP 多进程编程</span>
+                        <span class="card-title">Kubernetes Security Context</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            PHP 如何多进程编程
+                            Kubernetes Security Context Pod/容器的安全管控
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-29
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-28
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" class="post-category">
-                                    编程语言
+                            <a href="/categories/Kubernetes/" class="post-category">
+                                    Kubernetes
                                 </a>
                             
                             
@@ -1430,8 +1570,8 @@ OK 23
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/PHP/">
-                        <span class="chip bg-color">PHP</span>
+                    <a href="/tags/Kubernetes/">
+                        <span class="chip bg-color">Kubernetes</span>
                     </a>
                     
                 </div>

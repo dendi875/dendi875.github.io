@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2022-08-28T03:08:58.842Z</updated>
+  <updated>2022-08-28T09:41:18.976Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Kubernetes HPA</title>
+    <link href="https://www.zhangquan.me/2022/08/28/kubernetes-hpa/"/>
+    <id>https://www.zhangquan.me/2022/08/28/kubernetes-hpa/</id>
+    <published>2022-08-28T09:40:27.000Z</published>
+    <updated>2022-08-28T09:41:18.976Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Kubernetes-HPA&quot;&gt;&lt;a href=&quot;#Kubernetes-HPA&quot; class=&quot;headerlink&quot; title=&quot;Kubernetes HPA&quot;&gt;&lt;/a&gt;Kubernetes HPA&lt;/h1&gt;&lt;p&gt;在  k8s 中我们可以使用</summary>
+        
+      
+    
+    
+    
+    <category term="Kubernetes" scheme="https://www.zhangquan.me/categories/Kubernetes/"/>
+    
+    
+    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
+    
+  </entry>
   
   <entry>
     <title>Kubernetes Security Context</title>
@@ -500,32 +525,6 @@
     
     
     <category term="Java，并发，线程池" scheme="https://www.zhangquan.me/tags/Java%EF%BC%8C%E5%B9%B6%E5%8F%91%EF%BC%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>性能压测工具 wrk 使用指南</title>
-    <link href="https://www.zhangquan.me/2022/03/24/xing-neng-ya-ce-gong-ju-wrk-shi-yong-zhi-nan/"/>
-    <id>https://www.zhangquan.me/2022/03/24/xing-neng-ya-ce-gong-ju-wrk-shi-yong-zhi-nan/</id>
-    <published>2022-03-24T08:48:46.000Z</published>
-    <updated>2022-03-24T09:04:10.046Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/wrk-0.png&quot;&gt;&lt;/p&gt;
-&lt;h2 id=&quot;一、什么是-wrk&quot;&gt;&lt;a href=&quot;#一、什么是-wrk&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="Linux，分布式，架构" scheme="https://www.zhangquan.me/categories/Linux%EF%BC%8C%E5%88%86%E5%B8%83%E5%BC%8F%EF%BC%8C%E6%9E%B6%E6%9E%84/"/>
-    
-    
-    <category term="工具" scheme="https://www.zhangquan.me/tags/%E5%B7%A5%E5%85%B7/"/>
     
   </entry>
   
