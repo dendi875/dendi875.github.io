@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2022-08-25T09:40:10.781Z</updated>
+  <updated>2022-08-28T03:08:58.842Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Kubernetes Security Context</title>
+    <link href="https://www.zhangquan.me/2022/08/28/kubernetes-security-context/"/>
+    <id>https://www.zhangquan.me/2022/08/28/kubernetes-security-context/</id>
+    <published>2022-08-28T03:06:57.000Z</published>
+    <updated>2022-08-28T03:08:58.842Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Kubernetes-Security-Context&quot;&gt;&lt;a href=&quot;#Kubernetes-Security-Context&quot; class=&quot;headerlink&quot; title=&quot;Kubernetes Security</summary>
+        
+      
+    
+    
+    
+    <category term="Kubernetes" scheme="https://www.zhangquan.me/categories/Kubernetes/"/>
+    
+    
+    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
+    
+  </entry>
   
   <entry>
     <title>Kubernetes RBAC 权限控制</title>
@@ -501,32 +526,6 @@
     
     
     <category term="工具" scheme="https://www.zhangquan.me/tags/%E5%B7%A5%E5%85%B7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>在MacOS系统上编译OpenJDK12并使用CLion调试</title>
-    <link href="https://www.zhangquan.me/2022/03/01/zai-macos-xi-tong-shang-bian-yi-openjdk12-bing-shi-yong-clion-diao-shi/"/>
-    <id>https://www.zhangquan.me/2022/03/01/zai-macos-xi-tong-shang-bian-yi-openjdk12-bing-shi-yong-clion-diao-shi/</id>
-    <published>2022-03-01T01:55:13.000Z</published>
-    <updated>2022-03-01T02:00:11.105Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;1-MAC-环境&quot;&gt;&lt;a href=&quot;#1-MAC-环境&quot; class=&quot;headerlink&quot; title=&quot;1. MAC 环境&quot;&gt;&lt;/a&gt;1. MAC 环境&lt;/h2&gt;&lt;p&gt;macOS Catalina 版本 10.15.6&lt;/p&gt;
-&lt;h2</summary>
-        
-      
-    
-    
-    
-    <category term="JVM" scheme="https://www.zhangquan.me/categories/JVM/"/>
-    
-    
-    <category term="JAVA" scheme="https://www.zhangquan.me/tags/JAVA/"/>
     
   </entry>
   

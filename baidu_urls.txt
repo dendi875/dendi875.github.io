@@ -1,3 +1,4 @@
+https://www.zhangquan.me/2022/08/28/kubernetes-security-context/
 https://www.zhangquan.me/2022/08/25/kubernetes-rbac-quan-xian-kong-zhi/
 https://www.zhangquan.me/2022/08/25/kubernetes-serviceaccount/
 https://www.zhangquan.me/2022/08/24/kubernetes-secret-min-gan-xin-xi-pei-zhi-guan-li/
