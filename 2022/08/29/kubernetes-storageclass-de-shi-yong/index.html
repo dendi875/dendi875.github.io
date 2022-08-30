@@ -473,7 +473,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-08-22
+                    2022-08-29
                 </div>
                 
 
@@ -523,7 +523,7 @@
 <li>自动创建的 PV 以<code>${namespace}-${pvcName}-${pvName}</code>这样的命名格式创建在 NFS 服务器上的共享数据目录中</li>
 <li>而当这个 PV 被回收后会以<code>archieved-${namespace}-${pvcName}-${pvName}</code>这样的命名格式存在 NFS 服务器上。</li>
 </ul>
-<p>当然在部署<code>nfs-client</code>之前，我们需要先成功安装上 nfs 服务器，我们的 NFS 服务地址部署在 master 节点上，IP 是<strong>172.31.0.2</strong>，共享数据目录是**/nfs/data **，参考此前的安装 <a target="_blank" rel="noopener" href="https://zhangquan.me/2022/08/21/kubernetes-chi-jiu-hua-cun-chu-pv-he-pvc-de-shi-yong/">kubernetes 持久化存储PV 和 PVC 的使用</a></p>
+<p>当然在部署<code>nfs-client</code>之前，我们需要先成功安装上 nfs 服务器，我们的 NFS 服务地址部署在 master 节点上，IP 是<strong>172.31.0.2</strong>，共享数据目录是**/nfs/data**，参考此前的安装 <a target="_blank" rel="noopener" href="https://zhangquan.me/2022/08/21/kubernetes-chi-jiu-hua-cun-chu-pv-he-pvc-de-shi-yong/">kubernetes 持久化存储PV 和 PVC 的使用</a></p>
 <p>查看  NFS server 状态：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# systemctl status nfs.service
 ● nfs-server.service - NFS server and services
@@ -547,7 +547,7 @@ Aug 29 22:13:42 k8s-master systemd[1]: Started NFS server and services.<span ari
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# mkdir ~/nfs-storage-class
 [root@k8s-master ~]# cd ~/nfs-storage-class<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<p><strong>第一步</strong>：配置 Deployment，将里面的对应的参数替换成我们自己的 nfs 配置（deployment.yaml）</p>
+<p><strong>第一步</strong>：配置 Deployment，将里面的对应的参数替换成我们自己的 nfs 配置 deployment.yaml</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner/blob/master/deploy/deployment.yaml">https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner/blob/master/deploy/deployment.yaml</a></p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
@@ -588,7 +588,7 @@ Aug 29 22:13:42 k8s-master systemd[1]: Started NFS server and services.<span ari
             <span class="token key atrule">server</span><span class="token punctuation">:</span> 172.31.0.2
             <span class="token key atrule">path</span><span class="token punctuation">:</span> /nfs/data<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><strong>第二步</strong>：将环境变量 NFS_SERVER 和 NFS_PATH 替换，当然也包括下面的 nfs 配置，我们可以看到我们这里使用了一个名为 nfs-client-provisioner 的<code>serviceAccount</code>，所以我们也需要创建一个 sa，然后绑定上对应的权限：（rbac.yaml）</p>
+<p><strong>第二步</strong>：将环境变量 NFS_SERVER 和 NFS_PATH 替换，当然也包括下面的 nfs 配置，我们可以看到我们这里使用了一个名为 nfs-client-provisioner 的<code>serviceAccount</code>，所以我们也需要创建一个 sa，然后绑定上对应的权限：rbac.yaml</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner/blob/master/deploy/rbac.yaml">https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner/blob/master/deploy/rbac.yaml</a></p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> ServiceAccount
@@ -660,7 +660,7 @@ Aug 29 22:13:42 k8s-master systemd[1]: Started NFS server and services.<span ari
   <span class="token key atrule">apiGroup</span><span class="token punctuation">:</span> rbac.authorization.k8s.io<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>我们这里新建的一个名为 nfs-client-provisioner 的<code>ServiceAccount</code>，然后绑定了一个名为 nfs-client-provisioner-runner 的<code>ClusterRole</code>，而该<code>ClusterRole</code>声明了一些权限，其中就包括对<code>persistentvolumes</code>的增、删、改、查等权限，所以我们可以利用该<code>ServiceAccount</code>来自动创建 PV。</p>
-<p><strong>第三步</strong>：nfs-client 的 Deployment 声明完成后，我们就可以来创建一个<code>StorageClass</code>对象了：（class.yaml）</p>
+<p><strong>第三步</strong>：nfs-client 的 Deployment 声明完成后，我们就可以来创建一个<code>StorageClass</code>对象了：class.yaml</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner/blob/master/deploy/class.yaml">https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner/blob/master/deploy/class.yaml</a></p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> storage.k8s.io/v1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> StorageClass
@@ -702,7 +702,7 @@ nfs-client-provisioner-6457456d4b-w54q6   1/1     Running   0          36s
 NAME         PROVISIONER                                   RECLAIMPOLICY   VOLUMEBINDINGMODE   ALLOWVOLUMEEXPANSION   AGE
 nfs-client   k8s-sigs.io/nfs-subdir-external-provisioner   Delete          Immediate           false                  60s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="新建-PVC"><a href="#新建-PVC" class="headerlink" title="新建 PVC"></a>新建 PVC</h2><p>上面把<code>StorageClass</code>资源对象创建成功了，接下来我们来通过一个示例测试下动态 PV，首先创建一个 PVC 对象：(test-claim.yaml)</p>
+<h2 id="新建-PVC"><a href="#新建-PVC" class="headerlink" title="新建 PVC"></a>新建 PVC</h2><p>上面把<code>StorageClass</code>资源对象创建成功了，接下来我们来通过一个示例测试下动态 PV，首先创建一个 PVC 对象：test-claim.yaml</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner/blob/master/deploy/test-claim.yaml">https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner/blob/master/deploy/test-claim.yaml</a></p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">kind</span><span class="token punctuation">:</span> PersistentVolumeClaim
 <span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
@@ -732,7 +732,7 @@ NAME                                       CAPACITY   ACCESS MODES   RECLAIM POL
 pvc-c3d960df-2561-43cb-add2-357cc2d3ad55   1Mi        RWX            Delete           Bound    default/test-claim   nfs-client              54s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p>可以看到是不是自动生成了一个关联的 PV 对象，访问模式是<code>RWX</code>，回收策略是 <code>Delete</code>，这个 PV 对象并不是我们手动创建的吧，这是通过我们上面的 <code>StorageClass</code> 对象自动创建的。这就是 StorageClass 的创建方法。</p>
-<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>接下来我们还是用一个简单的示例来测试下我们上面用 StorageClass 方式声明的 PVC 对象吧：(test-pod.yaml)</p>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>接下来我们还是用一个简单的示例来测试下我们上面用 StorageClass 方式声明的 PVC 对象：test-pod.yaml</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner/blob/master/deploy/test-pod.yaml">https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner/blob/master/deploy/test-pod.yaml</a></p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod
 <span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
@@ -776,7 +776,7 @@ drwxr-xr-x 2 root root 24 Aug 21 21:26 nginx-pv
 SUCCESS<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p>我们看到下面有一个 SUCCESS 的文件，证明我们上面的验证是成功的。</p>
-<p>另外我们可以看到我们这里是手动创建的一个 PVC 对象，在实际工作中，使用 StorageClass 更多的是 StatefulSet 类型的服务，<code>StatefulSet</code>类型的服务我们也可以通过一个<code>volumeClaimTemplates</code>属性来直接使用 StorageClass，如下：(test-statefulset-nfs.yaml)</p>
+<p>另外我们可以看到我们这里是手动创建的一个 PVC 对象，在实际工作中，使用 StorageClass 更多的是 StatefulSet 类型的服务，<code>StatefulSet</code>类型的服务我们也可以通过一个<code>volumeClaimTemplates</code>属性来直接使用 StorageClass，如下：test-statefulset-nfs.yaml</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/statefulset/">https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/statefulset/</a></p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> StatefulSet
@@ -888,7 +888,7 @@ drwxr-xr-x 2 root root 24 Aug 21 21:26 nginx-pv
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://www.zhangquan.me/2022/08/22/kubernetes-storageclass-de-shi-yong/">https://www.zhangquan.me/2022/08/22/kubernetes-storageclass-de-shi-yong/</a>
+                    <a href="https://www.zhangquan.me/2022/08/29/kubernetes-storageclass-de-shi-yong/">https://www.zhangquan.me/2022/08/29/kubernetes-storageclass-de-shi-yong/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1422,46 +1422,48 @@ drwxr-xr-x 2 root root 24 Aug 21 21:26 nginx-pv
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2022/08/24/kubernetes-configmap-ke-bian-pei-zhi-guan-li/">
+                <a href="/2022/08/29/kubernetes-storageclass-de-shi-yong/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Kubernetes ConfigMap 可变配置管理">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="kubernetes StorageClass 的使用">
                         
-                        <span class="card-title">Kubernetes ConfigMap 可变配置管理</span>
+                        <span class="card-title">kubernetes StorageClass 的使用</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Kubernetes ConfigMap 可变配置管理
+                            kubernetes StorageClass 动态 PV 的使用
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-08-24
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-29
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Kubernetes/" class="post-category">
-                                    Kubernetes
+                            <a href="/categories/kubernetes/" class="post-category">
+                                    kubernetes
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Kubernetes/">
-                        <span class="chip bg-color">Kubernetes</span>
+                    <a href="/tags/kubernetes/">
+                        <span class="chip bg-color">kubernetes</span>
                     </a>
                     
                 </div>
@@ -1475,24 +1477,24 @@ drwxr-xr-x 2 root root 24 Aug 21 21:26 nginx-pv
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/08/21/kubernetes-chi-jiu-hua-cun-chu-pv-he-pvc-de-shi-yong/">
+                <a href="/2022/08/28/kubernetes-ingress-traefik-de-an-zhuang-ji-jian-dan-shi-yong/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="kubernetes 持久化存储PV 和 PVC 的使用">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="Kubernetes Ingress Traefik 的安装及简单使用">
                         
-                        <span class="card-title">kubernetes 持久化存储PV 和 PVC 的使用</span>
+                        <span class="card-title">Kubernetes Ingress Traefik 的安装及简单使用</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            kubernetes 持久化存储PV 和 PVC 的使用
+                            Kubernetes Ingress Traefik 的安装及简单使用
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-21
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-28
                             </span>
                         <span class="publish-author">
                             

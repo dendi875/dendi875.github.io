@@ -1,3 +1,4 @@
+https://www.zhangquan.me/2022/08/29/kubernetes-storageclass-de-shi-yong/
 https://www.zhangquan.me/2022/08/28/kubernetes-ingress-traefik-de-an-zhuang-ji-jian-dan-shi-yong/
 https://www.zhangquan.me/2022/08/28/kubernetes-hpa/
 https://www.zhangquan.me/2022/08/28/kubernetes-security-context/
@@ -5,7 +6,6 @@ https://www.zhangquan.me/2022/08/25/kubernetes-rbac-quan-xian-kong-zhi/
 https://www.zhangquan.me/2022/08/25/kubernetes-serviceaccount/
 https://www.zhangquan.me/2022/08/24/kubernetes-secret-min-gan-xin-xi-pei-zhi-guan-li/
 https://www.zhangquan.me/2022/08/24/kubernetes-configmap-ke-bian-pei-zhi-guan-li/
-https://www.zhangquan.me/2022/08/22/kubernetes-storageclass-de-shi-yong/
 https://www.zhangquan.me/2022/08/21/kubernetes-chi-jiu-hua-cun-chu-pv-he-pvc-de-shi-yong/
 https://www.zhangquan.me/2022/08/21/kubernetes-ingress-shi-jian-lian-xi/
 https://www.zhangquan.me/2022/08/21/tu-jie-kubernetes-ingress/
