@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Kubernetes Ingress实践练习, PHP,Java,Go,MySQL,Linux,Docker等">
+    <meta name="keywords" content="Kubernetes StorageClass 的使用, PHP,Java,Go,MySQL,Linux,Docker等">
     <meta name="description" content="PHP Go MySQL 后端开发">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Kubernetes Ingress实践练习 | 一代键客</title>
+    <title>Kubernetes StorageClass 的使用 | 一代键客</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -327,12 +327,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Kubernetes Ingress实践练习</h1>
+                    <h1 class="description center-align post-title">Kubernetes StorageClass 的使用</h1>
                 </div>
             </div>
         </div>
@@ -473,7 +473,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-08-21
+                    2022-08-29
                 </div>
                 
 
@@ -487,14 +487,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.5k
+                    3.2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    11 分
+                    15 分
                 </div>
                 
 
@@ -517,306 +517,350 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Kubernetes-Ingress-nginx-的使用"><a href="#Kubernetes-Ingress-nginx-的使用" class="headerlink" title="Kubernetes Ingress-nginx 的使用"></a>Kubernetes Ingress-nginx 的使用</h1><p>我们知道可以使用 <code>NodePort</code> 和 <code>LoadBlancer</code> 类型的 Service 可以把应用暴露给外部用户使用，除此之外，Kubernetes 还为我们提供了一个非常重要的资源对象可以用来暴露服务给外部用户，那就是 <code>Ingress</code>。对于小规模的应用我们使用 NodePort 或许能够满足我们的需求，但是当你的应用越来越多的时候，你就会发现对于 NodePort 的管理就非常麻烦了，这个时候使用 Ingress 就非常方便了，可以避免管理大量的端口。</p>
-<p>Ingress 其实就是从 Kuberenets 集群外部访问集群的一个入口，将外部的请求转发到集群内不同的 Service 上，其实就相当于 nginx、haproxy 等负载均衡代理服务器，可能你会觉得我们直接使用 nginx 就实现了，但是只使用 nginx 这种方式有很大缺陷，每次有新服务加入的时候怎么改 Nginx 配置？不可能让我们去手动更改或者滚动更新前端的 Nginx Pod 吧？那我们再加上一个服务发现的工具比如 consul 如何？貌似是可以，对吧？Ingress 实际上就是这样实现的，只是服务发现的功能自己实现了，不需要使用第三方的服务了，然后再加上一个域名规则定义，路由信息的刷新依靠 Ingress Controller 来提供。</p>
-<p>Ingress Controller 可以理解为一个监听器，通过不断地监听 kube-apiserver，实时的感知后端 Service、Pod 的变化，当得到这些信息变化后，Ingress Controller 再结合 Ingress 的配置，更新反向代理负载均衡器，达到服务发现的作用。其实这点和服务发现工具 consul、 consul-template 非常类似。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/nginx-ingress-controller.png"></p>
-<p>现在可以供大家使用的 Ingress Controller 有很多，比如 traefik、nginx-controller、Kubernetes Ingress Controller for Kong、HAProxy Ingress controller，当然你也可以自己实现一个 Ingress Controller，现在普遍用得较多的是 traefik 和 nginx-controller，traefik 的性能较 nginx-controller 差，但是配置使用要简单许多，这里给大家介绍 nginx-controller 的使用。</p>
-<h2 id="安装-Ingress-nginx"><a href="#安装-Ingress-nginx" class="headerlink" title="安装 Ingress-nginx"></a>安装 Ingress-nginx</h2><p>NGINX Ingress Controller 是使用 Kubernetes Ingress 资源对象构建的，用 ConfigMap 来存储 Nginx 配置的一种 Ingress Controller 实现。</p>
-<p>要使用 Ingress 对外暴露服务，就需要提前安装一个 Ingress Controller，我们这里就先来安装 NGINX Ingress Controller。</p>
-<p>我们主要目的是为了测试，就使用Bare metal clusters（裸机集群）的部署方式，裸机集群方式会使用 30000-32767 范围内的端口。</p>
-<p>部署参考资料：</p>
+                <h1 id="Kubernetes-StorageClass-的使用"><a href="#Kubernetes-StorageClass-的使用" class="headerlink" title="Kubernetes StorageClass 的使用"></a>Kubernetes StorageClass 的使用</h1><p>K8s中 <code>PV</code> 的创建一般分为两种，静态创建和动态创建。静态创建就是提前创建好很多PV，形成一个PV池，按照PVC的规格要求选择合适的进行供应。动态创建则不事先创建，而是根据PVC的规格要求，要求什么规格的就创建什么规格的。静态 PV 在很大程度上并不能满足我们的需求，比如我们有一个应用需要对存储的并发度要求比较高，而另外一个应用对读写速度又要求比较高，特别是对于 <code>StatefulSet</code> 类型的应用简单的来使用静态的 PV 就很不合适了，这种情况下我们就需要用到动态 PV，也就是 <code>StorageClass</code>。另外从资源的利用角度来讲，动态创建要更好一些。</p>
+<h2 id="创建-Provisioner"><a href="#创建-Provisioner" class="headerlink" title="创建 Provisioner"></a>创建 Provisioner</h2><p>要使用 StorageClass，我们就得安装对应的自动配置程序，比如我们这里存储后端使用的是 nfs，那么我们就需要使用到一个 nfs-client 的自动配置程序，我们也叫它 Provisioner，这个程序使用我们已经配置好的 nfs 服务器，来自动创建持久卷，也就是自动帮我们创建 PV。</p>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://github.com/kubernetes/ingress-nginx/tree/main/deploy/static/provider">https://github.com/kubernetes/ingress-nginx/tree/main/deploy/static/provider</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/kubernetes/ingress-nginx/blob/main/docs/deploy/index.md">https://github.com/kubernetes/ingress-nginx/blob/main/docs/deploy/index.md</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/kubernetes/ingress-nginx/blob/main/docs/deploy/baremetal.md">https://github.com/kubernetes/ingress-nginx/blob/main/docs/deploy/baremetal.md</a></li>
+<li>自动创建的 PV 以<code>${namespace}-${pvcName}-${pvName}</code>这样的命名格式创建在 NFS 服务器上的共享数据目录中</li>
+<li>而当这个 PV 被回收后会以<code>archieved-${namespace}-${pvcName}-${pvName}</code>这样的命名格式存在 NFS 服务器上。</li>
 </ul>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 下载资源清单文件
-wget https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.47.0/deploy/static/provider/baremetal/deploy.yaml -O ingress.yaml
+<p>当然在部署<code>nfs-client</code>之前，我们需要先成功安装上 nfs 服务器，我们的 NFS 服务地址部署在 master 节点上，IP 是<strong>172.31.0.2</strong>，共享数据目录是**/nfs/data**，参考此前的安装 <a target="_blank" rel="noopener" href="https://zhangquan.me/2022/08/21/kubernetes-chi-jiu-hua-cun-chu-pv-he-pvc-de-shi-yong/">Kubernetes 持久化存储PV 和 PVC 的使用</a></p>
+<p>查看  NFS server 状态：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# systemctl status nfs.service
+● nfs-server.service - NFS server and services
+   Loaded: loaded (/usr/lib/systemd/system/nfs-server.service; enabled; vendor preset: disabled)
+  Drop-In: /run/systemd/generator/nfs-server.service.d
+           └─order-with-mounts.conf
+   Active: active (exited) since Mon 2022-08-29 22:13:42 CST; 1min 44s ago
+  Process: 916 ExecStartPost=/bin/sh -c if systemctl -q is-active gssproxy; then systemctl reload gssproxy ; fi (code=exited, status=0/SUCCESS)
+  Process: 893 ExecStart=/usr/sbin/rpc.nfsd $RPCNFSDARGS (code=exited, status=0/SUCCESS)
+  Process: 887 ExecStartPre=/usr/sbin/exportfs -r (code=exited, status=0/SUCCESS)
+ Main PID: 893 (code=exited, status=0/SUCCESS)
+    Tasks: 0
+   Memory: 0B
+   CGroup: /system.slice/nfs-server.service
 
-#修改镜像
-vi ingress.yaml
-# 将 kind: Deployment 中的 spec.template.spec.containers[0].image 的值改为如下值：
-registry.cn-hangzhou.aliyuncs.com/lfy_k8s_images/ingress-nginx-controller:v0.46.0
+Aug 29 22:13:42 k8s-master systemd[1]: Starting NFS server and services...
+Aug 29 22:13:42 k8s-master systemd[1]: Started NFS server and services.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-# 执行资料清单
-[root@k8s-master ingress]# kubectl apply -f ingress.yaml 
-namespace/ingress-nginx created
-serviceaccount/ingress-nginx created
-configmap/ingress-nginx-controller created
-clusterrole.rbac.authorization.k8s.io/ingress-nginx created
-clusterrolebinding.rbac.authorization.k8s.io/ingress-nginx created
-role.rbac.authorization.k8s.io/ingress-nginx created
-rolebinding.rbac.authorization.k8s.io/ingress-nginx created
-service/ingress-nginx-controller-admission created
-service/ingress-nginx-controller created
-deployment.apps/ingress-nginx-controller created
-validatingwebhookconfiguration.admissionregistration.k8s.io/ingress-nginx-admission created
-serviceaccount/ingress-nginx-admission created
-clusterrole.rbac.authorization.k8s.io/ingress-nginx-admission created
-clusterrolebinding.rbac.authorization.k8s.io/ingress-nginx-admission created
-role.rbac.authorization.k8s.io/ingress-nginx-admission created
-rolebinding.rbac.authorization.k8s.io/ingress-nginx-admission created
-job.batch/ingress-nginx-admission-create created
-job.batch/ingress-nginx-admission-patch created
+<p>然后接下来我们部署 nfs-client 即可，我们也可以直接参考<a target="_blank" rel="noopener" href="https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner/tree/master/deploy">nfs-client 的文档</a>，进行安装即可。</p>
+<p>开始之前先创建一个文件夹来保存我们的资源文件：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# mkdir ~/nfs-storage-class
+[root@k8s-master ~]# cd ~/nfs-storage-class<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-# 检查安装的结果
-[root@k8s-master ingress]#  kubectl get pod,svc -n ingress-nginx
-NAME                                            READY   STATUS      RESTARTS   AGE
-pod/ingress-nginx-admission-create-kv747        0/1     Completed   0          7m33s
-pod/ingress-nginx-admission-patch-76tx4         0/1     Completed   0          7m33s
-pod/ingress-nginx-controller-65bf56f7fc-p9jbs   1/1     Running     0          7m33s
-
-NAME                                         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE
-service/ingress-nginx-controller             NodePort    10.96.197.163   &lt;none&gt;        80:31688/TCP,443:31390/TCP   7m33s
-service/ingress-nginx-controller-admission   ClusterIP   10.96.169.165   &lt;none&gt;        443/TCP                      7m33s
-
-# 可以看到 ingress-nginx 通过 NodePort 方式帮我们暴露出来了一个http的端口31688，一个https的端口31390
-
-# 最后别忘记把svc暴露的端口 31688,31390要放行<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-nginx-ingress-1.png"></p>
-<p>出现了上面的信息证明 Ingress Controller 已经安装成功。</p>
-<h2 id="Ingress-nginx使用"><a href="#Ingress-nginx使用" class="headerlink" title="Ingress-nginx使用"></a>Ingress-nginx使用</h2><h3 id="准备实验环境"><a href="#准备实验环境" class="headerlink" title="准备实验环境"></a>准备实验环境</h3><p>安装成功后，现在我们先准备好实验环境，如下所示：ingress-demo.yaml</p>
+<p><strong>第一步</strong>：配置 Deployment，将里面的对应的参数替换成我们自己的 nfs 配置 deployment.yaml</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner/blob/master/deploy/deployment.yaml">https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner/blob/master/deploy/deployment.yaml</a></p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> hello<span class="token punctuation">-</span>server
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> nfs<span class="token punctuation">-</span>client<span class="token punctuation">-</span>provisioner
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token key atrule">app</span><span class="token punctuation">:</span> nfs<span class="token punctuation">-</span>client<span class="token punctuation">-</span>provisioner
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> default  
 <span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">replicas</span><span class="token punctuation">:</span> <span class="token number">2</span>
+  <span class="token key atrule">replicas</span><span class="token punctuation">:</span> <span class="token number">1</span>
+  <span class="token key atrule">strategy</span><span class="token punctuation">:</span>
+    <span class="token key atrule">type</span><span class="token punctuation">:</span> Recreate
   <span class="token key atrule">selector</span><span class="token punctuation">:</span>
     <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
-      <span class="token key atrule">app</span><span class="token punctuation">:</span> hello<span class="token punctuation">-</span>server
+      <span class="token key atrule">app</span><span class="token punctuation">:</span> nfs<span class="token punctuation">-</span>client<span class="token punctuation">-</span>provisioner  
   <span class="token key atrule">template</span><span class="token punctuation">:</span>
     <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
       <span class="token key atrule">labels</span><span class="token punctuation">:</span>
-        <span class="token key atrule">app</span><span class="token punctuation">:</span> hello<span class="token punctuation">-</span>server
+        <span class="token key atrule">app</span><span class="token punctuation">:</span> nfs<span class="token punctuation">-</span>client<span class="token punctuation">-</span>provisioner
     <span class="token key atrule">spec</span><span class="token punctuation">:</span>
+      <span class="token key atrule">serviceAccountName</span><span class="token punctuation">:</span> nfs<span class="token punctuation">-</span>client<span class="token punctuation">-</span>provisioner
       <span class="token key atrule">containers</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> hello<span class="token punctuation">-</span>server
-        <span class="token key atrule">image</span><span class="token punctuation">:</span> registry.cn<span class="token punctuation">-</span>hangzhou.aliyuncs.com/lfy_k8s_images/hello<span class="token punctuation">-</span>server
+        <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nfs<span class="token punctuation">-</span>client<span class="token punctuation">-</span>provisioner
+          <span class="token key atrule">image</span><span class="token punctuation">:</span> k8s.gcr.io/sig<span class="token punctuation">-</span>storage/nfs<span class="token punctuation">-</span>subdir<span class="token punctuation">-</span>external<span class="token punctuation">-</span>provisioner<span class="token punctuation">:</span>v4.0.2
+          <span class="token key atrule">volumeMounts</span><span class="token punctuation">:</span>
+            <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nfs<span class="token punctuation">-</span>client<span class="token punctuation">-</span>root
+              <span class="token key atrule">mountPath</span><span class="token punctuation">:</span> /persistentvolumes
+          <span class="token key atrule">env</span><span class="token punctuation">:</span>
+            <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> PROVISIONER_NAME
+              <span class="token key atrule">value</span><span class="token punctuation">:</span> k8s<span class="token punctuation">-</span>sigs.io/nfs<span class="token punctuation">-</span>subdir<span class="token punctuation">-</span>external<span class="token punctuation">-</span>provisioner
+            <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> NFS_SERVER
+              <span class="token key atrule">value</span><span class="token punctuation">:</span> 172.31.0.2
+            <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> NFS_PATH
+              <span class="token key atrule">value</span><span class="token punctuation">:</span> /nfs/data
+      <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nfs<span class="token punctuation">-</span>client<span class="token punctuation">-</span>root
+          <span class="token key atrule">nfs</span><span class="token punctuation">:</span>
+            <span class="token key atrule">server</span><span class="token punctuation">:</span> 172.31.0.2
+            <span class="token key atrule">path</span><span class="token punctuation">:</span> /nfs/data<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>第二步</strong>：将环境变量 NFS_SERVER 和 NFS_PATH 替换，当然也包括下面的 nfs 配置，我们可以看到我们这里使用了一个名为 nfs-client-provisioner 的<code>serviceAccount</code>，所以我们也需要创建一个 sa，然后绑定上对应的权限：rbac.yaml</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner/blob/master/deploy/rbac.yaml">https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner/blob/master/deploy/rbac.yaml</a></p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ServiceAccount
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> nfs<span class="token punctuation">-</span>client<span class="token punctuation">-</span>provisioner
+  <span class="token comment"># replace with namespace where provisioner is deployed</span>
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> default
+<span class="token punctuation">---</span>
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ClusterRole
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> rbac.authorization.k8s.io/v1
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> nfs<span class="token punctuation">-</span>client<span class="token punctuation">-</span>provisioner<span class="token punctuation">-</span>runner
+<span class="token key atrule">rules</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">apiGroups</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">""</span><span class="token punctuation">]</span>
+    <span class="token key atrule">resources</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"nodes"</span><span class="token punctuation">]</span>
+    <span class="token key atrule">verbs</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"get"</span><span class="token punctuation">,</span> <span class="token string">"list"</span><span class="token punctuation">,</span> <span class="token string">"watch"</span><span class="token punctuation">]</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">apiGroups</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">""</span><span class="token punctuation">]</span>
+    <span class="token key atrule">resources</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"persistentvolumes"</span><span class="token punctuation">]</span>
+    <span class="token key atrule">verbs</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"get"</span><span class="token punctuation">,</span> <span class="token string">"list"</span><span class="token punctuation">,</span> <span class="token string">"watch"</span><span class="token punctuation">,</span> <span class="token string">"create"</span><span class="token punctuation">,</span> <span class="token string">"delete"</span><span class="token punctuation">]</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">apiGroups</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">""</span><span class="token punctuation">]</span>
+    <span class="token key atrule">resources</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"persistentvolumeclaims"</span><span class="token punctuation">]</span>
+    <span class="token key atrule">verbs</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"get"</span><span class="token punctuation">,</span> <span class="token string">"list"</span><span class="token punctuation">,</span> <span class="token string">"watch"</span><span class="token punctuation">,</span> <span class="token string">"update"</span><span class="token punctuation">]</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">apiGroups</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"storage.k8s.io"</span><span class="token punctuation">]</span>
+    <span class="token key atrule">resources</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"storageclasses"</span><span class="token punctuation">]</span>
+    <span class="token key atrule">verbs</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"get"</span><span class="token punctuation">,</span> <span class="token string">"list"</span><span class="token punctuation">,</span> <span class="token string">"watch"</span><span class="token punctuation">]</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">apiGroups</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">""</span><span class="token punctuation">]</span>
+    <span class="token key atrule">resources</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"events"</span><span class="token punctuation">]</span>
+    <span class="token key atrule">verbs</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"create"</span><span class="token punctuation">,</span> <span class="token string">"update"</span><span class="token punctuation">,</span> <span class="token string">"patch"</span><span class="token punctuation">]</span>
+<span class="token punctuation">---</span>
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ClusterRoleBinding
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> rbac.authorization.k8s.io/v1
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> run<span class="token punctuation">-</span>nfs<span class="token punctuation">-</span>client<span class="token punctuation">-</span>provisioner
+<span class="token key atrule">subjects</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">kind</span><span class="token punctuation">:</span> ServiceAccount
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> nfs<span class="token punctuation">-</span>client<span class="token punctuation">-</span>provisioner
+    <span class="token comment"># replace with namespace where provisioner is deployed</span>
+    <span class="token key atrule">namespace</span><span class="token punctuation">:</span> default
+<span class="token key atrule">roleRef</span><span class="token punctuation">:</span>
+  <span class="token key atrule">kind</span><span class="token punctuation">:</span> ClusterRole
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> nfs<span class="token punctuation">-</span>client<span class="token punctuation">-</span>provisioner<span class="token punctuation">-</span>runner
+  <span class="token key atrule">apiGroup</span><span class="token punctuation">:</span> rbac.authorization.k8s.io
+<span class="token punctuation">---</span>
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Role
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> rbac.authorization.k8s.io/v1
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> leader<span class="token punctuation">-</span>locking<span class="token punctuation">-</span>nfs<span class="token punctuation">-</span>client<span class="token punctuation">-</span>provisioner
+  <span class="token comment"># replace with namespace where provisioner is deployed</span>
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> default
+<span class="token key atrule">rules</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">apiGroups</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">""</span><span class="token punctuation">]</span>
+    <span class="token key atrule">resources</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"endpoints"</span><span class="token punctuation">]</span>
+    <span class="token key atrule">verbs</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"get"</span><span class="token punctuation">,</span> <span class="token string">"list"</span><span class="token punctuation">,</span> <span class="token string">"watch"</span><span class="token punctuation">,</span> <span class="token string">"create"</span><span class="token punctuation">,</span> <span class="token string">"update"</span><span class="token punctuation">,</span> <span class="token string">"patch"</span><span class="token punctuation">]</span>
+<span class="token punctuation">---</span>
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> RoleBinding
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> rbac.authorization.k8s.io/v1
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> leader<span class="token punctuation">-</span>locking<span class="token punctuation">-</span>nfs<span class="token punctuation">-</span>client<span class="token punctuation">-</span>provisioner
+  <span class="token comment"># replace with namespace where provisioner is deployed</span>
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> default
+<span class="token key atrule">subjects</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">kind</span><span class="token punctuation">:</span> ServiceAccount
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> nfs<span class="token punctuation">-</span>client<span class="token punctuation">-</span>provisioner
+    <span class="token comment"># replace with namespace where provisioner is deployed</span>
+    <span class="token key atrule">namespace</span><span class="token punctuation">:</span> default
+<span class="token key atrule">roleRef</span><span class="token punctuation">:</span>
+  <span class="token key atrule">kind</span><span class="token punctuation">:</span> Role
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> leader<span class="token punctuation">-</span>locking<span class="token punctuation">-</span>nfs<span class="token punctuation">-</span>client<span class="token punctuation">-</span>provisioner
+  <span class="token key atrule">apiGroup</span><span class="token punctuation">:</span> rbac.authorization.k8s.io<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>我们这里新建的一个名为 nfs-client-provisioner 的<code>ServiceAccount</code>，然后绑定了一个名为 nfs-client-provisioner-runner 的<code>ClusterRole</code>，而该<code>ClusterRole</code>声明了一些权限，其中就包括对<code>persistentvolumes</code>的增、删、改、查等权限，所以我们可以利用该<code>ServiceAccount</code>来自动创建 PV。</p>
+<p><strong>第三步</strong>：nfs-client 的 Deployment 声明完成后，我们就可以来创建一个<code>StorageClass</code>对象了：class.yaml</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner/blob/master/deploy/class.yaml">https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner/blob/master/deploy/class.yaml</a></p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> storage.k8s.io/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> StorageClass
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> nfs<span class="token punctuation">-</span>client
+<span class="token key atrule">provisioner</span><span class="token punctuation">:</span> k8s<span class="token punctuation">-</span>sigs.io/nfs<span class="token punctuation">-</span>subdir<span class="token punctuation">-</span>external<span class="token punctuation">-</span>provisioner <span class="token comment"># or choose another name, must match deployment's env PROVISIONER_NAME'</span>
+<span class="token key atrule">parameters</span><span class="token punctuation">:</span>
+  <span class="token key atrule">archiveOnDelete</span><span class="token punctuation">:</span> <span class="token string">"false"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>我们声明了一个名为 nfs-client  的<code>StorageClass</code>对象，注意下面的<code>provisioner</code>对应的值一定要和上面的<code>Deployment</code>下面的 PROVISIONER_NAME 这个环境变量的值一样。</p>
+<p>现在我们来创建这些资源对象：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master nfs-storage-class]# kubectl create -f deployment.yaml
+deployment.apps/nfs-client-provisioner created
+
+[root@k8s-master nfs-storage-class]# kubectl create -f rbac.yaml
+serviceaccount/nfs-client-provisioner created
+clusterrole.rbac.authorization.k8s.io/nfs-client-provisioner-runner created
+clusterrolebinding.rbac.authorization.k8s.io/run-nfs-client-provisioner created
+role.rbac.authorization.k8s.io/leader-locking-nfs-client-provisioner created
+rolebinding.rbac.authorization.k8s.io/leader-locking-nfs-client-provisioner created
+
+[root@k8s-master nfs-storage-class]# kubectl create -f class.yaml
+storageclass.storage.k8s.io/nfs-client created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>创建完成后查看下资源状态：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master nfs-storage-class]# kubectl get deployment
+NAME                     READY   UP-TO-DATE   AVAILABLE   AGE
+......
+nfs-client-provisioner   1/1     1            1           6m50s
+......
+
+[root@k8s-master nfs-storage-class]# kubectl get pods
+NAME                                      READY   STATUS    RESTARTS   AGE
+......
+nfs-client-provisioner-6457456d4b-w54q6   1/1     Running   0          36s
+......
+
+[root@k8s-master nfs-storage-class]# kubectl get storageclass
+NAME         PROVISIONER                                   RECLAIMPOLICY   VOLUMEBINDINGMODE   ALLOWVOLUMEEXPANSION   AGE
+nfs-client   k8s-sigs.io/nfs-subdir-external-provisioner   Delete          Immediate           false                  60s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="新建-PVC"><a href="#新建-PVC" class="headerlink" title="新建 PVC"></a>新建 PVC</h2><p>上面把<code>StorageClass</code>资源对象创建成功了，接下来我们来通过一个示例测试下动态 PV，首先创建一个 PVC 对象：test-claim.yaml</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner/blob/master/deploy/test-claim.yaml">https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner/blob/master/deploy/test-claim.yaml</a></p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">kind</span><span class="token punctuation">:</span> PersistentVolumeClaim
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> test<span class="token punctuation">-</span>claim
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">storageClassName</span><span class="token punctuation">:</span> nfs<span class="token punctuation">-</span>client
+  <span class="token key atrule">accessModes</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> ReadWriteMany
+  <span class="token key atrule">resources</span><span class="token punctuation">:</span>
+    <span class="token key atrule">requests</span><span class="token punctuation">:</span>
+      <span class="token key atrule">storage</span><span class="token punctuation">:</span> 1Mi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>我们这里声明了一个<code>PVC</code>对象，采用 <code>ReadWriteMany</code> 的访问模式，请求 1Mi 的空间，我们可以看到上面的 PVC 和  nfs-client 这个 StorageClass 相关联，这个 PVC 对象能够自动绑定到 nfs-client 这个动态 PV 对象上。</p>
+<p>直接创建即可：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master nfs-storage-class]#  kubectl create -f test-claim.yaml
+persistentvolumeclaim/test-claim created
+ 
+[root@k8s-master nfs-storage-class]# kubectl get pvc
+NAME         STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+test-claim   Bound    pvc-c3d960df-2561-43cb-add2-357cc2d3ad55   1Mi        RWX            nfs-client     9s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>我们可以看到一个名为 test-claim 的 PVC 对象创建成功了，状态已经是<code>Bound</code>了，是不是也产生了一个对应的<code>VOLUME</code> 对象，最重要的一栏是<code>STORAGECLASS</code>，现在是不是也有值了，就是我们刚刚创建的<code>StorageClass</code>对象 nfs-client。</p>
+<p>然后查看下 PV 对象：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master nfs-storage-class]# kubectl get pv
+NAME                                       CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                STORAGECLASS   REASON   AGE
+pvc-c3d960df-2561-43cb-add2-357cc2d3ad55   1Mi        RWX            Delete           Bound    default/test-claim   nfs-client              54s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>可以看到是不是自动生成了一个关联的 PV 对象，访问模式是<code>RWX</code>，回收策略是 <code>Delete</code>，这个 PV 对象并不是我们手动创建的吧，这是通过我们上面的 <code>StorageClass</code> 对象自动创建的。这就是 StorageClass 的创建方法。</p>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>接下来我们还是用一个简单的示例来测试下我们上面用 StorageClass 方式声明的 PVC 对象：test-pod.yaml</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner/blob/master/deploy/test-pod.yaml">https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner/blob/master/deploy/test-pod.yaml</a></p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> test<span class="token punctuation">-</span>pod
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> test<span class="token punctuation">-</span>pod
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> busybox
+    <span class="token key atrule">imagePullPolicy</span><span class="token punctuation">:</span> IfNotPresent
+    <span class="token key atrule">command</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token string">"/bin/sh"</span>
+    <span class="token key atrule">args</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token string">"-c"</span>
+    <span class="token punctuation">-</span> <span class="token string">"touch /mnt/SUCCESS &amp;&amp; exit 0 || exit 1"</span>
+    <span class="token key atrule">volumeMounts</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nfs<span class="token punctuation">-</span>pvc
+      <span class="token key atrule">mountPath</span><span class="token punctuation">:</span> <span class="token string">"/mnt"</span>
+  <span class="token key atrule">restartPolicy</span><span class="token punctuation">:</span> <span class="token string">"Never"</span>
+  <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nfs<span class="token punctuation">-</span>pvc
+    <span class="token key atrule">persistentVolumeClaim</span><span class="token punctuation">:</span>
+      <span class="token key atrule">claimName</span><span class="token punctuation">:</span> test<span class="token punctuation">-</span>claim<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>上面这个 Pod 非常简单，就是用一个 <strong>busybox</strong> 容器，在 /mnt 目录下面新建一个 SUCCESS 的文件，然后把 /mnt 目录挂载到上面我们新建的 test-claim 这个资源对象上面了，要验证很简单，只需要去查看下我们 nfs 服务器上面的共享数据目录下面是否有 SUCCESS 这个文件即可：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master nfs-storage-class]#  kubectl create -f test-pod.yaml
+pod/test-pod created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>然后我们可以在 nfs 服务器的共享数据目录下面查看下数据：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master nfs-storage-class]# ls -l /nfs/data/
+total 4
+drwxr-xr-x 2 root root  6 Aug 21 22:19 01
+drwxr-xr-x 2 root root 24 Aug 21 22:24 02
+drwxr-xr-x 2 root root  6 Aug 21 22:19 03
+drwxrwxrwx 2 root root 21 Aug 29 22:23 default-test-claim-pvc-c3d960df-2561-43cb-add2-357cc2d3ad55
+drwxr-xr-x 2 root root 24 Aug 21 21:26 nginx-pv
+-rw-r--r-- 1 root root 17 Aug 21 20:56 test.txt<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>我们可以看到下面有名字很长的文件夹，这个文件夹的命名方式是不是和我们上面的规则：**${namespace}-${pvcName}-${pvName}**是一样的，再看下这个文件夹下面是否有其他文件：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master nfs-storage-class]# ls /nfs/data/default-test-claim-pvc-c3d960df-2561-43cb-add2-357cc2d3ad55/
+SUCCESS<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>我们看到下面有一个 SUCCESS 的文件，证明我们上面的验证是成功的。</p>
+<p>另外我们可以看到我们这里是手动创建的一个 PVC 对象，在实际工作中，使用 StorageClass 更多的是 StatefulSet 类型的服务，<code>StatefulSet</code>类型的服务我们也可以通过一个<code>volumeClaimTemplates</code>属性来直接使用 StorageClass，如下：test-statefulset-nfs.yaml</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/statefulset/">https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/statefulset/</a></p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> StatefulSet
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> web
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+      <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx <span class="token comment"># 必须匹配 .spec.template.metadata.labels</span>
+  <span class="token key atrule">serviceName</span><span class="token punctuation">:</span> <span class="token string">"nginx"</span>
+  <span class="token key atrule">replicas</span><span class="token punctuation">:</span> <span class="token number">3</span>
+  <span class="token key atrule">template</span><span class="token punctuation">:</span>
+    <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+        <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx  <span class="token comment"># 必须匹配 .spec.selector.matchLabels</span>
+    <span class="token key atrule">spec</span><span class="token punctuation">:</span>
+      <span class="token key atrule">terminationGracePeriodSeconds</span><span class="token punctuation">:</span> <span class="token number">10</span>
+      <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
+        <span class="token key atrule">image</span><span class="token punctuation">:</span> nginx<span class="token punctuation">:</span>1.7.9
+        <span class="token key atrule">imagePullPolicy</span><span class="token punctuation">:</span> IfNotPresent
         <span class="token key atrule">ports</span><span class="token punctuation">:</span>
-        <span class="token punctuation">-</span> <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">9000</span>
-<span class="token punctuation">---</span>
-<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
-    <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>demo
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>demo
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">replicas</span><span class="token punctuation">:</span> <span class="token number">2</span>
-  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
-    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
-      <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>demo
-  <span class="token key atrule">template</span><span class="token punctuation">:</span>
-    <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
-        <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>demo
+        <span class="token punctuation">-</span> <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">80</span>
+          <span class="token key atrule">name</span><span class="token punctuation">:</span> web
+        <span class="token key atrule">volumeMounts</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> www
+          <span class="token key atrule">mountPath</span><span class="token punctuation">:</span> /usr/share/nginx/html
+  <span class="token key atrule">volumeClaimTemplates</span><span class="token punctuation">:</span>  <span class="token comment">#让它自动创建一个 PVC，这和上面 test-claim.yaml 一样</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+      <span class="token key atrule">name</span><span class="token punctuation">:</span> www <span class="token comment"># pvc 名字</span>
     <span class="token key atrule">spec</span><span class="token punctuation">:</span>
-      <span class="token key atrule">containers</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> <span class="token key atrule">image</span><span class="token punctuation">:</span> nginx
-        <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
-<span class="token punctuation">---</span>
-<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> Service
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
-    <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>demo
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>demo
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
-    <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>demo
-  <span class="token key atrule">ports</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">8000</span>
-    <span class="token key atrule">protocol</span><span class="token punctuation">:</span> TCP
-    <span class="token key atrule">targetPort</span><span class="token punctuation">:</span> <span class="token number">80</span>
-<span class="token punctuation">---</span>
-<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> Service
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
-    <span class="token key atrule">app</span><span class="token punctuation">:</span> hello<span class="token punctuation">-</span>server
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> hello<span class="token punctuation">-</span>server
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
-    <span class="token key atrule">app</span><span class="token punctuation">:</span> hello<span class="token punctuation">-</span>server
-  <span class="token key atrule">ports</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">8000</span>
-    <span class="token key atrule">protocol</span><span class="token punctuation">:</span> TCP
-    <span class="token key atrule">targetPort</span><span class="token punctuation">:</span> <span class="token number">9000</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+      <span class="token key atrule">storageClassName</span><span class="token punctuation">:</span> nfs<span class="token punctuation">-</span>client
+      <span class="token key atrule">accessModes</span><span class="token punctuation">:</span> <span class="token punctuation">[</span> <span class="token string">"ReadWriteOnce"</span> <span class="token punctuation">]</span>
+      <span class="token key atrule">resources</span><span class="token punctuation">:</span>
+        <span class="token key atrule">requests</span><span class="token punctuation">:</span>
+          <span class="token key atrule">storage</span><span class="token punctuation">:</span> 1Gi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>直接创建上面的资源对象：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ingress]# kubectl apply -f ingress-demo.yaml 
-deployment.apps/hello-server created
-deployment.apps/nginx-demo created
-service/nginx-demo created
-service/hello-server created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>实际上 volumeClaimTemplates 下面就是一个 PVC 对象的模板，就类似于我们这里 StatefulSet 下面的 template，实际上就是一个 Pod 的模板，我们不单独创建成 PVC 对象，而用这种模板就可以动态的去创建了对象，这种方式在 StatefulSet 类型的服务下面使用得非常多。</p>
+<p>直接创建上面的对象：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master nfs-storage-class]#  kubectl create -f test-statefulset-nfs.yaml
+statefulset.apps/web created
+ 
+[root@k8s-master nfs-storage-class]# kubectl get pods
+NAME                                      READY   STATUS      RESTARTS   AGE
+......
+web-0                                     1/1     Running     0          76s
+web-1                                     1/1     Running     0          20s
+web-2                                     1/1     Running     0          15s
+......<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>查看创建的 deploy 和 servcie</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get deploy
-NAME           READY   UP-TO-DATE   AVAILABLE   AGE
-hello-server   2/2     2            2           5m11s
-nginx-demo     2/2     2            2           5m11s
-[root@k8s-master ~]# kubectl get svc
-NAME           TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
-hello-server   ClusterIP   10.96.252.210   &lt;none&gt;        8000/TCP   5m15s
-kubernetes     ClusterIP   10.96.0.1       &lt;none&gt;        443/TCP    7d20h
-nginx-demo     ClusterIP   10.96.26.158    &lt;none&gt;        8000/TCP   5m15s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>创建完成后可以看到上面的3个 Pod 已经运行成功，然后查看下 PVC 对象：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master nfs-storage-class]# kubectl get pvc
+NAME         STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+test-claim   Bound    pvc-c3d960df-2561-43cb-add2-357cc2d3ad55   1Mi        RWX            nfs-client     25m
+www-web-0    Bound    pvc-6e6916f2-275b-4bc8-9097-dd96b0e06d8b   1Gi        RWO            nfs-client     106s
+www-web-1    Bound    pvc-fc8f5e03-be8c-422c-81c8-3c3374392791   1Gi        RWO            nfs-client     50s
+www-web-2    Bound    pvc-e0d2d4ab-a29f-4bc4-8283-17448a1ebff1   1Gi        RWO            nfs-client     45s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="域名访问"><a href="#域名访问" class="headerlink" title="域名访问"></a>域名访问</h3><p>假如我们的需求是：</p>
-<p>请求 hello.zhangquan.me:31688把请求转发给 service-hello-server 进行处理</p>
-<p>请求 demo.zhangquan.me:31688把请求转发给 service-nginx-demo 进行处理</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-nginx-ingress-domain-access.png"></p>
-<p>资源文件如下： ingress-domain-access.yaml </p>
-<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.k8s.io/v1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> Ingress  <span class="token comment"># 一个 ingress 相当一个转发规则</span>
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> ingress<span class="token punctuation">-</span>host<span class="token punctuation">-</span>bar <span class="token comment"># ingress名称</span>
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">ingressClassName</span><span class="token punctuation">:</span> nginx
-  <span class="token key atrule">rules</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">host</span><span class="token punctuation">:</span> <span class="token string">"hello.zhangquan.me"</span>  <span class="token comment">#如果是改域名下的请求就应用下面的转发规则</span>
-    <span class="token key atrule">http</span><span class="token punctuation">:</span>
-      <span class="token key atrule">paths</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> <span class="token key atrule">pathType</span><span class="token punctuation">:</span> Prefix
-        <span class="token key atrule">path</span><span class="token punctuation">:</span> <span class="token string">"/"</span>
-        <span class="token key atrule">backend</span><span class="token punctuation">:</span>
-          <span class="token key atrule">service</span><span class="token punctuation">:</span>
-            <span class="token key atrule">name</span><span class="token punctuation">:</span> hello<span class="token punctuation">-</span>server
-            <span class="token key atrule">port</span><span class="token punctuation">:</span>
-              <span class="token key atrule">number</span><span class="token punctuation">:</span> <span class="token number">8000</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">host</span><span class="token punctuation">:</span> <span class="token string">"demo.zhangquan.me"</span>
-    <span class="token key atrule">http</span><span class="token punctuation">:</span>
-      <span class="token key atrule">paths</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> <span class="token key atrule">pathType</span><span class="token punctuation">:</span> Prefix
-        <span class="token key atrule">path</span><span class="token punctuation">:</span> <span class="token string">"/"</span>  <span class="token comment"># 把请求会转给下面的服务，下面的服务一定要能处理这个路径，不能处理就是404</span>
-        <span class="token key atrule">backend</span><span class="token punctuation">:</span>
-          <span class="token key atrule">service</span><span class="token punctuation">:</span>
-            <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>demo  <span class="token comment">## java，比如使用路径重写，去掉前缀nginx</span>
-            <span class="token key atrule">port</span><span class="token punctuation">:</span>
-              <span class="token key atrule">number</span><span class="token punctuation">:</span> <span class="token number">8000</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>我们可以看到是不是也生成了3个 PVC 对象，名称由模板名称 name 加上 Pod 的名称组合而成，这3个 PVC 对象也都是 绑定状态了，很显然我们查看 PV 也可以看到对应的3个 PV 对象：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master nfs-storage-class]# kubectl get pv
+NAME                                       CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                STORAGECLASS   REASON   AGE
+pvc-6e6916f2-275b-4bc8-9097-dd96b0e06d8b   1Gi        RWO            Delete           Bound    default/www-web-0    nfs-client              2m19s
+pvc-c3d960df-2561-43cb-add2-357cc2d3ad55   1Mi        RWX            Delete           Bound    default/test-claim   nfs-client              25m
+pvc-e0d2d4ab-a29f-4bc4-8283-17448a1ebff1   1Gi        RWO            Delete           Bound    default/www-web-2    nfs-client              78s
+pvc-fc8f5e03-be8c-422c-81c8-3c3374392791   1Gi        RWO            Delete           Bound    default/www-web-1    nfs-client              83s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>修改 hosts 文件让hello.zhangquan.me,demo.zhangquan.me这两个域名能够解析到我们的master节点</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># hosts 文件中加入这二行
-k8s-master-ip hello.zhangquan.me
-k8s-master-ip demo.zhangquan.me<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>查看 nfs 服务器上面的共享数据目录：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master nfs-storage-class]# ls -l /nfs/data/
+total 4
+drwxr-xr-x 2 root root  6 Aug 21 22:19 01
+drwxr-xr-x 2 root root 24 Aug 21 22:24 02
+drwxr-xr-x 2 root root  6 Aug 21 22:19 03
+drwxrwxrwx 2 root root 21 Aug 29 22:23 default-test-claim-pvc-c3d960df-2561-43cb-add2-357cc2d3ad55
+drwxrwxrwx 2 root root  6 Aug 29 22:43 default-www-web-0-pvc-6e6916f2-275b-4bc8-9097-dd96b0e06d8b
+drwxrwxrwx 2 root root  6 Aug 29 22:44 default-www-web-1-pvc-fc8f5e03-be8c-422c-81c8-3c3374392791
+drwxrwxrwx 2 root root  6 Aug 29 22:44 default-www-web-2-pvc-e0d2d4ab-a29f-4bc4-8283-17448a1ebff1
+drwxr-xr-x 2 root root 24 Aug 21 21:26 nginx-pv
+-rw-r--r-- 1 root root 17 Aug 21 20:56 test.txt<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>创建上面的资源对象：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl apply -f ingress/ingress-domain-access.yaml 
-ingress.networking.k8s.io/ingress-host-bar created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<p>查看创建结果：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get ingress
-NAME               CLASS   HOSTS                                  ADDRESS   PORTS   AGE
-ingress-host-bar   nginx   hello.zhangquan.me,demo.zhangquan.me             80      5s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-<p>可以看到这个规则匹配了两个域名hello.zhangquan.me,demo.zhangquan.me，只要是这两个域名的请求就会按照 ingress-domain-access.yaml  文件中的规则进行处理。</p>
-<p>访问 hello.zhangquan.me 转发到 hell-server 处理</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-nginx-ingress-2.png"></p>
-<p>访问 demo.zhangquan.me 转发到 nginx-demo 处理</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-nginx-ingress-3.png"></p>
-<h3 id="URL-Rewrite"><a href="#URL-Rewrite" class="headerlink" title="URL Rewrite"></a>URL Rewrite</h3><p>NGINX Ingress Controller 很多高级的用法可以通过 Ingress 对象的 <code>annotation</code> 进行配置，比如常用的 URL Rewrite 功能，现在我们需要对访问的 URL 路径做一个 Rewrite，比如在 PATH 中添加一个 nginx 的前缀，关于 Rewrite 的操作在 <a target="_blank" rel="noopener" href="https://kubernetes.github.io/ingress-nginx/examples/rewrite/">ingress-nginx 官方文档</a>中也给出对应的说明，对应的 Ingress 资源对象如下所示：ingress-url-rewrite.yaml</p>
-<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.k8s.io/v1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> Ingress  <span class="token comment"># 一个 ingress 相当一个转发规则</span>
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">annotations</span><span class="token punctuation">:</span>
-    <span class="token key atrule">nginx.ingress.kubernetes.io/rewrite-target</span><span class="token punctuation">:</span> /$2
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> ingress<span class="token punctuation">-</span>url<span class="token punctuation">-</span>rewrite <span class="token comment"># ingress名称</span>
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">ingressClassName</span><span class="token punctuation">:</span> nginx
-  <span class="token key atrule">rules</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">host</span><span class="token punctuation">:</span> <span class="token string">"hello.zhangquan.io"</span>  <span class="token comment">#如果是改域名下的请求就应用下面的转发规则</span>
-    <span class="token key atrule">http</span><span class="token punctuation">:</span>
-      <span class="token key atrule">paths</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> <span class="token key atrule">pathType</span><span class="token punctuation">:</span> Prefix
-        <span class="token key atrule">path</span><span class="token punctuation">:</span> <span class="token string">"/"</span>
-        <span class="token key atrule">backend</span><span class="token punctuation">:</span>
-          <span class="token key atrule">service</span><span class="token punctuation">:</span>
-            <span class="token key atrule">name</span><span class="token punctuation">:</span> hello<span class="token punctuation">-</span>server
-            <span class="token key atrule">port</span><span class="token punctuation">:</span>
-              <span class="token key atrule">number</span><span class="token punctuation">:</span> <span class="token number">8000</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">host</span><span class="token punctuation">:</span> <span class="token string">"demo.zhangquan.io"</span>
-    <span class="token key atrule">http</span><span class="token punctuation">:</span>
-      <span class="token key atrule">paths</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> <span class="token key atrule">pathType</span><span class="token punctuation">:</span> Prefix
-        <span class="token key atrule">path</span><span class="token punctuation">:</span> <span class="token string">"/nginx(/|$)(.*)"</span>  <span class="token comment"># 把请求会转给下面的服务，下面的服务一定要能处理这个路径，不能处理就是404</span>
-        <span class="token key atrule">backend</span><span class="token punctuation">:</span>
-          <span class="token key atrule">service</span><span class="token punctuation">:</span>
-            <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>demo  <span class="token comment">## java，比如使用路径重写，去掉前缀nginx</span>
-            <span class="token key atrule">port</span><span class="token punctuation">:</span>
-              <span class="token key atrule">number</span><span class="token punctuation">:</span> <span class="token number">8000</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>修改 hosts 文件让hello.zhangquan.io,demo.zhangquan.io这两个域名能够解析到我们的master节点</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># hosts 文件中加入这二行
-k8s-master-ip hello.zhangquan.me.hello.zhangquan.io
-k8s-master-ip demo.zhangquan.me,demo.zhangquan.io<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-<p>创建资源对象：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl apply -f ingress/ingress-url-rewrite.yaml 
-ingress.networking.k8s.io/ingress-url-rewrite created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<p>查看 ingress：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get ing
-NAME                  CLASS   HOSTS                                  ADDRESS      PORTS   AGE
-ingress-host-bar      nginx   hello.zhangquan.me,demo.zhangquan.me   172.31.0.4   80      47m
-ingress-url-rewrite   nginx   hello.zhangquan.io,demo.zhangquan.io   172.31.0.4   80      28s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>我们带上 <code>nginx</code> 的前缀去访问：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-nginx-ingress-url-rewrite.png"></p>
-<p>我们可以看到已经可以访问到页面内容了，这是因为我们在 <code>path</code> 中通过正则表达式 <code>/nginx(/|$)(.*)</code>将匹配的路径设置成了 <code>rewrite-target</code> 的目标路径了，所以我们访问 <code>http://demo.zhangquan.io:31688/nginx</code> 的时候实际上相当于访问的就是后端服务的 <code>/</code> 路径</p>
-<h3 id="Rate-Limiting"><a href="#Rate-Limiting" class="headerlink" title="Rate Limiting"></a>Rate Limiting</h3><p>我们测试下限流功能，对应的 Ingress 资源对象如下所示：ingress-limit-rate.yaml</p>
-<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.k8s.io/v1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> Ingress
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> ingress<span class="token punctuation">-</span>limit<span class="token punctuation">-</span>rate
-  <span class="token key atrule">annotations</span><span class="token punctuation">:</span>
-    <span class="token key atrule">nginx.ingress.kubernetes.io/limit-rps</span><span class="token punctuation">:</span> <span class="token string">"1"</span> <span class="token comment">#每秒只能放一个请求进来</span>
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">ingressClassName</span><span class="token punctuation">:</span> nginx
-  <span class="token key atrule">rules</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">host</span><span class="token punctuation">:</span> <span class="token string">"demo.zhangquan.limitrate"</span>
-    <span class="token key atrule">http</span><span class="token punctuation">:</span>
-      <span class="token key atrule">paths</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> <span class="token key atrule">pathType</span><span class="token punctuation">:</span> Exact <span class="token comment">#精确模式，必须要访问 demo.zhangquan.limitrate 才行</span>
-        <span class="token key atrule">path</span><span class="token punctuation">:</span> <span class="token string">"/"</span>
-        <span class="token key atrule">backend</span><span class="token punctuation">:</span>
-          <span class="token key atrule">service</span><span class="token punctuation">:</span>
-            <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>demo
-            <span class="token key atrule">port</span><span class="token punctuation">:</span>
-              <span class="token key atrule">number</span><span class="token punctuation">:</span> <span class="token number">8000</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>修改 hosts 文件让 haha.zhangquan.io 这个域名能够解析到我们的master节点</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">k8s-master-ip demo.zhangquan.limitrate<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>创建资源对象：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl apply -f ingress/ingress-limit-rate.yaml
-ingress.networking.k8s.io/ingress-limit-rate created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<p>查看ingress：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get ing
-NAME                  CLASS   HOSTS                                  ADDRESS      PORTS   AGE
-ingress-host-bar      nginx   hello.zhangquan.me,demo.zhangquan.me   172.31.0.4   80      100m
-ingress-limit-rate    nginx   demo.zhangquan.limitrate               172.31.0.4   80      24s
-ingress-url-rewrite   nginx   hello.zhangquan.io,demo.zhangquan.io   172.31.0.4   80      54m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>访问测试，快速刷新就会响应默认的 503  code</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-nginx-ingress-limit-rate.png"></p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
-<li><p><a target="_blank" rel="noopener" href="https://github.com/kubernetes/ingress-nginx/tree/main/deploy/static/provider">https://github.com/kubernetes/ingress-nginx/tree/main/deploy/static/provider</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://github.com/kubernetes/ingress-nginx/blob/main/docs/deploy/index.md">https://github.com/kubernetes/ingress-nginx/blob/main/docs/deploy/index.md</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://github.com/kubernetes/ingress-nginx/blob/main/docs/deploy/baremetal.md">https://github.com/kubernetes/ingress-nginx/blob/main/docs/deploy/baremetal.md</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://kubernetes.github.io/ingress-nginx/">https://kubernetes.github.io/ingress-nginx/</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/services-networking/ingress/">https://kubernetes.io/docs/concepts/services-networking/ingress/</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/">https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://kubernetes.github.io/ingress-nginx/examples/rewrite/">https://kubernetes.github.io/ingress-nginx/examples/rewrite/</a></p>
-</li>
+<p>也有对应的3个数据目录，这就是我们的 StorageClass 简单使用方法。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner">https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner</a></li>
+<li><a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/statefulset/">https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/statefulset/</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.qikqiak.com/post/kubernetes-persistent-volume2/">https://www.qikqiak.com/post/kubernetes-persistent-volume2/</a></li>
 </ul>
 
                 
@@ -844,7 +888,7 @@ ingress-url-rewrite   nginx   hello.zhangquan.io,demo.zhangquan.io   172.31.0.4 
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://www.zhangquan.me/2022/08/21/kubernetes-ingress-shi-jian-lian-xi/">https://www.zhangquan.me/2022/08/21/kubernetes-ingress-shi-jian-lian-xi/</a>
+                    <a href="https://www.zhangquan.me/2022/08/29/kubernetes-storageclass-de-shi-yong/">https://www.zhangquan.me/2022/08/29/kubernetes-storageclass-de-shi-yong/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1382,24 +1426,24 @@ ingress-url-rewrite   nginx   hello.zhangquan.io,demo.zhangquan.io   172.31.0.4 
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/08/21/kubernetes-chi-jiu-hua-cun-chu-pv-he-pvc-de-shi-yong/">
+                <a href="/2022/08/31/kubernetes-bao-guan-li-gong-ju-helm/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="Kubernetes 持久化存储PV 和 PVC 的使用">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="Kubernetes 包管理工具 Helm">
                         
-                        <span class="card-title">Kubernetes 持久化存储PV 和 PVC 的使用</span>
+                        <span class="card-title">Kubernetes 包管理工具 Helm</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Kubernetes 持久化存储PV 和 PVC 的使用
+                            Kubernetes 包管理工具 Helm
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-08-21
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-08-31
                         </span>
                         <span class="publish-author">
                             
@@ -1431,24 +1475,24 @@ ingress-url-rewrite   nginx   hello.zhangquan.io,demo.zhangquan.io   172.31.0.4 
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/08/21/tu-jie-kubernetes-ingress/">
+                <a href="/2022/08/28/kubernetes-ingress-traefik-de-an-zhuang-ji-jian-dan-shi-yong/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="图解Kubernetes Ingress">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="Kubernetes Ingress Traefik 的安装及简单使用">
                         
-                        <span class="card-title">图解Kubernetes Ingress</span>
+                        <span class="card-title">Kubernetes Ingress Traefik 的安装及简单使用</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            图解Kubernetes Ingress
+                            Kubernetes Ingress Traefik 的安装及简单使用
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-21
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-28
                             </span>
                         <span class="publish-author">
                             
