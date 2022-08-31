@@ -42,31 +42,6 @@
   </entry>
   
   <entry>
-    <title>kubernetes StorageClass 的使用</title>
-    <link href="https://www.zhangquan.me/2022/08/29/kubernetes-storageclass-de-shi-yong/"/>
-    <id>https://www.zhangquan.me/2022/08/29/kubernetes-storageclass-de-shi-yong/</id>
-    <published>2022-08-29T14:51:34.000Z</published>
-    <updated>2022-08-31T12:32:34.483Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;kubernetes-StorageClass-的使用&quot;&gt;&lt;a href=&quot;#kubernetes-StorageClass-的使用&quot; class=&quot;headerlink&quot; title=&quot;kubernetes StorageClass</summary>
-        
-      
-    
-    
-    
-    <category term="kubernetes" scheme="https://www.zhangquan.me/categories/kubernetes/"/>
-    
-    
-    <category term="kubernetes" scheme="https://www.zhangquan.me/tags/kubernetes/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Kubernetes Ingress Traefik 的安装及简单使用</title>
     <link href="https://www.zhangquan.me/2022/08/28/kubernetes-ingress-traefik-de-an-zhuang-ji-jian-dan-shi-yong/"/>
     <id>https://www.zhangquan.me/2022/08/28/kubernetes-ingress-traefik-de-an-zhuang-ji-jian-dan-shi-yong/</id>
@@ -521,6 +496,33 @@
     <category term="中间件" scheme="https://www.zhangquan.me/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
     
     <category term="Elasticsearch" scheme="https://www.zhangquan.me/tags/Elasticsearch/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java8 Lambda 表达式</title>
+    <link href="https://www.zhangquan.me/2022/06/26/java8-lambda-biao-da-shi/"/>
+    <id>https://www.zhangquan.me/2022/06/26/java8-lambda-biao-da-shi/</id>
+    <published>2022-06-26T10:15:09.000Z</published>
+    <updated>2022-06-26T10:17:45.820Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;一、介绍&quot;&gt;&lt;a href=&quot;#一、介绍&quot; class=&quot;headerlink&quot; title=&quot;一、介绍&quot;&gt;&lt;/a&gt;一、介绍&lt;/h2&gt;&lt;p&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    <category term="Java" scheme="https://www.zhangquan.me/categories/Java/"/>
+    
+    
+    <category term="Java8" scheme="https://www.zhangquan.me/tags/Java8/"/>
+    
+    <category term="Lambda" scheme="https://www.zhangquan.me/tags/Lambda/"/>
     
   </entry>
   
