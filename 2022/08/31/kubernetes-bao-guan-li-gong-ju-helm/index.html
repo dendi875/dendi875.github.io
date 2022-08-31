@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="设计模式之-创建型模式-抽象工厂模式 (Abstract Factory Pattern), PHP,Java,Go,MySQL,Linux,Docker等">
+    <meta name="keywords" content="Kubernetes 包管理工具 Helm, PHP,Java,Go,MySQL,Linux,Docker等">
     <meta name="description" content="PHP Go MySQL 后端开发">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>设计模式之-创建型模式-抽象工厂模式 (Abstract Factory Pattern) | 一代键客</title>
+    <title>Kubernetes 包管理工具 Helm | 一代键客</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -327,12 +327,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">设计模式之-创建型模式-抽象工厂模式 (Abstract Factory Pattern)</h1>
+                    <h1 class="description center-align post-title">Kubernetes 包管理工具 Helm</h1>
                 </div>
             </div>
         </div>
@@ -448,12 +448,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/PHP/">
-                                <span class="chip bg-color">PHP</span>
-                            </a>
-                        
-                            <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
-                                <span class="chip bg-color">面向对象</span>
+                            <a href="/tags/Kubernetes/">
+                                <span class="chip bg-color">Kubernetes</span>
                             </a>
                         
                     </div>
@@ -464,8 +460,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-category">
-                                设计模式
+                            <a href="/categories/Kubernetes/" class="post-category">
+                                Kubernetes
                             </a>
                         
                     </div>
@@ -477,28 +473,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-06-30
+                    2022-08-31
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-11-26
+                    2022-08-31
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.9k
+                    4.1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    10 分
+                    18 分
                 </div>
                 
 
@@ -521,313 +517,388 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="抽象工厂模式-Abstract-Factory-Pattern"><a href="#抽象工厂模式-Abstract-Factory-Pattern" class="headerlink" title="抽象工厂模式 (Abstract Factory Pattern)"></a>抽象工厂模式 (Abstract Factory Pattern)</h1><hr>
-<h3 id="0-抽象工厂模式概述"><a href="#0-抽象工厂模式概述" class="headerlink" title="0. 抽象工厂模式概述"></a>0. 抽象工厂模式概述</h3><p>在工厂方法模式中具体工厂负责生产具体的产品，每一个具体工厂对应一种具体产品，工厂方法具有唯一性，一般情况下，一个具体工厂中只有一个或者一组重载的工厂方法。但是有时候我们希望一个工厂可以提供多个产品对象，而不是单一的产品对象，如一个电器工厂，它可以生产电视机、电冰箱、空调等多种电器，而不是只生产某一种电器。为了更好地理解抽象工厂模式，我们先引入两个概念：</p>
-<p>(1)产品等级结构：产品等级结构即产品的继承结构，如一个抽象类是电视机，其子类有海尔电视机、海信电视机、TCL电视机，则抽象电视机与具体品牌的电视机之间构成了一个产品等级结构，抽象电视机是父类，而具体品牌的电视机是其子类。</p>
-<p>(2)产品族：在抽象工厂模式中，产品族是指由同一个工厂生产的，位于不同产品等级结构中的一组产品，如海尔电器工厂生产的海尔电视机、海尔电冰箱，海尔电视机位于电视机产品等级结构中，海尔电冰箱位于电冰箱产品等级结构中，海尔电视机、海尔电冰箱构成了一个产品族。</p>
-<p>产品等级结构与产品族示意图如图1所示：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/1.jpg" alt="1"></p>
-<p>图1 产品族与产品等级结构示意图</p>
-<p>在图1中，不同颜色的多个正方形、圆形和椭圆形分别构成了三个不同的产品等级结构，而相同颜色的正方形、圆形和椭圆形构成了一个产品族，每一个形状对象都位于某个产品族，并属于某个产品等级结构。图1中一共有五个产品族，分属于三个不同的产品等级结构。我们只要指明一个产品所处的产品族以及它所属的等级结构，就可以唯一确定这个产品。</p>
-<p>当系统所提供的工厂生产的具体产品并不是一个简单的对象，而是多个位于不同产品等级结构、属于不同类型的具体产品时就可以使用抽象工厂模式。抽象工厂模式是所有形式的工厂模式中最为抽象和最具一般性的一种形式。抽象工厂模式与工厂方法模式最大的区别在于，工厂方法模式针对的是一个产品等级结构，而抽象工厂模式需要面对多个产品等级结构，一个工厂等级结构可以负责多个不同产品等级结构中的产品对象的创建。当一个工厂等级结构可以创建出分属于不同产品等级结构的一个产品族中的所有对象时，抽象工厂模式比工厂方法模式更为简单、更有效率。抽象工厂模式示意图如图2所示：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/2.jpg" alt="2"></p>
-<p>图2 抽象工厂模式示意图</p>
-<h3 id="1-模式定义"><a href="#1-模式定义" class="headerlink" title="1. 模式定义"></a>1. 模式定义</h3><blockquote>
-<p>抽象工厂模式 (Abstract Factory Pattern)：提供一个创建一系列相关或相互依赖对象的接口，而无须指定它们具体的类。</p>
-</blockquote>
-<p>抽象工厂模式是一种<strong>对象创建型模式</strong>。</p>
+                <h1 id="Kubernetes-包管理工具-Helm"><a href="#Kubernetes-包管理工具-Helm" class="headerlink" title="Kubernetes 包管理工具 Helm"></a>Kubernetes 包管理工具 Helm</h1><h2 id="为什么需要-Helm"><a href="#为什么需要-Helm" class="headerlink" title="为什么需要 Helm"></a>为什么需要 Helm</h2><p>Kubernetes 中一个重要的设计理念就是，声明式的操作。用户通过设置系统的预期状态来改变系统。例如，现在的副本数量是 2 ，需要调整为 3。声明式的处理方式是，修改配置文件中副本数量为 3 ；命令式的处理方式是，发送增加一个副本的命令，+1。</p>
+<p>使用申明式配置的系统更关注结果，对系统设计要求更高。在分布式系统中，任何组件都不是 100 % 可靠的，对使用者来说，声明式配置的系统更加友好。</p>
+<p>Kubernetes 采用 yaml 作为配置文件。在 Kubernetes 中部署一个简单的 Jenkins 服务，就得写两个 yaml 文件: jenkins-deployment.yaml 和 jenkins-service.yaml。再加上其他服务，考虑到多套环境，需要维护的 yaml 文件数量会很大。</p>
+<p>直接维护 yaml，进行部署 ，既不利于项目组织，也不利于维护更新。我们需要一个工具简化应用部署和管理流程。</p>
+<h2 id="什么是Helm"><a href="#什么是Helm" class="headerlink" title="什么是Helm"></a>什么是Helm</h2><p>Helm 是 Deis 发起的一个 Kubernetes 包管理器，类似于 Linux 中的 apt 和 yum 工具。Deis 公司已经被微软收购。</p>
+<h3 id="重要概念"><a href="#重要概念" class="headerlink" title="重要概念"></a>重要概念</h3><p>对于Helm，有几个重要的概念：</p>
 <ul>
-<li><p>抽象工厂模式为创建一组对象提供了一种解决方案。与工厂方法模式相比，抽象工厂模式中的具体工厂不只是创建一种产品，它负责创建一族产品。</p>
+<li><p>Chart： Helm的软件包， 内部包含了一组相关的kubernetes资源的yaml文件。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-helm-1.png"></p>
 </li>
-<li><p>在抽象工厂模式中，每一个具体工厂都提供了多个工厂方法用于产生多种不同类型的产品，这些产品构成了一个产品族。</p>
+<li><p>Repoistory：: Helm的软件仓库，repository本质上是一个web服务器，该服务器保存了chart软件包以供下载，并有提供一个该repository的chart包的清单文件以供查询。在使用时，Helm可以对接多个不同的Repository。 其中Artifact Hub 是helm 的官方chart 仓库——helm 弃用了自己的hub，迁移到了Artifact Hub。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-helm-2.png"></p>
+</li>
+<li><p>Release：使用Helm install命令在Kubernetes集群中安装的Chart称为Release。一个chart可以部署成多个release，例如使用同一个wordpress chart部署多套release。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-helm-3.png"></p>
+</li>
+<li><p>Revision：每个Release会有不同的版本，在Revision中按数字递增保存了每个版本的信息。</p>
 </li>
 </ul>
-<h3 id="2-模式结构"><a href="#2-模式结构" class="headerlink" title="2. 模式结构"></a>2. 模式结构</h3><p>抽象工厂模式包含如下角色：</p>
+<p>上面的所有组件一起按如下方式工作：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-helm-4.png"></p>
+<h3 id="Helm提供的功能"><a href="#Helm提供的功能" class="headerlink" title="Helm提供的功能"></a>Helm提供的功能</h3><p>做为 Kubernetes 的一个包管理工具，<code>Helm</code>具有如下功能：</p>
 <ul>
-<li><p><code>AbstractFactory</code>：<strong>抽象工厂</strong></p>
+<li>创建新的 chart</li>
+<li>chart 打包成 tgz 格式</li>
+<li>上传 chart 到 chart 仓库或从仓库中下载 chart</li>
+<li>在<code>Kubernetes</code>集群中安装或卸载 chart</li>
+<li>管理用<code>Helm</code>安装的 chart 的发布周期</li>
+</ul>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>参考：<a target="_blank" rel="noopener" href="https://helm.sh/docs/intro/install/">https://helm.sh/docs/intro/install/</a> ，不同平台(windows, linux, mac)的安装方式不一样</p>
+<p>注意：<a target="_blank" rel="noopener" href="https://helm.sh/docs/topics/version_skew/">Helm和Kubernetes版本之间的兼容性</a></p>
+<p>首先当然需要一个可用的 Kubernetes 集群，然后在我们使用 Helm 的节点上已经配置好可以通过 kubectl 访问集群，因为 Helm 其实就是读取的 kubeconfig 文件来访问集群的。</p>
+<p>由于 Helm V2 版本必须在 Kubernetes 集群中安装一个 Tiller 服务进行通信，这样大大降低了其安全性和可用性，所以在 V3 版本中移除了服务端，采用了通用的 Kubernetes CRD 资源来进行管理，这样就只需要连接上 Kubernetes 即可，而且 V3 版本已经发布了稳定版，所以我们这里来安装最新的 v3.7.1 版本，软件包下载地址为：<a target="_blank" rel="noopener" href="https://get.helm.sh/helm-v3.7.1-darwin-amd64.tar.gz%EF%BC%8C%E6%88%91%E4%BB%AC%E5%8F%AF%E4%BB%A5%E6%A0%B9%E6%8D%AE%E8%87%AA%E5%B7%B1%E7%9A%84%E8%8A%82%E7%82%B9%E9%80%89%E6%8B%A9%E5%90%88%E9%80%82%E7%9A%84%E5%8C%85%EF%BC%8C%E6%AF%94%E5%A6%82%E6%88%91%E8%BF%99%E9%87%8C%E6%98%AF">https://get.helm.sh/helm-v3.7.1-darwin-amd64.tar.gz，我们可以根据自己的节点选择合适的包，比如我这里是</a> Mac，就下载 <a target="_blank" rel="noopener" href="https://get.helm.sh/helm-v3.7.1-darwin-amd64.tar.gz">MacOS amd64</a> 的版本。</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># zhangquan @ MacBook-Pro in ~ [17:29:54] 
+$ kubectl get nodes
+NAME             STATUS   ROLES    AGE   VERSION
+docker-desktop   Ready    master   20d   v1.15.5<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>下载到本地解压后，将 helm 二进制包文件移动到任意的 PATH 路径下即可：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># zhangquan @ MacBook-Pro in ~/Downloads/darwin-amd64 [13:21:28] 
+$ ll
+total 99104
+-rw-r--r--@ 1 zhangquan  180847186    11K 10 14  2021 LICENSE
+-rw-r--r--@ 1 zhangquan  180847186   3.3K 10 14  2021 README.md
+-rwxr-xr-x@ 1 zhangquan  180847186    48M 10 14  2021 helm
+
+# zhangquan @ MacBook-Pro in ~/Downloads/darwin-amd64 [13:53:19] 
+$ mv helm /usr/local/bin/helm 
+
+$ helm version
+version.BuildInfo{Version:"v3.7.1", GitCommit:"1d11fcb5d3f3bf00dbe6fe31b8412839a96b3dc4", GitTreeState:"clean", GoVersion:"go1.16.9"}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>看到上面的版本信息证明已经成功了。</p>
+<p>一旦 Helm 客户端准备成功后，我们就可以添加一个 chart 仓库，当然最常用的就是官方的 Helm stable charts 仓库，但是由于官方的 charts 仓库地址需要科学上网，我们可以使用微软的 charts 仓库代替：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ helm repo add stable http://mirror.azure.cn/kubernetes/charts/
+"stable" has been added to your repositories
+
+$ helm repo list                                                
+NAME    URL                                      
+stable  http://mirror.azure.cn/kubernetes/charts/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>安装完成后可以用 search 命令来搜索可以安装的 chart 包：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ helm search repo stable
+NAME                                    CHART VERSION   APP VERSION             DESCRIPTION                                       
+stable/acs-engine-autoscaler            2.2.2           2.1.1                   DEPRECATED Scales worker nodes within agent pools 
+stable/aerospike                        0.3.5           v4.5.0.5                DEPRECATED A Helm chart for Aerospike in Kubern...
+stable/airflow                          7.13.3          1.10.12                 DEPRECATED - please use: https://github.com/air...
+stable/ambassador                       5.3.2           0.86.1                  DEPRECATED A Helm chart for Datawire Ambassador   
+stable/anchore-engine                   1.7.0           0.7.3                   Anchore container analysis and policy evaluatio...
+stable/apm-server                       2.1.7           7.0.0                   DEPRECATED The server receives data from the El...
+stable/ark                              4.2.2           0.10.2                  DEPRECATED A Helm chart for ark 
+......<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p>为了安装一个 chart 包，我们可以使用 <code>helm install</code> 命令，Helm 有多种方法来找到和安装 chart 包，但是最简单的方法当然是使用官方的 <code>stable</code> 这个仓库直接安装：</p>
+<p>首先从仓库中将可用的 charts 信息同步到本地，可以确保我们获取到最新的 charts 列表：</p>
+<pre class="line-numbers language-none"><code class="language-none">$ helm repo update
+Hang tight while we grab the latest from your chart repositories...
+...Successfully got an update from the "stable" chart repository
+Update Complete. ⎈Happy Helming!⎈<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>比如我们现在安装一个 <code>mysql</code> 应用：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ helm install stable/mysql --generate-name
+WARNING: This chart is deprecated
+NAME: mysql-1661839473
+LAST DEPLOYED: Tue Aug 30 14:04:36 2022
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+NOTES:
+MySQL can be accessed via port 3306 on the following DNS name from within your cluster:
+mysql-1661839473.default.svc.cluster.local
+......<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>我们可以看到 <code>stable/mysql</code> 这个 chart 已经安装成功了，我们将安装成功的这个应用叫做一个 <code>release</code>，由于我们在安装的时候指定了<code>--generate-name</code> 参数，所以生成的 release 名称是随机生成的，名为 <code>mysql-1661839473</code>。我们可以用下面的命令来查看 release 安装以后对应的 Kubernetes 资源的状态：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ kubectl get all -l release=mysql-1661839473
+NAME                                    READY   STATUS    RESTARTS   AGE
+pod/mysql-1661839473-7597b94bc5-2lt9c   1/1     Running   0          118s
+
+NAME                       TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)    AGE
+service/mysql-1661839473   ClusterIP   10.98.24.64   &lt;none&gt;        3306/TCP   118s
+
+NAME                               READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/mysql-1661839473   1/1     1            1           118s
+
+NAME                                          DESIRED   CURRENT   READY   AGE
+replicaset.apps/mysql-1661839473-7597b94bc5   1         1         1       118s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>我们也可以 <code>helm show chart</code> 命令来了解 MySQL 这个 chart 包的一些特性：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ helm show chart stable/mysql
+apiVersion: v1
+appVersion: 5.7.30
+deprecated: true
+description: DEPRECATED - Fast, reliable, scalable, and easy to use open-source relational
+  database system.
+home: https://www.mysql.com/
+icon: https://www.mysql.com/common/logos/logo-mysql-170x115.png
+keywords:
+- mysql
+- database
+- sql
+name: mysql
+sources:
+- https://github.com/kubernetes/charts
+- https://github.com/docker-library/mysql
+version: 1.6.9<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>如果想要了解更多信息，可以用 <code>helm show all</code> 命令：</p>
+<pre class="line-numbers language-none"><code class="language-none">$ helm show all stable/mysql
+......<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>需要注意的是无论什么时候安装 chart，都会创建一个新的 release，所以一个 chart 包是可以多次安装到同一个集群中的，每个都可以独立管理和升级。</p>
+<p>同样我们也可以用 Helm 很容易查看到已经安装的 release：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ helm ls                        
+NAME                    NAMESPACE       REVISION        UPDATED                                 STATUS          CHART           APP VERSION
+mysql-1661839473        default         1               2022-08-30 14:04:36.833439 +0800 CST    deployed        mysql-1.6.9     5.7.30 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>如果需要删除这个 release，也很简单，只需要使用 <code>helm uninstall</code> 命令即可：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ helm uninstall mysql-1661839473  
+release "mysql-1661839473" uninstalled
+
+$ kubectl get all -l release=mysql-1661839473
+No resources found in default namespace.
+
+$ helm status mysql-1661839473
+Error: release: not found<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><code>uninstall</code> 命令会从 Kubernetes 中删除 release，也会删除与 release 相关的所有 Kubernetes 资源以及 release 历史记录。也可以在删除的时候使用 <code>--keep-history</code> 参数，则会保留 release 的历史记录，可以获取该 release 的状态就是 <code>UNINSTALLED</code>，而不是找不到 release了：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ helm uninstall mysql-1661839949 --keep-history
+release "mysql-1661839949" uninstalled
+
+$ helm status mysql-1661839949
+NAME: mysql-1661839949
+LAST DEPLOYED: Tue Aug 30 14:12:32 2022
+NAMESPACE: default
+STATUS: uninstalled
+......
+
+$ helm ls -a
+NAME                    NAMESPACE       REVISION        UPDATED                                 STATUS          CHART           APP VERSION
+mysql-1661839949        default         1               2022-08-30 14:12:32.764243 +0800 CST    uninstalled     mysql-1.6.9     5.7.30   <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>因为 Helm 会在删除 release 后跟踪你的 release，所以你可以审查历史甚至取消删除 <code>release</code>（使用 <code>helm rollback</code> 命令）。</p>
+<h2 id="定制"><a href="#定制" class="headerlink" title="定制"></a>定制</h2><p>上面我们都是直接使用的 <code>helm install</code> 命令安装的 chart 包，这种情况下只会使用 chart 的默认配置选项，但是更多的时候，是各种各样的需求，索引我们希望根据自己的需求来定制 chart 包的配置参数。</p>
+<p>我们可以使用 <code>helm show values</code> 命令来查看一个 chart 包的所有可配置的参数选项：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ helm show values stable/mysql
+## mysql image version
+## ref: https://hub.docker.com/r/library/mysql/tags/
+##
+image: "mysql"
+imageTag: "5.7.30"
+
+strategy:
+  type: Recreate
+
+busybox:
+  image: "busybox"
+  tag: "1.32"
+
+testFramework:
+  enabled: true
+  image: "bats/bats"
+  tag: "1.2.1"
+  imagePullPolicy: IfNotPresent
+  securityContext: {}
+
+## Specify password for root user
+##
+## Default: random 10 character string
+# mysqlRootPassword: testing
+
+## Create a database user
+##
+# mysqlUser:
+## Default: random 10 character string
+# mysqlPassword:
+
+## Allow unauthenticated access, uncomment to enable
+##
+# mysqlAllowEmptyPassword: true
+
+## Create a database
+##
+# mysqlDatabase:
+
+## Specify an imagePullPolicy (Required)
+## It's recommended to change this to 'Always' if the image tag is 'latest'
+## ref: http://kubernetes.io/docs/user-guide/images/#updating-images
+##
+imagePullPolicy: IfNotPresent
+......<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>上面我们看到的所有参数都是可以用自己的数据来覆盖的，可以在安装的时候通过 YAML 格式的文件来传递这些参数：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># zhangquan @ MacBook-Pro in ~/code/github.com/k8s-app/helm [14:16:07] </span>
+$ cat config.yaml 
+<span class="token key atrule">mysqlUser</span><span class="token punctuation">:</span>
+  user0
+<span class="token key atrule">mysqlPassword</span><span class="token punctuation">:</span> user0pwd
+<span class="token key atrule">mysqlDatabase</span><span class="token punctuation">:</span> user0db
+<span class="token key atrule">persistence</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enabled</span><span class="token punctuation">:</span> <span class="token boolean important">false</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>传递配置数据方式安装：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ helm install -f config.yaml stable/mysql  --generate-name
+WARNING: This chart is deprecated
+NAME: mysql-1661840339
+LAST DEPLOYED: Tue Aug 30 14:19:03 2022
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+NOTES:
+MySQL can be accessed via port 3306 on the following DNS name from within your cluster:
+mysql-1661840339.default.svc.cluster.local
+......<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>release 安装成功后，可以查看对应的 Pod 信息：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ kubectl get pod -l release=mysql-1661840339
+NAME                               READY   STATUS    RESTARTS   AGE
+mysql-1661840339-655bdc759-4d94f   1/1     Running   0          2m25s
+
+# zhangquan @ MacBook-Pro in ~/code/github.com/k8s-app/helm [14:21:29] 
+$ kubectl describe pod mysql-1661840339-655bdc759-4d94f
+......
+    Environment:
+      MYSQL_ROOT_PASSWORD:  &lt;set to the key 'mysql-root-password' in secret 'mysql-1661840339'&gt;  Optional: false
+      MYSQL_PASSWORD:       &lt;set to the key 'mysql-password' in secret 'mysql-1661840339'&gt;       Optional: false
+      MYSQL_USER:           user0
+      MYSQL_DATABASE:       user0db
+......      <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可以看到环境变量 <code>MYSQL_USER=user0，MYSQL_DATABASE=user0db</code> 的值和我们上面配置的值是一致的。在安装过程中，有两种方法可以传递配置数据：</p>
 <ul>
-<li>它声明了一组用于创建一族产品的方法，每一个方法对应一种产品。</li>
+<li><code>--values（或者 -f）</code>：指定一个 YAML 文件来覆盖 values 值，可以指定多个值，最后边的文件优先</li>
+<li><code>--set</code>：在命令行上指定覆盖的配置</li>
 </ul>
-</li>
-<li><p><code>ConcreteFactory</code>：<strong>具体工厂</strong></p>
+<p>如果同时使用这两个值，<code>--set</code> 将被合并到具有更高优先级的 <code>--values</code>，使用 <code>--set</code> 指定的值将持久化在 ConfigMap 中，对于给定的 release，可以使用 <code>helm get values &lt;release-name&gt;</code> 来查看已经设置的值，已设置的值也通过允许 <code>helm upgrade</code> 并指定 <code>--reset</code> 值来清除。</p>
+<p><code>--set</code> 选项接收零个或多个 name/value 对，最简单的用法就是 <code>--set name=value</code>，相当于 YAML 文件中的：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">name</span><span class="token punctuation">:</span> value<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>多个值之间用字符串“,”隔开，用法就是 <code>--set a=b,c=d</code>，相当于 YAML 文件中的：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">a: b
+c: d<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>也支持更加复杂的表达式，例如 <code>--set outer.inner=value</code>，对应 YAML：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">outer</span><span class="token punctuation">:</span>
+  <span class="token key atrule">inner</span><span class="token punctuation">:</span> value<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>对于列表数组可以用 <code>{}</code> 来包裹，比如 <code>--set name={a, b, c}</code>，对应 YAML：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">name</span><span class="token punctuation">:</span>
+ <span class="token punctuation">-</span> a
+ <span class="token punctuation">-</span> b
+ <span class="token punctuation">-</span> c<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>从 Helm 2.5.0 开始，就可以使用数组索引语法来访问列表中某个项，比如 <code>--set servers[0].port=80</code>，对应的 YAML 为：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">servers</span><span class="token punctuation">:</span>
+ <span class="token punctuation">-</span> <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">80</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>也可以这样设置多个值，比如 <code>--set servers[0].port=80,servers[0].host=example</code>，对应的 YAML 为：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">servers
+  <span class="token punctuation">-</span> <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">80</span>
+    <span class="token key atrule">host</span><span class="token punctuation">:</span> example<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>有时候你可能需要在 <code>--set</code> 选项中使用特殊的字符，这个时候可以使用<strong>反斜杠来转义字符</strong>，比如 <code>--set name=value1\,value2</code>，对应的 YAML 为：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token string">"value1,value2"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>类似的，你还可以转义<code>.</code>，当 chart 模板中使用 <code>toYaml</code> 函数来解析 annotations、labels 以及 node selectors 之类的时候，这非常有用，比如 <code>--set nodeSelector."kubernetes\.io/role"=master</code>，对应的 YAML 文件：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">nodeSelector</span><span class="token punctuation">:</span>
+  <span class="token key atrule">kubernetes.io/role</span><span class="token punctuation">:</span> master<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>深度嵌套的数据结构可能很难使用 <code>--set</code> 来表示，所以一般推荐还是使用 YAML 文件来进行覆盖，当然在设计 chart 模板的时候也可以结合考虑到 <code>--set</code> 这种用法，尽可能的提供更好的支持。</p>
+<h2 id="更多安装方式"><a href="#更多安装方式" class="headerlink" title="更多安装方式"></a>更多安装方式</h2><p><code>helm install</code> 命令可以从多个源进行安装：</p>
 <ul>
-<li>它实现了在抽象工厂中声明的创建产品的方法，生成一组具体产品，这些产品构成了一个产品族，每一个产品都位于某个产品等级结构中。</li>
+<li>chart 仓库（类似于上面我们提到的）</li>
+<li>本地 chart 压缩包（helm install foo-0.1.1.tgz）</li>
+<li>本地解压缩的 chart 目录（helm install foo path/to/foo）</li>
+<li>在线的 URL（helm install fool <a target="_blank" rel="noopener" href="https://example.com/charts/foo-1.2.3.tgz%EF%BC%89">https://example.com/charts/foo-1.2.3.tgz）</a></li>
 </ul>
-</li>
-<li><p><code>AbstractProduct</code>：<strong>抽象产品</strong></p>
+<h2 id="升级和回滚"><a href="#升级和回滚" class="headerlink" title="升级和回滚"></a>升级和回滚</h2><p>当新版本的 chart 包发布的时候，或者当你要更改 release 的配置的时候，你可以使用 <code>helm upgrade</code> 命令来操作。升级需要一个现有的 release，并根据提供的信息对其进行升级。因为 Kubernetes charts 可能很大而且很复杂，Helm 会尝试以最小的侵入性进行升级，它只会更新自上一版本以来发生的变化：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ cat panda.yaml 
+mysqlUser:
+  user0
+mysqlPassword: user0pwd
+mysqlDatabase: user0db
+persistence:
+  enabled: false
+mysqlRootPassword: passw0rd<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>升级：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ helm ls
+NAME                    NAMESPACE       REVISION        UPDATED                                 STATUS          CHART           APP VERSION
+mysql-1661840339        default         1               2022-08-30 14:19:03.821832 +0800 CST    deployed        mysql-1.6.9     5.7.30   
+
+# zhangquan @ MacBook-Pro in ~/code/github.com/k8s-app/helm [14:30:41] 
+$ helm upgrade -f panda.yaml mysql-1661840339 stable/mysql
+WARNING: This chart is deprecated
+Release "mysql-1661840339" has been upgraded. Happy Helming!
+NAME: mysql-1661840339
+LAST DEPLOYED: Tue Aug 30 14:31:08 2022
+NAMESPACE: default
+STATUS: deployed
+REVISION: 2
+NOTES:
+MySQL can be accessed via port 3306 on the following DNS name from within your cluster:
+mysql-1661840339.default.svc.cluster.local
+......<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>我们这里 <code>mysql</code> 这个 release 用相同的 chart 包进行升级，但是新增了一个配置项：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">mysqlRootPassword</span><span class="token punctuation">:</span> passw0rd<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>我们可以使用 <code>helm get values</code> 来查看新设置是否生效：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># zhangquan @ MacBook-Pro in ~/code/github.com/k8s-app/helm [14:32:10] 
+$ helm get values mysql-1661840339
+USER-SUPPLIED VALUES:
+mysqlDatabase: user0db
+mysqlPassword: user0pwd
+mysqlRootPassword: passw0rd
+mysqlUser: user0
+persistence:
+  enabled: false<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><code>helm get</code> 命令是查看集群中 release 的非常有用的命令，正如我们在上面看到的，它显示了 <code>panda.yaml</code> 中的新配置值被部署到了集群中，现在如果某个版本在发布期间没有按计划进行，那么可以使用 <code>helm rollback [RELEASE] [REVISION]</code> 命令很容易回滚到之前的版本：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># zhangquan @ MacBook-Pro in ~/code/github.com/k8s-app/helm [14:32:59] 
+$ helm ls
+NAME                    NAMESPACE       REVISION        UPDATED                                 STATUS          CHART           APP VERSION
+mysql-1661840339        default         2               2022-08-30 14:31:08.870825 +0800 CST    deployed        mysql-1.6.9     5.7.30     
+
+# zhangquan @ MacBook-Pro in ~/code/github.com/k8s-app/helm [14:33:00] 
+$ helm history mysql-1661840339
+REVISION        UPDATED                         STATUS          CHART           APP VERSION     DESCRIPTION     
+1               Tue Aug 30 14:19:03 2022        superseded      mysql-1.6.9     5.7.30          Install complete
+2               Tue Aug 30 14:31:08 2022        deployed        mysql-1.6.9     5.7.30          Upgrade complete
+
+# zhangquan @ MacBook-Pro in ~/code/github.com/k8s-app/helm [14:33:14] 
+$ helm rollback mysql-1661840339 1
+Rollback was a success! Happy Helming!
+
+# zhangquan @ MacBook-Pro in ~/code/github.com/k8s-app/helm [14:34:25] C:1
+$ kubectl get pods -l release=mysql-1661840339
+NAME                               READY   STATUS    RESTARTS   AGE
+mysql-1661840339-655bdc759-4d94f   1/1     Running   0          16m
+
+# zhangquan @ MacBook-Pro in ~/code/github.com/k8s-app/helm [14:35:24] 
+$ helm get values mysql-1661840339
+USER-SUPPLIED VALUES:
+mysqlDatabase: user0db
+mysqlPassword: user0pwd
+mysqlUser: user0
+persistence:
+  enabled: false<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可以看到 values 配置已经回滚到之前的版本了。上面的命令回滚到了 release 的第一个版本，每次进行安装、升级或回滚时，修订号都会加 1，第一个修订号始终为1，我们可以使用 <code>helm history [RELEASE]</code> 来查看某个版本的修订号。</p>
+<p>除此之外我们还可以指定一些有用的选项来定制 install/upgrade/rollback 的一些行为，要查看完整的参数标志，我们可以运行 <code>helm &lt;command&gt; --help</code> 来查看，这里我们介绍几个有用的参数：</p>
 <ul>
-<li>它为每种产品声明接口，在抽象产品中声明了产品所具有的业务方法。</li>
+<li><code>--timeout</code>: 等待 Kubernetes 命令完成的时间，默认是 300（5分钟）</li>
+<li><code>--wait</code>: 等待直到所有 Pods 都处于就绪状态、PVCs 已经绑定、Deployments 具有处于就绪状态的最小 Pods 数量（期望值减去 maxUnavailable）以及 Service 有一个 IP 地址，然后才标记 release 为成功状态。它将等待与 <code>--timeout</code> 值一样长的时间，如果达到超时，则 release 将标记为失败。注意：在 Deployment 将副本设置为 1 并且作为滚动更新策略的一部分，maxUnavailable 未设置为0的情况下，<code>--wait</code> 将返回就绪状态，因为它已满足就绪状态下的最小 Pod 数量</li>
+<li><code>--no-hooks</code>: 将会跳过命令的运行 hooks</li>
+<li><code>--recreate-pods</code>: 仅适用于 upgrade 和 rollback，这个标志将导致重新创建所有的 Pods。（Helm3 中启用了）</li>
 </ul>
-</li>
-<li><p><code>ConcreteProduct</code>：<strong>具体产品</strong></p>
-<ul>
-<li>它定义具体工厂生产的具体产品对象，实现抽象产品接口中声明的业务方法。</li>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://helm.sh/zh/docs/">https://helm.sh/zh/docs/</a></li>
+<li><a target="_blank" rel="noopener" href="https://helm.sh/zh/docs/intro/using_helm/">https://helm.sh/zh/docs/intro/using_helm/</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.qikqiak.com/k8strain/helm/">https://www.qikqiak.com/k8strain/helm/</a></li>
 </ul>
-</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/AbstractFactoryPattern-0.jpg" alt="AbstractFactoryPattern-0"></p>
-<h3 id="3-抽象工厂模式应用实例"><a href="#3-抽象工厂模式应用实例" class="headerlink" title="3. 抽象工厂模式应用实例"></a>3. 抽象工厂模式应用实例</h3><p>下面通过一个实例进一步学习和理解抽象工厂模式。</p>
-<h3 id="实例说明"><a href="#实例说明" class="headerlink" title="实例说明"></a>实例说明</h3><p>我们就以生产家用电器的例子来学习下抽象工厂模式，现有多个工厂，每个工厂都生产自己品牌电视机、冰箱、洗衣机；客户端可以很灵活的选择某个工厂生产的一系列产品，也能方便的增加新的工厂。</p>
-<h3 id="实例代码"><a href="#实例代码" class="headerlink" title="实例代码"></a>实例代码</h3><ul>
-<li>HomeAppliancesFactory：<code>抽象工厂类</code></li>
-</ul>
-<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token comment">/**
- * 家用电器工厂接口：抽象工厂
- *
- * @author     &lt;dendi875@163.com&gt;
- * @createDate 2018-05-26
- * @copyright  Copyright (c) 2018 dendi875@163.com
- */</span>
-
-<span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name-definition class-name">HomeAppliancesFactory</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">abstract</span> <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">createTv</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">abstract</span> <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">createIceBox</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">abstract</span> <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">createWasher</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<ul>
-<li>HaierFactory、MideaFactory： <code>具体工厂</code></li>
-</ul>
-<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token comment">/**
- * Haier工厂：具体工厂
- *
- * @author     &lt;dendi875@163.com&gt;
- * @createDate 2018-05-26
- * @copyright  Copyright (c) 2018 dendi875@163.com
- */</span>
-
-<span class="token keyword">class</span> <span class="token class-name-definition class-name">HaierFactory</span> <span class="token keyword">extends</span> <span class="token class-name">HomeAppliancesFactory</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">createTv</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token class-name return-type">HaierTv</span>
-    <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">HaierTv</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">createIceBox</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token class-name return-type">HaierIceBox</span>
-    <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">HaierIceBox</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">createWasher</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token class-name return-type">HaierWasher</span>
-    <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">HaierWasher</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-
-<span class="token comment">/**
- * Midea工厂：具体工厂
- *
- * @author     &lt;dendi875@163.com&gt;
- * @createDate 2018-05-26
- * @copyright  Copyright (c) 2018 dendi875@163.com
- */</span>
-
-<span class="token keyword">class</span> <span class="token class-name-definition class-name">MideaFactory</span> <span class="token keyword">extends</span> <span class="token class-name">HomeAppliancesFactory</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">createTv</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token class-name return-type">MideaTv</span>
-    <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">MideaTv</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">createIceBox</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token class-name return-type">MideaIceBox</span>
-    <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">MideaIceBox</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">createWasher</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token class-name return-type">MideaWasher</span>
-    <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">MideaWasher</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<ul>
-<li>Tv： <code>抽象产品类</code></li>
-</ul>
-<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token comment">/**
- * 电视机接口：抽象产品
- *
- * @author     &lt;dendi875@163.com&gt;
- * @createDate 2018-05-26
- * @copyright  Copyright (c) 2018 dendi875@163.com
- */</span>
-
-<span class="token keyword">interface</span> <span class="token class-name-definition class-name">Tv</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">make</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<ul>
-<li>HaierTv、MideaTv： <code>具体产品</code></li>
-</ul>
-<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token comment">/**
- * Haier电视机类：具体产品
- *
- * @author     &lt;dendi875@163.com&gt;
- * @createDate 2018-05-26
- * @copyright  Copyright (c) 2018 dendi875@163.com
- */</span>
-
-<span class="token keyword">class</span> <span class="token class-name-definition class-name">HaierTv</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">make</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword return-type">void</span>
-    <span class="token punctuation">{</span>
-        <span class="token keyword">echo</span> <span class="token string double-quoted-string">"Haier电视"</span><span class="token operator">.</span><span class="token constant">PHP_EOL</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-
-<span class="token comment">/**
- * Midea电视机类：具体产品
- *
- * @author     &lt;dendi875@163.com&gt;
- * @createDate 2018-05-26
- * @copyright  Copyright (c) 2018 dendi875@163.com
- */</span>
-
-<span class="token keyword">class</span> <span class="token class-name-definition class-name">MideaTv</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">make</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword return-type">void</span>
-    <span class="token punctuation">{</span>
-        <span class="token keyword">echo</span> <span class="token string double-quoted-string">"Midea电视"</span><span class="token operator">.</span><span class="token constant">PHP_EOL</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<ul>
-<li>IceBox： <code>抽象产品</code></li>
-</ul>
-<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token comment">/**
- * 冰箱接口：抽象产品
- *
- * @author     &lt;dendi875@163.com&gt;
- * @createDate 2018-05-26
- * @copyright  Copyright (c) 2018 dendi875@163.com
- */</span>
-
-<span class="token keyword">interface</span> <span class="token class-name-definition class-name">IceBox</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">make</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<ul>
-<li>HaierIceBox、MideaIceBox： <code>具体产品</code></li>
-</ul>
-<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token comment">/**
- * Haier冰箱类：具体产品
- *
- * @author     &lt;dendi875@163.com&gt;
- * @createDate 2018-05-26
- * @copyright  Copyright (c) 2018 dendi875@163.com
- */</span>
-
-<span class="token keyword">class</span> <span class="token class-name-definition class-name">HaierIceBox</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">make</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword return-type">void</span>
-    <span class="token punctuation">{</span>
-        <span class="token keyword">echo</span> <span class="token string double-quoted-string">"Haier冰箱"</span><span class="token operator">.</span><span class="token constant">PHP_EOL</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-
-<span class="token comment">/**
- * Midea冰箱类：具体产品
- *
- * @author     &lt;dendi875@163.com&gt;
- * @createDate 2018-05-26
- * @copyright  Copyright (c) 2018 dendi875@163.com
- */</span>
-
-<span class="token keyword">class</span> <span class="token class-name-definition class-name">MideaIceBox</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">make</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword return-type">void</span>
-    <span class="token punctuation">{</span>
-        <span class="token keyword">echo</span> <span class="token string double-quoted-string">"Midea冰箱"</span><span class="token operator">.</span><span class="token constant">PHP_EOL</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<ul>
-<li>Washer： <code>抽象产品</code></li>
-</ul>
-<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token comment">/**
- * 洗衣机接口：抽象产品
- *
- * @author     &lt;dendi875@163.com&gt;
- * @createDate 2018-05-26
- * @copyright  Copyright (c) 2018 dendi875@163.com
- */</span>
-
-<span class="token keyword">interface</span> <span class="token class-name-definition class-name">Washer</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">make</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<ul>
-<li>HaierWasher、MideaWasher： <code>具体产品</code></li>
-</ul>
-<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token comment">/**
- * Haier洗衣机类：具体产品
- *
- * @author     &lt;dendi875@163.com&gt;
- * @createDate 2018-05-26
- * @copyright  Copyright (c) 2018 dendi875@163.com
- */</span>
-
-<span class="token keyword">class</span> <span class="token class-name-definition class-name">HaierWasher</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">make</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword return-type">void</span>
-    <span class="token punctuation">{</span>
-        <span class="token keyword">echo</span> <span class="token string double-quoted-string">"Haier洗衣机"</span><span class="token operator">.</span><span class="token constant">PHP_EOL</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-
-<span class="token comment">/**
- * Midea洗衣机类：具体产品
- *
- * @author     &lt;dendi875@163.com&gt;
- * @createDate 2018-05-26
- * @copyright  Copyright (c) 2018 dendi875@163.com
- */</span>
-
-<span class="token keyword">class</span> <span class="token class-name-definition class-name">MideaWasher</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">make</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword return-type">void</span>
-    <span class="token punctuation">{</span>
-        <span class="token keyword">echo</span> <span class="token string double-quoted-string">"Midea洗衣机"</span><span class="token operator">.</span><span class="token constant">PHP_EOL</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<ul>
-<li>客户端测试代码</li>
-</ul>
-<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token comment">//$factory = new HaierFactory();</span>
-<span class="token variable">$factory</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MideaFactory</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span class="token variable">$tv</span> <span class="token operator">=</span> <span class="token variable">$factory</span><span class="token operator">-&gt;</span><span class="token function">createTv</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token variable">$iceBox</span> <span class="token operator">=</span> <span class="token variable">$factory</span><span class="token operator">-&gt;</span><span class="token function">createIceBox</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token variable">$washer</span> <span class="token operator">=</span> <span class="token variable">$factory</span><span class="token operator">-&gt;</span><span class="token function">createWasher</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span class="token variable">$tv</span><span class="token operator">-&gt;</span><span class="token function">make</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token variable">$iceBox</span><span class="token operator">-&gt;</span><span class="token function">make</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token variable">$washer</span><span class="token operator">-&gt;</span><span class="token function">make</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>以上例程会输出：</p>
-<p>Midea电视<br><br>Midea冰箱<br><br>Midea洗衣机<br></p>
-<p>如果需要更换成Haier生产的电器则只需把 <code>new MideaFactory()</code>变为<code>new HaierFactory() </code></p>
-<h3 id="4-UML类图"><a href="#4-UML类图" class="headerlink" title="4. UML类图"></a>4. UML类图</h3><p>示例代码UML图：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/AbstractFactoryPattern-1.png" alt="AbstractFactoryPattern-1"></p>
-<h3 id="5-抽象工厂模式分析"><a href="#5-抽象工厂模式分析" class="headerlink" title="5. 抽象工厂模式分析"></a>5. 抽象工厂模式分析</h3><p>在抽象工厂模式中，增加新的产品族很方便，但是增加新的产品等级结构很麻烦，抽象工厂模式的这种性质称为“开闭原则”的倾斜性。“开闭原则”要求系统对扩展开放，对修改封闭，通过扩展达到增强其功能的目的，对于涉及到多个产品族与多个产品等级结构的系统，其功能增强包括两方面：</p>
-<p>(1)增加产品族：对于增加新的产品族，抽象工厂模式很好地支持了“开闭原则”，只需要增加具体产品并对应增加一个新的具体工厂，对已有代码无须做任何修改。</p>
-<p>(2)增加新的产品等级结构：对于增加新的产品等级结构，需要修改所有的工厂角色，包括抽象工厂类，在所有的工厂类中都需要增加生产新产品的方法，违背了“开闭原则”。</p>
-<p>正因为抽象工厂模式存在“开闭原则”的倾斜性，它以一种倾斜的方式来满足“开闭原则”，为增加新产品族提供方便，但不能为增加新产品结构提供这样的方便，因此要求设计人员在设计之初就能够全面考虑，不会在设计完成之后向系统中增加新的产品等级结构，也不会删除已有的产品等级结构，否则将会导致系统出现较大的修改，为后续维护工作带来诸多麻烦。</p>
-<h3 id="6-抽象工厂模式的优点"><a href="#6-抽象工厂模式的优点" class="headerlink" title="6. 抽象工厂模式的优点"></a>6. 抽象工厂模式的优点</h3><p>抽象工厂模式的主要优点如下：</p>
-<p>(1)抽象工厂模式隔离了具体类的生成，使得客户并不需要知道什么被创建。由于这种隔离，更换一个具体工厂就变得相对容易，所有的具体工厂都实现了抽象工厂中定义的那些公共接口，因此只需改变具体工厂的实例，就可以在某种程度上改变整个软件系统的行为。</p>
-<p>(2)当一个产品族中的多个对象被设计成一起工作时，它能够保证客户端始终只使用同一个产品族中的对象。</p>
-<p>(3)增加新的产品族很方便，无须修改已有系统，符合“开闭原则”。</p>
-<h3 id="7-抽象工厂模式的缺点"><a href="#7-抽象工厂模式的缺点" class="headerlink" title="7. 抽象工厂模式的缺点"></a>7. 抽象工厂模式的缺点</h3><p>抽象工厂模式的主要缺点如下：</p>
-<p>增加新的产品等级结构麻烦，需要对原有系统进行较大的修改，甚至需要修改抽象层代码，这显然会带来较大的不便，违背了“开闭原则”。</p>
-<h3 id="8-抽象工厂模式适用场景"><a href="#8-抽象工厂模式适用场景" class="headerlink" title="8. 抽象工厂模式适用场景"></a>8. 抽象工厂模式适用场景</h3><p>在以下情况下可以考虑使用抽象工厂模式：</p>
-<p>(1)一个系统不应当依赖于产品类实例如何被创建、组合和表达的细节，这对于所有类型的工厂模式都是很重要的，用户无须关心对象的创建过程，将对象的创建和使用解耦。</p>
-<p>(2)系统中有多于一个的产品族，而每次只使用其中某一产品族。用户可以动态改变产品族，也可以很方便地增加新的产品族。</p>
-<p>(3)属于同一个产品族的产品将在一起使用，这一约束必须在系统的设计中体现出来。同一个产品族中的产品可以是没有任何关系的对象，但是它们都具有一些共同的约束，如同一品牌的电视机和冰箱，电视机与冰箱之间没有直接关系，但它们都是属于某一品牌的，此时具有一个共同的约束条件：品牌的类型。</p>
-<p>(4)产品等级结构稳定，设计完成之后，不会向系统中增加新的产品等级结构或者删除已有的产品等级结构。</p>
 
                 
             </div>
@@ -854,7 +925,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://www.zhangquan.me/2021/06/30/she-ji-mo-shi-zhi-chuang-jian-xing-mo-shi-chou-xiang-gong-han-mo-shi-abstract-factory-pattern/">https://www.zhangquan.me/2021/06/30/she-ji-mo-shi-zhi-chuang-jian-xing-mo-shi-chou-xiang-gong-han-mo-shi-abstract-factory-pattern/</a>
+                    <a href="https://www.zhangquan.me/2022/08/31/kubernetes-bao-guan-li-gong-ju-helm/">https://www.zhangquan.me/2022/08/31/kubernetes-bao-guan-li-gong-ju-helm/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -892,12 +963,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/PHP/">
-                                    <span class="chip bg-color">PHP</span>
-                                </a>
-                            
-                                <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
-                                    <span class="chip bg-color">面向对象</span>
+                                <a href="/tags/Kubernetes/">
+                                    <span class="chip bg-color">Kubernetes</span>
                                 </a>
                             
                         </div>
@@ -1392,50 +1459,48 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/06/30/she-ji-mo-shi-zhi-chuang-jian-xing-mo-shi-jian-zao-zhe-mo-shi-builder-pattern/">
+                <a href="/2022/08/31/kubernetes-bao-guan-li-gong-ju-helm/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="设计模式之-创建型模式-建造者模式 (Builder Pattern)">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="Kubernetes 包管理工具 Helm">
                         
-                        <span class="card-title">设计模式之-创建型模式-建造者模式 (Builder Pattern)</span>
+                        <span class="card-title">Kubernetes 包管理工具 Helm</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Builder Pattern
+                            Kubernetes 包管理工具 Helm
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-06-30
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-31
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-category">
-                                    设计模式
+                            <a href="/categories/Kubernetes/" class="post-category">
+                                    Kubernetes
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/PHP/">
-                        <span class="chip bg-color">PHP</span>
-                    </a>
-                    
-                    <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
-                        <span class="chip bg-color">面向对象</span>
+                    <a href="/tags/Kubernetes/">
+                        <span class="chip bg-color">Kubernetes</span>
                     </a>
                     
                 </div>
@@ -1449,31 +1514,31 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/06/30/she-ji-mo-shi-zhi-chuang-jian-xing-mo-shi-gong-han-fang-fa-mo-shi-factory-method-pattern/">
+                <a href="/2022/08/29/kubernetes-storageclass-de-shi-yong/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="设计模式之-创建型模式-工厂方法模式 (Factory Method Pattern)">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="kubernetes StorageClass 的使用">
                         
-                        <span class="card-title">设计模式之-创建型模式-工厂方法模式 (Factory Method Pattern)</span>
+                        <span class="card-title">kubernetes StorageClass 的使用</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Factory Method Pattern
+                            kubernetes StorageClass 动态 PV 的使用
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-30
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-29
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-category">
-                                    设计模式
+                            <a href="/categories/kubernetes/" class="post-category">
+                                    kubernetes
                                 </a>
                             
                             
@@ -1483,12 +1548,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/PHP/">
-                        <span class="chip bg-color">PHP</span>
-                    </a>
-                    
-                    <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
-                        <span class="chip bg-color">面向对象</span>
+                    <a href="/tags/kubernetes/">
+                        <span class="chip bg-color">kubernetes</span>
                     </a>
                     
                 </div>
