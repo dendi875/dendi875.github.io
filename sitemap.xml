@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.zhangquan.me/2022/08/21/kubernetes-ingress-shi-jian-lian-xi/</loc>
+    
+    <lastmod>2022-08-31</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.zhangquan.me/2022/08/31/kubernetes-bao-guan-li-gong-ju-helm/</loc>
     
     <lastmod>2022-08-31</lastmod>
@@ -10,6 +17,13 @@
   
   <url>
     <loc>https://www.zhangquan.me/2022/08/29/kubernetes-storageclass-de-shi-yong/</loc>
+    
+    <lastmod>2022-08-31</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.zhangquan.me/2022/08/25/kubernetes-serviceaccount/</loc>
     
     <lastmod>2022-08-31</lastmod>
     
@@ -51,16 +65,9 @@
   </url>
   
   <url>
-    <loc>https://www.zhangquan.me/2022/08/25/kubernetes-serviceaccount/</loc>
-    
-    <lastmod>2022-08-25</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://www.zhangquan.me/2022/08/24/kubernetes-secret-min-gan-xin-xi-pei-zhi-guan-li/</loc>
     
-    <lastmod>2022-08-24</lastmod>
+    <lastmod>2022-08-25</lastmod>
     
   </url>
   
@@ -68,13 +75,6 @@
     <loc>https://www.zhangquan.me/2022/08/24/kubernetes-configmap-ke-bian-pei-zhi-guan-li/</loc>
     
     <lastmod>2022-08-24</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.zhangquan.me/2022/08/21/kubernetes-ingress-shi-jian-lian-xi/</loc>
-    
-    <lastmod>2022-08-21</lastmod>
     
   </url>
   
@@ -543,6 +543,13 @@
   </url>
   
   <url>
+    <loc>https://www.zhangquan.me/tags/Kubernetes/</loc>
+    <lastmod>2022-08-31</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.zhangquan.me/tags/%E5%B7%A5%E4%BD%9C%E7%A7%AF%E7%B4%AF/</loc>
     <lastmod>2022-08-31</lastmod>
     <changefreq>daily</changefreq>
@@ -600,13 +607,6 @@
   
   <url>
     <loc>https://www.zhangquan.me/tags/Streams/</loc>
-    <lastmod>2022-08-31</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.zhangquan.me/tags/Kubernetes/</loc>
     <lastmod>2022-08-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -671,6 +671,13 @@
   </url>
   
   <url>
+    <loc>https://www.zhangquan.me/categories/Kubernetes/</loc>
+    <lastmod>2022-08-31</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.zhangquan.me/categories/%E5%B7%A5%E4%BD%9C%E7%A7%AF%E7%B4%AF/</loc>
     <lastmod>2022-08-31</lastmod>
     <changefreq>daily</changefreq>
@@ -721,13 +728,6 @@
   
   <url>
     <loc>https://www.zhangquan.me/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/</loc>
-    <lastmod>2022-08-31</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.zhangquan.me/categories/Kubernetes/</loc>
     <lastmod>2022-08-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
