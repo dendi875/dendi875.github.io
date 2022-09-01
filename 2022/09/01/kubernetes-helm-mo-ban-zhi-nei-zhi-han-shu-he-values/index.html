@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Git 的 4 个阶段的撤销更改, PHP,Java,Go,MySQL,Linux,Docker等">
+    <meta name="keywords" content="Kubernetes Helm 模板之内置函数和Values, PHP,Java,Go,MySQL,Linux,Docker等">
     <meta name="description" content="PHP Go MySQL 后端开发">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Git 的 4 个阶段的撤销更改 | 一代键客</title>
+    <title>Kubernetes Helm 模板之内置函数和Values | 一代键客</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -327,12 +327,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Git 的 4 个阶段的撤销更改</h1>
+                    <h1 class="description center-align post-title">Kubernetes Helm 模板之内置函数和Values</h1>
                 </div>
             </div>
         </div>
@@ -448,12 +448,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Git/">
-                                <span class="chip bg-color">Git</span>
-                            </a>
-                        
-                            <a href="/tags/%E5%B7%A5%E5%85%B7/">
-                                <span class="chip bg-color">工具</span>
+                            <a href="/tags/Kubernetes/">
+                                <span class="chip bg-color">Kubernetes</span>
                             </a>
                         
                     </div>
@@ -464,8 +460,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Git/" class="post-category">
-                                Git
+                            <a href="/categories/Kubernetes/" class="post-category">
+                                Kubernetes
                             </a>
                         
                     </div>
@@ -477,21 +473,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-06-29
+                    2022-09-01
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-11-26
+                    2022-09-01
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.8k
+                    1.5k
                 </div>
                 
 
@@ -521,113 +517,147 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Git-的-4-个阶段的撤销更改"><a href="#Git-的-4-个阶段的撤销更改" class="headerlink" title="Git 的 4 个阶段的撤销更改"></a>Git 的 4 个阶段的撤销更改</h1><blockquote>
-<p>原文出处：<a target="_blank" rel="noopener" href="https://www.fengerzh.com/git-reset/">张京</a></p>
-</blockquote>
-<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/63918611gy1fltan48ktfj21hm12y7f5.jpg" alt="img"></p>
-<p>虽然git诞生距今已有12年之久，网上各种关于git的介绍文章数不胜数，但是依然有很多人（包括我自己在内）对于它的功能不能完全掌握。以下的介绍只是基于我个人对于git的理解，并且可能生编硬造了一些不完全符合git说法的词语。目的只是为了让git通俗化，使初学者也能大概了解如何快速上手git。同时，下面所有讨论，我们都假设只使用一个分支，也就是主分支master的情况，虽然这种作法并不符合git规范，但是现实情况中绝大部分用户是直接在master分支上进行工作的，所以在这里我们不去引入更加复杂的各种分支的情况，也不涉及标签tag的操作，只讲在最简单的主分支上如何回退。</p>
-<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><h3 id="3个步骤"><a href="#3个步骤" class="headerlink" title="3个步骤"></a>3个步骤</h3><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/63918611gy1fltan4vu1cj20m80463yo.jpg" alt="img"></p>
-<p>正常情况下，我们的工作流就是3个步骤，对应上图中的3个箭头线：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">git add .
-git commit -m "comment"
-git push<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+                <h1 id="Kubernetes-Helm-模板之内置函数和Values"><a href="#Kubernetes-Helm-模板之内置函数和Values" class="headerlink" title="Kubernetes Helm 模板之内置函数和Values"></a>Kubernetes Helm 模板之内置函数和Values</h1><p>Helm 使用一种名为 charts 的包格式，一个 chart 是描述一组相关的 Kubernetes 资源的文件集合，单个 chart 可能用于部署简单的应用，比如 memcached pod，或者复杂的应用，比如一个带有 HTTP 服务、数据库、缓存等等功能的完整 web 应用程序。</p>
+<p>Charts 是创建在特定目录下面的文件集合，然后可以将它们打包到一个版本化的存档中来部署。接下来我们就来看看使用 Helm 构建 charts 的一些基本方法。</p>
+<h2 id="Chart-基本概念和使用"><a href="#Chart-基本概念和使用" class="headerlink" title="Chart 基本概念和使用"></a>Chart 基本概念和使用</h2><p>参考官方文档：<a target="_blank" rel="noopener" href="https://helm.sh/zh/docs/topics/charts/">https://helm.sh/zh/docs/topics/charts/</a></p>
+<h2 id="Chart-模板编写"><a href="#Chart-模板编写" class="headerlink" title="Chart 模板编写"></a>Chart 模板编写</h2><p>参考官方文档：<a target="_blank" rel="noopener" href="https://helm.sh/zh/docs/chart_template_guide/">https://helm.sh/zh/docs/chart_template_guide/</a></p>
+<h2 id="Chart-Hooks"><a href="#Chart-Hooks" class="headerlink" title="Chart Hooks"></a>Chart Hooks</h2><p>参考官方文档：<a target="_blank" rel="noopener" href="https://helm.sh/zh/docs/topics/charts_hooks/">https://helm.sh/zh/docs/topics/charts_hooks/</a></p>
+<h2 id="内置函数和Values"><a href="#内置函数和Values" class="headerlink" title="内置函数和Values"></a>内置函数和Values</h2><h3 id="创建第一个Helm-chart"><a href="#创建第一个Helm-chart" class="headerlink" title="创建第一个Helm chart"></a>创建第一个Helm chart</h3><p>创建一个 mychart 包，参考：<a target="_blank" rel="noopener" href="https://helm.sh/zh/docs/chart_template_guide/getting_started/">https://helm.sh/zh/docs/chart_template_guide/getting_started/</a></p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># zhangquan @ MacBook-Pro in ~/code/github.com/k8s-app/
+$ mkdir -p helm/charts &amp;&amp; cd helm/charts
 
-<ol>
-<li><code>git add .</code> 把所有文件放入<code>暂存区</code>；</li>
-<li><code>git commit</code> 把所有文件从<code>暂存区</code>提交进<code>本地仓库</code>；</li>
-<li><code>git push</code> 把所有文件从<code>本地仓库</code>推送进<code>远程仓库</code>。</li>
-</ol>
-<h3 id="4个区"><a href="#4个区" class="headerlink" title="4个区"></a>4个区</h3><p>git之所以令人费解，主要是它相比于svn等等传统的版本管理工具，多引入了一个<strong>暂存区</strong>(Stage)的概念，就因为多了这一个概念，而使很多人疑惑。其实，在初学者来说，每个区具体怎么工作的，我们完全不需要关心，而只要知道有这么4个区就够了：</p>
-<ul>
-<li>工作区(Working Area)</li>
-<li>暂存区(Stage)</li>
-<li>本地仓库(Local Repository)</li>
-<li>远程仓库(Remote Repository)</li>
-</ul>
-<h3 id="5种状态"><a href="#5种状态" class="headerlink" title="5种状态"></a>5种状态</h3><p>以上4个区，进入每一个区成功之后会产生一个状态，再加上最初始的一个状态，一共是5种状态。以下我们把这5种状态分别命名为：</p>
-<ul>
-<li>未修改(Origin)</li>
-<li>已修改(Modified)</li>
-<li>已暂存(Staged)</li>
-<li>已提交(Committed)</li>
-<li>已推送(Pushed)</li>
-</ul>
-<h2 id="检查修改"><a href="#检查修改" class="headerlink" title="检查修改"></a>检查修改</h2><p>了解了基本概念之后，我们来谈一谈犯错误之后如何撤销的问题。首先，我们要了解如何检查这3个步骤当中每一个步骤修改了什么，然后才好判断有没有修改成功。检查修改的二级命令都相同，都是diff，只是参数有所不同。</p>
-<h3 id="已修改，未暂存"><a href="#已修改，未暂存" class="headerlink" title="已修改，未暂存"></a>已修改，未暂存</h3><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">git diff<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+# zhangquan @ MacBook-Pro in ~/code/github.com/k8s-app/helm/charts [18:47:22] 
+$ helm create mychart
+Creating mychart
 
-<p>首先，我们来看一下，如果我们只是简单地在浏览器里保存了一下文件，但是还没有做<code>git add .</code>之前，我们如何检查有哪些修改。我们先随便拿一个文件来做一下实验：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/63918611gy1fltan5a4xuj20fi07z3zc.jpg" alt="img"></p>
-<p>我们在文件开头的第2行胡乱加了4个数字<code>1234</code>，存盘，这时文件进入了已修改状态，但是还没有进入<code>暂存区</code>，我们运行<code>git diff</code>，结果如下：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">diff --git a/index.md b/index.md
-index 73ff1ba..1066758 100644
---- a/index.md
-+++ b/index.md
-&lt;a href='http://www.jobbole.com/members/li754132448'&gt;@@&lt;/a&gt; -1,5 +1,5 &lt;a href='http://www.jobbole.com/members/li754132448'&gt;@@&lt;/a&gt;
- ---
--layout: main
-+1234layout: main
- color: black
- ---<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+# zhangquan @ MacBook-Pro in ~/code/github.com/k8s-app/helm/charts [18:48:48] 
+$ tree mychart 
+mychart
+├── Chart.yaml
+├── charts
+├── templates
+│&nbsp;&nbsp; ├── NOTES.txt
+│&nbsp;&nbsp; ├── _helpers.tpl
+│&nbsp;&nbsp; ├── deployment.yaml
+│&nbsp;&nbsp; ├── hpa.yaml
+│&nbsp;&nbsp; ├── ingress.yaml
+│&nbsp;&nbsp; ├── service.yaml
+│&nbsp;&nbsp; ├── serviceaccount.yaml
+│&nbsp;&nbsp; └── tests
+│&nbsp;&nbsp;     └── test-connection.yaml
+└── values.yaml
 
-<p><code>git diff</code>的结果告诉我们哪些文件已经做了哪些修改。</p>
-<h3 id="已暂存，未提交"><a href="#已暂存，未提交" class="headerlink" title="已暂存，未提交"></a>已暂存，未提交</h3><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">git diff --cached<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+3 directories, 10 files<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>现在我们把修改放入<code>暂存区</code>看一下。先执行<code>git add .</code>，然后执行<code>git diff</code>，你会发现没有任何结果：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/63918611gy1fltan5m82pj20ag01rt8l.jpg" alt="img"></p>
-<p>这说明<code>git diff</code>这个命令只检查我们的<code>工作区</code>和<code>暂存区</code>之间的差异，如果我们想看到<code>暂存区</code>和<code>本地仓库</code>之间的差异，就需要加一个参数<code>git diff --cached</code>：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">diff --git a/index.md b/index.md
-index 73ff1ba..1066758 100644
---- a/index.md
-+++ b/index.md
-&lt;a href='http://www.jobbole.com/members/li754132448'&gt;@@&lt;/a&gt; -1,5 +1,5 &lt;a href='http://www.jobbole.com/members/li754132448'&gt;@@&lt;/a&gt;
- ---
--layout: main
-+1234layout: main
- color: black
- ---<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>我们把 templates 目录下面所有文件全部删除掉，这里我们自己来创建模板文件：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># zhangquan @ MacBook-Pro in ~/code/github.com/k8s-app/helm/charts [19:25:33] 
+$ rm -rf mychart/templates/*<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<p>这时候我们看到的差异是<code>暂存区</code>和<code>本地仓库</code>之间的差异。</p>
-<h3 id="已提交，未推送"><a href="#已提交，未推送" class="headerlink" title="已提交，未推送"></a>已提交，未推送</h3><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">git diff master origin/master<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="创建模板"><a href="#创建模板" class="headerlink" title="创建模板"></a>创建模板</h3><p>这里我们来创建一个非常简单的模板 ConfigMap，在 templates 目录下面新建一个<code>configmap.yaml</code>文件：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># zhangquan @ MacBook-Pro in ~/code/github.com/k8s-app/helm/charts [19:25:41] </span>
+$ vi mychart/templates/configmap.yaml
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ConfigMap
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> mychart<span class="token punctuation">-</span>configmap
+<span class="token key atrule">data</span><span class="token punctuation">:</span>
+  <span class="token key atrule">myvalue</span><span class="token punctuation">:</span> <span class="token string">"Hello World"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>现在，我们把修改从<code>暂存区</code>提交到<code>本地仓库</code>，再看一下差异。先执行<code>git commit</code>，然后再执行<code>git diff --cached</code>，没有差异，执行<code>git diff master origin/master</code>，可以看到差异：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/63918611gy1fltan637jhj20en076aas.jpg" alt="img"></p>
-<p>在这里，<code>master</code>就是你的本地仓库，而<code>origin/master</code>就是你的远程仓库，<code>master</code>是主分支的意思，因为我们都在主分支上工作，所以这里两边都是<code>master</code>，而<code>origin</code>就代表远程。</p>
-<h2 id="撤销修改"><a href="#撤销修改" class="headerlink" title="撤销修改"></a>撤销修改</h2><p>了解清楚如何检查各种修改之后，我们开始尝试各种撤销操作。</p>
-<h3 id="已修改，未暂存-1"><a href="#已修改，未暂存-1" class="headerlink" title="已修改，未暂存"></a>已修改，未暂存</h3><p>如果我们只是在编辑器里修改了文件，但还没有执行<code>git add .</code>，这时候我们的文件还在工作区，并没有进入暂存区，我们可以用：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">git checkout .<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>实际上现在我们就有一个可安装的 chart 包了，通过<code>helm install</code>命令来进行安装：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ helm install ./mychart --generate-name
+NAME: mychart-1662020439
+LAST DEPLOYED: Thu Sep  1 16:20:41 2022
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>或者</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">git reset --hard<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>在上面的输出中，我们可以看到我们的 ConfigMap 资源对象已经创建了。然后使用如下命令我们可以看到实际的模板被渲染过后的资源文件：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># zhangquan @ MacBook-Pro in ~/code/github.com/k8s-app/helm/charts [16:20:41] 
+$ helm get  manifest mychart-1662020439 
+---
+# Source: mychart/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mychart-configmap
+data:
+  myvalue: "Hello World"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>来进行撤销操作。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/63918611gy1fltan6hur7j20c9075jrr.jpg" alt="img"></p>
-<p>可以看到，在执行完<code>git checkout .</code>之后，修改已被撤销，<code>git diff</code>没有任何内容了。</p>
-<blockquote>
-<p><strong>一对反义词</strong> <code>git add .</code>的反义词是<code>git checkout .</code>。做完修改之后，如果你想向前走一步，让修改进入暂存区，就执行<code>git add .</code>，如果你想向后退一步，撤销刚才的修改，就执行<code>git checkout .</code>。</p>
-</blockquote>
-<h3 id="已暂存，未提交-1"><a href="#已暂存，未提交-1" class="headerlink" title="已暂存，未提交"></a>已暂存，未提交</h3><p>你已经执行了<code>git add .</code>，但还没有执行<code>git commit -m "comment"</code>。这时候你意识到了错误，想要撤销，你可以执行：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">git reset
-git checkout .<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>现在我们看到上面的 ConfigMap 文件是不是正是我们前面在模板文件中设计的，现在我们删除当前的<code>release</code>:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ helm ls
+NAME                    NAMESPACE       REVISION        UPDATED                                 STATUS          CHART           APP VERSION
+clunky-serval           default         1               2022-08-30 19:47:55.604474 +0800 CST    deployed        mychart-0.1.0   1.16.0     
+mychart-1661867411      default         1               2022-08-30 21:50:13.801393 +0800 CST    deployed        mychart-0.1.0   1.16.0     
+mychart-1662020439      default         1               2022-09-01 16:20:41.481324 +0800 CST    deployed        mychart-0.1.0   1.16.0     
+rude-cardinal           default         1               2022-08-30 21:26:33.926513 +0800 CST    deployed        mychart-0.1.0   1.16.0  
 
-<p>或者</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">git reset --hard<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+$ helm uninstall mychart-1662020439
+release "mychart-1662020439" uninstalled<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><code>git reset</code>只是把修改退回到了<code>git add .</code>之前的状态，也就是说文件本身还处于已修改未暂存状态，你如果想退回未修改状态，还需要执行<code>git checkout .</code>。</p>
-<p>或许你已经注意到了，以上两个步骤都可以用同一个命令<code>git reset --hard</code>来完成。是的，就是这个强大的命令，可以一步到位地把你的修改完全恢复到未修改的状态。</p>
-<h3 id="已提交，未推送-1"><a href="#已提交，未推送-1" class="headerlink" title="已提交，未推送"></a>已提交，未推送</h3><p>你的手太快，你既执行了<code>git add .</code>，又执行了<code>git commit</code>，这时候你的代码已经进入了你的本地仓库，然而你后悔了，怎么办？不要着急，还有办法。</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">git reset --hard origin/master<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="添加一个简单的模板"><a href="#添加一个简单的模板" class="headerlink" title="添加一个简单的模板"></a>添加一个简单的模板</h3><p>我们可以看到上面我们定义的 ConfigMap 的名字是固定的，但往往这并不是一种很好的做法，我们可以通过插入 release 的名称来生成资源的名称，比如这里 ConfigMap 的名称我们希望是：zq-configmap，这就需要用到 Chart 的模板定义方法了。</p>
+<p>Helm Chart 模板使用的是<a target="_blank" rel="noopener" href="https://pkg.go.dev/text/template"><code>Go</code>语言模板</a>编写而成，并添加了<a target="_blank" rel="noopener" href="https://masterminds.github.io/sprig/"><code>Sprig</code>库</a>中的50多个附件模板函数。</p>
+<p>现在我们来重新定义下上面的 configmap.yaml 文件：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ConfigMap
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .Release.Name <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">-</span>configmap
+<span class="token key atrule">data</span><span class="token punctuation">:</span>
+  <span class="token key atrule">myvalue</span><span class="token punctuation">:</span> <span class="token string">"Hello World"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>还是这个<code>git reset --hard</code>命令，只不过这次多了一个参数<code>origin/master</code>，正如我们上面讲过的，<code>origin/master</code>代表远程仓库，既然你已经污染了你的本地仓库，那么就从远程仓库把代码取回来吧。</p>
-<h3 id="已推送"><a href="#已推送" class="headerlink" title="已推送"></a>已推送</h3><p>很不幸，你的手实在是太快了，你既<code>git add</code>了，又<code>git commit</code>了，并且还<code>git push</code>了，这时你的代码已经进入远程仓库。如果你想恢复的话，还好，由于你的本地仓库和远程仓库是等价的，你只需要先恢复本地仓库，再强制push到远程仓库就好了：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">git reset --hard HEAD^
-git push -f<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>我们将名称替换成了<code>{{ .Release.Name }}-configmap</code>，其中包含在<code>{{`和`}}</code>之中的就是模板指令，<code>{{ .Release.Name }}</code> 将 release 的名称注入到模板中来，这样最终生成的 ConfigMap 名称就是以 release 的名称开头的了。这里的 Release 模板对象属于 Helm 内置的一种对象，还有其他很多内置的对象，稍后我们将接触到。</p>
+<p>现在我们来重新安装我们的 Chart 包，注意观察 ConfigMap 资源对象的名称：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># zhangquan @ MacBook-Pro in ~/code/github.com/k8s-app/helm/charts [16:21:53] 
+$ helm install ./mychart --generate-name
+NAME: mychart-1662020625
+LAST DEPLOYED: Thu Sep  1 16:23:47 2022
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/63918611gy1fltan6vs0lj20di04d0td.jpg" alt="img"></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>以上4种状态的撤销我们都用到了同一个命令<code>git reset --hard</code>，前2种状态的用法甚至完全一样，所以只要掌握了<code>git reset --hard</code>这个命令的用法，从此你再也不用担心提交错误了。</p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://www.fengerzh.com/git-reset/">原文</a></li>
-<li><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000011910766">独孤求败：Git中的各种后悔药</a></li>
-</ul>
+<p>可以看到现在生成的名称变成了<strong>mychart-1662020625</strong>，证明已经生效了，当然我们也可以使用命令<code>helm get manifest mychart-1662020625</code>查看最终生成的清单文件的样子。</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ helm get manifest  mychart-1662020625
+---
+# Source: mychart/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mychart-1662020625-configmap
+data:
+  myvalue: "Hello World"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h3><p>我们用模板来生成资源文件的清单，但是如果我们想要调试就非常不方便了，不可能我们每次都去部署一个<code>release</code>实例来校验模板是否正确，所幸的时 Helm 为我们提供了<code>--dry-run --debug</code>这个可选参数，在执行<code>helm install</code>的时候带上这两个参数就可以把对应的 values 值和生成的最终的资源清单文件打印出来，而不会真正的去部署一个<code>release</code>实例，比如我们来调试上面创建的 chart 包：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># zhangquan @ MacBook-Pro in ~/code/github.com/k8s-app/helm/charts [16:25:52] 
+$ helm install --dry-run --debug --generate-name ./mychart                 
+install.go:178: [debug] Original chart version: ""
+install.go:199: [debug] CHART PATH: /Users/zhangquan/code/github.com/k8s-app/helm/charts/mychart
+
+NAME: mychart-1662020797
+LAST DEPLOYED: Thu Sep  1 16:26:39 2022
+NAMESPACE: default
+STATUS: pending-install
+REVISION: 1
+TEST SUITE: None
+USER-SUPPLIED VALUES:
+{}
+
+COMPUTED VALUES:
+......
+HOOKS:
+MANIFEST:
+---
+# Source: mychart/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mychart-1662020797-configmap
+data:
+  myvalue: "Hello World"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>现在我们使用<code>--dry-run</code>就可以很容易地测试代码了，不需要每次都去安装一个 release 实例了，但是要注意的是这不能确保 Kubernetes 本身就一定会接受生成的模板，在调试完成后，还是需要去安装一个实际的 release 实例来进行验证的。</p>
+<h3 id="内置对象"><a href="#内置对象" class="headerlink" title="内置对象"></a>内置对象</h3><p>参考官方文档：<a target="_blank" rel="noopener" href="https://helm.sh/zh/docs/chart_template_guide/builtin_objects/">https://helm.sh/zh/docs/chart_template_guide/builtin_objects/</a></p>
+<h3 id="values-文件"><a href="#values-文件" class="headerlink" title="values 文件"></a>values 文件</h3><p>参考官方文档：<a target="_blank" rel="noopener" href="https://helm.sh/zh/docs/chart_template_guide/values_files/">https://helm.sh/zh/docs/chart_template_guide/values_files/</a></p>
 
                 
             </div>
@@ -654,7 +684,7 @@ git push -f<span aria-hidden="true" class="line-numbers-rows"><span></span><span
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://www.zhangquan.me/2021/06/29/git-de-4-ge-jie-duan-de-che-xiao-geng-gai/">https://www.zhangquan.me/2021/06/29/git-de-4-ge-jie-duan-de-che-xiao-geng-gai/</a>
+                    <a href="https://www.zhangquan.me/2022/09/01/kubernetes-helm-mo-ban-zhi-nei-zhi-han-shu-he-values/">https://www.zhangquan.me/2022/09/01/kubernetes-helm-mo-ban-zhi-nei-zhi-han-shu-he-values/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -692,12 +722,8 @@ git push -f<span aria-hidden="true" class="line-numbers-rows"><span></span><span
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Git/">
-                                    <span class="chip bg-color">Git</span>
-                                </a>
-                            
-                                <a href="/tags/%E5%B7%A5%E5%85%B7/">
-                                    <span class="chip bg-color">工具</span>
+                                <a href="/tags/Kubernetes/">
+                                    <span class="chip bg-color">Kubernetes</span>
                                 </a>
                             
                         </div>
@@ -1192,46 +1218,48 @@ git push -f<span aria-hidden="true" class="line-numbers-rows"><span></span><span
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/06/29/php-duo-jin-cheng-bian-cheng/">
+                <a href="/2022/09/01/kubernetes-helm-mo-ban-zhi-nei-zhi-han-shu-he-values/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="PHP 多进程编程">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="Kubernetes Helm 模板之内置函数和Values">
                         
-                        <span class="card-title">PHP 多进程编程</span>
+                        <span class="card-title">Kubernetes Helm 模板之内置函数和Values</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            PHP 如何多进程编程
+                            Kubernetes Helm 模板之内置函数和Values
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-06-29
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-09-01
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" class="post-category">
-                                    编程语言
+                            <a href="/categories/Kubernetes/" class="post-category">
+                                    Kubernetes
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/PHP/">
-                        <span class="chip bg-color">PHP</span>
+                    <a href="/tags/Kubernetes/">
+                        <span class="chip bg-color">Kubernetes</span>
                     </a>
                     
                 </div>
@@ -1245,31 +1273,31 @@ git push -f<span aria-hidden="true" class="line-numbers-rows"><span></span><span
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/06/29/elasticsearch-xue-xi-yan-jiu/">
+                <a href="/2022/08/31/kubernetes-bao-guan-li-gong-ju-helm/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="Elasticsearch 学习研究">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="Kubernetes 包管理工具 Helm">
                         
-                        <span class="card-title">Elasticsearch 学习研究</span>
+                        <span class="card-title">Kubernetes 包管理工具 Helm</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            全文搜索引擎 Elasticsearch 的安装使用
+                            Kubernetes 包管理工具 Helm
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-29
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-31
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Elasticsearch/" class="post-category">
-                                    Elasticsearch
+                            <a href="/categories/Kubernetes/" class="post-category">
+                                    Kubernetes
                                 </a>
                             
                             
@@ -1279,12 +1307,8 @@ git push -f<span aria-hidden="true" class="line-numbers-rows"><span></span><span
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/">
-                        <span class="chip bg-color">中间件</span>
-                    </a>
-                    
-                    <a href="/tags/Elasticsearch/">
-                        <span class="chip bg-color">Elasticsearch</span>
+                    <a href="/tags/Kubernetes/">
+                        <span class="chip bg-color">Kubernetes</span>
                     </a>
                     
                 </div>

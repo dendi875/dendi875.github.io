@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2022-08-31T12:34:28.178Z</updated>
+  <updated>2022-09-01T08:29:51.506Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Kubernetes Helm 模板之内置函数和Values</title>
+    <link href="https://www.zhangquan.me/2022/09/01/kubernetes-helm-mo-ban-zhi-nei-zhi-han-shu-he-values/"/>
+    <id>https://www.zhangquan.me/2022/09/01/kubernetes-helm-mo-ban-zhi-nei-zhi-han-shu-he-values/</id>
+    <published>2022-09-01T07:55:12.000Z</published>
+    <updated>2022-09-01T08:29:51.506Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Kubernetes-Helm-模板之内置函数和Values&quot;&gt;&lt;a href=&quot;#Kubernetes-Helm-模板之内置函数和Values&quot; class=&quot;headerlink&quot; title=&quot;Kubernetes Helm</summary>
+        
+      
+    
+    
+    
+    <category term="Kubernetes" scheme="https://www.zhangquan.me/categories/Kubernetes/"/>
+    
+    
+    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
+    
+  </entry>
   
   <entry>
     <title>Kubernetes 包管理工具 Helm</title>
@@ -493,34 +518,6 @@
     <category term="Java8" scheme="https://www.zhangquan.me/tags/Java8/"/>
     
     <category term="Streams" scheme="https://www.zhangquan.me/tags/Streams/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>不停服不修改代码条件下重建 Elasticsearch 索引</title>
-    <link href="https://www.zhangquan.me/2022/07/10/bu-ting-fu-bu-xiu-gai-dai-ma-tiao-jian-xia-chong-jian-elasticsearch-suo-yin/"/>
-    <id>https://www.zhangquan.me/2022/07/10/bu-ting-fu-bu-xiu-gai-dai-ma-tiao-jian-xia-chong-jian-elasticsearch-suo-yin/</id>
-    <published>2022-07-10T10:40:02.000Z</published>
-    <updated>2022-07-10T10:42:44.410Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/es.png&quot;&gt;&lt;/p&gt;
-&lt;h2 id=&quot;一、前言&quot;&gt;&lt;a href=&quot;#一、前言&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="Elasticsearch" scheme="https://www.zhangquan.me/categories/Elasticsearch/"/>
-    
-    
-    <category term="中间件" scheme="https://www.zhangquan.me/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
-    
-    <category term="Elasticsearch" scheme="https://www.zhangquan.me/tags/Elasticsearch/"/>
     
   </entry>
   

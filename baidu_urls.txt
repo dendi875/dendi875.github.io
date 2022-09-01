@@ -1,3 +1,4 @@
+https://www.zhangquan.me/2022/09/01/kubernetes-helm-mo-ban-zhi-nei-zhi-han-shu-he-values/
 https://www.zhangquan.me/2022/08/31/kubernetes-bao-guan-li-gong-ju-helm/
 https://www.zhangquan.me/2022/08/29/kubernetes-storageclass-de-shi-yong/
 https://www.zhangquan.me/2022/08/28/kubernetes-ingress-traefik-de-an-zhuang-ji-jian-dan-shi-yong/
