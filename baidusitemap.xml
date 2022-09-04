@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.zhangquan.me/2022/09/04/shi-yong-prometheus-jian-kong-kubernetes-zhong-chang-yong-de-zi-yuan-dui-xiang/</loc>
+    <lastmod>2022-09-04</lastmod>
+  </url>
+  <url>
+    <loc>https://www.zhangquan.me/2022/09/04/shi-yong-prometheus-jian-kong-kubernetes-ji-qun-jie-dian/</loc>
+    <lastmod>2022-09-04</lastmod>
+  </url>
+  <url>
+    <loc>https://www.zhangquan.me/2022/09/04/shi-yong-prometheus-jian-kong-kubernetes-ji-qun-zhong-de-ying-yong/</loc>
+    <lastmod>2022-09-04</lastmod>
+  </url>
+  <url>
+    <loc>https://www.zhangquan.me/2022/09/04/kubernetes-zhong-shou-dong-an-zhuang-prometheus/</loc>
+    <lastmod>2022-09-04</lastmod>
+  </url>
+  <url>
     <loc>https://www.zhangquan.me/2022/09/01/kubernetes-helm-mo-ban-zhi-nei-zhi-han-shu-he-values/</loc>
     <lastmod>2022-09-01</lastmod>
   </url>

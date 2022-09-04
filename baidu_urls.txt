@@ -1,3 +1,7 @@
+https://www.zhangquan.me/2022/09/04/shi-yong-prometheus-jian-kong-kubernetes-zhong-chang-yong-de-zi-yuan-dui-xiang/
+https://www.zhangquan.me/2022/09/04/shi-yong-prometheus-jian-kong-kubernetes-ji-qun-jie-dian/
+https://www.zhangquan.me/2022/09/04/shi-yong-prometheus-jian-kong-kubernetes-ji-qun-zhong-de-ying-yong/
+https://www.zhangquan.me/2022/09/04/kubernetes-zhong-shou-dong-an-zhuang-prometheus/
 https://www.zhangquan.me/2022/09/01/kubernetes-helm-mo-ban-zhi-nei-zhi-han-shu-he-values/
 https://www.zhangquan.me/2022/08/31/kubernetes-bao-guan-li-gong-ju-helm/
 https://www.zhangquan.me/2022/08/29/kubernetes-storageclass-de-shi-yong/
