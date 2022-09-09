@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2022-09-09T03:52:36.791Z</updated>
+  <updated>2022-09-09T05:28:42.968Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Prometheus报警系统AlertManager</title>
+    <link href="https://www.zhangquan.me/2022/09/09/prometheus-bao-jing-xi-tong-alertmanager/"/>
+    <id>https://www.zhangquan.me/2022/09/09/prometheus-bao-jing-xi-tong-alertmanager/</id>
+    <published>2022-09-09T05:27:50.000Z</published>
+    <updated>2022-09-09T05:28:42.968Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Prometheus报警系统AlertManager&quot;&gt;&lt;a href=&quot;#Prometheus报警系统AlertManager&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Kubernetes" scheme="https://www.zhangquan.me/categories/Kubernetes/"/>
+    
+    
+    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
+    
+    <category term="Prometheus" scheme="https://www.zhangquan.me/tags/Prometheus/"/>
+    
+    <category term="AlertManager" scheme="https://www.zhangquan.me/tags/AlertManager/"/>
+    
+  </entry>
   
   <entry>
     <title>Prometheus 查询语言 PromQL 使用说明</title>
@@ -491,31 +520,6 @@
         
         
     <summary type="html">&lt;h1 id=&quot;图解Kubernetes-Ingress&quot;&gt;&lt;a href=&quot;#图解Kubernetes-Ingress&quot; class=&quot;headerlink&quot; title=&quot;图解Kubernetes Ingress&quot;&gt;&lt;/a&gt;图解Kubernetes</summary>
-        
-      
-    
-    
-    
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/categories/Kubernetes/"/>
-    
-    
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Kubernetes Service实践练习</title>
-    <link href="https://www.zhangquan.me/2022/08/21/kubernetes-service-shi-jian-lian-xi/"/>
-    <id>https://www.zhangquan.me/2022/08/21/kubernetes-service-shi-jian-lian-xi/</id>
-    <published>2022-08-21T14:40:51.000Z</published>
-    <updated>2022-08-21T14:44:40.090Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;Kubernetes-Service实践练习&quot;&gt;&lt;a href=&quot;#Kubernetes-Service实践练习&quot; class=&quot;headerlink&quot; title=&quot;Kubernetes  Service实践练习&quot;&gt;&lt;/a&gt;Kubernetes </summary>
         
       
     
