@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Kubernetes HPA, PHP,Java,Go,MySQL,Linux,Docker等">
+    <meta name="keywords" content="Prometheus 查询语言 PromQL 使用说明, PHP,Java,Go,MySQL,Linux,Docker等">
     <meta name="description" content="PHP Go MySQL 后端开发">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Kubernetes HPA | 一代键客</title>
+    <title>Prometheus 查询语言 PromQL 使用说明 | 一代键客</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -327,12 +327,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Kubernetes HPA</h1>
+                    <h1 class="description center-align post-title">Prometheus 查询语言 PromQL 使用说明</h1>
                 </div>
             </div>
         </div>
@@ -452,6 +452,10 @@
                                 <span class="chip bg-color">Kubernetes</span>
                             </a>
                         
+                            <a href="/tags/Prometheus/">
+                                <span class="chip bg-color">Prometheus</span>
+                            </a>
+                        
                     </div>
                     
                 </div>
@@ -473,14 +477,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-08-28
+                    2022-09-07
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-08-28
+                    2022-09-09
                 </div>
                 
 
@@ -494,7 +498,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    21 分
+                    15 分
                 </div>
                 
 
@@ -517,409 +521,211 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Kubernetes-HPA"><a href="#Kubernetes-HPA" class="headerlink" title="Kubernetes HPA"></a>Kubernetes HPA</h1><p>在  k8s 中我们可以使用 <code>kubectl scale</code> 命令可以来实现 Pod 的扩缩容功能，但是这个毕竟是完全手动操作的，要应对线上的各种复杂情况，我们需要能够做到自动化去感知业务，来自动进行扩缩容。为此，Kubernetes 也为我们提供了这样的一个资源对象：<code>Horizontal Pod Autoscaling（Pod 水平自动伸缩）</code>，简称<code>HPA</code>，HPA 通过监控分析一些控制器控制的所有 Pod 的负载变化情况来确定是否需要调整 Pod 的副本数量，这是 HPA 最基本的原理：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-hpa-1.jpeg"></p>
-<p>我们可以简单的通过 <code>kubectl autoscale</code> 命令来创建一个 HPA 资源对象，<code>HPA Controller</code>默认<code>30s</code>轮询一次（可通过 <code>kube-controller-manager</code> 的<code>--horizontal-pod-autoscaler-sync-period</code> 参数进行设置），查询指定的资源中的 Pod 资源使用率，并且与创建时设定的值和指标做对比，从而实现自动伸缩的功能。</p>
-<h2 id="Metrics-Server"><a href="#Metrics-Server" class="headerlink" title="Metrics Server"></a>Metrics Server</h2><p><code>Metrics Server</code> 可以通过标准的 Kubernetes API 把监控数据暴露出来，有了 <code>Metrics Server</code> 之后，我们就完全可以通过标准的 Kubernetes API 来访问我们想要获取的监控数据了</p>
-<p>参考说明：<a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/">https://kubernetes.io/zh-cn/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/</a></p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">kubectl get --raw "/apis/metrics.k8s.io/v1beta1/namespaces/&lt;namespace-name&gt;/pods/&lt;pod-name&gt;" | jq '.'<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+                <h1 id="Prometheus-查询语言-PromQL-使用说明"><a href="#Prometheus-查询语言-PromQL-使用说明" class="headerlink" title="Prometheus 查询语言 PromQL 使用说明"></a>Prometheus 查询语言 PromQL 使用说明</h1><p>Prometheus 通过指标名称（metrics name）以及对应的一组标签（label）唯一定义一条时间序列。指标名称反映了监控样本的基本标识，而 label 则在这个基本特征上为采集到的数据提供了多种特征维度。用户可以基于这些特征维度过滤、聚合、统计从而产生新的计算后的一条时间序列。</p>
+<p><code>PromQL（Prometheus Query Language）</code> 是 Prometheus 内置的数据查询语言，其提供对时间序列数据丰富的查询，聚合以及逻辑运算能力的支持。并且被广泛应用在 Prometheus 的日常应用当中，包括对数据查询、可视化、告警处理。可以这么说，<code>PromQL</code> 是 Prometheus 所有应用场景的基础，理解和掌握 <code>PromQL</code> 是我们使用 Prometheus 必备的技能。</p>
+<h2 id="时间序列"><a href="#时间序列" class="headerlink" title="时间序列"></a>时间序列</h2><p>通过 node-exporter 暴露的 metrics 服务，Prometheus 可以采集到当前主机所有监控指标的样本数据。例如：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># HELP node_cpu_seconds_total Seconds the cpus spent in each mode.
+# TYPE node_cpu_seconds_total counter
+node_cpu_seconds_total{cpu="0",mode="idle"} 6.62885731e+06
+# HELP node_load1 1m load average.
+# TYPE node_load1 gauge
+node_load1 2.29<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>这是使用 <code>curl</code> 来完成的相同 API 调用：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">curl https://localhost:8080/apis/metrics.k8s.io/v1beta1/namespaces/&lt;namespace-name&gt;/pods/&lt;pod-name&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>其中非 <code>#</code> 开头的每一行表示当前 node-exporter 采集到的一个监控样本：<code>node_cpu_seconds_total</code>和 <code>node_load1</code> 表明了当前指标的名称、大括号中的标签则反映了当前样本的一些特征和维度、浮点数则是该监控样本的具体值。</p>
+<p>Prometheus 会将所有采集到的样本数据以时间序列的方式保存在<strong>内存数据库</strong>中，并且定时保存到硬盘上。时间序列是按照时间戳和值的序列顺序存放的，我们称之为向量(vector)，每条时间序列通过指标名称(metrics name)和一组标签集(labelset)命名。如下所示，可以将时间序列理解为一个以时间为 X 轴的数字矩阵：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">^
+│   . . . . . . . . . . . . . . . . .   . .   node_cpu_seconds_total{cpu="cpu0",mode="idle"}
+│     . . . . . . . . . . . . . . . . . . .   node_cpu_seconds_total{cpu="cpu0",mode="system"}
+│     . . . . . . . . . .   . . . . . . . .   node_load1{}
+│     . . . . . . . . . . . . . . . .   . .  
+v
+  &lt;------------------ 时间 ----------------&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>比如当我们访问上面的 API 的时候，我们就可以获取到该 Pod 的资源数据，这些数据其实是来自于 kubelet 的 <code>Summary API</code> 采集而来的。不过需要说明的是我们这里可以通过标准的 API 来获取资源监控数据，并不是因为 <code>Metrics Server</code> 就是 APIServer 的一部分，而是通过 Kubernetes 提供的 <code>Aggregator</code> 汇聚插件来实现的，是独立于 APIServer 之外运行的。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220828161732.png"></p>
-<h3 id="聚合-API"><a href="#聚合-API" class="headerlink" title="聚合 API"></a>聚合 API</h3><p><code>Aggregator</code> 允许开发人员编写一个自己的服务，把这个服务注册到 Kubernetes 的 APIServer 里面去，这样我们就可以像原生的 APIServer 提供的 API 使用自己的 API 了，我们把自己的服务运行在 Kubernetes 集群里面，然后 Kubernetes 的 <code>Aggregator</code> 通过 Service 名称就可以转发到我们自己写的 Service 里面去了。这样这个聚合层就带来了很多好处：</p>
+<p>在时间序列中的每一个点称为一个样本（sample），样本由以下三部分组成：</p>
 <ul>
-<li>增加了 API 的扩展性，开发人员可以编写自己的 API 服务来暴露他们想要的 API。</li>
-<li>丰富了 API，核心 kubernetes 团队阻止了很多新的 API 提案，通过允许开发人员将他们的 API 作为单独的服务公开，这样就无须社区繁杂的审查了。</li>
-<li>开发分阶段实验性 API，新的 API 可以在单独的聚合服务中开发，当它稳定之后，在合并会 APIServer 就很容易了。</li>
-<li>确保新 API 遵循 Kubernetes 约定，如果没有这里提出的机制，社区成员可能会被迫推出自己的东西，这样很可能造成社区成员和社区约定不一致。</li>
+<li>指标(metric)：metric name 和描述当前样本特征的 labelsets</li>
+<li>时间戳(timestamp)：一个精确到毫秒的时间戳</li>
+<li>样本值(value)： 一个 float64 的浮点型数据表示当前样本的值</li>
 </ul>
-<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>我们要使用 HPA，就需要在集群中安装 <code>Metrics Server</code> 服务，要安装 <code>Metrics Server</code> 就需要开启 <code>Aggregator</code>，因为 <code>Metrics Server</code> 就是通过该代理进行扩展的，不过我们集群是通过 Kubeadm 搭建的，默认已经开启了。</p>
-<p><code>Aggregator</code> 聚合层启动完成后，就可以来安装 <code>Metrics Server</code> 了，我们可以获取该仓库的官方安装资源清单：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 官方仓库地址：https://github.com/kubernetes-sigs/metrics-server
+<p>如下所示：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">&lt;--------------- metric ---------------------&gt;&lt;-timestamp -&gt;&lt;-value-&gt;
+http_request_total{status="200", method="GET"}@1434417560938 =&gt; 94355
+http_request_total{status="200", method="GET"}@1434417561287 =&gt; 94334
 
-$ wget https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.3.6/components.yaml -O ~/download/metrics-server.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+http_request_total{status="404", method="GET"}@1434417560938 =&gt; 38473
+http_request_total{status="404", method="GET"}@1434417561287 =&gt; 38544
 
-<p>在部署之前，修改 <code>components.yaml</code> 的镜像地址为：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">containers:
-- name: metrics-server
-  image: registry.aliyuncs.com/google_containers/metrics-server-amd64:v0.3.6<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+http_request_total{status="200", method="POST"}@1434417560938 =&gt; 4748
+http_request_total{status="200", method="POST"}@1434417561287 =&gt; 4785<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>等部署完成后，可以查看 Pod 日志是否正常：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl apply -f download/metrics-server.yaml 
- 
-[root@k8s-master ~]# kubectl get pods -n kube-system -l k8s-app=metrics-server
-NAME                             READY   STATUS    RESTARTS   AGE
-metrics-server-75665d756-jdpw5   1/1     Running   0          2m22s
+<p>在形式上，所有的指标(Metric)都通过如下格式表示：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">&lt;metric name&gt;{&lt;label name&gt; = &lt;label value&gt;, ...}<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-[root@k8s-master ~]# kubectl logs -f metrics-server-75665d756-jdpw5 -n kube-system
+<ul>
+<li>指标的名称(metric name)可以反映被监控样本的含义（比如，http_request_total - 表示当前系统接收到的 HTTP 请求总量）。指标名称只能由 ASCII 字符、数字、下划线以及冒号组成并必须符合正则表达式<code>[a-zA-Z_:][a-zA-Z0-9_:]*</code>。</li>
+<li>标签(label)反映了当前样本的特征维度，通过这些维度 Prometheus 可以对样本数据进行过滤，聚合等。标签的名称只能由 ASCII 字符、数字以及下划线组成并满足正则表达式 <code>[a-zA-Z_][a-zA-Z0-9_]*</code>。</li>
+</ul>
+<p>每个不同的 <code>metric_name</code>和 <code>label</code> 组合都称为<strong>时间序列</strong>，在 Prometheus 的表达式语言中，表达式或子表达式包括以下四种类型之一：</p>
+<ul>
+<li>瞬时向量（Instant vector）：一组时间序列，每个时间序列包含单个样本，它们共享相同的时间戳。也就是说，表达式的返回值中只会包含该时间序列中的最新的一个样本值。而相应的这样的表达式称之为瞬时向量表达式。</li>
+<li>区间向量（Range vector）：一组时间序列，每个时间序列包含一段时间范围内的样本数据，这些是通过将时间选择器附加到方括号中的瞬时向量（例如[5m]5分钟）而生成的。</li>
+<li>标量（Scalar）：一个简单的数字浮点值。</li>
+<li>字符串（String）：一个简单的字符串值。</li>
+</ul>
+<p>所有这些指标都是 Prometheus 定期从 metrics 接口那里采集过来的。采集的间隔时间的设置由 <code>prometheus.yaml</code> 配置中的 <code>scrape_interval</code> 指定。最多抓取间隔为30秒，这意味着至少每30秒就会有一个带有新时间戳记录的新数据点，这个值可能会更改，也可能不会更改，但是每隔 <code>scrape_interval</code> 都会产生一个新的数据点。</p>
+<h2 id="指标类型"><a href="#指标类型" class="headerlink" title="指标类型"></a>指标类型</h2><p>从存储上来讲所有的监控指标 metric 都是相同的，但是在不同的场景下这些 metric 又有一些细微的差异。 例如，在 Node Exporter 返回的样本中指标 <code>node_load1</code> 反应的是当前系统的负载状态，随着时间的变化这个指标返回的样本数据是在不断变化的。而指标 <code>node_cpu_seconds_total</code> 所获取到的样本数据却不同，它是一个持续增大的值，因为其反应的是 CPU 的累计使用时间，从理论上讲只要系统不关机，这个值是会一直变大。</p>
+<p>为了能够帮助用户理解和区分这些不同监控指标之间的差异，Prometheus 定义了4种不同的指标类型：Counter（计数器）、Gauge（仪表盘）、Histogram（直方图）、Summary（摘要）。</p>
+<p>在 node-exporter 返回的样本数据中，其注释中也包含了该样本的类型。例如：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># HELP node_cpu_seconds_total Seconds the cpus spent in each mode.
+# TYPE node_cpu_seconds_total counter
+node_cpu_seconds_total{cpu="cpu0",mode="idle"} 362812.7890625<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="Counter"><a href="#Counter" class="headerlink" title="Counter"></a>Counter</h3><p><code>Counter</code> (只增不减的计数器) 类型的指标其工作方式和计数器一样，只增不减。常见的监控指标，如 <code>http_requests_total</code>、<code>node_cpu_seconds_total</code> 都是 <code>Counter</code> 类型的监控指标。</p>
+<p><code>Counter</code> 是一个简单但又强大的工具，例如我们可以在应用程序中记录某些事件发生的次数，通过以时间序列的形式存储这些数据，我们可以轻松的了解该事件产生的速率变化。<code>PromQL</code> 内置的聚合操作和函数可以让用户对这些数据进行进一步的分析，例如，通过 <code>rate()</code> 函数获取 HTTP 请求量的增长率：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">rate(http_requests_total[5m])<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>查询当前系统中，访问量前 10 的 HTTP 请求：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">topk(10, http_requests_total)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="Gauge"><a href="#Gauge" class="headerlink" title="Gauge"></a>Gauge</h3><p>与 <code>Counter</code> 不同，<code>Gauge</code>（可增可减的仪表盘）类型的指标侧重于反应系统的当前状态。因此这类指标的样本数据可增可减。常见指标如：<code>node_memory_MemFree_bytes</code>（主机当前空闲的内存大小）、<code>node_memory_MemAvailable_bytes</code>（可用内存大小）都是 <code>Gauge</code> 类型的监控指标。通过 <code>Gauge</code>指标，用户可以直接查看系统的当前状态：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">node_memory_MemFree_bytes<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>对于 <code>Gauge</code> 类型的监控指标，通过 <code>PromQL</code> 内置函数 <code>delta()</code> 可以获取样本在一段时间范围内的变化情况。例如，计算 CPU 温度在两个小时内的差异：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">delta(cpu_temp_celsius{host="zeus"}[2h])<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>还可以直接使用 <code>predict_linear()</code> 对数据的变化趋势进行预测。例如，预测系统磁盘空间在4个小时之后的剩余情况：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">predict_linear(node_filesystem_free_bytes[1h], 4 * 3600)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="Histogram-和-Summary"><a href="#Histogram-和-Summary" class="headerlink" title="Histogram 和 Summary"></a>Histogram 和 Summary</h3><p>除了 <code>Counter</code> 和 <code>Gauge</code> 类型的监控指标以外，Prometheus 还定义了 <code>Histogram</code> 和 <code>Summary</code> 的指标类型。<code>Histogram</code> 和 <code>Summary</code> 主用用于统计和分析样本的分布情况。</p>
+<p>在大多数情况下人们都倾向于使用某些量化指标的平均值，例如 CPU 的平均使用率、页面的平均响应时间，这种方式也有很明显的问题，以系统 API 调用的平均响应时间为例：如果大多数 API 请求都维持在 100ms 的响应时间范围内，而个别请求的响应时间需要 5s，那么就会导致某些 WEB 页面的响应时间落到<strong>中位数</strong>上，而这种现象被称为<strong>长尾问题</strong>。</p>
+<p>为了区分是平均的慢还是长尾的慢，最简单的方式就是按照请求延迟的范围进行分组。例如，统计延迟在 0<del>10ms 之间的请求数有多少而 10</del>20ms 之间的请求数又有多少。通过这种方式可以快速分析系统慢的原因。<code>Histogram</code> 和 <code>Summary</code> 都是为了能够解决这样的问题存在的，通过 <code>Histogram</code> 和<code>Summary</code> 类型的监控指标，我们可以快速了解监控样本的分布情况。</p>
+<p>例如，指标 <code>prometheus_tsdb_wal_fsync_duration_seconds</code> 的指标类型为 Summary。它记录了 Prometheus Server 中 <code>wal_fsync</code> 的处理时间，通过访问 Prometheus Server 的 <code>/metrics</code> 地址，可以获取到以下监控样本数据：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get svc -n kube-mon
+NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)             AGE
+grafana      NodePort    10.96.179.102   &lt;none&gt;        3000:30907/TCP      20h
+prometheus   NodePort    10.96.146.110   &lt;none&gt;        9090:32640/TCP      2d16h
+redis        ClusterIP   10.96.143.235   &lt;none&gt;        6379/TCP,9121/TCP   2d15h<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# curl http://localhost:32640/metrics
 ......
-E0828 08:29:03.977217       1 manager.go:111] unable to fully collect metrics: [unable to fully scrape metrics from source kubelet_summary:k8s-node2: unable to fetch metrics from Kubelet k8s-node2 (k8s-node2): Get https://k8s-node2:10250/stats/summary?only_cpu_and_memory=true: dial tcp: lookup k8s-node2 on 10.96.0.10:53: no such host, unable to fully scrape metrics from source kubelet_summary:k8s-node1: unable to fetch metrics from Kubelet k8s-node1 (k8s-node1): Get https://k8s-node1:10250/stats/summary?only_cpu_and_memory=true: dial tcp: lookup k8s-node1 on 10.96.0.10:53: no such host, unable to fully scrape metrics from source kubelet_summary:k8s-master: unable to fetch metrics from Kubelet k8s-master (k8s-master): Get https://k8s-master:10250/stats/summary?only_cpu_and_memory=true: dial tcp: lookup k8s-master on 10.96.0.10:53: no such host]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>我们可以发现 Pod 中出现了一些错误信息：<code>xxx: no such host</code>，我们看到这个错误信息一般就可以确定是 DNS 解析不了造成的，我们可以看到 Metrics Server 会通过 kubelet 的 10250 端口获取信息，使用的是 hostname，我们部署集群的时候在节点的 <code>/etc/hosts</code> 里面添加了节点的 hostname 和 ip 的映射，但是是我们的 Metrics Server 的 Pod 内部并没有这个 hosts 信息，当然也就不识别 hostname 了，要解决这个问题，有两种方法：</p>
-<p>第一种方法就是在集群内部的 DNS 服务里面添加上 hostname 的解析，比如我们这里集群中使用的是 <code>CoreDNS</code>，我们就可以去修改下 CoreDNS 的 Configmap 信息，添加上 hosts 信息：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ kubectl edit configmap coredns -n kube-system
-apiVersion: v1
-data:
-  Corefile: |
-    .:53 {
-        errors
-        health
-        hosts {  # 添加集群节点hosts隐射信息
-          172.31.0.2 k8s-master
-          172.31.0.3 k8s-node1
-          172.31.0.4 k8s-node2
-          fallthrough
-        }
-        kubernetes cluster.local in-addr.arpa ip6.arpa {
-           pods insecure
-           upstream
-           fallthrough in-addr.arpa ip6.arpa
-        }
-        prometheus :9153
-        proxy . /etc/resolv.conf
-        cache 30
-        reload
-    }
-kind: ConfigMap
-metadata:
-  creationTimestamp: 2019-05-18T11:07:46Z
-  name: coredns
-  namespace: kube-system<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>这样当在集群内部的 Pod 访问集群节点的 hostname 的时候就可以解析到对应的 ip 了，另外一种方法（<a target="_blank" rel="noopener" href="https://github.com/kubernetes-sigs/metrics-server%EF%BC%89%E5%B0%B1%E6%98%AF%E5%9C%A8">https://github.com/kubernetes-sigs/metrics-server）就是在</a> metrics-server 的启动参数中修改 <code>kubelet-preferred-address-types</code> 参数，如下：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">args:
-- --cert-dir=/tmp
-- --secure-port=4443
-- --kubelet-preferred-address-types=InternalIP<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>我们这里使用第二种方式，然后重新安装：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl delete -f download/metrics-server.yaml
-[root@k8s-master ~]# kubectl apply -f download/metrics-server.yaml 
-
-[root@k8s-master ~]# kubectl get pods -n kube-system -l k8s-app=metrics-server
-NAME                              READY   STATUS    RESTARTS   AGE
-metrics-server-78f654ccdd-wcf8t   1/1     Running   0          91s
-
-[root@k8s-master ~]# kubectl logs -f metrics-server-78f654ccdd-wcf8t -n kube-system
-......
-E0828 08:47:12.412582       1 manager.go:111] unable to fully collect metrics: [unable to fully scrape metrics from source kubelet_summary:k8s-node1: unable to fetch metrics from Kubelet k8s-node1 (172.31.0.3): Get https://172.31.0.3:10250/stats/summary?only_cpu_and_memory=true: x509: cannot validate certificate for 172.31.0.3 because it doesn't contain any IP SANs, unable to fully scrape metrics from source kubelet_summary:k8s-master: unable to fetch metrics from Kubelet k8s-master (172.31.0.2): Get https://172.31.0.2:10250/stats/summary?only_cpu_and_memory=true: x509: cannot validate certificate for 172.31.0.2 because it doesn't contain any IP SANs, unable to fully scrape metrics from source kubelet_summary:k8s-node2: unable to fetch metrics from Kubelet k8s-node2 (172.31.0.4): Get https://172.31.0.4:10250/stats/summary?only_cpu_and_memory=true: x509: cannot validate certificate for 172.31.0.4 because it doesn't contain any IP SANs]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>因为部署集群的时候，CA 证书并没有把各个节点的 IP 签上去，所以这里 <code>Metrics Server</code> 通过 IP 去请求时，提示签的证书没有对应的 IP（错误：<code>x509: cannot validate certificate for 172.31.0.3 because it doesn’t contain any IP SANs</code>），我们可以添加一个<code>--kubelet-insecure-tls</code>参数跳过证书校验：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">args:
-- --cert-dir=/tmp
-- --secure-port=4443
-- --kubelet-insecure-tls
-- --kubelet-preferred-address-types=InternalIP<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>然后再重新安装即可成功！可以通过如下命令来验证：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl delete -f download/metrics-server.yaml
-[root@k8s-master ~]# kubectl apply -f download/metrics-server.yaml 
-
-[root@k8s-master ~]# kubectl get pods -n kube-system -l k8s-app=metrics-server
-NAME                             READY   STATUS    RESTARTS   AGE
-metrics-server-9b4dc89d7-jnmr7   1/1     Running   0          14s
-
-[root@k8s-master ~]# kubectl logs -f metrics-server-9b4dc89d7-jnmr7 -n kube-system
-I0828 08:51:12.584555       1 serving.go:312] Generated self-signed cert (/tmp/apiserver.crt, /tmp/apiserver.key)
-I0828 08:51:13.012958       1 secure_serving.go:116] Serving securely on [::]:4443
-......
-
-[root@k8s-master ~]#  kubectl get apiservice | grep metrics
-v1beta1.metrics.k8s.io                 kube-system/metrics-server   True        67s
+# HELP prometheus_tsdb_wal_fsync_duration_seconds Duration of WAL fsync.
+# TYPE prometheus_tsdb_wal_fsync_duration_seconds summary
+prometheus_tsdb_wal_fsync_duration_seconds{quantile="0.5"} 0.012352463
+prometheus_tsdb_wal_fsync_duration_seconds{quantile="0.9"} 0.014458005
+prometheus_tsdb_wal_fsync_duration_seconds{quantile="0.99"} 0.017316173
+prometheus_tsdb_wal_fsync_duration_seconds_sum 2.888716127000002
+prometheus_tsdb_wal_fsync_duration_seconds_count 216
+......<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
-[root@k8s-master ~]# kubectl get --raw "/apis/metrics.k8s.io/v1beta1/nodes"
-{"kind":"NodeMetricsList","apiVersion":"metrics.k8s.io/v1beta1","metadata":{"selfLink":"/apis/metrics.k8s.io/v1beta1/nodes"},"items":[{"metadata":{"name":"k8s-master","selfLink":"/apis/metrics.k8s.io/v1beta1/nodes/k8s-master","creationTimestamp":"2022-08-28T08:53:06Z"},"timestamp":"2022-08-28T08:52:05Z","window":"30s","usage":{"cpu":"135321453n","memory":"1509068Ki"}},{"metadata":{"name":"k8s-node1","selfLink":"/apis/metrics.k8s.io/v1beta1/nodes/k8s-node1","creationTimestamp":"2022-08-28T08:53:06Z"},"timestamp":"2022-08-28T08:52:11Z","window":"30s","usage":{"cpu":"64140701n","memory":"708528Ki"}},{"metadata":{"name":"k8s-node2","selfLink":"/apis/metrics.k8s.io/v1beta1/nodes/k8s-node2","creationTimestamp":"2022-08-28T08:53:06Z"},"timestamp":"2022-08-28T08:52:04Z","window":"30s","usage":{"cpu":"63743191n","memory":"830800Ki"}}]}
+
+<p>从上面的样本中可以得知当前 Prometheus Server 进行 <code>wal_fsync</code> 操作的总次数为216次，耗时2.888716127000002s。其中中位数（quantile=0.5）的耗时为0.012352463，9分位数（quantile=0.9）的耗时为0.014458005s。</p>
+<p>在 Prometheus Server 自身返回的样本数据中，我们还能找到类型为 Histogram 的监控指标<code>prometheus_tsdb_compaction_chunk_range_seconds_bucket</code>：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># HELP prometheus_tsdb_compaction_chunk_range_seconds Final time range of chunks on their first compaction
+# TYPE prometheus_tsdb_compaction_chunk_range_seconds histogram
+prometheus_tsdb_compaction_chunk_range_seconds_bucket{le="100"} 71
+prometheus_tsdb_compaction_chunk_range_seconds_bucket{le="400"} 71
+prometheus_tsdb_compaction_chunk_range_seconds_bucket{le="1600"} 71
+prometheus_tsdb_compaction_chunk_range_seconds_bucket{le="6400"} 71
+prometheus_tsdb_compaction_chunk_range_seconds_bucket{le="25600"} 405
+prometheus_tsdb_compaction_chunk_range_seconds_bucket{le="102400"} 25690
+prometheus_tsdb_compaction_chunk_range_seconds_bucket{le="409600"} 71863
+prometheus_tsdb_compaction_chunk_range_seconds_bucket{le="1.6384e+06"} 115928
+prometheus_tsdb_compaction_chunk_range_seconds_bucket{le="6.5536e+06"} 2.5687892e+07
+prometheus_tsdb_compaction_chunk_range_seconds_bucket{le="2.62144e+07"} 2.5687896e+07
+prometheus_tsdb_compaction_chunk_range_seconds_bucket{le="+Inf"} 2.5687896e+07
+prometheus_tsdb_compaction_chunk_range_seconds_sum 4.7728699529576e+13
+prometheus_tsdb_compaction_chunk_range_seconds_count 2.5687896e+07<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
-[root@k8s-master ~]# kubectl top nodes
-NAME         CPU(cores)   CPU%   MEMORY(bytes)   MEMORY%   
-k8s-master   151m         7%     1456Mi          37%       
-k8s-node1    72m          3%     689Mi           17%       
-k8s-node2    65m          3%     811Mi           21% <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>现在我们可以通过 <code>kubectl top</code> 命令来获取到资源数据了，证明 <code>Metrics Server</code> 已经安装成功了。</p>
-<h2 id="HAP"><a href="#HAP" class="headerlink" title="HAP"></a>HAP</h2><p>现在我们用 Deployment 来创建一个 Nginx Pod，然后利用 <code>HPA</code> 来进行自动扩缩容。资源清单如下所示：（hpa-demo.yaml）</p>
-<p>把 hap 相关资源文件统一放在 hap 目录下</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# mkdir ~/hap<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>与 <code>Summary</code> 类型的指标相似之处在于 <code>Histogram</code> 类型的样本同样会反应当前指标的记录的总数(以 <code>_count</code> 作为后缀)以及其值的总量（以 <code>_sum</code> 作为后缀）。不同在于 <code>Histogram</code> 指标直接反应了在不同区间内样本的个数，区间通过标签 le 进行定义。</p>
+<h2 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h2><p>当 Prometheus 采集到监控指标样本数据后，我们就可以通过 PromQL 对监控样本数据进行查询。基本的 Prometheus 查询的结构非常类似于一个 metric 指标，以指标名称开始。</p>
+<h3 id="查询结构"><a href="#查询结构" class="headerlink" title="查询结构"></a>查询结构</h3><p>比如只查询 <code>node_cpu_seconds_total</code> 则会返回所有采集节点的所有类型的 CPU 时长数据，当然如果数据量特别特别大的时候，直接在 Grafana 执行该查询操作的时候，则可能导致浏览器崩溃，因为它同时需要渲染的数据点太多。</p>
+<p>接下来，可以使用标签进行过滤查询，标签过滤器支持4种运算符：</p>
+<ul>
+<li><code>=</code> 等于</li>
+<li><code>!=</code> 不等于</li>
+<li><code>=~</code> 匹配正则表达式</li>
+<li><code>!~</code> 与正则表达式不匹配</li>
+</ul>
+<p>标签过滤器都位于指标名称后面的<code>{}</code>内，比如过滤 master 节点的 CPU 使用数据可用如下查询语句：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">node_cpu_seconds_total{instance="k8s-master"}<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> hpa<span class="token punctuation">-</span>demo
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
-    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
-      <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
-  <span class="token key atrule">template</span><span class="token punctuation">:</span>
-    <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
-        <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
-    <span class="token key atrule">spec</span><span class="token punctuation">:</span>
-      <span class="token key atrule">containers</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
-        <span class="token key atrule">image</span><span class="token punctuation">:</span> nginx
-        <span class="token key atrule">ports</span><span class="token punctuation">:</span>
-        <span class="token punctuation">-</span> <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">80</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p><strong>Note</strong></p>
+<p>PromQL 查询语句中的正则表达式匹配使用 <a target="_blank" rel="noopener" href="https://github.com/google/re2/wiki/Syntax">RE2语法</a>。</p>
+</blockquote>
+<p>此外我们还可以使用多个标签过滤器，以逗号分隔。多个标签过滤器之间是 <code>AND</code> 的关系，所以使用多个标签进行过滤，返回的指标数据必须和所有标签过滤器匹配。</p>
+<p>例如如下查询语句将返回所有以 <code>ydzs-</code>为前缀的节点的并且是 <code>idle</code> 模式下面的节点 CPU 使用时长指标：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">node_cpu_seconds_total{instance=~"k8s-.*", mode="idle"}<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>然后直接创建 Deployment：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl apply -f hpa/hpa-demo.yaml 
-deployment.apps/hpa-demo created
+<h3 id="范围选择器"><a href="#范围选择器" class="headerlink" title="范围选择器"></a>范围选择器</h3><p>我们可以通过将<a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/querying/basics/#range-vector-selectors">时间范围选择器([])</a>附加到查询语句中，指定为每个返回的区间向量样本值中提取多长的时间范围。每个时间戳的值都是按时间倒序记录在时间序列中的，该值是从时间范围内的时间戳获取的对应的值。</p>
+<p>时间范围通过数字来表示，单位可以使用以下其中之一的时间单位：</p>
+<ul>
+<li>s - 秒</li>
+<li>m - 分钟</li>
+<li>h - 小时</li>
+<li>d - 天</li>
+<li>w - 周</li>
+<li>y - 年</li>
+</ul>
+<p>比如 <code>node_cpu_seconds_total{instance="k8s-master", mode="idle"}</code> 这个查询语句，如果添加上 <code>[1m]</code>这个时间范围选择器，则我们可以得到如下所示的信息：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220905141306.png"></p>
+<p>可以看到上面的两个时间序列都有4个值，这是因为我们 Prometheus 中配置的抓取间隔是15秒，所以，我们从图中的 <code>@</code> 符号后面的时间戳可以看出，它们之间的间隔基本上就是15秒。</p>
+<p>但是现在如果我们在 Prometheus 的页面中查询上面的语句，然后切换到 <code>Graph</code> 选项卡的时候，则会出现如下所示的错误信息： </p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220905141436.png"></p>
+<p>这是因为现在每一个时间序列中都有多个时间戳多个值，所以没办法渲染，必须是标量或者瞬时向量才可以绘制图形。</p>
+<p>不过通常区间向量都会应用一个函数后变成可以绘制的瞬时向量，Prometheus 中对瞬时向量和区间向量有很多操作的<a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/querying/functions">函数</a>，不过对于区间向量来说最常用的函数并不多，使用最频繁的有如下几个函数：</p>
+<ul>
+<li><code>rate()</code>: 计算整个时间范围内区间向量中时间序列的每秒平均增长率</li>
+<li><code>irate()</code>: 仅使用时间范围中的<strong>最后两个数据点</strong>来计算区间向量中时间序列的每秒平均增长率，<code>irate</code> 只能用于绘制快速变化的序列，在长期趋势分析或者告警中更推荐使用 <code>rate</code> 函数</li>
+<li><code>increase()</code>: 计算所选时间范围内时间序列的增量，它基本上是速率乘以时间范围选择器中的秒数</li>
+</ul>
+<p>我们选择的时间范围持续时间将确定图表的粒度，比如，持续时间 <code>[1m]</code> ，看起来像这样：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220905142504.png"></p>
+<p>有的时候可能想要查看5分钟前或者昨天一天的区间内的样本数据，这个时候我们就需要用到位移操作了，位移操作的关键字是 <code>offset</code>，比如我们可以查询30分钟之前的 master 节点 CPU 的空闲指标数据：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">node_cpu_seconds_total{instance="k8s-master", mode="idle"} offset 30m<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-[root@k8s-master ~]# kubectl get pods -l app=nginx
-NAME                        READY   STATUS    RESTARTS   AGE
-hpa-demo-7848d4b86f-9sw8b   1/1     Running   0          18s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p><strong>Note</strong></p>
+<p>需要注意的是 <code>offset</code> 关键字需要紧跟在选择器(<code>{}</code>)后面。</p>
+</blockquote>
+<h3 id="关联查询"><a href="#关联查询" class="headerlink" title="关联查询"></a>关联查询</h3><p>Prometheus 没有提供类似与 SQL 语句的关联查询的概念，但是我们可以通过在 Prometheus 上使用 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/querying/operators/">运算符</a> 来组合时间序列，可以应用于多个时间序列或标量值的常规计算、比较和逻辑运算。</p>
+<blockquote>
+<p><strong>Note</strong></p>
+<p>如果将运算符应用于两个瞬时向量，则它将仅应用于匹配的时间序列，当且仅当时间序列具有完全相同的标签集的时候，才认为是匹配的。当表达式左侧的每个序列和右侧的一个序列完全匹配的时候，在序列上使用这些运算符才可以实现一对一匹配。</p>
+</blockquote>
+<p>比如如下的两个瞬时向量：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">node_cpu_seconds_total{instance="k8s-master", cpu="0", mode="idle"}<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>现在我们来创建一个 <code>HPA</code> 资源对象，可以使用<code>kubectl autoscale</code>命令来创建：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl autoscale deployment hpa-demo --cpu-percent=10 --min=1 --max=10  
-horizontalpodautoscaler.autoscaling/hpa-demo autoscaled
+<p>和</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">node_cpu_seconds_total{instance="k8s-node1", cpu="0", mode="idle"}<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-[root@k8s-master ~]# kubectl get hpa
-NAME       REFERENCE             TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
-hpa-demo   Deployment/hpa-demo   &lt;unknown&gt;/10%   1         10        0          11s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如果我们对这两个序列做加法运算来尝试获取 master 和 node1 节点的总的空闲 CPU 时长，则不会返回任何内容了：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220905143353.png"></p>
+<p>这是因为这两个时间序列没有完全匹配标签。我们可以使用 <code>on</code> 关键字指定只希望在 <code>mode</code> 标签上进行匹配，就可以计算出结果来：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220905143514.png"></p>
+<p>需要注意的是新的瞬时向量包含单个序列，其中仅包含 <code>on</code> 关键字中指定的标签。</p>
+<p>不过在 Prometheus 中还有很多 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/querying/operators/#aggregation-operators">聚合操作</a>，所以，如果我们真的想要获取节点的 CPU 总时长，我们完全不用这么操作，使用 <code>sum</code> 操作要简单得多：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sum(node_cpu_seconds_total{mode="idle"}) by (instance)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>此命令创建了一个关联资源 hpa-demo 的 HPA，最小的 Pod 副本数为1，最大为10。HPA 会根据设定的 cpu 使用率（10%）动态的增加或者减少 Pod 数量。</p>
-<p>当然我们依然还是可以通过创建 YAML 文件的形式来创建 HPA 资源对象。如果我们不知道怎么编写的话，可以查看上面命令行创建的HPA的YAML文件：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get hpa hpa-demo -o yaml
-apiVersion: autoscaling/v1
-kind: HorizontalPodAutoscaler
-metadata:
-  annotations:
-    autoscaling.alpha.kubernetes.io/conditions: '[{"type":"AbleToScale","status":"True","lastTransitionTime":"2022-08-28T09:04:49Z","reason":"SucceededGetScale","message":"the
-      HPA controller was able to get the target''s current scale"},{"type":"ScalingActive","status":"False","lastTransitionTime":"2022-08-28T09:04:49Z","reason":"FailedGetResourceMetric","message":"the
-      HPA was unable to compute the replica count: failed to get cpu utilization:
-      missing request for cpu"}]'
-  creationTimestamp: "2022-08-28T09:04:34Z"
-  managedFields:
-  - apiVersion: autoscaling/v1
-    fieldsType: FieldsV1
-    fieldsV1:
-      f:spec:
-        f:maxReplicas: {}
-        f:minReplicas: {}
-        f:scaleTargetRef:
-          f:apiVersion: {}
-          f:kind: {}
-          f:name: {}
-        f:targetCPUUtilizationPercentage: {}
-    manager: kubectl-autoscale
-    operation: Update
-    time: "2022-08-28T09:04:34Z"
-  - apiVersion: autoscaling/v1
-    fieldsType: FieldsV1
-    fieldsV1:
-      f:metadata:
-        f:annotations:
-          .: {}
-          f:autoscaling.alpha.kubernetes.io/conditions: {}
-      f:status:
-        f:currentReplicas: {}
-    manager: kube-controller-manager
-    operation: Update
-    time: "2022-08-28T09:04:49Z"
-  name: hpa-demo
-  namespace: default
-  resourceVersion: "126191"
-  uid: c9a2ee21-cced-4518-863f-61fcf4f76c8e
-spec:
-  maxReplicas: 10
-  minReplicas: 1
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: hpa-demo
-  targetCPUUtilizationPercentage: 10
-status:
-  currentReplicas: 1
-  desiredReplicas: 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220905145900.png"></p>
+<h3 id="瞬时向量和村量结合"><a href="#瞬时向量和村量结合" class="headerlink" title="瞬时向量和村量结合"></a>瞬时向量和村量结合</h3><p>此外我们还可以将瞬时向量和标量值相结合，这个很简单，就是简单的数学计算，比如：</p>
+<pre class="line-numbers language-none"><code class="language-none">node_cpu_seconds_total{instance="k8s-master"} * 10<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>然后我们可以根据上面的 YAML 文件就可以自己来创建一个基于 YAML 的 HPA 描述文件了。但是我们发现上面信息里面出现了一些 Fail 信息，我们来查看下这个 HPA 对象的信息：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl describe hpa hpa-demo
-Name:                                                  hpa-demo
-Namespace:                                             default
-Labels:                                                &lt;none&gt;
-Annotations:                                           &lt;none&gt;
-CreationTimestamp:                                     Sun, 28 Aug 2022 17:04:34 +0800
-Reference:                                             Deployment/hpa-demo
-Metrics:                                               ( current / target )
-  resource cpu on pods  (as a percentage of request):  &lt;unknown&gt; / 10%
-Min replicas:                                          1
-Max replicas:                                          10
-Deployment pods:                                       1 current / 0 desired
-Conditions:
-  Type           Status  Reason                   Message
-  ----           ------  ------                   -------
-  AbleToScale    True    SucceededGetScale        the HPA controller was able to get the target's current scale
-  ScalingActive  False   FailedGetResourceMetric  the HPA was unable to compute the replica count: failed to get cpu utilization: missing request for cpu
-Events:
-  Type     Reason                        Age               From                       Message
-  ----     ------                        ----              ----                       -------
-  Warning  FailedGetResourceMetric       4s (x5 over 66s)  horizontal-pod-autoscaler  failed to get cpu utilization: missing request for cpu
-  Warning  FailedComputeMetricsReplicas  4s (x5 over 66s)  horizontal-pod-autoscaler  invalid metrics (1 invalid out of 1), first error is: failed to get cpu utilization: missing request for cpu<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>我们可以看到上面的事件信息里面出现了 <code>failed to get cpu utilization: missing request for cpu</code> 这样的错误信息。这是因为我们上面创建的 Pod 对象没有添加 request 资源声明，这样导致 HPA 读取不到 CPU 指标信息，所以如果要想让 HPA 生效，对应的 Pod 资源必须添加 requests 资源声明，更新我们的资源清单文件（hpa-demo.yaml）：</p>
-<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> hpa<span class="token punctuation">-</span>demo
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
-    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
-      <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
-  <span class="token key atrule">template</span><span class="token punctuation">:</span>
-    <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
-        <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
-    <span class="token key atrule">spec</span><span class="token punctuation">:</span>
-      <span class="token key atrule">containers</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
-        <span class="token key atrule">image</span><span class="token punctuation">:</span> nginx
-        <span class="token key atrule">ports</span><span class="token punctuation">:</span>
-        <span class="token punctuation">-</span> <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">80</span>
-        <span class="token key atrule">resources</span><span class="token punctuation">:</span>
-          <span class="token key atrule">requests</span><span class="token punctuation">:</span>
-            <span class="token key atrule">memory</span><span class="token punctuation">:</span> 50Mi
-            <span class="token key atrule">cpu</span><span class="token punctuation">:</span> 50m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>然后重新更新 Deployment，重新创建 HPA 对象：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl delete -f hpa/hpa-demo.yaml 
-deployment.apps "hpa-demo" deleted
-
-[root@k8s-master ~]# kubectl apply -f hpa/hpa-demo.yaml 
-deployment.apps/hpa-demo created
-
-[root@k8s-master ~]# kubectl get pods -o wide -l app=nginx
-NAME                        READY   STATUS    RESTARTS   AGE   IP              NODE        NOMINATED NODE   READINESS GATES
-hpa-demo-6b4467b546-lndbp   1/1     Running   0          59s   192.168.36.72   k8s-node1   &lt;none&gt;           &lt;none&gt;
-
-[root@k8s-master ~]# kubectl get hpa 
-NAME       REFERENCE             TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
-hpa-demo   Deployment/hpa-demo   &lt;unknown&gt;/10%   1         10        1          5m46s
-
-[root@k8s-master ~]# kubectl delete hpa hpa-demo
-horizontalpodautoscaler.autoscaling "hpa-demo" deleted
-
-[root@k8s-master ~]# kubectl autoscale deployment hpa-demo --cpu-percent=10 --min=1 --max=10  
-horizontalpodautoscaler.autoscaling/hpa-demo autoscaled
-
-
-[root@k8s-master ~]# kubectl describe hpa hpa-demo
-Name:                                                  hpa-demo
-Namespace:                                             default
-Labels:                                                &lt;none&gt;
-Annotations:                                           &lt;none&gt;
-CreationTimestamp:                                     Sun, 28 Aug 2022 17:11:37 +0800
-Reference:                                             Deployment/hpa-demo
-Metrics:                                               ( current / target )
-  resource cpu on pods  (as a percentage of request):  0% (0) / 10%
-Min replicas:                                          1
-Max replicas:                                          10
-Deployment pods:                                       1 current / 1 desired
-Conditions:
-  Type            Status  Reason               Message
-  ----            ------  ------               -------
-  AbleToScale     True    ScaleDownStabilized  recent recommendations were higher than current one, applying the highest recent recommendation
-  ScalingActive   True    ValidMetricFound     the HPA was able to successfully calculate a replica count from cpu resource utilization (percentage of request)
-  ScalingLimited  False   DesiredWithinRange   the desired count is within the acceptable range
-Events:           &lt;none&gt;
-
-
-[root@k8s-master ~]# kubectl get hpa
-NAME       REFERENCE             TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
-hpa-demo   Deployment/hpa-demo   0%/10%    1         10        1          68s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>现在可以看到 HPA 资源对象已经正常了，现在我们来增大负载进行测试：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 开启另一个终端查看 hap-demo Pod 的 ip
-[root@k8s-master ~]# kubectl get pods 
-NAME                        READY   STATUS    RESTARTS   AGE
-hpa-demo-6b4467b546-lndbp   1/1     Running   0          10m
-
-[root@k8s-master ~]# kubectl get pod hpa-demo-6b4467b546-lndbp -o wide
-NAME                        READY   STATUS    RESTARTS   AGE   IP              NODE        NOMINATED NODE   READINESS GATES
-hpa-demo-6b4467b546-lndbp   1/1     Running   0          11m   192.168.36.72   k8s-node1   &lt;none&gt;           &lt;none&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>我们来创建一个 busybox 的 Pod，并且循环访问上面创建的 Pod：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]#  kubectl run -it --image busybox test-hpa --restart=Never --rm /bin/sh
-If you don't see a command prompt, try pressing enter.
-/ # while true; do wget -q -O- http://192.168.36.72; done<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-<p>下图可以看到，HPA 已经开始工作：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get hpa
-NAME       REFERENCE             TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
-hpa-demo   Deployment/hpa-demo   0%/10%    1         10        10         17m
-
-
-[root@k8s-master ~]#  kubectl get pods -l app=nginx --watch
-NAME                        READY   STATUS    RESTARTS   AGE
-hpa-demo-6b4467b546-dlgk5   0/1     ContainerCreating   0          1s
-hpa-demo-6b4467b546-5plpg   0/1     ContainerCreating   0          1s
-hpa-demo-6b4467b546-wprxt   1/1     Running             0          17s
-hpa-demo-6b4467b546-dlgk5   1/1     Running             0          2s
-hpa-demo-6b4467b546-nd5rh   1/1     Running             0          18s
-hpa-demo-6b4467b546-rbv2x   0/1     Pending             0          0s
-hpa-demo-6b4467b546-rbv2x   0/1     Pending             0          0s
-hpa-demo-6b4467b546-6bcg2   0/1     Pending             0          0s
-hpa-demo-6b4467b546-6bcg2   0/1     Pending             0          0s
-hpa-demo-6b4467b546-6bcg2   0/1     ContainerCreating   0          0s
-hpa-demo-6b4467b546-rbv2x   0/1     ContainerCreating   0          0s
-hpa-demo-6b4467b546-6bcg2   0/1     ContainerCreating   0          0s
-hpa-demo-6b4467b546-rbv2x   0/1     ContainerCreating   0          0s
-hpa-demo-6b4467b546-nphlm   1/1     Running             0          33s
-hpa-demo-6b4467b546-5plpg   1/1     Running             0          17s
-hpa-demo-6b4467b546-rbv2x   1/1     Running             0          2s
-hpa-demo-6b4467b546-rpwpf   1/1     Running             0          32s
-hpa-demo-6b4467b546-6bcg2   1/1     Running             0          32s
-hpa-demo-6b4467b546-rxp2d   1/1     Running             0          47s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>我们可以看到已经自动拉起了很多新的 Pod，最后定格在了我们上面设置的 10 个 Pod，同时查看资源 hpa-demo 的副本数量，副本数量已经从原来的1变成了10个：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get deployment hpa-demo
-NAME       READY   UP-TO-DATE   AVAILABLE   AGE
-hpa-demo   10/10   10           10          15m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-<p>查看 HPA 资源的对象了解工作过程：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl describe hpa hpa-demo
-Name:                                                  hpa-demo
-Namespace:                                             default
-Labels:                                                &lt;none&gt;
-Annotations:                                           &lt;none&gt;
-CreationTimestamp:                                     Sun, 28 Aug 2022 17:11:37 +0800
-Reference:                                             Deployment/hpa-demo
-Metrics:                                               ( current / target )
-  resource cpu on pods  (as a percentage of request):  0% (0) / 10%
-Min replicas:                                          1
-Max replicas:                                          10
-Deployment pods:                                       10 current / 10 desired
-Conditions:
-  Type            Status  Reason               Message
-  ----            ------  ------               -------
-  AbleToScale     True    ScaleDownStabilized  recent recommendations were higher than current one, applying the highest recent recommendation
-  ScalingActive   True    ValidMetricFound     the HPA was able to successfully calculate a replica count from cpu resource utilization (percentage of request)
-  ScalingLimited  True    TooManyReplicas      the desired replica count is more than the maximum replica count
-Events:
-  Type    Reason             Age    From                       Message
-  ----    ------             ----   ----                       -------
-  Normal  SuccessfulRescale  7m     horizontal-pod-autoscaler  New size: 4; reason: cpu resource utilization (percentage of request) above target
-  Normal  SuccessfulRescale  6m44s  horizontal-pod-autoscaler  New size: 8; reason: cpu resource utilization (percentage of request) above target
-  Normal  SuccessfulRescale  6m29s  horizontal-pod-autoscaler  New size: 10; reason: cpu resource utilization (percentage of request) above target<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>同样的这个时候我们来关掉 busybox 来减少负载，然后等待一段时间观察下 HPA 和 Deployment 对象：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get hpa
-NAME       REFERENCE             TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
-hpa-demo   Deployment/hpa-demo   0%/10%    1         10        1          19m
-
-[root@k8s-master ~]# kubectl get deployment hpa-demo
-NAME       READY   UP-TO-DATE   AVAILABLE   AGE
-hpa-demo   1/1     1            1           21m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>可以看到副本数量已经由 10 变为 1，当前我们只是演示了 CPU 使用率这一个指标，我们还可以根据自定义的监控指标来自动对 Pod 进行扩缩容。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220905150052.png"></p>
+<p>会为瞬时向量中每个序列的每个值都剩以10。这对于计算比率和百分比得时候非常有用。</p>
+<ul>
+<li>除了 <code>*</code> 之外，其他常用的算数运算符当然也支持：<code>+</code>、<code>-</code>、<code>*</code>、<code>/</code>、<code>%</code>、<code>^</code>。</li>
+<li>还有其他的比较运算符：<code>==</code>、<code>!=</code>、<code>&gt;</code>、<code>&lt;</code>、<code>&gt;=</code>、<code>&lt;=</code>。</li>
+<li>逻辑运算符：<code>and</code>、<code>or</code>、<code>unless</code>，不过逻辑运算符只能用于瞬时向量之间。</li>
+</ul>
+<p>除了这些关于 <code>PromQL</code> 最基本的知识点之外，还有很多相关的使用方法，可以参考官网相关介绍：<a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/querying/basics/%E3%80%82">https://prometheus.io/docs/prometheus/latest/querying/basics/。</a></p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://v1-21.docs.kubernetes.io/zh/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/">https://v1-21.docs.kubernetes.io/zh/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/</a></li>
-<li><a target="_blank" rel="noopener" href="https://v1-21.docs.kubernetes.io/zh/docs/tasks/run-application/horizontal-pod-autoscale/">https://v1-21.docs.kubernetes.io/zh/docs/tasks/run-application/horizontal-pod-autoscale/</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/kubernetes-sigs/metrics-server">https://github.com/kubernetes-sigs/metrics-server</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.qikqiak.com/k8strain/controller/hpa/">https://www.qikqiak.com/k8strain/controller/hpa/</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.qikqiak.com/k8strain/monitor/promql/">https://www.qikqiak.com/k8strain/monitor/promql/</a></li>
 </ul>
 
                 
@@ -947,7 +753,7 @@ hpa-demo   1/1     1            1           21m<span aria-hidden="true" class="l
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://www.zhangquan.me/2022/08/28/kubernetes-hpa/">https://www.zhangquan.me/2022/08/28/kubernetes-hpa/</a>
+                    <a href="https://www.zhangquan.me/2022/09/07/prometheus-cha-xun-yu-yan-promql-shi-yong-shuo-ming/">https://www.zhangquan.me/2022/09/07/prometheus-cha-xun-yu-yan-promql-shi-yong-shuo-ming/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -987,6 +793,10 @@ hpa-demo   1/1     1            1           21m<span aria-hidden="true" class="l
                             
                                 <a href="/tags/Kubernetes/">
                                     <span class="chip bg-color">Kubernetes</span>
+                                </a>
+                            
+                                <a href="/tags/Prometheus/">
+                                    <span class="chip bg-color">Prometheus</span>
                                 </a>
                             
                         </div>
@@ -1481,29 +1291,84 @@ hpa-demo   1/1     1            1           21m<span aria-hidden="true" class="l
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2022/08/28/kubernetes-ingress-traefik-de-an-zhuang-ji-jian-dan-shi-yong/">
+                <a href="/2022/09/07/prometheus-cha-xun-yu-yan-promql-shi-yong-shuo-ming/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="Kubernetes Ingress Traefik 的安装及简单使用">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="Prometheus 查询语言 PromQL 使用说明">
                         
-                        <span class="card-title">Kubernetes Ingress Traefik 的安装及简单使用</span>
+                        <span class="card-title">Prometheus 查询语言 PromQL 使用说明</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Kubernetes Ingress Traefik 的安装及简单使用
+                            Prometheus 查询语言 PromQL 使用说明
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-08-28
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-09-07
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Kubernetes/" class="post-category">
+                                    Kubernetes
+                                </a>
+                            
+                            
                         </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Kubernetes/">
+                        <span class="chip bg-color">Kubernetes</span>
+                    </a>
+                    
+                    <a href="/tags/Prometheus/">
+                        <span class="chip bg-color">Prometheus</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2022/09/07/kubernetes-an-zhuang-grafana-ji-shi-yong/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="Kubernetes 安装Grafana及使用">
+                        
+                        <span class="card-title">Kubernetes 安装Grafana及使用</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Kubernetes 安装Grafana及使用
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-09-07
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -1523,53 +1388,8 @@ hpa-demo   1/1     1            1           21m<span aria-hidden="true" class="l
                         <span class="chip bg-color">Kubernetes</span>
                     </a>
                     
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2022/08/28/kubernetes-security-context/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="Kubernetes Security Context">
-                        
-                        <span class="card-title">Kubernetes Security Context</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            Kubernetes Security Context Pod/容器的安全管控
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-28
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Kubernetes/" class="post-category">
-                                    Kubernetes
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Kubernetes/">
-                        <span class="chip bg-color">Kubernetes</span>
+                    <a href="/tags/Grafana/">
+                        <span class="chip bg-color">Grafana</span>
                     </a>
                     
                 </div>

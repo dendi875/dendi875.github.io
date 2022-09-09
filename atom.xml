@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2022-09-04T12:32:13.596Z</updated>
+  <updated>2022-09-09T03:52:36.791Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,60 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Prometheus 查询语言 PromQL 使用说明</title>
+    <link href="https://www.zhangquan.me/2022/09/07/prometheus-cha-xun-yu-yan-promql-shi-yong-shuo-ming/"/>
+    <id>https://www.zhangquan.me/2022/09/07/prometheus-cha-xun-yu-yan-promql-shi-yong-shuo-ming/</id>
+    <published>2022-09-07T11:45:33.000Z</published>
+    <updated>2022-09-09T03:52:36.791Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Prometheus-查询语言-PromQL-使用说明&quot;&gt;&lt;a href=&quot;#Prometheus-查询语言-PromQL-使用说明&quot; class=&quot;headerlink&quot; title=&quot;Prometheus 查询语言 PromQL</summary>
+        
+      
+    
+    
+    
+    <category term="Kubernetes" scheme="https://www.zhangquan.me/categories/Kubernetes/"/>
+    
+    
+    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
+    
+    <category term="Prometheus" scheme="https://www.zhangquan.me/tags/Prometheus/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Kubernetes 安装Grafana及使用</title>
+    <link href="https://www.zhangquan.me/2022/09/07/kubernetes-an-zhuang-grafana-ji-shi-yong/"/>
+    <id>https://www.zhangquan.me/2022/09/07/kubernetes-an-zhuang-grafana-ji-shi-yong/</id>
+    <published>2022-09-07T11:45:30.000Z</published>
+    <updated>2022-09-09T03:51:18.781Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Kubernetes-安装Grafana及使用&quot;&gt;&lt;a href=&quot;#Kubernetes-安装Grafana及使用&quot; class=&quot;headerlink&quot; title=&quot;Kubernetes 安装Grafana及使用&quot;&gt;&lt;/a&gt;Kubernetes</summary>
+        
+      
+    
+    
+    
+    <category term="Kubernetes" scheme="https://www.zhangquan.me/categories/Kubernetes/"/>
+    
+    
+    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
+    
+    <category term="Grafana" scheme="https://www.zhangquan.me/tags/Grafana/"/>
+    
+  </entry>
   
   <entry>
     <title>使用 Prometheus  监控 Kubernetes 中常用的资源对象</title>
@@ -462,56 +516,6 @@
         
         
     <summary type="html">&lt;h1 id=&quot;Kubernetes-Service实践练习&quot;&gt;&lt;a href=&quot;#Kubernetes-Service实践练习&quot; class=&quot;headerlink&quot; title=&quot;Kubernetes  Service实践练习&quot;&gt;&lt;/a&gt;Kubernetes </summary>
-        
-      
-    
-    
-    
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/categories/Kubernetes/"/>
-    
-    
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>图解Kubernetes Service</title>
-    <link href="https://www.zhangquan.me/2022/08/21/tu-jie-kubernetes-service/"/>
-    <id>https://www.zhangquan.me/2022/08/21/tu-jie-kubernetes-service/</id>
-    <published>2022-08-21T14:40:46.000Z</published>
-    <updated>2022-08-21T14:43:34.683Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;图解Kubernetes-Service&quot;&gt;&lt;a href=&quot;#图解Kubernetes-Service&quot; class=&quot;headerlink&quot; title=&quot;图解Kubernetes Service&quot;&gt;&lt;/a&gt;图解Kubernetes</summary>
-        
-      
-    
-    
-    
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/categories/Kubernetes/"/>
-    
-    
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Kubernetes Deployment 控制器</title>
-    <link href="https://www.zhangquan.me/2022/08/20/kubernetes-deployment-kong-zhi-qi/"/>
-    <id>https://www.zhangquan.me/2022/08/20/kubernetes-deployment-kong-zhi-qi/</id>
-    <published>2022-08-20T15:45:44.000Z</published>
-    <updated>2022-08-31T13:17:00.941Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;Kubernetes-Deployment控制器&quot;&gt;&lt;a href=&quot;#Kubernetes-Deployment控制器&quot; class=&quot;headerlink&quot; title=&quot;Kubernetes Deployment控制器&quot;&gt;&lt;/a&gt;Kubernetes</summary>
         
       
     

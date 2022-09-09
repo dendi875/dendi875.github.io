@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Kubernetes HPA, PHP,Java,Go,MySQL,Linux,Docker等">
+    <meta name="keywords" content="Kubernetes 安装Grafana及使用, PHP,Java,Go,MySQL,Linux,Docker等">
     <meta name="description" content="PHP Go MySQL 后端开发">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Kubernetes HPA | 一代键客</title>
+    <title>Kubernetes 安装Grafana及使用 | 一代键客</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -327,12 +327,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Kubernetes HPA</h1>
+                    <h1 class="description center-align post-title">Kubernetes 安装Grafana及使用</h1>
                 </div>
             </div>
         </div>
@@ -452,6 +452,10 @@
                                 <span class="chip bg-color">Kubernetes</span>
                             </a>
                         
+                            <a href="/tags/Grafana/">
+                                <span class="chip bg-color">Grafana</span>
+                            </a>
+                        
                     </div>
                     
                 </div>
@@ -473,28 +477,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-08-28
+                    2022-09-07
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-08-28
+                    2022-09-09
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    4.2k
+                    4.7k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    21 分
+                    19 分
                 </div>
                 
 
@@ -517,410 +521,376 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Kubernetes-HPA"><a href="#Kubernetes-HPA" class="headerlink" title="Kubernetes HPA"></a>Kubernetes HPA</h1><p>在  k8s 中我们可以使用 <code>kubectl scale</code> 命令可以来实现 Pod 的扩缩容功能，但是这个毕竟是完全手动操作的，要应对线上的各种复杂情况，我们需要能够做到自动化去感知业务，来自动进行扩缩容。为此，Kubernetes 也为我们提供了这样的一个资源对象：<code>Horizontal Pod Autoscaling（Pod 水平自动伸缩）</code>，简称<code>HPA</code>，HPA 通过监控分析一些控制器控制的所有 Pod 的负载变化情况来确定是否需要调整 Pod 的副本数量，这是 HPA 最基本的原理：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-hpa-1.jpeg"></p>
-<p>我们可以简单的通过 <code>kubectl autoscale</code> 命令来创建一个 HPA 资源对象，<code>HPA Controller</code>默认<code>30s</code>轮询一次（可通过 <code>kube-controller-manager</code> 的<code>--horizontal-pod-autoscaler-sync-period</code> 参数进行设置），查询指定的资源中的 Pod 资源使用率，并且与创建时设定的值和指标做对比，从而实现自动伸缩的功能。</p>
-<h2 id="Metrics-Server"><a href="#Metrics-Server" class="headerlink" title="Metrics Server"></a>Metrics Server</h2><p><code>Metrics Server</code> 可以通过标准的 Kubernetes API 把监控数据暴露出来，有了 <code>Metrics Server</code> 之后，我们就完全可以通过标准的 Kubernetes API 来访问我们想要获取的监控数据了</p>
-<p>参考说明：<a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/">https://kubernetes.io/zh-cn/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/</a></p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">kubectl get --raw "/apis/metrics.k8s.io/v1beta1/namespaces/&lt;namespace-name&gt;/pods/&lt;pod-name&gt;" | jq '.'<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+                <h1 id="Kubernetes-安装Grafana及使用"><a href="#Kubernetes-安装Grafana及使用" class="headerlink" title="Kubernetes 安装Grafana及使用"></a>Kubernetes 安装Grafana及使用</h1><p>我们可以使用 Prometheus 采集了 Kubernetes 集群中的一些监控数据指标，我们也使用 promQL 语句查询出了一些数据，并且在 Prometheus 的 Dashboard 中进行了展示，但是明显可以感觉到 Prometheus 的图表功能相对较弱，所以一般情况下我们会一个第三方的工具来展示这些数据，今天我们要和大家使用到的就是 <a target="_blank" rel="noopener" href="http://grafana.com/">Grafana</a>。</p>
+<p>Grafana 是一个可视化面板，有着非常漂亮的图表和布局展示，功能齐全的度量仪表盘和图形编辑器，支持 Graphite、zabbix、InfluxDB、Prometheus、OpenTSDB、Elasticsearch 等作为数据源，比 Prometheus 自带的图表展示功能强大太多，更加灵活，有丰富的插件，功能更加强大。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>我们将 grafana 安装到 Kubernetes 集群中，第一步去查看 grafana 的 docker 镜像的介绍，我们可以在 dockerhub 上去搜索，也可以在官网去查看相关资料，镜像地址如下：<a target="_blank" rel="noopener" href="https://hub.docker.com/r/grafana/grafana/%EF%BC%8C%E6%88%91%E4%BB%AC%E5%8F%AF%E4%BB%A5%E7%9C%8B%E5%88%B0%E4%BB%8B%E7%BB%8D%E4%B8%AD%E8%BF%90%E8%A1%8C">https://hub.docker.com/r/grafana/grafana/，我们可以看到介绍中运行</a> grafana 容器的命令非常简单：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ docker run -d --name=grafana -p 3000:3000 grafana/grafana<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>这是使用 <code>curl</code> 来完成的相同 API 调用：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">curl https://localhost:8080/apis/metrics.k8s.io/v1beta1/namespaces/&lt;namespace-name&gt;/pods/&lt;pod-name&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>但是还有一个需要注意的是 Changelog 中 v5.1.0 版本的更新介绍：</p>
+<pre class="line-numbers language-none"><code class="language-none">Major restructuring of the container
+Usage of chown removed
+File permissions incompatibility with previous versions
+user id changed from 104 to 472
+group id changed from 107 to 472
+Runs as the grafana user by default (instead of root)
+All default volumes removed<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>比如当我们访问上面的 API 的时候，我们就可以获取到该 Pod 的资源数据，这些数据其实是来自于 kubelet 的 <code>Summary API</code> 采集而来的。不过需要说明的是我们这里可以通过标准的 API 来获取资源监控数据，并不是因为 <code>Metrics Server</code> 就是 APIServer 的一部分，而是通过 Kubernetes 提供的 <code>Aggregator</code> 汇聚插件来实现的，是独立于 APIServer 之外运行的。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220828161732.png"></p>
-<h3 id="聚合-API"><a href="#聚合-API" class="headerlink" title="聚合 API"></a>聚合 API</h3><p><code>Aggregator</code> 允许开发人员编写一个自己的服务，把这个服务注册到 Kubernetes 的 APIServer 里面去，这样我们就可以像原生的 APIServer 提供的 API 使用自己的 API 了，我们把自己的服务运行在 Kubernetes 集群里面，然后 Kubernetes 的 <code>Aggregator</code> 通过 Service 名称就可以转发到我们自己写的 Service 里面去了。这样这个聚合层就带来了很多好处：</p>
-<ul>
-<li>增加了 API 的扩展性，开发人员可以编写自己的 API 服务来暴露他们想要的 API。</li>
-<li>丰富了 API，核心 kubernetes 团队阻止了很多新的 API 提案，通过允许开发人员将他们的 API 作为单独的服务公开，这样就无须社区繁杂的审查了。</li>
-<li>开发分阶段实验性 API，新的 API 可以在单独的聚合服务中开发，当它稳定之后，在合并会 APIServer 就很容易了。</li>
-<li>确保新 API 遵循 Kubernetes 约定，如果没有这里提出的机制，社区成员可能会被迫推出自己的东西，这样很可能造成社区成员和社区约定不一致。</li>
-</ul>
-<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>我们要使用 HPA，就需要在集群中安装 <code>Metrics Server</code> 服务，要安装 <code>Metrics Server</code> 就需要开启 <code>Aggregator</code>，因为 <code>Metrics Server</code> 就是通过该代理进行扩展的，不过我们集群是通过 Kubeadm 搭建的，默认已经开启了。</p>
-<p><code>Aggregator</code> 聚合层启动完成后，就可以来安装 <code>Metrics Server</code> 了，我们可以获取该仓库的官方安装资源清单：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 官方仓库地址：https://github.com/kubernetes-sigs/metrics-server
+<p>特别需要注意第3条，userid 和 groupid 都有所变化，所以我们在运行的容器的时候需要注意这个变化。</p>
+<blockquote>
+<p><strong>Note</strong></p>
+<p>为了方便管理，我们将监控相关的所有资源对象都安装在 <code>kube-mon</code> 这个 namespace 下面，没有的话可以提前创建。</p>
+</blockquote>
+<p>把用到的资源文件统一放到 <code>grafana</code> 目录下</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">mkdir ~/grafana &amp;&amp; cd grafana<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-$ wget https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.3.6/components.yaml -O ~/download/metrics-server.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-<p>在部署之前，修改 <code>components.yaml</code> 的镜像地址为：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">containers:
-- name: metrics-server
-  image: registry.aliyuncs.com/google_containers/metrics-server-amd64:v0.3.6<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-<p>等部署完成后，可以查看 Pod 日志是否正常：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl apply -f download/metrics-server.yaml 
- 
-[root@k8s-master ~]# kubectl get pods -n kube-system -l k8s-app=metrics-server
-NAME                             READY   STATUS    RESTARTS   AGE
-metrics-server-75665d756-jdpw5   1/1     Running   0          2m22s
-
-[root@k8s-master ~]# kubectl logs -f metrics-server-75665d756-jdpw5 -n kube-system
-......
-E0828 08:29:03.977217       1 manager.go:111] unable to fully collect metrics: [unable to fully scrape metrics from source kubelet_summary:k8s-node2: unable to fetch metrics from Kubelet k8s-node2 (k8s-node2): Get https://k8s-node2:10250/stats/summary?only_cpu_and_memory=true: dial tcp: lookup k8s-node2 on 10.96.0.10:53: no such host, unable to fully scrape metrics from source kubelet_summary:k8s-node1: unable to fetch metrics from Kubelet k8s-node1 (k8s-node1): Get https://k8s-node1:10250/stats/summary?only_cpu_and_memory=true: dial tcp: lookup k8s-node1 on 10.96.0.10:53: no such host, unable to fully scrape metrics from source kubelet_summary:k8s-master: unable to fetch metrics from Kubelet k8s-master (k8s-master): Get https://k8s-master:10250/stats/summary?only_cpu_and_memory=true: dial tcp: lookup k8s-master on 10.96.0.10:53: no such host]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>我们可以发现 Pod 中出现了一些错误信息：<code>xxx: no such host</code>，我们看到这个错误信息一般就可以确定是 DNS 解析不了造成的，我们可以看到 Metrics Server 会通过 kubelet 的 10250 端口获取信息，使用的是 hostname，我们部署集群的时候在节点的 <code>/etc/hosts</code> 里面添加了节点的 hostname 和 ip 的映射，但是是我们的 Metrics Server 的 Pod 内部并没有这个 hosts 信息，当然也就不识别 hostname 了，要解决这个问题，有两种方法：</p>
-<p>第一种方法就是在集群内部的 DNS 服务里面添加上 hostname 的解析，比如我们这里集群中使用的是 <code>CoreDNS</code>，我们就可以去修改下 CoreDNS 的 Configmap 信息，添加上 hosts 信息：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ kubectl edit configmap coredns -n kube-system
-apiVersion: v1
-data:
-  Corefile: |
-    .:53 {
-        errors
-        health
-        hosts {  # 添加集群节点hosts隐射信息
-          172.31.0.2 k8s-master
-          172.31.0.3 k8s-node1
-          172.31.0.4 k8s-node2
-          fallthrough
-        }
-        kubernetes cluster.local in-addr.arpa ip6.arpa {
-           pods insecure
-           upstream
-           fallthrough in-addr.arpa ip6.arpa
-        }
-        prometheus :9153
-        proxy . /etc/resolv.conf
-        cache 30
-        reload
-    }
-kind: ConfigMap
-metadata:
-  creationTimestamp: 2019-05-18T11:07:46Z
-  name: coredns
-  namespace: kube-system<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>这样当在集群内部的 Pod 访问集群节点的 hostname 的时候就可以解析到对应的 ip 了，另外一种方法（<a target="_blank" rel="noopener" href="https://github.com/kubernetes-sigs/metrics-server%EF%BC%89%E5%B0%B1%E6%98%AF%E5%9C%A8">https://github.com/kubernetes-sigs/metrics-server）就是在</a> metrics-server 的启动参数中修改 <code>kubelet-preferred-address-types</code> 参数，如下：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">args:
-- --cert-dir=/tmp
-- --secure-port=4443
-- --kubelet-preferred-address-types=InternalIP<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>我们这里使用第二种方式，然后重新安装：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl delete -f download/metrics-server.yaml
-[root@k8s-master ~]# kubectl apply -f download/metrics-server.yaml 
-
-[root@k8s-master ~]# kubectl get pods -n kube-system -l k8s-app=metrics-server
-NAME                              READY   STATUS    RESTARTS   AGE
-metrics-server-78f654ccdd-wcf8t   1/1     Running   0          91s
-
-[root@k8s-master ~]# kubectl logs -f metrics-server-78f654ccdd-wcf8t -n kube-system
-......
-E0828 08:47:12.412582       1 manager.go:111] unable to fully collect metrics: [unable to fully scrape metrics from source kubelet_summary:k8s-node1: unable to fetch metrics from Kubelet k8s-node1 (172.31.0.3): Get https://172.31.0.3:10250/stats/summary?only_cpu_and_memory=true: x509: cannot validate certificate for 172.31.0.3 because it doesn't contain any IP SANs, unable to fully scrape metrics from source kubelet_summary:k8s-master: unable to fetch metrics from Kubelet k8s-master (172.31.0.2): Get https://172.31.0.2:10250/stats/summary?only_cpu_and_memory=true: x509: cannot validate certificate for 172.31.0.2 because it doesn't contain any IP SANs, unable to fully scrape metrics from source kubelet_summary:k8s-node2: unable to fetch metrics from Kubelet k8s-node2 (172.31.0.4): Get https://172.31.0.4:10250/stats/summary?only_cpu_and_memory=true: x509: cannot validate certificate for 172.31.0.4 because it doesn't contain any IP SANs]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>因为部署集群的时候，CA 证书并没有把各个节点的 IP 签上去，所以这里 <code>Metrics Server</code> 通过 IP 去请求时，提示签的证书没有对应的 IP（错误：<code>x509: cannot validate certificate for 172.31.0.3 because it doesn’t contain any IP SANs</code>），我们可以添加一个<code>--kubelet-insecure-tls</code>参数跳过证书校验：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">args:
-- --cert-dir=/tmp
-- --secure-port=4443
-- --kubelet-insecure-tls
-- --kubelet-preferred-address-types=InternalIP<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>然后再重新安装即可成功！可以通过如下命令来验证：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl delete -f download/metrics-server.yaml
-[root@k8s-master ~]# kubectl apply -f download/metrics-server.yaml 
-
-[root@k8s-master ~]# kubectl get pods -n kube-system -l k8s-app=metrics-server
-NAME                             READY   STATUS    RESTARTS   AGE
-metrics-server-9b4dc89d7-jnmr7   1/1     Running   0          14s
-
-[root@k8s-master ~]# kubectl logs -f metrics-server-9b4dc89d7-jnmr7 -n kube-system
-I0828 08:51:12.584555       1 serving.go:312] Generated self-signed cert (/tmp/apiserver.crt, /tmp/apiserver.key)
-I0828 08:51:13.012958       1 secure_serving.go:116] Serving securely on [::]:4443
-......
-
-[root@k8s-master ~]#  kubectl get apiservice | grep metrics
-v1beta1.metrics.k8s.io                 kube-system/metrics-server   True        67s
-
-
-[root@k8s-master ~]# kubectl get --raw "/apis/metrics.k8s.io/v1beta1/nodes"
-{"kind":"NodeMetricsList","apiVersion":"metrics.k8s.io/v1beta1","metadata":{"selfLink":"/apis/metrics.k8s.io/v1beta1/nodes"},"items":[{"metadata":{"name":"k8s-master","selfLink":"/apis/metrics.k8s.io/v1beta1/nodes/k8s-master","creationTimestamp":"2022-08-28T08:53:06Z"},"timestamp":"2022-08-28T08:52:05Z","window":"30s","usage":{"cpu":"135321453n","memory":"1509068Ki"}},{"metadata":{"name":"k8s-node1","selfLink":"/apis/metrics.k8s.io/v1beta1/nodes/k8s-node1","creationTimestamp":"2022-08-28T08:53:06Z"},"timestamp":"2022-08-28T08:52:11Z","window":"30s","usage":{"cpu":"64140701n","memory":"708528Ki"}},{"metadata":{"name":"k8s-node2","selfLink":"/apis/metrics.k8s.io/v1beta1/nodes/k8s-node2","creationTimestamp":"2022-08-28T08:53:06Z"},"timestamp":"2022-08-28T08:52:04Z","window":"30s","usage":{"cpu":"63743191n","memory":"830800Ki"}}]}
-
-
-[root@k8s-master ~]# kubectl top nodes
-NAME         CPU(cores)   CPU%   MEMORY(bytes)   MEMORY%   
-k8s-master   151m         7%     1456Mi          37%       
-k8s-node1    72m          3%     689Mi           17%       
-k8s-node2    65m          3%     811Mi           21% <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>现在我们可以通过 <code>kubectl top</code> 命令来获取到资源数据了，证明 <code>Metrics Server</code> 已经安装成功了。</p>
-<h2 id="HAP"><a href="#HAP" class="headerlink" title="HAP"></a>HAP</h2><p>现在我们用 Deployment 来创建一个 Nginx Pod，然后利用 <code>HPA</code> 来进行自动扩缩容。资源清单如下所示：（hpa-demo.yaml）</p>
-<p>把 hap 相关资源文件统一放在 hap 目录下</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# mkdir ~/hap<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
+<p>现在我们将这个容器转化成 Kubernetes 中的 Pod：grafana-deploy.yaml</p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> hpa<span class="token punctuation">-</span>demo
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> grafana
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> kube<span class="token punctuation">-</span>mon
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token key atrule">app</span><span class="token punctuation">:</span> grafana
 <span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">revisionHistoryLimit</span><span class="token punctuation">:</span> <span class="token number">10</span>
   <span class="token key atrule">selector</span><span class="token punctuation">:</span>
     <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
-      <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
+      <span class="token key atrule">app</span><span class="token punctuation">:</span> grafana
   <span class="token key atrule">template</span><span class="token punctuation">:</span>
     <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
       <span class="token key atrule">labels</span><span class="token punctuation">:</span>
-        <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
+        <span class="token key atrule">app</span><span class="token punctuation">:</span> grafana
     <span class="token key atrule">spec</span><span class="token punctuation">:</span>
       <span class="token key atrule">containers</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
-        <span class="token key atrule">image</span><span class="token punctuation">:</span> nginx
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> grafana
+        <span class="token key atrule">image</span><span class="token punctuation">:</span> grafana/grafana<span class="token punctuation">:</span>5.3.4
+        <span class="token key atrule">imagePullPolicy</span><span class="token punctuation">:</span> IfNotPresent
         <span class="token key atrule">ports</span><span class="token punctuation">:</span>
-        <span class="token punctuation">-</span> <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">80</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>然后直接创建 Deployment：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl apply -f hpa/hpa-demo.yaml 
-deployment.apps/hpa-demo created
-
-[root@k8s-master ~]# kubectl get pods -l app=nginx
-NAME                        READY   STATUS    RESTARTS   AGE
-hpa-demo-7848d4b86f-9sw8b   1/1     Running   0          18s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>现在我们来创建一个 <code>HPA</code> 资源对象，可以使用<code>kubectl autoscale</code>命令来创建：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl autoscale deployment hpa-demo --cpu-percent=10 --min=1 --max=10  
-horizontalpodautoscaler.autoscaling/hpa-demo autoscaled
-
-[root@k8s-master ~]# kubectl get hpa
-NAME       REFERENCE             TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
-hpa-demo   Deployment/hpa-demo   &lt;unknown&gt;/10%   1         10        0          11s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>此命令创建了一个关联资源 hpa-demo 的 HPA，最小的 Pod 副本数为1，最大为10。HPA 会根据设定的 cpu 使用率（10%）动态的增加或者减少 Pod 数量。</p>
-<p>当然我们依然还是可以通过创建 YAML 文件的形式来创建 HPA 资源对象。如果我们不知道怎么编写的话，可以查看上面命令行创建的HPA的YAML文件：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get hpa hpa-demo -o yaml
-apiVersion: autoscaling/v1
-kind: HorizontalPodAutoscaler
-metadata:
-  annotations:
-    autoscaling.alpha.kubernetes.io/conditions: '[{"type":"AbleToScale","status":"True","lastTransitionTime":"2022-08-28T09:04:49Z","reason":"SucceededGetScale","message":"the
-      HPA controller was able to get the target''s current scale"},{"type":"ScalingActive","status":"False","lastTransitionTime":"2022-08-28T09:04:49Z","reason":"FailedGetResourceMetric","message":"the
-      HPA was unable to compute the replica count: failed to get cpu utilization:
-      missing request for cpu"}]'
-  creationTimestamp: "2022-08-28T09:04:34Z"
-  managedFields:
-  - apiVersion: autoscaling/v1
-    fieldsType: FieldsV1
-    fieldsV1:
-      f:spec:
-        f:maxReplicas: {}
-        f:minReplicas: {}
-        f:scaleTargetRef:
-          f:apiVersion: {}
-          f:kind: {}
-          f:name: {}
-        f:targetCPUUtilizationPercentage: {}
-    manager: kubectl-autoscale
-    operation: Update
-    time: "2022-08-28T09:04:34Z"
-  - apiVersion: autoscaling/v1
-    fieldsType: FieldsV1
-    fieldsV1:
-      f:metadata:
-        f:annotations:
-          .: {}
-          f:autoscaling.alpha.kubernetes.io/conditions: {}
-      f:status:
-        f:currentReplicas: {}
-    manager: kube-controller-manager
-    operation: Update
-    time: "2022-08-28T09:04:49Z"
-  name: hpa-demo
-  namespace: default
-  resourceVersion: "126191"
-  uid: c9a2ee21-cced-4518-863f-61fcf4f76c8e
-spec:
-  maxReplicas: 10
-  minReplicas: 1
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: hpa-demo
-  targetCPUUtilizationPercentage: 10
-status:
-  currentReplicas: 1
-  desiredReplicas: 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>然后我们可以根据上面的 YAML 文件就可以自己来创建一个基于 YAML 的 HPA 描述文件了。但是我们发现上面信息里面出现了一些 Fail 信息，我们来查看下这个 HPA 对象的信息：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl describe hpa hpa-demo
-Name:                                                  hpa-demo
-Namespace:                                             default
-Labels:                                                &lt;none&gt;
-Annotations:                                           &lt;none&gt;
-CreationTimestamp:                                     Sun, 28 Aug 2022 17:04:34 +0800
-Reference:                                             Deployment/hpa-demo
-Metrics:                                               ( current / target )
-  resource cpu on pods  (as a percentage of request):  &lt;unknown&gt; / 10%
-Min replicas:                                          1
-Max replicas:                                          10
-Deployment pods:                                       1 current / 0 desired
-Conditions:
-  Type           Status  Reason                   Message
-  ----           ------  ------                   -------
-  AbleToScale    True    SucceededGetScale        the HPA controller was able to get the target's current scale
-  ScalingActive  False   FailedGetResourceMetric  the HPA was unable to compute the replica count: failed to get cpu utilization: missing request for cpu
-Events:
-  Type     Reason                        Age               From                       Message
-  ----     ------                        ----              ----                       -------
-  Warning  FailedGetResourceMetric       4s (x5 over 66s)  horizontal-pod-autoscaler  failed to get cpu utilization: missing request for cpu
-  Warning  FailedComputeMetricsReplicas  4s (x5 over 66s)  horizontal-pod-autoscaler  invalid metrics (1 invalid out of 1), first error is: failed to get cpu utilization: missing request for cpu<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>我们可以看到上面的事件信息里面出现了 <code>failed to get cpu utilization: missing request for cpu</code> 这样的错误信息。这是因为我们上面创建的 Pod 对象没有添加 request 资源声明，这样导致 HPA 读取不到 CPU 指标信息，所以如果要想让 HPA 生效，对应的 Pod 资源必须添加 requests 资源声明，更新我们的资源清单文件（hpa-demo.yaml）：</p>
-<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> hpa<span class="token punctuation">-</span>demo
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
-    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
-      <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
-  <span class="token key atrule">template</span><span class="token punctuation">:</span>
-    <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
-        <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
-    <span class="token key atrule">spec</span><span class="token punctuation">:</span>
-      <span class="token key atrule">containers</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
-        <span class="token key atrule">image</span><span class="token punctuation">:</span> nginx
-        <span class="token key atrule">ports</span><span class="token punctuation">:</span>
-        <span class="token punctuation">-</span> <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">80</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">3000</span>
+          <span class="token key atrule">name</span><span class="token punctuation">:</span> grafana
+        <span class="token key atrule">env</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> GF_SECURITY_ADMIN_USER
+          <span class="token key atrule">value</span><span class="token punctuation">:</span> admin
+        <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> GF_SECURITY_ADMIN_PASSWORD
+          <span class="token key atrule">value</span><span class="token punctuation">:</span> admin321
+        <span class="token key atrule">readinessProbe</span><span class="token punctuation">:</span>
+          <span class="token key atrule">failureThreshold</span><span class="token punctuation">:</span> <span class="token number">10</span>
+          <span class="token key atrule">httpGet</span><span class="token punctuation">:</span>
+            <span class="token key atrule">path</span><span class="token punctuation">:</span> /api/health
+            <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">3000</span>
+            <span class="token key atrule">scheme</span><span class="token punctuation">:</span> HTTP
+          <span class="token key atrule">initialDelaySeconds</span><span class="token punctuation">:</span> <span class="token number">60</span>
+          <span class="token key atrule">periodSeconds</span><span class="token punctuation">:</span> <span class="token number">10</span>
+          <span class="token key atrule">successThreshold</span><span class="token punctuation">:</span> <span class="token number">1</span>
+          <span class="token key atrule">timeoutSeconds</span><span class="token punctuation">:</span> <span class="token number">30</span>
+        <span class="token key atrule">livenessProbe</span><span class="token punctuation">:</span>
+          <span class="token key atrule">failureThreshold</span><span class="token punctuation">:</span> <span class="token number">3</span>
+          <span class="token key atrule">httpGet</span><span class="token punctuation">:</span>
+            <span class="token key atrule">path</span><span class="token punctuation">:</span> /api/health
+            <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">3000</span>
+            <span class="token key atrule">scheme</span><span class="token punctuation">:</span> HTTP
+          <span class="token key atrule">periodSeconds</span><span class="token punctuation">:</span> <span class="token number">10</span>
+          <span class="token key atrule">successThreshold</span><span class="token punctuation">:</span> <span class="token number">1</span>
+          <span class="token key atrule">timeoutSeconds</span><span class="token punctuation">:</span> <span class="token number">1</span>
         <span class="token key atrule">resources</span><span class="token punctuation">:</span>
+          <span class="token key atrule">limits</span><span class="token punctuation">:</span>
+            <span class="token key atrule">cpu</span><span class="token punctuation">:</span> 100m
+            <span class="token key atrule">memory</span><span class="token punctuation">:</span> 256Mi
           <span class="token key atrule">requests</span><span class="token punctuation">:</span>
-            <span class="token key atrule">memory</span><span class="token punctuation">:</span> 50Mi
-            <span class="token key atrule">cpu</span><span class="token punctuation">:</span> 50m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+            <span class="token key atrule">cpu</span><span class="token punctuation">:</span> 100m
+            <span class="token key atrule">memory</span><span class="token punctuation">:</span> 256Mi
+        <span class="token key atrule">volumeMounts</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">mountPath</span><span class="token punctuation">:</span> /var/lib/grafana
+          <span class="token key atrule">subPath</span><span class="token punctuation">:</span> grafana
+          <span class="token key atrule">name</span><span class="token punctuation">:</span> storage
+      <span class="token key atrule">securityContext</span><span class="token punctuation">:</span>
+        <span class="token key atrule">fsGroup</span><span class="token punctuation">:</span> <span class="token number">472</span>
+        <span class="token key atrule">runAsUser</span><span class="token punctuation">:</span> <span class="token number">472</span>
+      <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> storage
+        <span class="token key atrule">persistentVolumeClaim</span><span class="token punctuation">:</span>
+          <span class="token key atrule">claimName</span><span class="token punctuation">:</span> grafana<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>然后重新更新 Deployment，重新创建 HPA 对象：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl delete -f hpa/hpa-demo.yaml 
-deployment.apps "hpa-demo" deleted
+<p>我们<code>grafana/grafana:5.3.4</code>镜像，然后添加了监控检查、资源声明，另外两个比较重要的环境变量<code>GF_SECURITY_ADMIN_USER</code>和<code>GF_SECURITY_ADMIN_PASSWORD</code>，用来配置 grafana 的管理员用户和密码的，由于 grafana 将 dashboard、插件这些数据保存在<code>/var/lib/grafana</code>这个目录下面的，所以我们这里如果需要做数据持久化的话，就需要针对这个目录进行 volume 挂载声明，其他的和我们之前的 Deployment 没什么区别，由于上面我们刚刚提到的 Changelog 中 grafana 的 userid 和 groupid 有所变化，所以我们这里需要增加一个<code>securityContext</code>的声明来进行声明。</p>
+<p>当然如果要使用一个 pvc 对象来持久化数据，我们就需要添加一个可用的 pv 供 pvc 绑定使用：grafana-volume.yaml</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> PersistentVolume
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> grafana
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">capacity</span><span class="token punctuation">:</span>
+    <span class="token key atrule">storage</span><span class="token punctuation">:</span> 1Gi
+  <span class="token key atrule">accessModes</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> ReadWriteOnce
+  <span class="token key atrule">persistentVolumeReclaimPolicy</span><span class="token punctuation">:</span> Recycle
+  <span class="token key atrule">nfs</span><span class="token punctuation">:</span>
+    <span class="token key atrule">server</span><span class="token punctuation">:</span> 172.31.0.2 <span class="token comment"># NFS 服务器地址</span>
+    <span class="token key atrule">path</span><span class="token punctuation">:</span> /nfs/data/ <span class="token comment"># NFS 服务器共享的目录</span>
+<span class="token punctuation">---</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> PersistentVolumeClaim
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> grafana
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> kube<span class="token punctuation">-</span>mon
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">accessModes</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> ReadWriteOnce
+  <span class="token key atrule">resources</span><span class="token punctuation">:</span>
+    <span class="token key atrule">requests</span><span class="token punctuation">:</span>
+      <span class="token key atrule">storage</span><span class="token punctuation">:</span> 1Gi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-[root@k8s-master ~]# kubectl apply -f hpa/hpa-demo.yaml 
-deployment.apps/hpa-demo created
+<p>最后，我们需要对外暴露 grafana 这个服务，所以我们需要一个对应的 Service 对象，当然用 NodePort 或者再建立一个 ingress 对象都是可行的：grafana-svc.yaml</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Service
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> grafana
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> kube<span class="token punctuation">-</span>mon
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token key atrule">app</span><span class="token punctuation">:</span> grafana
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">type</span><span class="token punctuation">:</span> NodePort
+  <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">3000</span>
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">app</span><span class="token punctuation">:</span> grafana<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-[root@k8s-master ~]# kubectl get pods -o wide -l app=nginx
-NAME                        READY   STATUS    RESTARTS   AGE   IP              NODE        NOMINATED NODE   READINESS GATES
-hpa-demo-6b4467b546-lndbp   1/1     Running   0          59s   192.168.36.72   k8s-node1   &lt;none&gt;           &lt;none&gt;
+<p>现在我们直接创建上面的这些资源对象：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master grafana]# kubectl create -f grafana-volume.yaml 
+persistentvolume/grafana created
+persistentvolumeclaim/grafana created
+[root@k8s-master grafana]# kubectl create -f grafana-deploy.yaml 
+deployment.apps/grafana created
+[root@k8s-master grafana]# kubectl create -f grafana-svc.yaml 
+service/grafana created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-[root@k8s-master ~]# kubectl get hpa 
-NAME       REFERENCE             TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
-hpa-demo   Deployment/hpa-demo   &lt;unknown&gt;/10%   1         10        1          5m46s
+<p>创建完成后，我们可以查看 grafana 对应的 Pod 是否正常：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master grafana]# kubectl get pods -n kube-mon -l app=grafana         
+NAME                       READY   STATUS             RESTARTS   AGE
+grafana-869db94654-m2qpj   0/1     CrashLoopBackOff   1          104s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-[root@k8s-master ~]# kubectl delete hpa hpa-demo
-horizontalpodautoscaler.autoscaling "hpa-demo" deleted
+<p>我们可以看到这里的状态是<code>CrashLoopBackOff</code>，并没有正常启动，我们查看下这个 Pod 的日志：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master grafana]# kubectl logs -f grafana-869db94654-m2qpj -n kube-mon
+GF_PATHS_DATA='/var/lib/grafana' is not writable.
+You may have issues with file permissions, more information here: http://docs.grafana.org/installation/docker/#migration-from-a-previous-version-of-the-docker-container-to-5-1-or-later
+mkdir: cannot create directory '/var/lib/grafana/plugins': Permission denied<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
-[root@k8s-master ~]# kubectl autoscale deployment hpa-demo --cpu-percent=10 --min=1 --max=10  
-horizontalpodautoscaler.autoscaling/hpa-demo autoscaled
+<blockquote>
+<p>上面的错误是在<code>5.1</code>版本之后才会出现的，当然你也可以使用之前的版本来规避这个问题。</p>
+</blockquote>
+<p>可以看到是日志中错误很明显就是<code>/var/lib/grafana</code>目录的权限问题，这还是因为5.1版本后 groupid 更改了引起的问题，我们这里增加了<code>securityContext</code>，但是我们将目录<code>/var/lib/grafana</code>挂载到 pvc 这边后目录的拥有者并不是上面的 grafana(472)这个用户了，所以我们需要更改下这个目录的所属用户，这个时候我们可以利用一个 Job 任务去更改下该目录的所属用户：grafana-chown-job.yaml</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> batch/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Job
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> grafana<span class="token punctuation">-</span>chown
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> kube<span class="token punctuation">-</span>mon
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">template</span><span class="token punctuation">:</span>
+    <span class="token key atrule">spec</span><span class="token punctuation">:</span>
+      <span class="token key atrule">restartPolicy</span><span class="token punctuation">:</span> Never
+      <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> grafana<span class="token punctuation">-</span>chown
+        <span class="token key atrule">command</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"chown"</span><span class="token punctuation">,</span> <span class="token string">"-R"</span><span class="token punctuation">,</span> <span class="token string">"472:472"</span><span class="token punctuation">,</span> <span class="token string">"/var/lib/grafana"</span><span class="token punctuation">]</span>
+        <span class="token key atrule">image</span><span class="token punctuation">:</span> busybox
+        <span class="token key atrule">imagePullPolicy</span><span class="token punctuation">:</span> IfNotPresent
+        <span class="token key atrule">volumeMounts</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> storage
+          <span class="token key atrule">subPath</span><span class="token punctuation">:</span> grafana
+          <span class="token key atrule">mountPath</span><span class="token punctuation">:</span> /var/lib/grafana
+      <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> storage
+        <span class="token key atrule">persistentVolumeClaim</span><span class="token punctuation">:</span>
+          <span class="token key atrule">claimName</span><span class="token punctuation">:</span> grafana<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<p>上面我们利用一个 busybox 镜像将<code>/var/lib/grafana</code>目录更改成了<code>472</code>这个 user 和 group，不过还需要注意的是下面的 volumeMounts 和 volumes 需要和上面的 Deployment 对应上。</p>
+<p>现在我们删除之前创建的 Deployment 对象，重新创建：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master grafana]# kubectl delete -f grafana-deploy.yaml 
+deployment.apps "grafana" deleted
 
-[root@k8s-master ~]# kubectl describe hpa hpa-demo
-Name:                                                  hpa-demo
-Namespace:                                             default
-Labels:                                                &lt;none&gt;
-Annotations:                                           &lt;none&gt;
-CreationTimestamp:                                     Sun, 28 Aug 2022 17:11:37 +0800
-Reference:                                             Deployment/hpa-demo
-Metrics:                                               ( current / target )
-  resource cpu on pods  (as a percentage of request):  0% (0) / 10%
-Min replicas:                                          1
-Max replicas:                                          10
-Deployment pods:                                       1 current / 1 desired
-Conditions:
-  Type            Status  Reason               Message
-  ----            ------  ------               -------
-  AbleToScale     True    ScaleDownStabilized  recent recommendations were higher than current one, applying the highest recent recommendation
-  ScalingActive   True    ValidMetricFound     the HPA was able to successfully calculate a replica count from cpu resource utilization (percentage of request)
-  ScalingLimited  False   DesiredWithinRange   the desired count is within the acceptable range
-Events:           &lt;none&gt;
+[root@k8s-master grafana]# kubectl create -f grafana-deploy.yaml 
+deployment.apps/grafana created
 
+[root@k8s-master grafana]# kubectl create -f grafana-chown-job.yaml 
+job.batch/grafana-chown created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-[root@k8s-master ~]# kubectl get hpa
-NAME       REFERENCE             TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
-hpa-demo   Deployment/hpa-demo   0%/10%    1         10        1          68s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>重新执行完成后，可以查看下上面的创建的资源对象是否正确了：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master grafana]# kubectl get pod -n kube-mon
+NAME                          READY   STATUS      RESTARTS   AGE
+grafana-869db94654-gxgjk      1/1     Running     2          102s
+grafana-chown-jwkhb           0/1     Completed   0          86s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>现在可以看到 HPA 资源对象已经正常了，现在我们来增大负载进行测试：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 开启另一个终端查看 hap-demo Pod 的 ip
-[root@k8s-master ~]# kubectl get pods 
-NAME                        READY   STATUS    RESTARTS   AGE
-hpa-demo-6b4467b546-lndbp   1/1     Running   0          10m
+<p>我们可以看到有一个状态为<code>Completed</code>的 Pod，这就是上面我们用来更改 grafana 目录权限的 Pod，是一个 Job 任务，所以执行成功后就退出了，状态变成了<code>Completed</code>，而上面的 grafana 的 Pod 也已经是<code>Running</code>状态了，可以查看下该 Pod 的日志确认下：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master grafana]# kubectl logs -f grafana-869db94654-gxgjk -n kube-mon
+t=2022-09-04T09:34:26+0000 lvl=info msg="Starting Grafana" logger=server version=5.3.4 commit=69630b9 compiled=2018-11-13T12:19:12+0000
+t=2022-09-04T09:34:26+0000 lvl=info msg="Config loaded from" logger=settings file=/usr/share/grafana/conf/defaults.ini
+t=2022-09-04T09:34:26+0000 lvl=info msg="Config loaded from" logger=settings file=/etc/grafana/grafana.ini
+......<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-[root@k8s-master ~]# kubectl get pod hpa-demo-6b4467b546-lndbp -o wide
-NAME                        READY   STATUS    RESTARTS   AGE   IP              NODE        NOMINATED NODE   READINESS GATES
-hpa-demo-6b4467b546-lndbp   1/1     Running   0          11m   192.168.36.72   k8s-node1   &lt;none&gt;           &lt;none&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>看到上面的日志信息就证明我们的 grafana 的 Pod 已经正常启动起来了。这个时候我们可以查看 Service 对象：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master grafana]# kubectl get svc -n kube-mon -l app=grafana
+NAME      TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+grafana   NodePort   10.96.179.102   &lt;none&gt;        3000:30907/TCP   8m50s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-<p>我们来创建一个 busybox 的 Pod，并且循环访问上面创建的 Pod：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]#  kubectl run -it --image busybox test-hpa --restart=Never --rm /bin/sh
-If you don't see a command prompt, try pressing enter.
-/ # while true; do wget -q -O- http://192.168.36.72; done<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-<p>下图可以看到，HPA 已经开始工作：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get hpa
-NAME       REFERENCE             TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
-hpa-demo   Deployment/hpa-demo   0%/10%    1         10        10         17m
-
-
-[root@k8s-master ~]#  kubectl get pods -l app=nginx --watch
-NAME                        READY   STATUS    RESTARTS   AGE
-hpa-demo-6b4467b546-dlgk5   0/1     ContainerCreating   0          1s
-hpa-demo-6b4467b546-5plpg   0/1     ContainerCreating   0          1s
-hpa-demo-6b4467b546-wprxt   1/1     Running             0          17s
-hpa-demo-6b4467b546-dlgk5   1/1     Running             0          2s
-hpa-demo-6b4467b546-nd5rh   1/1     Running             0          18s
-hpa-demo-6b4467b546-rbv2x   0/1     Pending             0          0s
-hpa-demo-6b4467b546-rbv2x   0/1     Pending             0          0s
-hpa-demo-6b4467b546-6bcg2   0/1     Pending             0          0s
-hpa-demo-6b4467b546-6bcg2   0/1     Pending             0          0s
-hpa-demo-6b4467b546-6bcg2   0/1     ContainerCreating   0          0s
-hpa-demo-6b4467b546-rbv2x   0/1     ContainerCreating   0          0s
-hpa-demo-6b4467b546-6bcg2   0/1     ContainerCreating   0          0s
-hpa-demo-6b4467b546-rbv2x   0/1     ContainerCreating   0          0s
-hpa-demo-6b4467b546-nphlm   1/1     Running             0          33s
-hpa-demo-6b4467b546-5plpg   1/1     Running             0          17s
-hpa-demo-6b4467b546-rbv2x   1/1     Running             0          2s
-hpa-demo-6b4467b546-rpwpf   1/1     Running             0          32s
-hpa-demo-6b4467b546-6bcg2   1/1     Running             0          32s
-hpa-demo-6b4467b546-rxp2d   1/1     Running             0          47s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>我们可以看到已经自动拉起了很多新的 Pod，最后定格在了我们上面设置的 10 个 Pod，同时查看资源 hpa-demo 的副本数量，副本数量已经从原来的1变成了10个：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get deployment hpa-demo
-NAME       READY   UP-TO-DATE   AVAILABLE   AGE
-hpa-demo   10/10   10           10          15m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-<p>查看 HPA 资源的对象了解工作过程：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl describe hpa hpa-demo
-Name:                                                  hpa-demo
-Namespace:                                             default
-Labels:                                                &lt;none&gt;
-Annotations:                                           &lt;none&gt;
-CreationTimestamp:                                     Sun, 28 Aug 2022 17:11:37 +0800
-Reference:                                             Deployment/hpa-demo
-Metrics:                                               ( current / target )
-  resource cpu on pods  (as a percentage of request):  0% (0) / 10%
-Min replicas:                                          1
-Max replicas:                                          10
-Deployment pods:                                       10 current / 10 desired
-Conditions:
-  Type            Status  Reason               Message
-  ----            ------  ------               -------
-  AbleToScale     True    ScaleDownStabilized  recent recommendations were higher than current one, applying the highest recent recommendation
-  ScalingActive   True    ValidMetricFound     the HPA was able to successfully calculate a replica count from cpu resource utilization (percentage of request)
-  ScalingLimited  True    TooManyReplicas      the desired replica count is more than the maximum replica count
-Events:
-  Type    Reason             Age    From                       Message
-  ----    ------             ----   ----                       -------
-  Normal  SuccessfulRescale  7m     horizontal-pod-autoscaler  New size: 4; reason: cpu resource utilization (percentage of request) above target
-  Normal  SuccessfulRescale  6m44s  horizontal-pod-autoscaler  New size: 8; reason: cpu resource utilization (percentage of request) above target
-  Normal  SuccessfulRescale  6m29s  horizontal-pod-autoscaler  New size: 10; reason: cpu resource utilization (percentage of request) above target<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>同样的这个时候我们来关掉 busybox 来减少负载，然后等待一段时间观察下 HPA 和 Deployment 对象：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get hpa
-NAME       REFERENCE             TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
-hpa-demo   Deployment/hpa-demo   0%/10%    1         10        1          19m
-
-[root@k8s-master ~]# kubectl get deployment hpa-demo
-NAME       READY   UP-TO-DATE   AVAILABLE   AGE
-hpa-demo   1/1     1            1           21m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>可以看到副本数量已经由 10 变为 1，当前我们只是演示了 CPU 使用率这一个指标，我们还可以根据自定义的监控指标来自动对 Pod 进行扩缩容。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://v1-21.docs.kubernetes.io/zh/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/">https://v1-21.docs.kubernetes.io/zh/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/</a></li>
-<li><a target="_blank" rel="noopener" href="https://v1-21.docs.kubernetes.io/zh/docs/tasks/run-application/horizontal-pod-autoscale/">https://v1-21.docs.kubernetes.io/zh/docs/tasks/run-application/horizontal-pod-autoscale/</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/kubernetes-sigs/metrics-server">https://github.com/kubernetes-sigs/metrics-server</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.qikqiak.com/k8strain/controller/hpa/">https://www.qikqiak.com/k8strain/controller/hpa/</a></li>
+<p>现在我们就可以在浏览器中使用<code>http://&lt;任意节点IP:30907&gt;</code>来访问 grafana 这个服务了</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-grafana-1.png"></p>
+<p>由于上面我们配置了管理员的，所以第一次打开的时候会跳转到登录界面，然后就可以用上面我们配置的两个环境变量的值来进行登录了，登录完成后就可以进入到下面 Grafana 的首页</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220904174238.png"></p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>在上面的首页中我们可以看到已经安装了 Grafana，接下来点击<code>Add data source</code>进入添加数据源界面。</p>
+<h3 id="数据源"><a href="#数据源" class="headerlink" title="数据源"></a>数据源</h3><p>我们这个地方配置的数据源是 Prometheus，所以选择这个 Type 即可，给改数据源添加一个 name：prometheus-ds，最主要的是下面<code>HTTP</code>区域是配置数据源的访问模式。</p>
+<p>访问模式是用来控制如何处理对数据源的请求的：</p>
+<ul>
+<li>服务器(Server)访问模式（默认）：所有请求都将从浏览器发送到 Grafana 后端的服务器，后者又将请求转发到数据源，通过这种方式可以避免一些跨域问题，其实就是在 Grafana 后端做了一次转发，需要从Grafana 后端服务器访问该 URL。</li>
+<li>浏览器(Browser)访问模式：所有请求都将从浏览器直接发送到数据源，但是有可能会有一些跨域的限制，使用此访问模式，需要从浏览器直接访问该 URL。</li>
 </ul>
+<p>由于我们这个地方 Prometheus 通过 NodePort 的方式的对外暴露的服务，所以我们这个地方是不是可以使用浏览器访问模式直接访问 Prometheus 的外网地址，但是这种方式显然不是最好的，相当于走的是外网，而我们这里 Prometheus 和 Grafana 都处于 kube-mon 这同一个 namespace 下面，是不是在集群内部直接通过 DNS 的形式就可以访问了，而且还都是走的内网流量，所以我们这里用服务器访问模式显然更好，数据源地址：<code>http://prometheus:9090</code>（因为在同一个 namespace 下面所以直接用 Service 名也可以），然后其他的配置信息就根据实际情况了，比如 Auth 认证，我们这里没有，所以跳过即可，点击最下方的<code>Save &amp; Test</code>提示成功证明我们的数据源配置正确：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master grafana]# kubectl get svc -n kube-mon
+NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)             AGE
+grafana      NodePort    10.96.179.102   &lt;none&gt;        3000:30907/TCP      30m
+prometheus   NodePort    10.96.146.110   &lt;none&gt;        9090:32640/TCP      44h
+redis        ClusterIP   10.96.143.235   &lt;none&gt;        6379/TCP,9121/TCP   43h<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220904180103.png"></p>
+<p>数据源添加完成后，就可以来添加 Dashboard 了。</p>
+<h3 id="Dashboard"><a href="#Dashboard" class="headerlink" title="Dashboard"></a>Dashboard</h3><p>同样，切换到主页，我们可以根据自己的需求手动新建一个 Dashboard，除此之外，grafana 的官方网站上还有很多公共的 Dashboard 可以供我们使用，我们这里可以使用<a target="_blank" rel="noopener" href="https://grafana.com/dashboards/162/revisions">Kubernetes cluster monitoring (via Prometheus)(dashboard id 为162)</a>这个 Dashboard 来展示 Kubernetes 集群的监控信息，在左侧侧边栏 Create 中点击<code>import</code>导入： </p>
+<p>![image-20220904180506120](/Users/zhangquan/Library/Application Support/typora-user-images/image-20220904180506120.png)</p>
+<p>我们可以将上面编号<code>162</code>的 dashboard 下载到本地，然后这里重新上传即可，也可以在上面的文本框中直接输入<code>162</code>编号回车即可，导入这个 dashboard： </p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220904180639.png"></p>
+<p>需要注意的是在执行上面的 import 之前要记得选择我们的<code>prometheus-ds</code>这个名字的数据源，执行<code>import</code>操作，就可以进入到 dashboard 页面： </p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220904180822.png"></p>
+<p>我们可以看到 dashboard 页面上出现了很多漂亮的图表，但是看上去数据不正常，这是因为这个 dashboard 里面需要的数据指标名称和我们 Prometheus 里面采集到的数据指标不一致造成的，比如，第一个<code>Cluster memory usage(集群内存使用情况)</code>，我们可以点击标题 -&gt; Edit，进入编辑这个图表的编辑页面：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220904180923.png"></p>
+<p>进入编辑页面我们就可以看到这个图表的查询语句：</p>
+<blockquote>
+<p>(sum(node_memory_MemTotal) - sum(node_memory_MemFree+node_memory_Buffers+node_memory_Cached) ) / sum(node_memory_MemTotal) * 100</p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220904181041.png"></p>
+<p>这就是我们之前在 Prometheus 里面查询的<code>promQL</code>语句，我们可以将上面的查询语句复制到 Prometheus 的 Graph 页面进行查询，其实可以预想到是没有对应的数据的。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220904181334.png"></p>
+<p>因为我们用<code>node_exporter</code>采集到的数据指标不是<code>node_memory_MemTotal</code>关键字，而是<code>node_memory_MemTotal_bytes</code></p>
+<p>![image-20220904181527134](/Users/zhangquan/Library/Application Support/typora-user-images/image-20220904181527134.png)</p>
+<p>将上面的<code>promQL</code>语句做相应的更改：</p>
+<blockquote>
+<pre class="line-numbers language-none"><code class="language-none">(sum(node_memory_MemTotal_bytes) - sum(node_memory_MemFree_bytes + node_memory_Buffers_bytes+node_memory_Cached_bytes)) / sum(node_memory_MemTotal_bytes) * 100<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</blockquote>
+<p>这个语句的意思就是<code>(整个集群的内存-(整个集群剩余的内存以及Buffer和Cached))/整个集群的内存</code>，简单来说就是总的集群内存使用百分比。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220904181735.png"></p>
+<p>可以看到 Prometheus 可以查到数据了。</p>
+<p>将上面 grafana 的<code>promQL</code>语句替换掉，就可以看到图表正常了：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220904182227.png"></p>
+<p>同样的，我们可以更改后面的 CPU 和 FileSystem 的使用</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220904182813.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220904183812.png"></p>
+<p>同样下面的<code>Pod CPU Usage</code>用来展示 Pod CPU 的使用情况，对应的<code>promQL</code>语句如下，根据 pod_name 来进行统计：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sum by (pod)( rate(container_cpu_usage_seconds_total{image!=""}[1m] ) )<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>按照上面的方法替换 grafana 中的 dashboard 图表中的查询语句： </p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220904184335.png"></p>
+<p>其他的也按照我们的实际需求重新编辑下就可以，下图是最终整个 dashboard 的效果图： </p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220904185720.png"></p>
+<p>最后要记得保存这个 dashboard，除此之外，我们也可以前往 grafana dashboard 的页面去搜索其他的关于 Kubernetes 的监控页面，地址：<a target="_blank" rel="noopener" href="https://grafana.com/dashboards%EF%BC%8C%E6%AF%94%E5%A6%82id">https://grafana.com/dashboards，比如id</a> 为747和741的这两个 dashboard。</p>
+<h2 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h2><p>我们也可以安装一些其他插件，比如 grafana 就有一个专门针对 Kubernetes 集群监控的插件：<a target="_blank" rel="noopener" href="https://grafana.com/plugins/grafana-kubernetes-app">grafana-kubernetes-app</a>，但是该插件很久没有更新了，这里我们介绍一个功能更加强大的插件 <a target="_blank" rel="noopener" href="https://github.com/devopsprodigy/kubegraf/">DevOpsProdigy KubeGraf</a>，它是 Grafana 官方的 <a target="_blank" rel="noopener" href="https://grafana.com/plugins/grafana-kubernetes-app">Kubernetes 插件</a> 的升级版本，该插件可以用来可视化和分析 Kubernetes 集群的性能，通过各种图形直观的展示了 Kubernetes 集群的主要服务的指标和特征，还可以用于检查应用程序的生命周期和错误日志。</p>
+<p>要安装这个插件，需要到 grafana 的 Pod 里面去执行安装命令：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get pods -n kube-mon -l app=grafana
+NAME                       READY   STATUS    RESTARTS   AGE
+grafana-869db94654-gxgjk   1/1     Running   3          4h4m
+
+[root@k8s-master ~]# kubectl exec -it grafana-869db94654-gxgjk -n kube-mon /bin/bash
+kubectl exec [POD] [COMMAND] is DEPRECATED and will be removed in a future version. Use kubectl exec [POD] -- [COMMAND] instead.
+grafana@grafana-869db94654-gxgjk:/usr/share/grafana$ grafana-cli plugins install devopsprodigy-kubegraf-app
+installing devopsprodigy-kubegraf-app @ 1.4.2
+from url: https://grafana.com/api/plugins/devopsprodigy-kubegraf-app/versions/1.4.2/download
+into: /var/lib/grafana/plugins
+
+✔ Installed devopsprodigy-kubegraf-app successfully 
+
+Restart grafana after installing plugins . &lt;service grafana-server restart&gt;
+
+
+# 由于该插件依赖另外一个 Grafana-piechart-panel 插件，所以如果没有安装，同样需要先安装该插件。
+grafana@grafana-869db94654-gxgjk:/usr/share/grafana$ grafana-cli plugins install Grafana-piechart-panel
+installing Grafana-piechart-panel @ 1.6.2
+from url: https://grafana.com/api/plugins/Grafana-piechart-panel/versions/1.6.2/download
+into: /var/lib/grafana/plugins
+
+✔ Installed Grafana-piechart-panel successfully 
+
+Restart grafana after installing plugins . &lt;service grafana-server restart&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>安装完成后需要重启 grafana 才会生效，我们这里直接删除 Pod，重建即可。</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master grafana]# kubectl delete -f grafana-deploy.yaml 
+deployment.apps "grafana" deleted
+
+[root@k8s-master grafana]# kubectl create -f grafana-deploy.yaml            
+deployment.apps/grafana created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p>然后通过浏览器打开 Grafana 找到该插件，点击 <code>enable</code> 启用插件。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220904214630.png"></p>
+<p>点击 <code>Set up your first k8s-cluster</code> 创建一个新的 Kubernetes 集群:</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-grafana-20.png"></p>
+<ul>
+<li>URL 使用 Kubernetes Service 地址即可：<a target="_blank" rel="noopener" href="https://kubernetes.default/">https://kubernetes.default:443</a></li>
+<li>Access 访问模式使用：<code>Server(default)</code></li>
+<li>由于插件访问 Kubernetes 集群的各种资源对象信息，所以我们需要配置访问权限，这里我们可以简单使用 kubectl 的 <code>kubeconfig</code> 来进行配置即可。</li>
+<li>勾选 Auth 下面的 <code>TLS Client Auth</code> 和 <code>With CA Cert</code> 两个选项</li>
+<li>其中 <code>TLS Auth Details</code> 下面的值就对应 <code>kubeconfig</code> 里面的证书信息。比如我们这里的 <code>kubeconfig</code> 文件格式如下所示：</li>
+</ul>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master grafana]# more ~/.kube/config 
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority-data:  &lt;certificate-authority-data&gt;
+    server: https://cluster-endpoint:6443
+  name: kubernetes
+contexts:
+- context:
+    cluster: kubernetes
+    user: kubernetes-admin
+  name: kubernetes-admin@kubernetes
+- context:
+    cluster: kubernetes
+    namespace: kube-system
+    user: zq
+  name: zq-context
+current-context: kubernetes-admin@kubernetes
+kind: Config
+preferences: {}
+users:
+- name: kubernetes-admin
+  user:
+    client-certificate-data: &lt;client-certificate-data&gt;
+    client-key-data: &lt;client-certificate-data&gt;
+- name: zq
+  user:
+    client-certificate: /root/certs/zq.crt
+    client-key: /root/certs/zq.key<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>那么 <code>CA Cert</code> 的值就对应 <code>kubeconfig</code> 里面的 <code>&lt;certificate-authority-data&gt;</code> 进行 base64 解码过后的值；<code>Client Cert</code> 的值对应 <code>&lt;client-certificate-data&gt;</code> 进行 base64 解码过后的值；<code>Client Key</code> 的值就对应 <code>&lt;client-key-data&gt;</code> 进行 base64 解码过后的值。</p>
+<ul>
+<li>最后在 <code>additional datasources</code> 下拉列表中选择 prometheus 的数据源。</li>
+<li>点击 <code>Save &amp; Test</code> 正常就可以保存成功了。</li>
+</ul>
+<p>插件配置完成后，在左侧侧边栏就会出现 <code>DevOpsProdigy KubeGraf</code> 插件的入口，通过插件页面可以查看整个集群的状态。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220904220329.png"></p>
+<h2 id="自定义图表"><a href="#自定义图表" class="headerlink" title="自定义图表"></a>自定义图表</h2><p>导入现成的第三方 Dashboard 或许能解决我们大部分问题，但是毕竟还会有需要定制图表的时候，这个时候就需要了解如何去自定义图表了。</p>
+<p>同样在侧边栏点击 “+”，选择 Dashboard，可以根据需要选择各种类型的图表，比如我们这里选择一个 <code>Graph</code> 类型的：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-grafana-21.png"></p>
+<p>然后选择左侧图标中的第一个 <code>Queries</code> tab，然后选择 <code>Prometheus</code> 这个数据源：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-grafana-23.png"></p>
+<p>然后在 <code>Metrics</code> 区域输入我们要查询的监控 PromQL 语句，比如我们这里想要查询集群节点 CPU 的使用率：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">(1 - sum(increase(node_cpu_seconds_total{mode="idle", instance=~"$node"}[1m])) by (instance) / sum(increase(node_cpu_seconds_total{instance=~"$node"}[1m])) by (instance)) * 100<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>虽然我们现在还没有具体的学习过 PromQL 语句，但其实我们仔细分析上面的语句也不是很困难，集群节点的 CPU 使用率实际上就相当于排除空闲 CPU 的使用率，所以我们可以优先计算空闲 CPU 的使用时长，除以总的 CPU 时长就是使用率了，用 1 减掉过后就是 CPU 的使用率了，如果想用百分比来表示的话则乘以 100 即可。</p>
+<p>这里有一个需要注意的地方是在 PromQL 语句中有一个 <code>install=~"$node"</code> 的标签，其实意思就是根据 <code>$node</code> 这个参数来进行过滤，也就是我们希望在 Grafana 里面通过参数化来控制每一次计算哪一个节点的 CPU 使用率。</p>
+<p>所以这里就涉及到 Grafana 里面的参数使用。点击页面顶部的 <code>Dashboard Settings</code> 按钮进入配置页面：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-grafana-24.png"></p>
+<p>在左侧 tab 栏点击 <code>Variables</code> 进入参数配置页面，如果还没有任何参数，可以通过点击 <code>Add Variable</code> 添加一个新的变量：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-grafana-25.png"></p>
+<p>这里需要注意的是变量的名称 <code>node</code> 就是上面我们在 PromQL 语句里面使用的 <code>$node</code> 这个参数，这两个地方必须保持一致，然后最重要的就是参数的获取方式了，比如我们可以通过 <code>Prometheus</code>这个数据源，通过 <code>kubelet_node_name</code> 这个指标来获取，在 Prometheus 里面我们可以查询该指标获取到的值为：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-grafana-26.png"></p>
+<p>我们其实只是想要获取节点的名称，所以我们可以用正则表达式去匹配 <code>node=xxx</code> 这个标签，将匹配的值作为参数的值即可。在最下面的 <code>Preview of values</code> 里面会有获取的参数值的预览结果。</p>
+<p>另外由于我们希望能够让用户自由选择一次性可以查询多少个节点的数据，所以我们将 <code>Multi-value</code> 以及 <code>Include All option</code> 都勾选上了，最后记得保存，保存后跳转到 Dashboard 页面就可以看到我们自定义的图表信息：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-grafana-29.png"></p>
 
                 
             </div>
@@ -947,7 +917,7 @@ hpa-demo   1/1     1            1           21m<span aria-hidden="true" class="l
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://www.zhangquan.me/2022/08/28/kubernetes-hpa/">https://www.zhangquan.me/2022/08/28/kubernetes-hpa/</a>
+                    <a href="https://www.zhangquan.me/2022/09/07/kubernetes-an-zhuang-grafana-ji-shi-yong/">https://www.zhangquan.me/2022/09/07/kubernetes-an-zhuang-grafana-ji-shi-yong/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -987,6 +957,10 @@ hpa-demo   1/1     1            1           21m<span aria-hidden="true" class="l
                             
                                 <a href="/tags/Kubernetes/">
                                     <span class="chip bg-color">Kubernetes</span>
+                                </a>
+                            
+                                <a href="/tags/Grafana/">
+                                    <span class="chip bg-color">Grafana</span>
                                 </a>
                             
                         </div>
@@ -1485,24 +1459,24 @@ hpa-demo   1/1     1            1           21m<span aria-hidden="true" class="l
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/08/28/kubernetes-ingress-traefik-de-an-zhuang-ji-jian-dan-shi-yong/">
+                <a href="/2022/09/07/prometheus-cha-xun-yu-yan-promql-shi-yong-shuo-ming/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="Kubernetes Ingress Traefik 的安装及简单使用">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="Prometheus 查询语言 PromQL 使用说明">
                         
-                        <span class="card-title">Kubernetes Ingress Traefik 的安装及简单使用</span>
+                        <span class="card-title">Prometheus 查询语言 PromQL 使用说明</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Kubernetes Ingress Traefik 的安装及简单使用
+                            Prometheus 查询语言 PromQL 使用说明
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-08-28
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-09-07
                         </span>
                         <span class="publish-author">
                             
@@ -1523,6 +1497,10 @@ hpa-demo   1/1     1            1           21m<span aria-hidden="true" class="l
                         <span class="chip bg-color">Kubernetes</span>
                     </a>
                     
+                    <a href="/tags/Prometheus/">
+                        <span class="chip bg-color">Prometheus</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -1534,24 +1512,24 @@ hpa-demo   1/1     1            1           21m<span aria-hidden="true" class="l
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/08/28/kubernetes-security-context/">
+                <a href="/2022/09/04/shi-yong-prometheus-jian-kong-kubernetes-zhong-chang-yong-de-zi-yuan-dui-xiang/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="Kubernetes Security Context">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="使用 Prometheus  监控 Kubernetes 中常用的资源对象">
                         
-                        <span class="card-title">Kubernetes Security Context</span>
+                        <span class="card-title">使用 Prometheus  监控 Kubernetes 中常用的资源对象</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Kubernetes Security Context Pod/容器的安全管控
+                            使用 Prometheus  监控 Kubernetes 中常用的资源对象
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-28
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-09-04
                             </span>
                         <span class="publish-author">
                             
@@ -1570,6 +1548,10 @@ hpa-demo   1/1     1            1           21m<span aria-hidden="true" class="l
                     
                     <a href="/tags/Kubernetes/">
                         <span class="chip bg-color">Kubernetes</span>
+                    </a>
+                    
+                    <a href="/tags/Prometheus/">
+                        <span class="chip bg-color">Prometheus</span>
                     </a>
                     
                 </div>
