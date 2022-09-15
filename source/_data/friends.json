@@ -1,0 +1,41 @@
+[{
+    "avatar": "http://www.ruanyifeng.com/blog/images/person2.jpg",
+    "name": "阮一峰",
+    "introduction": "阮一峰的网络日志",
+    "url": "https://www.ruanyifeng.com/blog/",
+    "title": "阮一峰的网络日志"
+}, {
+    "avatar": "https://coolshell.cn/wp-content/uploads/2011/03/me.jpg",
+    "name": "陈皓",
+    "introduction": "陈皓 网名“左耳朵耗子”，MegaEase 创始人，资深技术专家，骨灰级程序员",
+    "url": "https://coolshell.cn/",
+    "title": "陈皓的个人blog"
+}, {
+    "avatar": "https://www.laruence.com/images/logo.jpg",
+    "name": "惠新宸",
+    "introduction": "如视CEO，PHP开发组核心成员, Zend顾问, PHP7及PHP8 JIT核心作者. Yaf等开源项目作者",
+    "url": "https://www.laruence.com/",
+    "title": "鸟哥的个人blog"
+},
+{
+    "avatar": "https://zhangquan.me/medias/avatar/htf.png",
+    "name": "韩天峰",
+    "introduction": "识沃科技CEO，任好未来学而思网校首席架构师，Swoole 开源项目创始人，PHP官方PECL开发组成员",
+    "url": "https://rango.swoole.com",
+    "title": "韩天峰(Rango)的个人博客"
+},
+{
+    "avatar": "https://swtch.com/~rsc/rsc-small.jpg",
+    "name": "Russ Cox",
+    "introduction": "Go 语言核心开发者",
+    "url": "https://research.swtch.com/",
+    "title": "Russ Cox的个人博客"
+},
+{
+    "avatar": "https://zhangquan.me/medias/avatar/meituan.png",
+    "name": "美团",
+    "introduction": "美团技术团队",
+    "url": "https://tech.meituan.com/",
+    "title": "美团技术团队的博客"
+}
+]
