@@ -15,8 +15,6 @@ tags:
 categories: Kubernetes
 ---
 
-[toc]
-
 # Prometheus Operator 的安装
 
 传统的Prometheus监控Kubernetes集群，有所缺陷，比如Prometheus、Alertmanager等组件的高可用，虽然可以通过自定义的方式实现，但是不够灵活。那么Prometheus Operator是一种更高级，更云原生的Kubernetes集群监控方式。其项目地址为：https://github.com/prometheus-operator/kube-prometheus
