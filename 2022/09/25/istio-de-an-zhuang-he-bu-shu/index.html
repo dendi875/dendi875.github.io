@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Git 的 4 个阶段的撤销更改, PHP,Java,Go,MySQL,Linux,Docker等">
+    <meta name="keywords" content="Istio的安装和部署, PHP,Java,Go,MySQL,Linux,Docker等">
     <meta name="description" content="PHP Go MySQL 后端开发">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Git 的 4 个阶段的撤销更改 | 一代键客</title>
+    <title>Istio的安装和部署 | 一代键客</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -327,12 +327,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/6.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Git 的 4 个阶段的撤销更改</h1>
+                    <h1 class="description center-align post-title">Istio的安装和部署</h1>
                 </div>
             </div>
         </div>
@@ -448,12 +448,16 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Git/">
-                                <span class="chip bg-color">Git</span>
+                            <a href="/tags/Kubernetes/">
+                                <span class="chip bg-color">Kubernetes</span>
                             </a>
                         
-                            <a href="/tags/%E5%B7%A5%E5%85%B7/">
-                                <span class="chip bg-color">工具</span>
+                            <a href="/tags/Service-Mesh/">
+                                <span class="chip bg-color">Service Mesh</span>
+                            </a>
+                        
+                            <a href="/tags/Istio/">
+                                <span class="chip bg-color">Istio</span>
                             </a>
                         
                     </div>
@@ -464,8 +468,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Git/" class="post-category">
-                                Git
+                            <a href="/categories/Istio/" class="post-category">
+                                Istio
                             </a>
                         
                     </div>
@@ -477,28 +481,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-06-29
+                    2022-09-25
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-11-26
+                    2022-09-25
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.8k
+                    2.7k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    6 分
+                    13 分
                 </div>
                 
 
@@ -521,112 +525,298 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Git-的-4-个阶段的撤销更改"><a href="#Git-的-4-个阶段的撤销更改" class="headerlink" title="Git 的 4 个阶段的撤销更改"></a>Git 的 4 个阶段的撤销更改</h1><blockquote>
-<p>原文出处：<a target="_blank" rel="noopener" href="https://www.fengerzh.com/git-reset/">张京</a></p>
-</blockquote>
-<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/63918611gy1fltan48ktfj21hm12y7f5.jpg" alt="img"></p>
-<p>虽然git诞生距今已有12年之久，网上各种关于git的介绍文章数不胜数，但是依然有很多人（包括我自己在内）对于它的功能不能完全掌握。以下的介绍只是基于我个人对于git的理解，并且可能生编硬造了一些不完全符合git说法的词语。目的只是为了让git通俗化，使初学者也能大概了解如何快速上手git。同时，下面所有讨论，我们都假设只使用一个分支，也就是主分支master的情况，虽然这种作法并不符合git规范，但是现实情况中绝大部分用户是直接在master分支上进行工作的，所以在这里我们不去引入更加复杂的各种分支的情况，也不涉及标签tag的操作，只讲在最简单的主分支上如何回退。</p>
-<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><h3 id="3个步骤"><a href="#3个步骤" class="headerlink" title="3个步骤"></a>3个步骤</h3><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/63918611gy1fltan4vu1cj20m80463yo.jpg" alt="img"></p>
-<p>正常情况下，我们的工作流就是3个步骤，对应上图中的3个箭头线：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">git add .
-git commit -m "comment"
-git push<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-<ol>
-<li><code>git add .</code> 把所有文件放入<code>暂存区</code>；</li>
-<li><code>git commit</code> 把所有文件从<code>暂存区</code>提交进<code>本地仓库</code>；</li>
-<li><code>git push</code> 把所有文件从<code>本地仓库</code>推送进<code>远程仓库</code>。</li>
-</ol>
-<h3 id="4个区"><a href="#4个区" class="headerlink" title="4个区"></a>4个区</h3><p>git之所以令人费解，主要是它相比于svn等等传统的版本管理工具，多引入了一个<strong>暂存区</strong>(Stage)的概念，就因为多了这一个概念，而使很多人疑惑。其实，在初学者来说，每个区具体怎么工作的，我们完全不需要关心，而只要知道有这么4个区就够了：</p>
-<ul>
-<li>工作区(Working Area)</li>
-<li>暂存区(Stage)</li>
-<li>本地仓库(Local Repository)</li>
-<li>远程仓库(Remote Repository)</li>
+                <h1 id="Istio的安装和部署"><a href="#Istio的安装和部署" class="headerlink" title="Istio的安装和部署"></a>Istio的安装和部署</h1><h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><ul>
+<li><p>macOS Catalina 版本 10.15.6</p>
+</li>
+<li><p>minikube version: v1.12.0</p>
+</li>
+<li><p>kubernetes-version: v1.16.0</p>
+</li>
+<li><p>istioctl version: 1.5.1</p>
+</li>
 </ul>
-<h3 id="5种状态"><a href="#5种状态" class="headerlink" title="5种状态"></a>5种状态</h3><p>以上4个区，进入每一个区成功之后会产生一个状态，再加上最初始的一个状态，一共是5种状态。以下我们把这5种状态分别命名为：</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p> 安装官方文档说明 <a target="_blank" rel="noopener" href="https://istio.io/latest/docs/setup/platform-setup/minikube/">https://istio.io/latest/docs/setup/platform-setup/minikube/</a> 进行安装，但要注意 istio 与 k8s 版本之间的兼容性，兼容性参考：<a target="_blank" rel="noopener" href="https://istio.io/latest/docs/releases/supported-releases/">https://istio.io/latest/docs/releases/supported-releases/</a></p>
 <ul>
-<li>未修改(Origin)</li>
-<li>已修改(Modified)</li>
-<li>已暂存(Staged)</li>
-<li>已提交(Committed)</li>
-<li>已推送(Pushed)</li>
+<li>执行以下命令，启动一个单节点的 k8s 集群</li>
 </ul>
-<h2 id="检查修改"><a href="#检查修改" class="headerlink" title="检查修改"></a>检查修改</h2><p>了解了基本概念之后，我们来谈一谈犯错误之后如何撤销的问题。首先，我们要了解如何检查这3个步骤当中每一个步骤修改了什么，然后才好判断有没有修改成功。检查修改的二级命令都相同，都是diff，只是参数有所不同。</p>
-<h3 id="已修改，未暂存"><a href="#已修改，未暂存" class="headerlink" title="已修改，未暂存"></a>已修改，未暂存</h3><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">git diff<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># zhangquan @ MacBook-Pro in ~/Downloads/devops [23:42:20] 
+$ minikube start --memory=16384 --cpus=4 --image-mirror-country='cn' --image-repository='registry.cn-hangzhou.aliyuncs.com/google_containers' --kubernetes-version=v1.16.0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<p>首先，我们来看一下，如果我们只是简单地在浏览器里保存了一下文件，但是还没有做<code>git add .</code>之前，我们如何检查有哪些修改。我们先随便拿一个文件来做一下实验：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/63918611gy1fltan5a4xuj20fi07z3zc.jpg" alt="img"></p>
-<p>我们在文件开头的第2行胡乱加了4个数字<code>1234</code>，存盘，这时文件进入了已修改状态，但是还没有进入<code>暂存区</code>，我们运行<code>git diff</code>，结果如下：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">diff --git a/index.md b/index.md
-index 73ff1ba..1066758 100644
---- a/index.md
-+++ b/index.md
-&lt;a href='http://www.jobbole.com/members/li754132448'&gt;@@&lt;/a&gt; -1,5 +1,5 &lt;a href='http://www.jobbole.com/members/li754132448'&gt;@@&lt;/a&gt;
- ---
--layout: main
-+1234layout: main
- color: black
- ---<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>在 <a target="_blank" rel="noopener" href="https://github.com/istio/istio/releases">GitHub Release 页面 </a>获取对应系统版本下载地址</li>
+</ul>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># zhangquan @ MacBook-Pro in ~/Downloads/devops [16:35:30] 
+$ wget https://storage.googleapis.com/istio-release/releases/1.5.1/istio-1.5.1-osx.tar.gz 
 
-<p><code>git diff</code>的结果告诉我们哪些文件已经做了哪些修改。</p>
-<h3 id="已暂存，未提交"><a href="#已暂存，未提交" class="headerlink" title="已暂存，未提交"></a>已暂存，未提交</h3><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">git diff --cached<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+# zhangquan @ MacBook-Pro in ~/Downloads/devops [16:51:41] 
+$ tar -zxvf istio-1.5.1-osx.tar.gz
 
-<p>现在我们把修改放入<code>暂存区</code>看一下。先执行<code>git add .</code>，然后执行<code>git diff</code>，你会发现没有任何结果：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/63918611gy1fltan5m82pj20ag01rt8l.jpg" alt="img"></p>
-<p>这说明<code>git diff</code>这个命令只检查我们的<code>工作区</code>和<code>暂存区</code>之间的差异，如果我们想看到<code>暂存区</code>和<code>本地仓库</code>之间的差异，就需要加一个参数<code>git diff --cached</code>：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">diff --git a/index.md b/index.md
-index 73ff1ba..1066758 100644
---- a/index.md
-+++ b/index.md
-&lt;a href='http://www.jobbole.com/members/li754132448'&gt;@@&lt;/a&gt; -1,5 +1,5 &lt;a href='http://www.jobbole.com/members/li754132448'&gt;@@&lt;/a&gt;
- ---
--layout: main
-+1234layout: main
- color: black
- ---<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+# 把 istioctl 命令添加到环境变量中
+export ISTIO_HOME=/Users/zhangquan/Downloads/devops/istio-1.5.1/bin
+export PATH=$PATH:$ISTIO_HOME
 
-<p>这时候我们看到的差异是<code>暂存区</code>和<code>本地仓库</code>之间的差异。</p>
-<h3 id="已提交，未推送"><a href="#已提交，未推送" class="headerlink" title="已提交，未推送"></a>已提交，未推送</h3><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">git diff master origin/master<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+# zhangquan @ MacBook-Pro in ~/Downloads/devops [16:52:54] 
+$ ll istio-1.5.1
+total 48
+-rw-r--r--   1 zhangquan  staff    11K  3 24  2020 LICENSE
+-rw-r--r--   1 zhangquan  staff   5.7K  3 24  2020 README.md
+drwxr-x---   3 zhangquan  staff    96B  3 24  2020 bin
+drwxr-xr-x   7 zhangquan  staff   224B  3 24  2020 install
+-rw-r-----   1 zhangquan  staff   595B  3 24  2020 manifest.yaml
+drwxr-xr-x  20 zhangquan  staff   640B  3 24  2020 samples
+drwxr-x---   6 zhangquan  staff   192B  3 24  2020 tools<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>现在，我们把修改从<code>暂存区</code>提交到<code>本地仓库</code>，再看一下差异。先执行<code>git commit</code>，然后再执行<code>git diff --cached</code>，没有差异，执行<code>git diff master origin/master</code>，可以看到差异：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/63918611gy1fltan637jhj20en076aas.jpg" alt="img"></p>
-<p>在这里，<code>master</code>就是你的本地仓库，而<code>origin/master</code>就是你的远程仓库，<code>master</code>是主分支的意思，因为我们都在主分支上工作，所以这里两边都是<code>master</code>，而<code>origin</code>就代表远程。</p>
-<h2 id="撤销修改"><a href="#撤销修改" class="headerlink" title="撤销修改"></a>撤销修改</h2><p>了解清楚如何检查各种修改之后，我们开始尝试各种撤销操作。</p>
-<h3 id="已修改，未暂存-1"><a href="#已修改，未暂存-1" class="headerlink" title="已修改，未暂存"></a>已修改，未暂存</h3><p>如果我们只是在编辑器里修改了文件，但还没有执行<code>git add .</code>，这时候我们的文件还在工作区，并没有进入暂存区，我们可以用：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">git checkout .<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>可以看到 istio 中包含以下几部分内容</p>
+<ul>
+<li>bin: 有我们要使用的 <code>istioctl </code> 命令行工具</li>
+<li>install: 包含了几个平台的安装清单</li>
+<li>samples: 官方提供一些示例程序</li>
+</ul>
+<p>istio 提供了一些配置档案，也就是<code>Profile</code>，它的目的就是让你在不同应用场景去安装不同的版本</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220912170726.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220912170843.png">安装 istio 的工具和文件准备好过后，直接执行如下所示的安装命令即可：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># zhangquan @ MacBook-Pro in ~/Downloads/devops/istio-1.5.1 [17:10:27] 
+$ istioctl manifest apply --set profile=demo
+Detected that your cluster does not support third party JWT authentication. Falling back to less secure first party JWT. See https://istio.io/docs/ops/best-practices/security/#configure-third-party-service-account-tokens for details.
+- Applying manifest for component Base...
+✔ Finished applying manifest for component Base.
+- Applying manifest for component Pilot...
+✔ Finished applying manifest for component Pilot.
+  Waiting for resources to become ready...
+	......
+  Waiting for resources to become ready...
+- Applying manifest for component EgressGateways...
+- Applying manifest for component IngressGateways...
+- Applying manifest for component AddonComponents...
+✔ Finished applying manifest for component EgressGateways.
+✔ Finished applying manifest for component IngressGateways.
+✔ Finished applying manifest for component AddonComponents.
 
-<p>或者</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">git reset --hard<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>来进行撤销操作。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/63918611gy1fltan6hur7j20c9075jrr.jpg" alt="img"></p>
-<p>可以看到，在执行完<code>git checkout .</code>之后，修改已被撤销，<code>git diff</code>没有任何内容了。</p>
-<blockquote>
-<p><strong>一对反义词</strong> <code>git add .</code>的反义词是<code>git checkout .</code>。做完修改之后，如果你想向前走一步，让修改进入暂存区，就执行<code>git add .</code>，如果你想向后退一步，撤销刚才的修改，就执行<code>git checkout .</code>。</p>
-</blockquote>
-<h3 id="已暂存，未提交-1"><a href="#已暂存，未提交-1" class="headerlink" title="已暂存，未提交"></a>已暂存，未提交</h3><p>你已经执行了<code>git add .</code>，但还没有执行<code>git commit -m "comment"</code>。这时候你意识到了错误，想要撤销，你可以执行：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">git reset
-git checkout .<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+✔ Installation complete<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>或者</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">git reset --hard<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>安装完成后我们可以查看 istio-system 命名空间下面的 Pod 运行状态：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$  kubectl get pods -n istio-system
+NAME                                    READY   STATUS    RESTARTS   AGE
+grafana-5cc7f86765-89z9l                1/1     Running   0          5m18s
+istio-egressgateway-598d7ffc49-x4rtw    1/1     Running   0          5m19s
+istio-ingressgateway-7bd5586b79-z78rw   1/1     Running   0          5m19s
+istio-tracing-8584b4d7f9-26czf          1/1     Running   0          5m18s
+istiod-646b6fcc6-rjlcm                  1/1     Running   0          6m53s
+kiali-696bb665-cr8f9                    1/1     Running   0          5m18s
+prometheus-6c88c4cb8-2dt5k              2/2     Running   0          5m18s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><code>git reset</code>只是把修改退回到了<code>git add .</code>之前的状态，也就是说文件本身还处于已修改未暂存状态，你如果想退回未修改状态，还需要执行<code>git checkout .</code>。</p>
-<p>或许你已经注意到了，以上两个步骤都可以用同一个命令<code>git reset --hard</code>来完成。是的，就是这个强大的命令，可以一步到位地把你的修改完全恢复到未修改的状态。</p>
-<h3 id="已提交，未推送-1"><a href="#已提交，未推送-1" class="headerlink" title="已提交，未推送"></a>已提交，未推送</h3><p>你的手太快，你既执行了<code>git add .</code>，又执行了<code>git commit</code>，这时候你的代码已经进入了你的本地仓库，然而你后悔了，怎么办？不要着急，还有办法。</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">git reset --hard origin/master<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>如果都是 Running 状态证明 istio 就已经安装成功了。</p>
+<p>安装完成后还可以检测一下<code>istio</code>的<code>CRD</code>和<code>API资源</code>:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ kubectl get crd | grep istio
+adapters.config.istio.io                   2022-09-09T21:58:30Z
+attributemanifests.config.istio.io         2022-09-09T21:58:30Z
+authorizationpolicies.security.istio.io    2022-09-09T21:58:30Z
+clusterrbacconfigs.rbac.istio.io           2022-09-09T21:58:30Z
+destinationrules.networking.istio.io       2022-09-09T21:58:30Z
+envoyfilters.networking.istio.io           2022-09-09T21:58:30Z
+gateways.networking.istio.io               2022-09-09T21:58:30Z
+handlers.config.istio.io                   2022-09-09T21:58:30Z
+httpapispecbindings.config.istio.io        2022-09-09T21:58:30Z
+httpapispecs.config.istio.io               2022-09-09T21:58:30Z
+instances.config.istio.io                  2022-09-09T21:58:30Z
+meshpolicies.authentication.istio.io       2022-09-09T21:58:30Z
+peerauthentications.security.istio.io      2022-09-09T21:58:30Z
+policies.authentication.istio.io           2022-09-09T21:58:30Z
+quotaspecbindings.config.istio.io          2022-09-09T21:58:30Z
+quotaspecs.config.istio.io                 2022-09-09T21:58:30Z
+rbacconfigs.rbac.istio.io                  2022-09-09T21:58:30Z
+requestauthentications.security.istio.io   2022-09-09T21:58:30Z
+rules.config.istio.io                      2022-09-09T21:58:30Z
+serviceentries.networking.istio.io         2022-09-09T21:58:30Z
+servicerolebindings.rbac.istio.io          2022-09-09T21:58:30Z
+serviceroles.rbac.istio.io                 2022-09-09T21:58:30Z
+sidecars.networking.istio.io               2022-09-09T21:58:30Z
+templates.config.istio.io                  2022-09-09T21:58:30Z
+virtualservices.networking.istio.io        2022-09-09T21:58:30Z<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>还是这个<code>git reset --hard</code>命令，只不过这次多了一个参数<code>origin/master</code>，正如我们上面讲过的，<code>origin/master</code>代表远程仓库，既然你已经污染了你的本地仓库，那么就从远程仓库把代码取回来吧。</p>
-<h3 id="已推送"><a href="#已推送" class="headerlink" title="已推送"></a>已推送</h3><p>很不幸，你的手实在是太快了，你既<code>git add</code>了，又<code>git commit</code>了，并且还<code>git push</code>了，这时你的代码已经进入远程仓库。如果你想恢复的话，还好，由于你的本地仓库和远程仓库是等价的，你只需要先恢复本地仓库，再强制push到远程仓库就好了：</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">git reset --hard HEAD^
-git push -f<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>查看一下 <code>API资源</code>：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ kubectl api-resources | grep istio 
+meshpolicies                                   authentication.istio.io        false        MeshPolicy
+policies                                       authentication.istio.io        true         Policy
+adapters                                       config.istio.io                true         adapter
+attributemanifests                             config.istio.io                true         attributemanifest
+handlers                                       config.istio.io                true         handler
+httpapispecbindings                            config.istio.io                true         HTTPAPISpecBinding
+httpapispecs                                   config.istio.io                true         HTTPAPISpec
+instances                                      config.istio.io                true         instance
+quotaspecbindings                              config.istio.io                true         QuotaSpecBinding
+quotaspecs                                     config.istio.io                true         QuotaSpec
+rules                                          config.istio.io                true         rule
+templates                                      config.istio.io                true         template
+destinationrules                  dr           networking.istio.io            true         DestinationRule
+envoyfilters                                   networking.istio.io            true         EnvoyFilter
+gateways                          gw           networking.istio.io            true         Gateway
+serviceentries                    se           networking.istio.io            true         ServiceEntry
+sidecars                                       networking.istio.io            true         Sidecar
+virtualservices                   vs           networking.istio.io            true         VirtualService
+clusterrbacconfigs                             rbac.istio.io                  false        ClusterRbacConfig
+rbacconfigs                                    rbac.istio.io                  true         RbacConfig
+servicerolebindings                            rbac.istio.io                  true         ServiceRoleBinding
+serviceroles                                   rbac.istio.io                  true         ServiceRole
+authorizationpolicies                          security.istio.io              true         AuthorizationPolicy
+peerauthentications                            security.istio.io              true         PeerAuthentication
+requestauthentications                         security.istio.io              true         RequestAuthentication<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/63918611gy1fltan6vs0lj20di04d0td.jpg" alt="img"></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>以上4种状态的撤销我们都用到了同一个命令<code>git reset --hard</code>，前2种状态的用法甚至完全一样，所以只要掌握了<code>git reset --hard</code>这个命令的用法，从此你再也不用担心提交错误了。</p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://www.fengerzh.com/git-reset/">原文</a></li>
-<li><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000011910766">独孤求败：Git中的各种后悔药</a></li>
+<h2 id="验证安装"><a href="#验证安装" class="headerlink" title="验证安装"></a>验证安装</h2><p>istio 官方提供了一些 Dashboard，可以以可视化的方式直接去查看你的系统运行情况。</p>
+<p>我们直接启动 <code>Kiali</code>这个 Dashboard：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># zhangquan @ MacBook-Pro in ~/Downloads/devops/istio-1.5.1 [17:24:02] 
+$ istioctl dashboard kiali<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>运行以上命令它会帮我们打开浏览器，使用 admin/admin登录：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220914185033.png"></p>
+<p>如下图所示，可以看到 istio 相关组件都已安装成功，并且成功启动：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220914185942.png"></p>
+<h2 id="示例安装"><a href="#示例安装" class="headerlink" title="示例安装"></a>示例安装</h2><p>然后我们可以来安装官方提供的一个非常经典的 <a target="_blank" rel="noopener" href="https://github.com/istio/istio/tree/master/samples/bookinfo/">Bookinfo 应用示例</a>，这个示例部署了一个用于演示多种 Istio 特性的应用，该应用由四个单独的微服务构成。 这个应用模仿在线书店的一个分类，显示一本书的信息。页面上会显示一本书的描述，书籍的细节（ISBN、页数等），以及关于这本书的一些评论。</p>
+<p>Bookinfo 应用分为四个单独的微服务：</p>
+<ul>
+<li>productpage：这个微服务会调用 details 和 reviews 两个微服务，用来生成页面。</li>
+<li>details：这个微服务中包含了书籍的信息。</li>
+<li>reviews：这个微服务中包含了书籍相关的评论，它还会调用 ratings 微服务。</li>
+<li>ratings：这个微服务中包含了由书籍评价组成的评级信息。</li>
+</ul>
+<p>reviews 微服务有 3 个版本：</p>
+<ul>
+<li>v1 版本不会调用 ratings 服务。</li>
+<li>v2 版本会调用 ratings 服务，并使用 1 到 5 个黑色星形图标来显示评分信息。</li>
+<li>v3 版本会调用 ratings 服务，并使用 1 到 5 个红色星形图标来显示评分信息。</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220914193030.png"></p>
+<p>上图展示了使用 istio 后，整个应用实际的结构。所有的微服务都和一个 <code>Envoy sidecar</code> 封装到一起，sidecar 拦截所有到达和离开服务的请求。</p>
+<h3 id="注入-Sidecar"><a href="#注入-Sidecar" class="headerlink" title="注入 Sidecar"></a>注入 Sidecar</h3><p>在部署 Bookinfo 之前我们需要注入 Sidecar，有两种注入方式</p>
+<ul>
+<li><p>自动注入</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># zhangquan @ MacBook-Pro in ~/Downloads/devops/istio-1.5.1 [19:43:36]
+$ kubectl label namespace default istio-injection=enabled
+namespace/default labeled<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>给 default 这个命令空间（booknifo应用所在空间）添加一个 label，名称为：istio-injection，值为：enabled。</p>
+</li>
+<li><p>手动注入</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">kubectl apply -f &lt;(istioctl kube-inject -f samples/bookinfo/platform/kube/bookinfo.yaml)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+</ul>
+<h3 id="部署应用"><a href="#部署应用" class="headerlink" title="部署应用"></a>部署应用</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># zhangquan @ MacBook-Pro in ~/Downloads/devops/istio-1.5.1 [19:43:39] 
+$ kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml 
+service/details created
+serviceaccount/bookinfo-details created
+deployment.apps/details-v1 created
+service/ratings created
+serviceaccount/bookinfo-ratings created
+deployment.apps/ratings-v1 created
+service/reviews created
+serviceaccount/bookinfo-reviews created
+deployment.apps/reviews-v1 created
+deployment.apps/reviews-v2 created
+deployment.apps/reviews-v3 created
+service/productpage created
+serviceaccount/bookinfo-productpage created
+deployment.apps/productpage-v1 created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这里我们部署的 <code>bookinfo.yaml</code> 资源清单文件就是普通的 Kubernetes 的 Deployment 和 Service 的 yaml 文件，而 <code>istioctl kube-inject</code> 会在这个文件的基础上向其中的 Deployment 追加一个镜像为 <code>docker.io/istio/proxyv2:1.5.1</code> 的 sidecar 容器。</p>
+<p>过一会儿就可以看到如下 service 和 pod 启动:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># zhangquan @ MacBook-Pro in ~/Downloads/devops/istio-1.5.1 [19:46:55] 
+$ kubectl get po 
+NAME                              READY   STATUS    RESTARTS   AGE
+details-v1-78d78fbddf-5srj5       2/2     Running   0          3m3s
+productpage-v1-85b9bf9cd7-sbwd8   2/2     Running   0          3m1s
+ratings-v1-6c9dbf6b45-9fpck       2/2     Running   0          3m2s
+reviews-v1-564b97f875-f8zkw       2/2     Running   0          3m1s
+reviews-v2-568c7c9d8f-r5c76       2/2     Running   0          3m2s
+reviews-v3-67b4988599-qlv5j       2/2     Running   0          3m2s
+
+# zhangquan @ MacBook-Pro in ~/Downloads/devops/istio-1.5.1 [19:46:57] 
+$ kubectl get svc
+NAME          TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
+details       ClusterIP   10.99.216.225    &lt;none&gt;        9080/TCP   3m6s
+kubernetes    ClusterIP   10.96.0.1        &lt;none&gt;        443/TCP    4d20h
+productpage   ClusterIP   10.100.219.221   &lt;none&gt;        9080/TCP   3m5s
+ratings       ClusterIP   10.96.89.71      &lt;none&gt;        9080/TCP   3m6s
+reviews       ClusterIP   10.110.207.93    &lt;none&gt;        9080/TCP   3m6s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可以看到每个 pod 中有两个 container，一个是应用本身的，另一个是我们自动注入的 Sidecar。</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ kubectl describe pod details-v1-78d78fbddf-5srj5        
+Name:         details-v1-78d78fbddf-5srj5
+Namespace:    default
+Priority:     0
+Node:         minikube/192.168.64.5
+Start Time:   Wed, 14 Sep 2022 19:43:55 +0800
+Labels:       app=details
+              pod-template-hash=78d78fbddf
+              security.istio.io/tlsMode=istio
+              service.istio.io/canonical-name=details
+              service.istio.io/canonical-revision=v1
+              version=v1
+Annotations:  sidecar.istio.io/status:
+                {"version":"64f53c7f7e9dca50ddb9767390392872119f042c4a541dbbb6a973d5638bd264","initContainers":["istio-init"],"containers":["istio-proxy"]...
+Status:       Running
+......
+Containers:
+  details:
+    Container ID:   docker://ff6f87fcad1aab7888a87bfb515806a48c78f744fa045b078529cc3090b43bea
+    Image:          docker.io/istio/examples-bookinfo-details-v1:1.15.0
+    Image ID:       docker-pullable://istio/examples-bookinfo-details-v1@sha256:fce0bcbff0bed09116dacffca15695cd345e0c3788c15b0114a05f654ddecc17
+    Port:           9080/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Wed, 14 Sep 2022 19:46:16 +0800
+    Ready:          True
+    Restart Count:  0
+    Environment:    &lt;none&gt;
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from bookinfo-details-token-qr8rw (ro)
+  istio-proxy:
+    Container ID:  docker://ed3a32d4ba85b35406a2e62287e72cffcda417f9003b69bbc3e1984d35e79a1d
+    Image:         docker.io/istio/proxyv2:1.5.1
+    Image ID:      docker-pullable://istio/proxyv2@sha256:3ad9ee2b43b299e5e6d97aaea5ed47dbf3da9293733607d9b52f358313e852ae
+    Port:          15090/TCP
+    Host Port:     0/TCP
+......<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="创建-Ingress-网关"><a href="#创建-Ingress-网关" class="headerlink" title="创建 Ingress 网关"></a>创建 Ingress 网关</h3><p>现在应用的服务都部署成功并启动了，如果我们需要在集群外部访问，就需要添加一个 istio gateway。gateway 相当于 k8s 的 ingress controller 和 ingress。它为 HTTP/TCP 流量配置负载均衡，通常在服务网格边缘作为应用的 ingress 流量管理。</p>
+<p>创建一个 gateway:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># zhangquan @ MacBook-Pro in ~/Downloads/devops/istio-1.5.1 [19:56:37] 
+$ kubectl apply -f samples/bookinfo/networking/bookinfo-gateway.yaml
+gateway.networking.istio.io/bookinfo-gateway created
+virtualservice.networking.istio.io/bookinfo created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>验证 gateway 是否启动成功:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ kubectl get gateway
+NAME               AGE
+bookinfo-gateway   40s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>要想取访问这个应用，这里我们需要更改下 istio 提供的 istio-ingressgateway 这个 Service 对象，默认是 LoadBalancer 类型的服务：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ kubectl get svc -n istio-system
+NAME                        TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)                                                                                                                                      AGE
+......
+istio-ingressgateway        LoadBalancer   10.102.174.244   &lt;pending&gt;     15020:30839/TCP,80:30693/TCP,443:32317/TCP,15029:30570/TCP,15030:31955/TCP,15031:31823/TCP,15032:31296/TCP,31400:32294/TCP,15443:32067/TCP   4d14h
+......<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>LoadBalancer 类型的服务，实际上是用来对接云服务厂商的，如果我们没有对接云服务厂商的话，可以将这里类型改成 <code>NodePort</code>，但是这样当访问我们的服务的时候就需要加上 nodePort 端口了：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">kubectl edit svc istio-ingressgateway -n istio-system<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># zhangquan @ MacBook-Pro in ~/Downloads/devops/istio-1.5.1 [20:07:44] 
+$ kubectl get svc -n istio-system
+NAME                        TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                                                                                                                                      AGE
+......
+istio-ingressgateway        NodePort    10.102.174.244   &lt;none&gt;        15020:30839/TCP,80:30693/TCP,443:32317/TCP,15029:30570/TCP,15030:31955/TCP,15031:31823/TCP,15032:31296/TCP,31400:32294/TCP,15443:32067/TCP   4d14h 
+......<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这样我们就可以通过 <code>http://&lt;NodeIP&gt;:&lt;nodePort&gt;/productpage</code> 访问应用了：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220914201313.png"></p>
+<p>刷新页面可以看到 Book Reviews 发生了改变，因为每次请求会被路由到到了不同的 Reviews 服务版本去：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220914201535.png"></p>
+<p>至此，整个 istio 就安装并验证成功了。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://istio.io/latest/docs/setup/platform-setup/minikube/">https://istio.io/latest/docs/setup/platform-setup/minikube/</a> </li>
+<li><a target="_blank" rel="noopener" href="https://istio.io/latest/docs/releases/supported-releases/">https://istio.io/latest/docs/releases/supported-releases/</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/istio/istio/tree/master/samples/bookinfo/">https://github.com/istio/istio/tree/master/samples/bookinfo/</a></li>
+<li><a target="_blank" rel="noopener" href="https://istio.io/latest/docs/examples/bookinfo/">https://istio.io/latest/docs/examples/bookinfo/</a></li>
+<li><a target="_blank" rel="noopener" href="https://istio.io/latest/docs/setup/additional-setup/sidecar-injection/#automatic-sidecar-injection">https://istio.io/latest/docs/setup/additional-setup/sidecar-injection/#automatic-sidecar-injection</a></li>
 </ul>
 
                 
@@ -654,7 +844,7 @@ git push -f<span aria-hidden="true" class="line-numbers-rows"><span></span><span
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://www.zhangquan.me/2021/06/29/git-de-4-ge-jie-duan-de-che-xiao-geng-gai/">https://www.zhangquan.me/2021/06/29/git-de-4-ge-jie-duan-de-che-xiao-geng-gai/</a>
+                    <a href="https://www.zhangquan.me/2022/09/25/istio-de-an-zhuang-he-bu-shu/">https://www.zhangquan.me/2022/09/25/istio-de-an-zhuang-he-bu-shu/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -692,12 +882,16 @@ git push -f<span aria-hidden="true" class="line-numbers-rows"><span></span><span
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Git/">
-                                    <span class="chip bg-color">Git</span>
+                                <a href="/tags/Kubernetes/">
+                                    <span class="chip bg-color">Kubernetes</span>
                                 </a>
                             
-                                <a href="/tags/%E5%B7%A5%E5%85%B7/">
-                                    <span class="chip bg-color">工具</span>
+                                <a href="/tags/Service-Mesh/">
+                                    <span class="chip bg-color">Service Mesh</span>
+                                </a>
+                            
+                                <a href="/tags/Istio/">
+                                    <span class="chip bg-color">Istio</span>
                                 </a>
                             
                         </div>
@@ -1192,46 +1386,56 @@ git push -f<span aria-hidden="true" class="line-numbers-rows"><span></span><span
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/06/29/php-duo-jin-cheng-bian-cheng/">
+                <a href="/2022/09/25/istio-de-an-zhuang-he-bu-shu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="PHP 多进程编程">
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="Istio的安装和部署">
                         
-                        <span class="card-title">PHP 多进程编程</span>
+                        <span class="card-title">Istio的安装和部署</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            PHP 如何多进程编程
+                            Istio的安装和部署
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-06-29
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-09-25
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" class="post-category">
-                                    编程语言
+                            <a href="/categories/Istio/" class="post-category">
+                                    Istio
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/PHP/">
-                        <span class="chip bg-color">PHP</span>
+                    <a href="/tags/Kubernetes/">
+                        <span class="chip bg-color">Kubernetes</span>
+                    </a>
+                    
+                    <a href="/tags/Service-Mesh/">
+                        <span class="chip bg-color">Service Mesh</span>
+                    </a>
+                    
+                    <a href="/tags/Istio/">
+                        <span class="chip bg-color">Istio</span>
                     </a>
                     
                 </div>
@@ -1245,31 +1449,31 @@ git push -f<span aria-hidden="true" class="line-numbers-rows"><span></span><span
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/06/29/elasticsearch-xue-xi-yan-jiu/">
+                <a href="/2022/09/25/istio-ru-men-ji-he-xin-gong-neng-jie-shao/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="Elasticsearch 学习研究">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="Istio 入门及核心功能介绍">
                         
-                        <span class="card-title">Elasticsearch 学习研究</span>
+                        <span class="card-title">Istio 入门及核心功能介绍</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            全文搜索引擎 Elasticsearch 的安装使用
+                            Istio 入门及核心功能介绍
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-29
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-09-25
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Elasticsearch/" class="post-category">
-                                    Elasticsearch
+                            <a href="/categories/Istio/" class="post-category">
+                                    Istio
                                 </a>
                             
                             
@@ -1279,12 +1483,16 @@ git push -f<span aria-hidden="true" class="line-numbers-rows"><span></span><span
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/">
-                        <span class="chip bg-color">中间件</span>
+                    <a href="/tags/Kubernetes/">
+                        <span class="chip bg-color">Kubernetes</span>
                     </a>
                     
-                    <a href="/tags/Elasticsearch/">
-                        <span class="chip bg-color">Elasticsearch</span>
+                    <a href="/tags/Service-Mesh/">
+                        <span class="chip bg-color">Service Mesh</span>
+                    </a>
+                    
+                    <a href="/tags/Istio/">
+                        <span class="chip bg-color">Istio</span>
                     </a>
                     
                 </div>

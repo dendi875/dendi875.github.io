@@ -1,4 +1,5 @@
-https://www.zhangquan.me/2022/09/15/istio-jian-jie-he-an-zhuang/
+https://www.zhangquan.me/2022/09/25/istio-de-an-zhuang-he-bu-shu/
+https://www.zhangquan.me/2022/09/25/istio-ru-men-ji-he-xin-gong-neng-jie-shao/
 https://www.zhangquan.me/2022/09/09/prometheus-operator-de-an-zhuang/
 https://www.zhangquan.me/2022/09/09/prometheus-bao-jing-xi-tong-alertmanager/
 https://www.zhangquan.me/2022/09/07/prometheus-cha-xun-yu-yan-promql-shi-yong-shuo-ming/

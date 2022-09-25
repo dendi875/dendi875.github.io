@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2022-09-15T03:04:10.670Z</updated>
+  <updated>2022-09-25T13:24:45.734Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -17,24 +17,53 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Istio 简介和安装</title>
-    <link href="https://www.zhangquan.me/2022/09/15/istio-jian-jie-he-an-zhuang/"/>
-    <id>https://www.zhangquan.me/2022/09/15/istio-jian-jie-he-an-zhuang/</id>
-    <published>2022-09-15T03:00:50.000Z</published>
-    <updated>2022-09-15T03:04:10.670Z</updated>
+    <title>Istio的安装和部署</title>
+    <link href="https://www.zhangquan.me/2022/09/25/istio-de-an-zhuang-he-bu-shu/"/>
+    <id>https://www.zhangquan.me/2022/09/25/istio-de-an-zhuang-he-bu-shu/</id>
+    <published>2022-09-25T13:23:18.000Z</published>
+    <updated>2022-09-25T13:24:45.734Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;Istio-安装&quot;&gt;&lt;a href=&quot;#Istio-安装&quot; class=&quot;headerlink&quot; title=&quot;Istio 安装&quot;&gt;&lt;/a&gt;Istio 安装&lt;/h1&gt;&lt;h2 id=&quot;环境&quot;&gt;&lt;a href=&quot;#环境&quot; class=&quot;headerlink&quot;</summary>
+    <summary type="html">&lt;h1 id=&quot;Istio的安装和部署&quot;&gt;&lt;a href=&quot;#Istio的安装和部署&quot; class=&quot;headerlink&quot; title=&quot;Istio的安装和部署&quot;&gt;&lt;/a&gt;Istio的安装和部署&lt;/h1&gt;&lt;h2 id=&quot;环境&quot;&gt;&lt;a href=&quot;#环境&quot;</summary>
         
       
     
     
     
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/categories/Kubernetes/"/>
+    <category term="Istio" scheme="https://www.zhangquan.me/categories/Istio/"/>
+    
+    
+    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
+    
+    <category term="Service Mesh" scheme="https://www.zhangquan.me/tags/Service-Mesh/"/>
+    
+    <category term="Istio" scheme="https://www.zhangquan.me/tags/Istio/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Istio 入门及核心功能介绍</title>
+    <link href="https://www.zhangquan.me/2022/09/25/istio-ru-men-ji-he-xin-gong-neng-jie-shao/"/>
+    <id>https://www.zhangquan.me/2022/09/25/istio-ru-men-ji-he-xin-gong-neng-jie-shao/</id>
+    <published>2022-09-25T13:23:08.000Z</published>
+    <updated>2022-09-25T13:24:41.324Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Istio-入门及核心功能介绍&quot;&gt;&lt;a href=&quot;#Istio-入门及核心功能介绍&quot; class=&quot;headerlink&quot; title=&quot;Istio 入门及核心功能介绍&quot;&gt;&lt;/a&gt;Istio 入门及核心功能介绍&lt;/h1&gt;&lt;p&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    <category term="Istio" scheme="https://www.zhangquan.me/categories/Istio/"/>
     
     
     <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
@@ -503,31 +532,6 @@
         
         
     <summary type="html">&lt;h1 id=&quot;Kubernetes-ConfigMap-可变配置管理&quot;&gt;&lt;a href=&quot;#Kubernetes-ConfigMap-可变配置管理&quot; class=&quot;headerlink&quot; title=&quot;Kubernetes ConfigMap</summary>
-        
-      
-    
-    
-    
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/categories/Kubernetes/"/>
-    
-    
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Kubernetes 持久化存储PV 和 PVC 的使用</title>
-    <link href="https://www.zhangquan.me/2022/08/21/kubernetes-chi-jiu-hua-cun-chu-pv-he-pvc-de-shi-yong/"/>
-    <id>https://www.zhangquan.me/2022/08/21/kubernetes-chi-jiu-hua-cun-chu-pv-he-pvc-de-shi-yong/</id>
-    <published>2022-08-21T14:41:09.000Z</published>
-    <updated>2022-08-31T13:11:11.793Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;Kubernetes-持久化存储PV-和-PVC-的使用&quot;&gt;&lt;a href=&quot;#Kubernetes-持久化存储PV-和-PVC-的使用&quot; class=&quot;headerlink&quot; title=&quot;Kubernetes 持久化存储PV 和 PVC</summary>
         
       
     
