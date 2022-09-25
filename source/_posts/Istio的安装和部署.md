@@ -1,21 +1,21 @@
 ---
-title: Istio 简介和安装
+title: Istio的安装和部署
 author: 张权
 top: false
 cover: false
 toc: true
 mathjax: true
-date: 2022-09-15 11:00:50
+date: 2022-09-25 21:23:18
 password:
-summary: Istio 简介和安装
+summary: Istio的安装和部署
 tags:
+	- Istio
 	- Kubernetes
 	- Service Mesh
-	- Istio	
-categories: Kubernetes
+categories: Istio
 ---
 
-# Istio 安装
+# Istio的安装和部署
 
 ## 环境
 
@@ -27,7 +27,7 @@ categories: Kubernetes
 
 ## 安装
 
- 安装官方文档说明 https://istio.io/latest/docs/setup/platform-setup/minikube/ 进行安装，但要注意 istio 与 k8s 版本之间的兼容性，兼容性参考：https://istio.io/latest/docs/releases/supported-releases/
+ 安装官方文档说明 https://istio.io/latest/docs/setup/platform-setup/minikube/ 进行安装，但要注意 istio 与 k8s 版本之间的兼容性，兼容性参考：https://istio.io/latest/docs/releases/supported-releases/
 
 * 执行以下命令，启动一个单节点的 k8s 集群
 
