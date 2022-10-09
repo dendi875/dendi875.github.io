@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2022-10-09T03:23:22.885Z</updated>
+  <updated>2022-10-09T03:27:04.020Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://www.zhangquan.me/2022/10/09/centos-rhel-7-xia-an-zhuang-shadowsocks-ke-hu-duan/"/>
     <id>https://www.zhangquan.me/2022/10/09/centos-rhel-7-xia-an-zhuang-shadowsocks-ke-hu-duan/</id>
     <published>2022-10-09T03:16:03.000Z</published>
-    <updated>2022-10-09T03:23:22.885Z</updated>
+    <updated>2022-10-09T03:27:04.020Z</updated>
     
     
       
@@ -46,7 +46,7 @@
     <link href="https://www.zhangquan.me/2022/10/09/centos-rhel-7-xia-an-zhuang-shadowsocks-fu-wu-duan/"/>
     <id>https://www.zhangquan.me/2022/10/09/centos-rhel-7-xia-an-zhuang-shadowsocks-fu-wu-duan/</id>
     <published>2022-10-09T03:15:52.000Z</published>
-    <updated>2022-10-09T03:23:31.816Z</updated>
+    <updated>2022-10-09T03:27:22.943Z</updated>
     
     
       
@@ -89,9 +89,9 @@
     
     <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
     
-    <category term="Service Mesh" scheme="https://www.zhangquan.me/tags/Service-Mesh/"/>
-    
     <category term="Istio" scheme="https://www.zhangquan.me/tags/Istio/"/>
+    
+    <category term="Service Mesh" scheme="https://www.zhangquan.me/tags/Service-Mesh/"/>
     
   </entry>
   
@@ -118,9 +118,9 @@
     
     <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
     
-    <category term="Service Mesh" scheme="https://www.zhangquan.me/tags/Service-Mesh/"/>
-    
     <category term="Istio" scheme="https://www.zhangquan.me/tags/Istio/"/>
+    
+    <category term="Service Mesh" scheme="https://www.zhangquan.me/tags/Service-Mesh/"/>
     
   </entry>
   

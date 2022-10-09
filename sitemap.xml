@@ -550,6 +550,20 @@
   </url>
   
   <url>
+    <loc>https://www.zhangquan.me/tags/CAT/</loc>
+    <lastmod>2022-10-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zhangquan.me/tags/JAVA/</loc>
+    <lastmod>2022-10-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.zhangquan.me/tags/%E6%95%B0%E7%BB%84/</loc>
     <lastmod>2022-10-09</lastmod>
     <changefreq>daily</changefreq>
@@ -564,14 +578,7 @@
   </url>
   
   <url>
-    <loc>https://www.zhangquan.me/tags/CAT/</loc>
-    <lastmod>2022-10-09</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.zhangquan.me/tags/JAVA/</loc>
+    <loc>https://www.zhangquan.me/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/</loc>
     <lastmod>2022-10-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -711,14 +718,14 @@
   </url>
   
   <url>
-    <loc>https://www.zhangquan.me/tags/Service-Mesh/</loc>
+    <loc>https://www.zhangquan.me/tags/Istio/</loc>
     <lastmod>2022-10-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://www.zhangquan.me/tags/Istio/</loc>
+    <loc>https://www.zhangquan.me/tags/Service-Mesh/</loc>
     <lastmod>2022-10-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -745,13 +752,6 @@
     <priority>0.6</priority>
   </url>
   
-  <url>
-    <loc>https://www.zhangquan.me/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/</loc>
-    <lastmod>2022-10-09</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
 
   
   <url>
@@ -770,6 +770,13 @@
   
   <url>
     <loc>https://www.zhangquan.me/categories/%E7%9B%91%E6%8E%A7/</loc>
+    <lastmod>2022-10-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zhangquan.me/categories/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/</loc>
     <lastmod>2022-10-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -860,13 +867,6 @@
   </url>
   
   <url>
-    <loc>https://www.zhangquan.me/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/</loc>
-    <lastmod>2022-10-09</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.zhangquan.me/categories/Istio/</loc>
     <lastmod>2022-10-09</lastmod>
     <changefreq>daily</changefreq>
@@ -874,7 +874,7 @@
   </url>
   
   <url>
-    <loc>https://www.zhangquan.me/categories/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/</loc>
+    <loc>https://www.zhangquan.me/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/</loc>
     <lastmod>2022-10-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
