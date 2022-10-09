@@ -517,7 +517,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CentOS-RHEL-7-下安装-Shadowsocks-服务端"><a href="#CentOS-RHEL-7-下安装-Shadowsocks-服务端" class="headerlink" title="CentOS/RHEL 7 下安装 Shadowsocks 服务端"></a>CentOS/RHEL 7 下安装 Shadowsocks 服务端</h1><p>在 CentOS 7 或 RHEL (Red Hat Enterprise Linux) 7 下安装 Shadowsocks 的服务端非常容易。由于在 <a target="_blank" rel="noopener" href="https://copr.fedorainfracloud.org/coprs/librehat/shadowsocks/">COPR</a> (Cool Other Package Repo) 中已经有打包好的 <em>shadowsocks-libev</em>，因此我们只需几条命令便能完成安装。</p>
+                <h1 id="CentOS-RHEL-7-下安装-Shadowsocks-服务端"><a href="#CentOS-RHEL-7-下安装-Shadowsocks-服务端" class="headerlink" title="CentOS/RHEL 7 下安装 Shadowsocks 服务端"></a>CentOS/RHEL 7 下安装 Shadowsocks 服务端</h1><p>在 CentOS 7 或 RHEL(Red Hat Enterprise Linux) 7 下安装 Shadowsocks 的服务端非常容易。由于在 <a target="_blank" rel="noopener" href="https://copr.fedorainfracloud.org/coprs/librehat/shadowsocks/">COPR</a> (Cool Other Package Repo) 中已经有打包好的 <em>shadowsocks-libev</em>，因此我们只需几条命令便能完成安装。</p>
 <p>注：本文介绍的是 Shadowsocks 服务端在 CentOS/RHEL 7 上的配置方法，如需了解 Shadowsocks 客户端在 CentOS/RHEL 7 上的配置，请参阅 <a target="_blank" rel="noopener" href="https://zhangquan.me/2022/10/09/centos-rhel-7-xia-an-zhuang-shadowsocks-ke-hu-duan/">CentOS/RHEL 7 下安装 Shadowsocks 客户端</a>。</p>
 <h2 id="安装-Shadowsocks"><a href="#安装-Shadowsocks" class="headerlink" title="安装 Shadowsocks"></a>安装 Shadowsocks</h2><p>执行安装 Shadowsocks 的命令之前，我们需要先切换到 root 用户（直接以 root 身份登入；或是以普通用户登入，通过命令 <code>sudo su -</code> 切换为 root 用户)，或者使用普通用户，但在每条命令前加上 <code>sudo</code>。</p>
 <p>另外，后续的配置也需要以 root 用户的身份进行。</p>
@@ -543,7 +543,7 @@ yum install -y shadowsocks-libev<span aria-hidden="true" class="line-numbers-row
 <li>执行 <code>ss-server</code> 报错：<code>ss-server: error while loading shared libraries: libmbedcrypto.so.0: cannot open shared object file: No such file or directory</code>:</li>
 </ul>
 <p>使用 root 身份执行以下命令即可：</p>
-<pre class="line-numbers language-none"><code class="language-none">cd /usr/lib64
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd /usr/lib64
 ln -s libmbedcrypto.so.1 libmbedcrypto.so.0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p>参考：<a target="_blank" rel="noopener" href="https://github.com/shadowsocks/shadowsocks-libev/issues/1966">error while loading shared libraries: libmbedcrypto.so.0 · Issue #1966 · shadowsocks/shadowsocks-libev</a></p>
@@ -565,7 +565,7 @@ ln -s libmbedcrypto.so.1 libmbedcrypto.so.0<span aria-hidden="true" class="line-
 <p>此处填入服务端要监听的端口。需要选择 1024 或以上的端口号，否则启动 <code>ss-server</code> 时将会需要 root 权限，而默认的服务文件则是以 nobody 用户启动 Shadowsocks 的。</p>
 <p>如需选用低于 1024 的端口，也可执行命令 <code>sudo setcap 'cap_net_bind_service=+ep' /usr/bin/ss-server</code> 赋予相应权限，后续就可以使用 nobody 用户或普通用户启动 Shadowsocks。</p>
 <p>或执行 <code>systemctl edit shadowsocks-libev</code> 命令，并输入以下内容：</p>
-<pre class="line-numbers language-none"><code class="language-none">[Service]
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[Service]
 AmbientCapabilities=CAP_NET_BIND_SERVICE<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
 <li><p><code>"password"</code>： 必填。需要在客户端配置时填入相同的值。</p>
 <p>连接服务端所需的密码，建议替换为复杂密码，避免被攻击者暴力破解。</p>
@@ -594,7 +594,7 @@ DAEMON_ARGS="-u"<span aria-hidden="true" class="line-numbers-rows"><span></span>
 <p>需要注意的是，命令行参数 <code>DAEMON_ARGS</code> 比配置文件 <code>CONFFILE</code> 中指定的选项优先级要更高一些。</p>
 <h2 id="配置防火墙"><a href="#配置防火墙" class="headerlink" title="配置防火墙"></a>配置防火墙</h2><p>CentOS/RHEL 7 系统自带了防火墙，为了使我们的 Shadowsocks 服务器能够正常工作，我们还需要添加相应的防火墙规则。</p>
 <p>假设我们在配置 Shadowsocks 服务器的端口时填入了 <code>"server_port": 55278</code>，那我们可以使用以下命令：</p>
-<pre class="line-numbers language-none"><code class="language-none">firewall-cmd --permanent --add-port=55278/tcp
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">firewall-cmd --permanent --add-port=55278/tcp
 firewall-cmd --permanent --add-port=55278/udp
 firewall-cmd --reload<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
