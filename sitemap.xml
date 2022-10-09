@@ -2,14 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://www.zhangquan.me/2022/10/09/centos-rhel-7-xia-an-zhuang-shadowsocks-ke-hu-duan/</loc>
+    <loc>https://www.zhangquan.me/2022/10/09/centos-rhel-7-xia-an-zhuang-shadowsocks-fu-wu-duan/</loc>
     
     <lastmod>2022-10-09</lastmod>
     
   </url>
   
   <url>
-    <loc>https://www.zhangquan.me/2022/10/09/centos-rhel-7-xia-an-zhuang-shadowsocks-fu-wu-duan/</loc>
+    <loc>https://www.zhangquan.me/2022/10/09/centos-rhel-7-xia-an-zhuang-shadowsocks-ke-hu-duan/</loc>
     
     <lastmod>2022-10-09</lastmod>
     
@@ -550,20 +550,6 @@
   </url>
   
   <url>
-    <loc>https://www.zhangquan.me/tags/CAT/</loc>
-    <lastmod>2022-10-09</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.zhangquan.me/tags/JAVA/</loc>
-    <lastmod>2022-10-09</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.zhangquan.me/tags/%E6%95%B0%E7%BB%84/</loc>
     <lastmod>2022-10-09</lastmod>
     <changefreq>daily</changefreq>
@@ -572,6 +558,20 @@
   
   <url>
     <loc>https://www.zhangquan.me/tags/%E6%8C%87%E9%92%88/</loc>
+    <lastmod>2022-10-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zhangquan.me/tags/CAT/</loc>
+    <lastmod>2022-10-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zhangquan.me/tags/JAVA/</loc>
     <lastmod>2022-10-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

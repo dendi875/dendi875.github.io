@@ -517,8 +517,11 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="进程的守护神-daemontools"><a href="#进程的守护神-daemontools" class="headerlink" title="进程的守护神 - daemontools"></a>进程的守护神 - daemontools</h1><hr>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>我们在日常的开发中可能需要写一些<code>常驻内存的程序</code>，<code>常驻内存的程序</code>和<code>守护进程</code>程序是不一样的，<code>守护进程</code>的实现步骤稍微麻烦点，感兴趣的读者可以参考我用<code>C</code>实现的一个守护进程<a target="_blank" rel="noopener" href="https://github.com/dendi875/APUE/blob/master/Chapter-13-Daemon%20Processes/daemonize.c">daemonize.c</a>，我们重点关注下<code>常驻内存的程序</code>，<br>以<code>PHP</code>为例来说<code>常驻内存的程序</code>实现一般是这样的：</p>
+                <h1 id="进程的守护神-daemontools"><a class="markdownIt-Anchor" href="#进程的守护神-daemontools"></a> 进程的守护神 - daemontools</h1>
+<hr>
+<h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h2>
+<p>我们在日常的开发中可能需要写一些<code>常驻内存的程序</code>，<code>常驻内存的程序</code>和<code>守护进程</code>程序是不一样的，<code>守护进程</code>的实现步骤稍微麻烦点，感兴趣的读者可以参考我用<code>C</code>实现的一个守护进程<a target="_blank" rel="noopener" href="https://github.com/dendi875/APUE/blob/master/Chapter-13-Daemon%20Processes/daemonize.c">daemonize.c</a>，我们重点关注下<code>常驻内存的程序</code>，<br>
+以<code>PHP</code>为例来说<code>常驻内存的程序</code>实现一般是这样的：</p>
 <p>首先使用<code>while (1) {}</code>结构使程序无限循环，并且在程序内部对各种可能出现的异常进行捕捉处理，目的是防止程序意外退出。</p>
 <p>hello.php</p>
 <pre class="line-numbers language-php" data-language="php"><code class="language-php">#!/usr/bin/env php
@@ -533,12 +536,11 @@
     <span class="token punctuation">}</span>
     <span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>接着，通过命令行把它放到后台执行，例如：</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ nohup php hello.php &amp;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>但这种实现方式是有一定的缺陷的，那就是当<code>PHP</code>执行过程中遇到错误的时候，就会退出程序，不官你程序中使用多少层<code>while (1) {}</code>，也不管你使用<code>try...catch</code>多少<code>Exception</code>，你还是阻止不了程序的意外退出（比如程序产生奇怪的<code>coredump</code>或者<code>kill</code>时手误杀错了程序）。如果这个常驻内存的程序是一个队列消费者程序，那么这种缺陷是很致命的，因为在流量高峰时如果程序一旦意外退出没有即时恢复，那么将导致队列中的消息一直堆积无法被消费掉，从而影响正常业务流程。再严重点，如果队列没有最大内存限制的策略，那么消息的堆积将会导致内存使用暴涨从而拖垮机器。怎么办？你可以用<code>crontab</code>脚本每分钟监视你的程序，看到没有在执行就启动起来。当然，还有更好的办法就是使用成熟的进程管理工具，它会监控你的程序，一旦发现进程退出了，立刻启动起来。<code>Linux</code>下对常驻内存的进程的管理通常使用<code>Daemontools</code>和<code>Supervisor</code> 这两个工具。今天我们就来研究学习下<code>Daemontools</code></p>
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p><code>daemontools</code>是用于管理<code>UNIX</code>服务的工具的集合，它分为三类工具：</p>
+<h2 id="介绍"><a class="markdownIt-Anchor" href="#介绍"></a> 介绍</h2>
+<p><code>daemontools</code>是用于管理<code>UNIX</code>服务的工具的集合，它分为三类工具：</p>
 <ul>
 <li>常驻进程管理工具</li>
 </ul>
@@ -566,14 +568,14 @@
 <p><a target="_blank" rel="noopener" href="http://cr.yp.to/daemontools/softlimit.html">The softlimit program</a></p>
 <p><a target="_blank" rel="noopener" href="http://cr.yp.to/daemontools/setlock.html">The setlock program</a></p>
 <p>我们重点关注对常驻进程管理工具的使用，日志管理工具和环境管理工具主要是辅助进程管理做一些额外的功能，进程管理工具主要是通过<code>svscanboot</code>、<code>svscan</code>、<code>supervise</code>、<code>svc</code>、<code>svok</code>、<code>svstat</code>命令来管理常驻进程的</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ cd /usr/local/software/
+<h2 id="安装"><a class="markdownIt-Anchor" href="#安装"></a> 安装</h2>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ cd /usr/local/software/
 $ wget http://cr.yp.to/daemontools/daemontools-0.76.tar.gz
 $ tar -zxvf daemontools-0.76.tar.gz -C /usr/local/
 $ cd /usr/local/admin/daemontools-0.76/
 $ package/install<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>如果在<code>Linux</code>下安装出现如下错误：　</p>
+<p>如果在<code>Linux</code>下安装出现如下错误：</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">/usr/bin/ld: errno: TLS definition in /lib/libc.so.6 section .tbss mismatches non-TLS reference in envdir.o<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>修复很简单将<em>admin/daemontools-0.76/src/error.h</em>中的<code>extern int errno;</code>替换为<code>include &lt;errno.h&gt;</code>之后再重新执行<code>package/install</code></p>
 <p>安装完成之后，会创建<code>/service</code>和<code>/command</code>两个目录</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">/command/
@@ -594,18 +596,18 @@ $ package/install<span aria-hidden="true" class="line-numbers-rows"><span></span
 ├── svstat -&gt; /usr/local/admin/daemontools/command/svstat
 ├── tai64n -&gt; /usr/local/admin/daemontools/command/tai64n
 └── tai64nlocal -&gt; /usr/local/admin/daemontools/command/tai64nlocal<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="启动daemontools"><a href="#启动daemontools" class="headerlink" title="启动daemontools"></a>启动daemontools</h3><p>启动<code>svscanboot</code></p>
+<h3 id="启动daemontools"><a class="markdownIt-Anchor" href="#启动daemontools"></a> 启动daemontools</h3>
+<p>启动<code>svscanboot</code></p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># /command/svscanboot &amp;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>也可以设置开机启动，具体参考：</p>
 <p><a target="_blank" rel="noopener" href="http://cr.yp.to/daemontools/start.html">How to start daemontools</a></p>
 <p>启动之后，查看进程，可以发现<code>svscan</code>做为<code>svscanboot</code>的子进程在运行</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># ps -ef | grep sv
 root      7547  5172  0 20:44 pts/0    00:00:00 /bin/sh /command/svscanboot
 root      7549  7547  0 20:44 pts/0    00:00:00 svscan /service<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="制作并测试你的脚本"><a href="#制作并测试你的脚本" class="headerlink" title="制作并测试你的脚本"></a>制作并测试你的脚本</h3><p>这步的主要目的就是在尝试把程序变为常驻内存进程之前，先确保它可以作为前台程序正常工作。如果脚本有误在前台都不能正常运行，那变为常驻程序后观察结果肯定是达不到预期的。比如我们制作了一个下面这样的<code>PHP</code>脚本</p>
+<h2 id="使用"><a class="markdownIt-Anchor" href="#使用"></a> 使用</h2>
+<h3 id="制作并测试你的脚本"><a class="markdownIt-Anchor" href="#制作并测试你的脚本"></a> 制作并测试你的脚本</h3>
+<p>这步的主要目的就是在尝试把程序变为常驻内存进程之前，先确保它可以作为前台程序正常工作。如果脚本有误在前台都不能正常运行，那变为常驻程序后观察结果肯定是达不到预期的。比如我们制作了一个下面这样的<code>PHP</code>脚本</p>
 <pre class="line-numbers language-php" data-language="php"><code class="language-php">cat /data1/www/test/php/process/hello.php
 #!/usr/bin/env php
 <span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
@@ -614,25 +616,21 @@ root      7549  7547  0 20:44 pts/0    00:00:00 svscan /service<span aria-hidden
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"hello, %d\n"</span><span class="token punctuation">,</span> <span class="token variable">$i</span><span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="构建-daemontools-Service"><a href="#构建-daemontools-Service" class="headerlink" title="构建 daemontools Service"></a>构建 daemontools Service</h3><p>我们把所有的服务统一放到<code>/scratch/service</code>（临时服务）目录下，服务的名称是任意的，比如我们称为<strong>hello</strong></p>
+<h3 id="构建-daemontools-service"><a class="markdownIt-Anchor" href="#构建-daemontools-service"></a> 构建 daemontools Service</h3>
+<p>我们把所有的服务统一放到<code>/scratch/service</code>（临时服务）目录下，服务的名称是任意的，比如我们称为<strong>hello</strong></p>
 <p>创建 <code>/scratch/service</code> 目录</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># mkdir -p /scratch/service
 # cd /scratch/service/
 # mkdir hello
 # cd hello<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>创建一个<code>run</code>文件，其中包含：</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">#!/bin/sh
 exec 2&gt;&amp;1
 exec su - root -c "php /data1/www/test/php/process/hello.php" 1&gt;&gt; /data1/www/test/php/process/hello.log<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
 <p>赋予执行权限</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># chmod u+x run<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>安装<strong>hello</strong>服务并实际开始运行它</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># ln -s /scratch/service/hello/ /service/hello<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p><strong>注意：</strong> 上面的命令执行后正常情况下服务就已经开始运行了</p>
 <p>打开另一个终端，验证程序是否正在运行</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ tail -f /data1/www/test/php/process/hello.log
@@ -640,7 +638,6 @@ hello, 67
 hello, 68
 hello, 69
 hello, 70<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>如果<code>tail</code>命令未产生输出，请执行<code>svc -u hello</code>，虽然前面的命令如<code>/command/svscanboot &amp;</code>已经打开了服务，以防万一由于某种原因关闭了服务，而这本不应该被关闭。</p>
 <pre class="line-numbers language-none"><code class="language-none"># pstree -a -p 7547
 svscanboot,7547 /command/svscanboot
@@ -650,13 +647,13 @@ svscanboot,7547 /command/svscanboot
           └─su,7579 - root -c php\040/data1/www/test/php/process/hello.php
               └─php,7580 /data1/www/test/php/process/hello.php<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>我们使用<code>pstree</code>命令查看进程树，可以看到<code>supervise</code>作为<code>svscan</code>的子进程在运行，<code>su</code>作为<code>supervise</code>的子进程在运行，最终执行的<code>php /data1/www/test/php/process/hello.php</code>又作为<code>su</code>的子进程在运行。</p>
-<h3 id="操作和监视你的服务"><a href="#操作和监视你的服务" class="headerlink" title="操作和监视你的服务"></a>操作和监视你的服务</h3><ul>
+<h3 id="操作和监视你的服务"><a class="markdownIt-Anchor" href="#操作和监视你的服务"></a> 操作和监视你的服务</h3>
+<ul>
 <li>操作服务</li>
 </ul>
 <p>你可以使用<code>svc</code>命令来操作你的服务，可以使用<code>svstat</code>命令来监视你的服务。</p>
 <p><code>svc</code>命令通过向守护进程发送信号来对其进行操作。该命令以<code>root</code>身份在<code>/service</code>目录中执行。例如：</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># svc -d hello<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>上面的命令意思是关闭（<code>down</code>）或停止守护程序。下表是<code>svc</code>参数，它们的含义和信号的表：</p>
 <table>
 <thead>
@@ -666,7 +663,8 @@ svscanboot,7547 /command/svscanboot
 <th>Signal</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>-u</td>
 <td>Start (up)</td>
 <td>-</td>
@@ -681,14 +679,14 @@ svscanboot,7547 /command/svscanboot
 <td>Restart if running</td>
 <td>TERM</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>有关该命令的其它参数，请参见： <a target="_blank" rel="noopener" href="http://cr.yp.to/daemontools/svc.html">http://cr.yp.to/daemontools/svc.html</a></p>
 <ul>
 <li>监控服务</li>
 </ul>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># svstat hello
 hello: up (pid 7917) 5 seconds<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <p><code>svstat</code>可以告诉我们以下信息</p>
 <ol>
 <li>服务目录的名称（hello）</li>
@@ -696,10 +694,11 @@ hello: up (pid 7917) 5 seconds<span aria-hidden="true" class="line-numbers-rows"
 <li>进程<code>PID</code></li>
 <li>处于当前状态的秒数</li>
 </ol>
-<h2 id="Daemontools-架构模型"><a href="#Daemontools-架构模型" class="headerlink" title="Daemontools 架构模型"></a>Daemontools 架构模型</h2><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/daemontools.png" alt="daemontools"></p>
+<h2 id="daemontools-架构模型"><a class="markdownIt-Anchor" href="#daemontools-架构模型"></a> Daemontools 架构模型</h2>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/daemontools.png" alt="daemontools"></p>
 <p>上图的“Connector A: Service”实际上是服务的<code>run</code>脚本，或者是任何二进制可执行文件，<code>shell</code>脚本或<code>PHP/Python/Perl/Ruby/ Lua</code>脚本，它们都是通过<code>exec</code>命令为其分配了一个<code>PID</code>的运行脚本。</p>
-<p>通过上图可以知道<code>daemontools</code>的工作方式，计算机首先初始化，然后系统引导运行<code>/command/svscanboot</code>，接着<code>/command/svscanboot</code>依次引导运行<code>/command/readproctitle</code>和<code>/command/svscan</code>。<code>/command/readproctitle </code>只是一个可以运行的调试工具。</p>
-<p><code>svscan /service </code>是daemontools的一个最重要的机制，每五秒钟它会扫描<code>/service</code>目录（假设<code>/ service</code>是传递给<code>svscan</code>的命令行参数）以查找符号链接目录，并运行该符号连接目录中的<code>run</code>命令（如果尚未运行）</p>
+<p>通过上图可以知道<code>daemontools</code>的工作方式，计算机首先初始化，然后系统引导运行<code>/command/svscanboot</code>，接着<code>/command/svscanboot</code>依次引导运行<code>/command/readproctitle</code>和<code>/command/svscan</code>。<code>/command/readproctitle</code>只是一个可以运行的调试工具。</p>
+<p><code>svscan /service</code>是daemontools的一个最重要的机制，每五秒钟它会扫描<code>/service</code>目录（假设<code>/ service</code>是传递给<code>svscan</code>的命令行参数）以查找符号链接目录，并运行该符号连接目录中的<code>run</code>命令（如果尚未运行）</p>
 <p><code>svscan</code>程序会永远一直循环，每次循环做两件事：</p>
 <p>1）扫描<code>/service</code>查找所有符号链接目录</p>
 <p>2）对于查找到的每个符号链接目录，如果该目录还未运行<code>supervise</code>程序，则在该目录上运行<code>supervise</code>程序</p>
@@ -710,34 +709,39 @@ hello: up (pid 7917) 5 seconds<span aria-hidden="true" class="line-numbers-rows"
 ├── lock
 ├── ok
 └── status<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-<h2 id="基本故障排查"><a href="#基本故障排查" class="headerlink" title="基本故障排查"></a>基本故障排查</h2><p>对daemontools问题进行故障排除的第一步就是找出正在运行的东西和没有运行的东西，可以参照架构模型将范围一步步缩小。</p>
+<h2 id="基本故障排查"><a class="markdownIt-Anchor" href="#基本故障排查"></a> 基本故障排查</h2>
+<p>对daemontools问题进行故障排除的第一步就是找出正在运行的东西和没有运行的东西，可以参照架构模型将范围一步步缩小。</p>
 <p>下面几个<code>ps</code>命令，用于查看正在运行的和未运行的进程：</p>
 <ul>
-<li><p><code>ps -ef | grep sv</code>，查看<code>svscanboot</code>和<code>svscan</code>是否正常在运行</p>
+<li>
+<p><code>ps -ef | grep sv</code>，查看<code>svscanboot</code>和<code>svscan</code>是否正常在运行</p>
 </li>
-<li><p><code># ps -ef | grep supervise</code>，查看<code>supervise </code>是否在正常运行</p>
+<li>
+<p><code># ps -ef | grep supervise</code>，查看<code>supervise</code>是否在正常运行</p>
 </li>
-<li><p><code>ps ax | grep myprogram</code>，查看你<code>run</code>命令中执行的程序是否在运行，例如，在前面的救命中，它是 <code>hello.php</code></p>
+<li>
+<p><code>ps ax | grep myprogram</code>，查看你<code>run</code>命令中执行的程序是否在运行，例如，在前面的救命中，它是 <code>hello.php</code></p>
 </li>
 </ul>
-<h2 id="正确的卸载服务"><a href="#正确的卸载服务" class="headerlink" title="正确的卸载服务"></a>正确的卸载服务</h2><p>卸载服务指的不仅仅是停止它，而是停止使用服务。正确的执行步骤如下：</p>
+<h2 id="正确的卸载服务"><a class="markdownIt-Anchor" href="#正确的卸载服务"></a> 正确的卸载服务</h2>
+<p>卸载服务指的不仅仅是停止它，而是停止使用服务。正确的执行步骤如下：</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># cd /service/hello/
 # rm -rf /service/hello
 # svc -dx .<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
 <p><strong>注意：</strong> 是首先<code>cd</code>到服务目录下，再使用<strong>绝对路径</strong>删除软链接，最后在执行<code>svc -dx .</code></p>
 <p>验证是否卸载成功：</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># ps -ef | grep hello<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>还有一种终极大招来卸载服务，那就是关闭服务并杀死正在运行所有的守护进程和其子进程。</p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
-<li><p><a target="_blank" rel="noopener" href="http://cr.yp.to/daemontools.html">Daemontools</a></p>
+<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
+<ul>
+<li>
+<p><a target="_blank" rel="noopener" href="http://cr.yp.to/daemontools.html">Daemontools</a></p>
 </li>
-<li><p><a target="_blank" rel="noopener" href="http://cr.yp.to/daemontools/faq/create.html">FAQ of daemontools</a></p>
+<li>
+<p><a target="_blank" rel="noopener" href="http://cr.yp.to/daemontools/faq/create.html">FAQ of daemontools</a></p>
 </li>
-<li><p><a target="_blank" rel="noopener" href="http://www.troubleshooters.com/linux/djbdns/daemontools_intro.htm">daemontools_intro</a></p>
+<li>
+<p><a target="_blank" rel="noopener" href="http://www.troubleshooters.com/linux/djbdns/daemontools_intro.htm">daemontools_intro</a></p>
 </li>
 </ul>
 

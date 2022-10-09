@@ -521,28 +521,35 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Elasticsearch-学习研究"><a href="#Elasticsearch-学习研究" class="headerlink" title="Elasticsearch 学习研究"></a>Elasticsearch 学习研究</h1><hr>
-<h2 id="1-Elasticsearch-介绍"><a href="#1-Elasticsearch-介绍" class="headerlink" title="1. Elasticsearch 介绍"></a>1. Elasticsearch 介绍</h2><p>Elasticsearch（ES）是基于文本搜索库<a target="_blank" rel="noopener" href="https://lucene.apache.org/">Lucene</a>构建的高度可扩展的分布式开源搜索和分析引擎。</p>
-<p>如果有足够的计算机，ES集群通常可以跨非常大的数据集执行搜索和聚合查询。<br>如果你希望对一组文本文档进行传统的全文本搜索（类似于 Google 搜索），则ES很适合，</p>
+                <h1 id="elasticsearch-学习研究"><a class="markdownIt-Anchor" href="#elasticsearch-学习研究"></a> Elasticsearch 学习研究</h1>
+<hr>
+<h2 id="1-elasticsearch-介绍"><a class="markdownIt-Anchor" href="#1-elasticsearch-介绍"></a> 1. Elasticsearch 介绍</h2>
+<p>Elasticsearch（ES）是基于文本搜索库<a target="_blank" rel="noopener" href="https://lucene.apache.org/">Lucene</a>构建的高度可扩展的分布式开源搜索和分析引擎。</p>
+<p>如果有足够的计算机，ES集群通常可以跨非常大的数据集执行搜索和聚合查询。<br>
+如果你希望对一组文本文档进行传统的全文本搜索（类似于 Google 搜索），则ES很适合，</p>
 <p>Elasticsearch 主要用于搜索和日志分析，也是当今最流行的日志分析平台（ELK）（Elasticsearch，Logstash和Kibana）的核心。它在处理大数据（如：系统日志，网络流量）时非常有用。</p>
-<h2 id="2-Elasticsearch-中的重要概念"><a href="#2-Elasticsearch-中的重要概念" class="headerlink" title="2. Elasticsearch 中的重要概念"></a>2. Elasticsearch 中的重要概念</h2><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/Elasticsearch.png" alt="Elasticsearch"></p>
-<h3 id="2-1-Cluster（集群）"><a href="#2-1-Cluster（集群）" class="headerlink" title="2.1 Cluster（集群）"></a>2.1 Cluster（集群）</h3><p>cluster是一个或一组服务器（节点）的集合，这些节点一起协同保存你的数据，并在所有节点之间为你提供索引和搜索功能。cluster具有唯一名称标识（默认是elasticsearch），你只需要指定集群标识名，启动的时候，凡是集群是这个名字的节点都会默认加到同一个集群中，选举master节点和节点管理都是自动完成的。当然一个节点也可以组成一个集群。</p>
-<h3 id="2-2-Node（节点）"><a href="#2-2-Node（节点）" class="headerlink" title="2.2 Node（节点）"></a>2.2 Node（节点）</h3><p>node是参与到cluster的单个服务器节点，具有唯一标识名，可加入到指定的cluster中。 单个es实例称为一个节点（node）。一组节点构成一个集群（cluster）。</p>
-<h3 id="2-3-Index（索引）"><a href="#2-3-Index（索引）" class="headerlink" title="2.3 Index（索引）"></a>2.3 Index（索引）</h3><p>Index是一类文档的集合。例如，你可以为用户数据创建一个索引，为商品数据创建另一个索引，为订单数据创建另一个索引。es 数据管理的顶层单位就叫做 Index（索引），相当于传统数据库中的数据库。每个 Index （即数据库）的名字必须是小写。</p>
+<h2 id="2-elasticsearch-中的重要概念"><a class="markdownIt-Anchor" href="#2-elasticsearch-中的重要概念"></a> 2. Elasticsearch 中的重要概念</h2>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/Elasticsearch.png" alt="Elasticsearch"></p>
+<h3 id="21-cluster集群"><a class="markdownIt-Anchor" href="#21-cluster集群"></a> 2.1 Cluster（集群）</h3>
+<p>cluster是一个或一组服务器（节点）的集合，这些节点一起协同保存你的数据，并在所有节点之间为你提供索引和搜索功能。cluster具有唯一名称标识（默认是elasticsearch），你只需要指定集群标识名，启动的时候，凡是集群是这个名字的节点都会默认加到同一个集群中，选举master节点和节点管理都是自动完成的。当然一个节点也可以组成一个集群。</p>
+<h3 id="22-node节点"><a class="markdownIt-Anchor" href="#22-node节点"></a> 2.2 Node（节点）</h3>
+<p>node是参与到cluster的单个服务器节点，具有唯一标识名，可加入到指定的cluster中。 单个es实例称为一个节点（node）。一组节点构成一个集群（cluster）。</p>
+<h3 id="23-index索引"><a class="markdownIt-Anchor" href="#23-index索引"></a> 2.3 Index（索引）</h3>
+<p>Index是一类文档的集合。例如，你可以为用户数据创建一个索引，为商品数据创建另一个索引，为订单数据创建另一个索引。es 数据管理的顶层单位就叫做 Index（索引），相当于传统数据库中的数据库。每个 Index （即数据库）的名字必须是小写。</p>
 <p>es数据的索引、搜索和分析都是基于索引完成的。每个Index包含多个shard，默认是5个，分散在不同的node上。当索引创建完成的时候，主分片的数量就固定了，但是复制分片的数量可以随时调整。</p>
 <p>在单个cluster中，你可以创建任意个Index。</p>
 <p>下面的命令可以查看当前节点的所有 Index。</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ curl -X GET 'http://localhost:9200/_cat/indices?v' -d ''
 health status index  pri rep docs.count docs.deleted store.size pri.store.size
 yellow open   orders   5   1          0            0       650b           650b<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="2-4-Type（类型）"><a href="#2-4-Type（类型）" class="headerlink" title="2.4 Type（类型）"></a>2.4 Type（类型）</h3><p>Type是 Index 中数据的 ，在索引中，你可以定义一个或多个类型。它是索引中虚拟逻辑的分组，用来过滤    Document ，相当于传统数据库的表。</p>
+<h3 id="24-type类型"><a class="markdownIt-Anchor" href="#24-type类型"></a> 2.4 Type（类型）</h3>
+<p>Type是 Index 中数据的 ，在索引中，你可以定义一个或多个类型。它是索引中虚拟逻辑的分组，用来过滤    Document ，相当于传统数据库的表。</p>
 <p>不同的 Type 应该有相似的结构（schema），举例来说，<code>id</code>字段不能在这个 Type 是字符串，在另 Type 是数值。这是与关系型数据库的表的一个<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/2.3/mapping.html">区别</a>。</p>
 <p>举例来说，在一个商城系统中，你可以定义一个订单的 type（orders_order），可以定义一个商品的 type（orders_product），还可以定义一个日志的 type（orders_log）。</p>
 <p>下面的命令可以列出每个 Index 所包含的 Type。</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ curl 'http://localhost:9200/_mapping?pretty=true'<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<h3 id="2-5-Document（文档）"><a href="#2-5-Document（文档）" class="headerlink" title="2.5 Document（文档）"></a>2.5 Document（文档）</h3><p>Document是es数据可被索引化的基本的存储单元，需要存储在Type中，相当于传统数据库的行记录。</p>
+<h3 id="25-document文档"><a class="markdownIt-Anchor" href="#25-document文档"></a> 2.5 Document（文档）</h3>
+<p>Document是es数据可被索引化的基本的存储单元，需要存储在Type中，相当于传统数据库的行记录。</p>
 <p>Index 里面单条的记录称为 Document（文档）。许多条 Document 构成了一个 Index。</p>
 <p>Document 使用 JSON 格式表示，下面是一个例子。</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">{
@@ -550,8 +557,8 @@ yellow open   orders   5   1          0            0       650b           650b<s
   "title": "工程师",
   "desc": "数据库管理"
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="2-6-Shard（分片）"><a href="#2-6-Shard（分片）" class="headerlink" title="2.6 Shard（分片）"></a>2.6 Shard（分片）</h3><p>一个索引可能会存储大量的数据，进而会让单个节点超出硬件能承受范围。举例来说，存储了10亿文档的单个节点，会占用1TB磁盘空间，并且会导致查询的时候速度很慢。</p>
+<h3 id="26-shard分片"><a class="markdownIt-Anchor" href="#26-shard分片"></a> 2.6 Shard（分片）</h3>
+<p>一个索引可能会存储大量的数据，进而会让单个节点超出硬件能承受范围。举例来说，存储了10亿文档的单个节点，会占用1TB磁盘空间，并且会导致查询的时候速度很慢。</p>
 <p>为了解决这个问题，Elasticsearch 提供了分片，也就是将index细分为多个碎片的功能。当你创建index的时候，你可以简单地指定你想要的分片数量。每一个分片具有和 index 完全相同的功能。</p>
 <p>碎片最主要的两个作用是：</p>
 <ul>
@@ -559,7 +566,8 @@ yellow open   orders   5   1          0            0       650b           650b<s
 <li>它允许你并行地分发作业，提高系统的性能</li>
 </ul>
 <p>默认在创建索引时会创建5个分片，这个数量可以修改。分片的数量只能在创建索引的时候指定，不能在后期修改。</p>
-<h3 id="2-7-Replicas（副本）"><a href="#2-7-Replicas（副本）" class="headerlink" title="2.7 Replicas（副本）"></a>2.7 Replicas（副本）</h3><p>因为各种原因，所以数据丢失等问题会时有发生，碎片也可能会丢失，为了防止这个问题，所以你可以将一个或多个索引碎片复制到所谓的复制碎片，简称为副本。</p>
+<h3 id="27-replicas副本"><a class="markdownIt-Anchor" href="#27-replicas副本"></a> 2.7 Replicas（副本）</h3>
+<p>因为各种原因，所以数据丢失等问题会时有发生，碎片也可能会丢失，为了防止这个问题，所以你可以将一个或多个索引碎片复制到所谓的复制碎片，简称为副本。</p>
 <p>副本最主要的两个作用是：</p>
 <ul>
 <li>它提供了高可用性，以防碎片/节点失败。基于这点，所以副本的永远不要和原始碎片分布在同一个节点上</li>
@@ -574,7 +582,8 @@ yellow open   orders   5   1          0            0       650b           650b<s
 <th>Elasticsearch</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>Database（数据库）</td>
 <td>Index（索引）</td>
 </tr>
@@ -602,34 +611,32 @@ yellow open   orders   5   1          0            0       650b           650b<s
 <td>SQL（结构化查询语言）</td>
 <td>Query DSL（查询专用语言）</td>
 </tr>
-</tbody></table>
-<h2 id="3-Elasticsearch-安装和配置"><a href="#3-Elasticsearch-安装和配置" class="headerlink" title="3. Elasticsearch 安装和配置"></a>3. Elasticsearch 安装和配置</h2><h3 id="3-1-安装"><a href="#3-1-安装" class="headerlink" title="3.1 安装"></a>3.1 安装</h3><p>Elasticsearch 至少需要 Java 7  环境。如果你的机器还没安装 Java，可以参考<a target="_blank" rel="noopener" href="https://www.liquidweb.com/kb/install-java-8-on-centos-7/">这篇文章</a>。</p>
+</tbody>
+</table>
+<h2 id="3-elasticsearch-安装和配置"><a class="markdownIt-Anchor" href="#3-elasticsearch-安装和配置"></a> 3. Elasticsearch 安装和配置</h2>
+<h3 id="31-安装"><a class="markdownIt-Anchor" href="#31-安装"></a> 3.1 安装</h3>
+<p>Elasticsearch 至少需要 Java 7  环境。如果你的机器还没安装 Java，可以参考<a target="_blank" rel="noopener" href="https://www.liquidweb.com/kb/install-java-8-on-centos-7/">这篇文章</a>。</p>
 <p>安装完 Java，就可以跟着<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/5.5/_installation.html#_installation">官方文档</a>安装 Elasticsearch。</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># cd /usr/local/software/
 # curl -L -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.5.3.tar.gz
 # # tar -zxvf elasticsearch-5.5.3.tar.gz  -C /usr/local/
 # # cd /usr/local/elasticsearch-5.5.3/
 # ./bin/elasticsearch<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>如果这时报错”Exception in thread “main” java.lang.RuntimeException: don’t run elasticsearch as root.”，表示不能以超级用户root启动es，我们新建一个用户：</p>
+<p>如果这时报错"Exception in thread “main” java.lang.RuntimeException: don’t run elasticsearch as root."，表示不能以超级用户root启动es，我们新建一个用户：</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># useradd es
 # passwd es
 # chown -R es:es /usr/local/elasticsearch-5.5.3/
 # su - es
 $ /usr/local/elasticsearch-5.5.3/bin/elasticsearch<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>如果这时报错“max file descriptors [4096] for elasticsearch process is too low, increase to at least [65536]”，这表示文件描述符太少了，我们需要设置文件描述数量：</p>
 <p>查看<code>es</code>用户硬限制：</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ ulimit -Hn
 4096<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <p>打开<code>/etc/security/limits.conf</code>增加一行：</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">es  - nofile  65536<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>退出<code>es</code>用户，再重新看硬限制：</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ ulimit -Hn
 65536<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <p>如果一切正常，es 就会在默认的9200端口运行。开启另一个终端查看es进程和端口：</p>
 <pre class="line-numbers language-none"><code class="language-none"># ps -ef | grep elastic
 es        1753  1726  8 18:14 pts/1    00:00:02 /bin/java -Xms2g -Xmx2g -XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupancyFraction=75 -XX:+UseCMSInitiatingOccupancyOnly -XX:+AlwaysPreTouch -server -Xss1m -Djava.awt.headless=true -Dfile.encoding=UTF-8 -Djna.nosys=true -Djdk.io.permissionsUseCanonicalPath=true -Dio.netty.noUnsafe=true -Dio.netty.noKeySetOptimization=true -Dio.netty.recycler.maxCapacityPerThread=0 -Dlog4j.shutdownHookEnabled=false -Dlog4j2.disable.jmx=true -Dlog4j.skipJansi=true -XX:+HeapDumpOnOutOfMemoryError -Des.path.home=/usr/local/elasticsearch-5.5.3 -cp /usr/local/elasticsearch-5.5.3/lib/* org.elasticsearch.bootstrap.Elasticsearch
@@ -637,7 +644,6 @@ root      1793  1596  0 18:14 pts/0    00:00:00 grep --color=auto elastic
 
 # netstat -tlunp | grep 9200
 tcp6       0      0 127.0.0.1:9200          :::*                    LISTEN      1753/java<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>可以看到es已经正常启动，除了查看es进程和端口外，我们还可以执行：</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># curl 'http://localhost:9200'
 {
@@ -653,15 +659,17 @@ tcp6       0      0 127.0.0.1:9200          :::*                    LISTEN      
   },
   "tagline" : "You Know, for Search"
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>上面代码中，请求9200端口，es 返回一个 JSON 对象，包含当前节点、集群、版本等信息。</p>
 <p>以上es的运行方式可以通过<code>CTRL+C</code>或关闭窗口来停止运行，平时我们可以通过守护进程的方式在后台启动es：</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ ./bin/elasticsearch -d<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>如果是后台启动后想要停止es，可以通过<code>ps -ef | grep elastic</code>找到es进程PID，然后<code>kill</code>掉就行</p>
-<h3 id="3-2-配置"><a href="#3-2-配置" class="headerlink" title="3.2 配置"></a>3.2 配置</h3><p>认情况下，es 只允许本机访问，如果需要远程访问，可以修改 es 安装目录的<em>ES_HOME/config/elasticsearch.yml</em>文件，去掉<strong>network.host</strong>的注释，将它的值改成<code>0.0.0.0</code>，然后重新启动 es。</p>
+<h3 id="32-配置"><a class="markdownIt-Anchor" href="#32-配置"></a> 3.2 配置</h3>
+<p>认情况下，es 只允许本机访问，如果需要远程访问，可以修改 es 安装目录的<em>ES_HOME/config/elasticsearch.yml</em>文件，去掉<strong>network.host</strong>的注释，将它的值改成<code>0.0.0.0</code>，然后重新启动 es。</p>
 <p>如果远程还不能访问可能需要检查下<strong>防火墙</strong>和<strong>SELinux</strong>的设置。</p>
 <p>其它配置项的解释可以参考<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/5.5/settings.html">官方页面</a></p>
-<h2 id="4-Elasticsearch-插件"><a href="#4-Elasticsearch-插件" class="headerlink" title="4. Elasticsearch 插件"></a>4. Elasticsearch 插件</h2><h3 id="4-1-IK-中文分词插件"><a href="#4-1-IK-中文分词插件" class="headerlink" title="4.1 IK 中文分词插件"></a>4.1 IK 中文分词插件</h3><p>es 内置的分词器对中文不友好，会把中文分成单个字来进行全文检索，不能达到想要的结果，ik 可以进行友好的分词及自定义分词。</p>
+<h2 id="4-elasticsearch-插件"><a class="markdownIt-Anchor" href="#4-elasticsearch-插件"></a> 4. Elasticsearch 插件</h2>
+<h3 id="41-ik-中文分词插件"><a class="markdownIt-Anchor" href="#41-ik-中文分词插件"></a> 4.1 IK 中文分词插件</h3>
+<p>es 内置的分词器对中文不友好，会把中文分成单个字来进行全文检索，不能达到想要的结果，ik 可以进行友好的分词及自定义分词。</p>
 <p>内置的分词器对中文会一个一个拆分，如下面是内置分词器的效果：</p>
 <pre class="line-numbers language-ssh" data-language="ssh"><code class="language-ssh">$ curl -H 'Content-Type: application/json'  -X GET 'localhost:9200/_analyze?pretty' -d '
 &gt; {
@@ -715,10 +723,8 @@ tcp6       0      0 127.0.0.1:9200          :::*                    LISTEN      
     }
   ]
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>首先，安装中文分词插件。这里使用的是<a target="_blank" rel="noopener" href="https://github.com/medcl/elasticsearch-analysis-ik/">ik</a></p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">[es@localhost elasticsearch-5.5.3]$ ./bin/elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v5.5.3/elasticsearch-analysis-ik-5.5.3.zip<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>接着，重新启动 Elastic，就会自动加载这个新安装的插件。</p>
 <p>IK支持两种分词模式：</p>
 <ul>
@@ -791,7 +797,6 @@ tcp6       0      0 127.0.0.1:9200          :::*                    LISTEN      
     }
   ]
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>设置mapping默认分词器：</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">curl -X PUT 'localhost:9200/userdoors' -d '
 {
@@ -817,20 +822,24 @@ tcp6       0      0 127.0.0.1:9200          :::*                    LISTEN      
     }
   }
 }'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>面代码中，首先新建一个名称为<code>userdoor</code>的Index，里面有一个名称为<code>person</code>的 Type。person有三个字段<code>name</code>、<code>title</code>、<code>desc</code>。</p>
 <p><strong>注意：</strong> 这里设置<code>search_analyzer</code>与<code>analyzer</code> 相同是为了确保搜索时和索引时使用相同的分词器，以确保查询中的术语与反向索引中的术语具有相同的格式。如果不设置<code>search_analyzer</code>，则 <code>search_analyzer</code> 与 <code>analyzer</code> 相同。详细请查阅官网<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/5.5/search-analyzer.html">搜索分析器</a></p>
-<h3 id="4-2-head-插件"><a href="#4-2-head-插件" class="headerlink" title="4.2 head 插件"></a>4.2 head 插件</h3><h2 id="5-Elasticsearch-REST-APIs-的使用"><a href="#5-Elasticsearch-REST-APIs-的使用" class="headerlink" title="5. Elasticsearch REST APIs 的使用"></a>5. Elasticsearch REST APIs 的使用</h2><h3 id="5-1-Indices-APIs（索引API）"><a href="#5-1-Indices-APIs（索引API）" class="headerlink" title="5.1 Indices APIs（索引API）"></a>5.1 Indices APIs（索引API）</h3><p>索引API用于对索引进行各种管理，如：创建索引、删除索引、获取索引等，还包括，索引设置，别名管理，映射管理，状态管理等。</p>
-<h4 id="创建索引"><a href="#创建索引" class="headerlink" title="创建索引"></a>创建索引</h4><p>新建 Index，可以直接向 es 服务器发出 PUT 请求。下面的例子是新建一个名叫orders的 Index。</p>
+<h3 id="42-head-插件"><a class="markdownIt-Anchor" href="#42-head-插件"></a> 4.2 head 插件</h3>
+<h2 id="5-elasticsearch-rest-apis-的使用"><a class="markdownIt-Anchor" href="#5-elasticsearch-rest-apis-的使用"></a> 5. Elasticsearch REST APIs 的使用</h2>
+<h3 id="51-indices-apis索引api"><a class="markdownIt-Anchor" href="#51-indices-apis索引api"></a> 5.1 Indices APIs（索引API）</h3>
+<p>索引API用于对索引进行各种管理，如：创建索引、删除索引、获取索引等，还包括，索引设置，别名管理，映射管理，状态管理等。</p>
+<h4 id="创建索引"><a class="markdownIt-Anchor" href="#创建索引"></a> 创建索引</h4>
+<p>新建 Index，可以直接向 es 服务器发出 PUT 请求。下面的例子是新建一个名叫orders的 Index。</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ curl -X PUT 'http://localhost:9200/orders' -d ''
 {"acknowledged":true}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <p>服务器返回一个 JSON 对象，里面的<code>acknowledged</code>字段表示操作成功。</p>
-<h4 id="删除索引"><a href="#删除索引" class="headerlink" title="删除索引"></a>删除索引</h4><p>我们发出 DELETE 请求，删除这个 Index。</p>
+<h4 id="删除索引"><a class="markdownIt-Anchor" href="#删除索引"></a> 删除索引</h4>
+<p>我们发出 DELETE 请求，删除这个 Index。</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ curl -X DELETE 'http://localhost:9200/orders'
 {"acknowledged":true}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<h3 id="5-2-Document-APIs（文档API）"><a href="#5-2-Document-APIs（文档API）" class="headerlink" title="5.2 Document APIs（文档API）"></a>5.2 Document APIs（文档API）</h3><h4 id="新增文档"><a href="#新增文档" class="headerlink" title="新增文档"></a>新增文档</h4><p>向指定的 /Index/Type 发送 PUT 请求，就可以在 Index 里面新增一条记录。比如，向<code>/userdoor/person</code>发送请求，就可以新增一条人员记录。</p>
+<h3 id="52-document-apis文档api"><a class="markdownIt-Anchor" href="#52-document-apis文档api"></a> 5.2 Document APIs（文档API）</h3>
+<h4 id="新增文档"><a class="markdownIt-Anchor" href="#新增文档"></a> 新增文档</h4>
+<p>向指定的 /Index/Type 发送 PUT 请求，就可以在 Index 里面新增一条记录。比如，向<code>/userdoor/person</code>发送请求，就可以新增一条人员记录。</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ curl -X PUT 'localhost:9200/userdoor/person/1?pretty=true' -d '
 &gt; {
 &gt;   "name": "张三",
@@ -850,7 +859,6 @@ tcp6       0      0 127.0.0.1:9200          :::*                    LISTEN      
   },
   "created" : true
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>最后的1是该条记录的 <code>Id</code>。它不一定是数字，任意字符串（比如abc）都可以。<strong>URL</strong> 的参数<code>pretty=true</code>表示以易读的格式返回。</p>
 <p>新增记录的时候，也可以不指定 <code>Id</code>，让<code>es</code>自动生成唯一的<code>Id</code>这时要改成 <strong>POST</strong> 请求。</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ curl -X POST 'localhost:9200/userdoor/person?pretty' -d '
@@ -872,9 +880,9 @@ tcp6       0      0 127.0.0.1:9200          :::*                    LISTEN      
   },
   "created" : true
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>注意，如果没有先创建 Index（这个例子是userdoor），直接执行上面的命令，es 也不会报错，而是直接生成指定的 Index。</p>
-<h4 id="查看文档"><a href="#查看文档" class="headerlink" title="查看文档"></a>查看文档</h4><p>向/Index/Type/Id发出 GET 请求，就可以查看这条记录。</p>
+<h4 id="查看文档"><a class="markdownIt-Anchor" href="#查看文档"></a> 查看文档</h4>
+<p>向/Index/Type/Id发出 GET 请求，就可以查看这条记录。</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ curl -X GET 'localhost:9200/userdoor/person/1?pretty=true'
 {
   "_index" : "userdoor",
@@ -888,8 +896,8 @@ tcp6       0      0 127.0.0.1:9200          :::*                    LISTEN      
     "desc" : "数据库管理"
   }
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h4 id="更新文档"><a href="#更新文档" class="headerlink" title="更新文档"></a>更新文档</h4><p>更新记录就是使用 PUT 请求，重新发送一次数据。</p>
+<h4 id="更新文档"><a class="markdownIt-Anchor" href="#更新文档"></a> 更新文档</h4>
+<p>更新记录就是使用 PUT 请求，重新发送一次数据。</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ curl -X PUT 'localhost:9200/userdoor/person/1?pretty' -d '
 &gt; {
 &gt;   "name": "张三",
@@ -909,10 +917,11 @@ tcp6       0      0 127.0.0.1:9200          :::*                    LISTEN      
   },
   "created" : false
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h4 id="删除文档"><a href="#删除文档" class="headerlink" title="删除文档"></a>删除文档</h4><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ curl -X DELETE 'localhost:9200/userdoor/person/1?pretty' -d ''<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<h3 id="5-3-Search-APIs（搜索API）"><a href="#5-3-Search-APIs（搜索API）" class="headerlink" title="5.3 Search APIs（搜索API）"></a>5.3 Search APIs（搜索API）</h3><h4 id="查询所有文档"><a href="#查询所有文档" class="headerlink" title="查询所有文档"></a>查询所有文档</h4><p>使用 GET 方法，直接请求/Index/Type/_search，就会返回所有记录。</p>
+<h4 id="删除文档"><a class="markdownIt-Anchor" href="#删除文档"></a> 删除文档</h4>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ curl -X DELETE 'localhost:9200/userdoor/person/1?pretty' -d ''<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="53-search-apis搜索api"><a class="markdownIt-Anchor" href="#53-search-apis搜索api"></a> 5.3 Search APIs（搜索API）</h3>
+<h4 id="查询所有文档"><a class="markdownIt-Anchor" href="#查询所有文档"></a> 查询所有文档</h4>
+<p>使用 GET 方法，直接请求/Index/Type/_search，就会返回所有记录。</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ curl 'localhost:9200/userdoor/person/_search?pretty'
 {
   "took" : 185,
@@ -951,7 +960,6 @@ tcp6       0      0 127.0.0.1:9200          :::*                    LISTEN      
     ]
   }
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>上面代码中，返回结果的 <code>took</code>字段表示该操作的耗时（单位为毫秒），<code>timed_out</code>字段表示是否超时，<code>hits</code>字段表示命中的记录，里面子字段的含义如下。</p>
 <ul>
 <li>total：返回记录数，本例是2条。</li>
@@ -959,7 +967,8 @@ tcp6       0      0 127.0.0.1:9200          :::*                    LISTEN      
 <li>hits：返回的记录组成的数组。</li>
 </ul>
 <p>返回的记录中，每条记录都有一个<code>_score</code>字段，表示匹配的程序，默认是按照这个字段降序排列。</p>
-<h3 id="5-4-Query-DSL"><a href="#5-4-Query-DSL" class="headerlink" title="5.4 Query DSL"></a>5.4 Query DSL</h3><p>Elastic 的查询非常特别，使用自己的<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/5.5/query-dsl.html">查询语法</a>，要求 GET 请求带有数据体。</p>
+<h3 id="54-query-dsl"><a class="markdownIt-Anchor" href="#54-query-dsl"></a> 5.4 Query DSL</h3>
+<p>Elastic 的查询非常特别，使用自己的<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/5.5/query-dsl.html">查询语法</a>，要求 GET 请求带有数据体。</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ curl 'localhost:9200/userdoor/person/_search?pretty'  -d '
 &gt; {
 &gt;   "query" : { "match" : { "desc" : "软件" }}
@@ -990,9 +999,9 @@ tcp6       0      0 127.0.0.1:9200          :::*                    LISTEN      
     ]
   }
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>上面代码使用 <a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/5.5/query-dsl-match-query.html">Match 查询</a> ，指定的匹配条件是<code>desc</code>字段里面包含”软件”这个词</p>
-<h2 id="6-参考资料"><a href="#6-参考资料" class="headerlink" title="6. 参考资料"></a>6. 参考资料</h2><ul>
+<p>上面代码使用 <a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/5.5/query-dsl-match-query.html">Match 查询</a> ，指定的匹配条件是<code>desc</code>字段里面包含"软件"这个词</p>
+<h2 id="6-参考资料"><a class="markdownIt-Anchor" href="#6-参考资料"></a> 6. 参考资料</h2>
+<ul>
 <li><a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html">Elasticsearch 官方手册</a></li>
 <li><a target="_blank" rel="noopener" href="https://github.com/mobz/elasticsearch-head">elasticsearch-head</a></li>
 </ul>

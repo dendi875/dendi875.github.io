@@ -517,40 +517,41 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="MySQL-四种事务隔离级别说明"><a href="#MySQL-四种事务隔离级别说明" class="headerlink" title="MySQL 四种事务隔离级别说明"></a>MySQL 四种事务隔离级别说明</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在 <code>MySQL</code> 中，为了保证并发读取数据的正确性，提出了四种事务隔离级别，下面我们就说明如何设置隔离级别，以及用示例来说明每种隔离级别的使用情况</p>
-<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><h3 id="设置隔离级别"><a href="#设置隔离级别" class="headerlink" title="设置隔离级别"></a>设置隔离级别</h3><p>你可以在 <code>MySQL</code> 配置文件 <code>my.cnf</code> 的 <code>[mysqld]</code>节中设置如下选项来为所有连接设置默认的隔离级别</p>
+                <h1 id="mysql-四种事务隔离级别说明"><a class="markdownIt-Anchor" href="#mysql-四种事务隔离级别说明"></a> MySQL 四种事务隔离级别说明</h1>
+<h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h2>
+<p>在 <code>MySQL</code> 中，为了保证并发读取数据的正确性，提出了四种事务隔离级别，下面我们就说明如何设置隔离级别，以及用示例来说明每种隔离级别的使用情况</p>
+<h2 id="操作"><a class="markdownIt-Anchor" href="#操作"></a> 操作</h2>
+<h3 id="设置隔离级别"><a class="markdownIt-Anchor" href="#设置隔离级别"></a> 设置隔离级别</h3>
+<p>你可以在 <code>MySQL</code> 配置文件 <code>my.cnf</code> 的 <code>[mysqld]</code>节中设置如下选项来为所有连接设置默认的隔离级别</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[mysqld]
 transaction-isolation = {READ-UNCOMMITTED | READ-COMMITTED | REPEATABLE-READ | SERIALIZABLE}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>如果未设置此选项，则 <code>InnoDB</code>默认是可重复读（<code>REPEATABLE-READ</code>）。</p>
 <p>你也可以用 <code>set session</code>语句来改变单个会话或所有新进来连接的隔离级别。</p>
 <p>语法如下：</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">set [session | global] transaction isolation level {read uncommitted | read committed | repeatable read | serializable}<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <ul>
 <li>如果使用 <code>global</code> 关键字，则表示在全局（多个 session中）对从那点开始创建的所有连接设置默认事务级别</li>
 <li>如果使用 <code>session</code>关键字，则表示为将来在当前连接上执行的所有事务设置默认事务级别</li>
 <li>不带<code>global</code>和<code>session</code>是为下一个（未开始）事务设置隔离级别</li>
 </ul>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">set session transaction isolation level read uncommitted;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>上面的命令表示：为接下来在当前会话连接上执行的所有事务设置读未提交隔离级别</p>
 <p>注意：使用<code>set</code> 命令来设置隔离级别的方式在 <code>MySQL</code> 重启后会恢复到配置文件中设置的隔离级别</p>
-<h3 id="查询隔离级别"><a href="#查询隔离级别" class="headerlink" title="查询隔离级别"></a>查询隔离级别</h3><ul>
+<h3 id="查询隔离级别"><a class="markdownIt-Anchor" href="#查询隔离级别"></a> 查询隔离级别</h3>
+<ul>
 <li>查询全局的隔离级别</li>
 </ul>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">select @@global.tx_isolation;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <ul>
 <li>查询一个会话的隔离级别</li>
 </ul>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">select @@session.tx_isolation;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <ul>
 <li>查询一个事务的隔离级别</li>
 </ul>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">select @@tx_isolation;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<h3 id="四种隔离级别的示例"><a href="#四种隔离级别的示例" class="headerlink" title="四种隔离级别的示例"></a>四种隔离级别的示例</h3><ol>
+<h3 id="四种隔离级别的示例"><a class="markdownIt-Anchor" href="#四种隔离级别的示例"></a> 四种隔离级别的示例</h3>
+<ol>
 <li>各隔离级别会再现的问题</li>
 </ol>
 <table>
@@ -562,7 +563,8 @@ transaction-isolation = {READ-UNCOMMITTED | READ-COMMITTED | REPEATABLE-READ | S
 <th>幻读</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>读未提交</td>
 <td>可能</td>
 <td>可能</td>
@@ -586,7 +588,8 @@ transaction-isolation = {READ-UNCOMMITTED | READ-COMMITTED | REPEATABLE-READ | S
 <td>不可能</td>
 <td>不可能</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <ul>
 <li>读未提交：该隔离级别下可能会出现 <strong>脏读</strong>，也就是可能会读取到其它会话中修改了但还未提交的数据</li>
 <li>读已提交：该隔离级别解决了脏读问题，但可能会出现<strong>不可重复读</strong></li>
@@ -615,8 +618,8 @@ insert into `goods` (`name`, `stock`) values
 ('p7', '1000'),
 ('p8', '1000'),
 ('p9', '1000');<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h4 id="脏读"><a href="#脏读" class="headerlink" title="脏读"></a>脏读</h4><p>脏读就是指当一个事务正在访问数据，并且对数据进行了修改，而这种修改还没有提交到数据库中，这时，另外一个事务也访问这个数据，然后使用了这个数据。</p>
+<h4 id="脏读"><a class="markdownIt-Anchor" href="#脏读"></a> 脏读</h4>
+<p>脏读就是指当一个事务正在访问数据，并且对数据进行了修改，而这种修改还没有提交到数据库中，这时，另外一个事务也访问这个数据，然后使用了这个数据。</p>
 <p>session1：</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">// 关闭自动提交，设置隔离级别为读未提交
 mysql&gt; set autocommit=0;
@@ -656,7 +659,6 @@ mysql&gt; select * from goods where id=1;
 |  1 | p1   |  1000 |
 +----+------+-------+
 1 row in set (0.00 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>session2：</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mysql&gt; set autocommit=0;
 mysql&gt; set session transaction isolation level read uncommitted;
@@ -678,7 +680,6 @@ mysql&gt; select * from goods where id=1;
 mysql&gt; update goods set stock=1 where id=1;
 Query OK, 1 row affected (0.00 sec)
 Rows matched: 1  Changed: 1  Warnings: 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>session1：</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mysql&gt; select * from goods where id=1; 
 +----+------+-------+
@@ -686,9 +687,9 @@ Rows matched: 1  Changed: 1  Warnings: 0<span aria-hidden="true" class="line-num
 +----+------+-------+
 |  1 | p1   |     1 |
 +----+------+-------+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p><strong>注意：</strong> 这时 session1 读取到了 session2 未提交的内容，如果 session2 回滚刚才更新的数据，session1 读取到的数据就是错误的</p>
-<h4 id="不可重复读"><a href="#不可重复读" class="headerlink" title="不可重复读"></a>不可重复读</h4><p>事务一一直读，事务二修改数据并提交，有可能就会出现事务一内两次读取到的数据不一样</p>
+<h4 id="不可重复读"><a class="markdownIt-Anchor" href="#不可重复读"></a> 不可重复读</h4>
+<p>事务一一直读，事务二修改数据并提交，有可能就会出现事务一内两次读取到的数据不一样</p>
 <p>session1：</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">// 取消自动提交，并设置隔离级别为读已提交
 mysql&gt; set autocommit=0;
@@ -713,7 +714,6 @@ mysql&gt; select * from goods where id=1;
 |  1 | p1   |  1000 |
 +----+------+-------+
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>session2：</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">// 取消自动提交，并设置隔离级别为读已提交
 mysql&gt; set autocommit=0;
@@ -730,7 +730,6 @@ mysql&gt; select @@session.tx_isolation;
 mysql&gt; start transaction;
 mysql&gt; select * from goods where id=1;
 mysql&gt; update goods set stock=1 where id=1;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>这时返回到 session1</p>
 <p>session1：</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mysql&gt; select * from goods where id=1;
@@ -739,13 +738,11 @@ mysql&gt; update goods set stock=1 where id=1;<span aria-hidden="true" class="li
 +----+------+-------+
 |  1 | p1   |  1000 |
 +----+------+-------+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>可以观察到在读已提交的隔离级别下，session1 没出现<strong>脏读</strong>。</p>
 <p>继续返回到 session2 执行手动提交</p>
 <p>session2：</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mysql&gt; commit;
 Query OK, 0 rows affected (0.01 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <p>再返回到 session1 查看 id = 1的记录</p>
 <p>session1：</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mysql&gt; select * from goods where id=1;
@@ -754,10 +751,10 @@ Query OK, 0 rows affected (0.01 sec)<span aria-hidden="true" class="line-numbers
 +----+------+-------+
 |  1 | p1   |     1 |
 +----+------+-------+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p><strong>注意：</strong> 在 session2 提交后，session1 连接两次读取到的数据不一致了，这就是<strong>读已提交隔离级别可能会出现不可重复读的情况</strong></p>
 <p>在演示幻读之前，我们先演示下<strong>可重复读</strong></p>
-<h4 id="可重复读"><a href="#可重复读" class="headerlink" title="可重复读"></a>可重复读</h4><p>session1：</p>
+<h4 id="可重复读"><a class="markdownIt-Anchor" href="#可重复读"></a> 可重复读</h4>
+<p>session1：</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mysql&gt; set autocommit=0;
 mysql&gt; set session transaction isolation level repeatable read;
 
@@ -774,7 +771,6 @@ mysql&gt; select * from goods where id=1;
 +----+------+-------+
 |  1 | p1   |  1000 |
 +----+------+-------+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>session2：</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mysql&gt; set autocommit=0;
 mysql&gt; set session transaction isolation level repeatable read;
@@ -803,7 +799,6 @@ Rows matched: 1  Changed: 1  Warnings: 0
 
 mysql&gt;  commit;
 Query OK, 0 rows affected (0.00 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>再返回到 session1 查询 id=1 的记录</p>
 <p>session1：</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mysql&gt; select * from goods where id=1;
@@ -812,9 +807,9 @@ Query OK, 0 rows affected (0.00 sec)<span aria-hidden="true" class="line-numbers
 +----+------+-------+
 |  1 | p1   |  1000 |
 +----+------+-------+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>可以观察到<strong>在可重复读隔离级别下</strong>，session1 连续多次读取的数据是一致的，也就是它是可重复读的</p>
-<h4 id="幻读"><a href="#幻读" class="headerlink" title="幻读"></a>幻读</h4><p>两个事务彼此隔离，互相并不知道对方操作了什么，当第一个事务插入了一条数据并提交后，因为隔离级别是可重复读，在第二个事务里并不知道第一个事务已经插入了数据，所以第二个事务查询出来的数据还是没插入之前的，这时第二个事务再次插入数据时就可能会报数据已存在，以为自己出现了幻觉</p>
+<h4 id="幻读"><a class="markdownIt-Anchor" href="#幻读"></a> 幻读</h4>
+<p>两个事务彼此隔离，互相并不知道对方操作了什么，当第一个事务插入了一条数据并提交后，因为隔离级别是可重复读，在第二个事务里并不知道第一个事务已经插入了数据，所以第二个事务查询出来的数据还是没插入之前的，这时第二个事务再次插入数据时就可能会报数据已存在，以为自己出现了幻觉</p>
 <p>session1：</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mysql&gt; set autocommit=0;
 mysql&gt; set session transaction isolation level repeatable read;
@@ -844,8 +839,7 @@ Query OK, 1 row affected (0.00 sec)
 
 mysql&gt; commit;
 Query OK, 0 rows affected (0.00 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>切换到 session2 </p>
+<p>切换到 session2</p>
 <p>session2：</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mysql&gt; set autocommit=0;
 mysql&gt; set session transaction isolation level repeatable read;
@@ -871,8 +865,8 @@ mysql&gt; select * from goods;
 
 mysql&gt; insert into goods(`name`, `stock`) values('p10', 1000);     
 ERROR 1062 (23000): Duplicate entry 'p10' for key 'uk_name'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h4 id="SERIALIZABLE（可串行化）"><a href="#SERIALIZABLE（可串行化）" class="headerlink" title="SERIALIZABLE（可串行化）"></a>SERIALIZABLE（可串行化）</h4><p>在该隔离级别下事务都是串行顺序执行的，<code>MySQL</code> 数据库的 <code>InnoDB</code> 引擎会给读操作隐式加一把读共享锁，从而避免了脏读、不可重读复读和幻读问题。</p>
+<h4 id="serializable可串行化"><a class="markdownIt-Anchor" href="#serializable可串行化"></a> SERIALIZABLE（可串行化）</h4>
+<p>在该隔离级别下事务都是串行顺序执行的，<code>MySQL</code> 数据库的 <code>InnoDB</code> 引擎会给读操作隐式加一把读共享锁，从而避免了脏读、不可重读复读和幻读问题。</p>
 <p>session1：</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mysql&gt; set autocommit=0;
 Query OK, 0 rows affected (0.00 sec)
@@ -894,7 +888,6 @@ Query OK, 0 rows affected (0.00 sec)
 
 mysql&gt; insert into goods(`name`, `stock`) values('p10', 1000); 
 Query OK, 1 row affected (0.00 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>切换到 session2 ，开启一个事务然后查询数据</p>
 <p>session2：</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mysql&gt; set autocommit=0;
@@ -912,11 +905,9 @@ mysql&gt; select @@session.tx_isolation;
 1 row in set (0.00 sec)
 
 mysql&gt; select * from goods; // 些时会一直卡住<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>立马切换到 session1，提交事务</p>
 <p>session1：</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mysql&gt; commit;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>再切换到 session2</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mysql&gt; select * from goods;
 +----+------+-------+
@@ -934,13 +925,12 @@ mysql&gt; select * from goods; // 些时会一直卡住<span aria-hidden="true" 
 | 10 | p10  |  1000 |
 +----+------+-------+
 10 rows in set (1.12 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>session2 也有可能获取锁超时</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mysql&gt; select * from goods;
 ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <p><strong>注意：</strong>　一旦事务提交，session2 会立马返回插入的记录，否则会一直卡住，直到超时，其中超时参数是由 <code>innodb_lock_wait_timeout</code> 控制。由于每条 <code>select</code>语句都会加锁，所以该隔离级别的数据库并发能力最弱</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>四个级别逐渐增强，每个级别解决一个问题。事务级别越高，性能越差。<code>InnoDB</code>默认级别是可重复读。 </p>
+<h2 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h2>
+<p>四个级别逐渐增强，每个级别解决一个问题。事务级别越高，性能越差。<code>InnoDB</code>默认级别是可重复读。</p>
 
                 
             </div>

@@ -517,12 +517,18 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Kubernetes-Helm-模板之内置函数和Values"><a href="#Kubernetes-Helm-模板之内置函数和Values" class="headerlink" title="Kubernetes Helm 模板之内置函数和Values"></a>Kubernetes Helm 模板之内置函数和Values</h1><p>Helm 使用一种名为 charts 的包格式，一个 chart 是描述一组相关的 Kubernetes 资源的文件集合，单个 chart 可能用于部署简单的应用，比如 memcached pod，或者复杂的应用，比如一个带有 HTTP 服务、数据库、缓存等等功能的完整 web 应用程序。</p>
+                <h1 id="kubernetes-helm-模板之内置函数和values"><a class="markdownIt-Anchor" href="#kubernetes-helm-模板之内置函数和values"></a> Kubernetes Helm 模板之内置函数和Values</h1>
+<p>Helm 使用一种名为 charts 的包格式，一个 chart 是描述一组相关的 Kubernetes 资源的文件集合，单个 chart 可能用于部署简单的应用，比如 memcached pod，或者复杂的应用，比如一个带有 HTTP 服务、数据库、缓存等等功能的完整 web 应用程序。</p>
 <p>Charts 是创建在特定目录下面的文件集合，然后可以将它们打包到一个版本化的存档中来部署。接下来我们就来看看使用 Helm 构建 charts 的一些基本方法。</p>
-<h2 id="Chart-基本概念和使用"><a href="#Chart-基本概念和使用" class="headerlink" title="Chart 基本概念和使用"></a>Chart 基本概念和使用</h2><p>参考官方文档：<a target="_blank" rel="noopener" href="https://helm.sh/zh/docs/topics/charts/">https://helm.sh/zh/docs/topics/charts/</a></p>
-<h2 id="Chart-模板编写"><a href="#Chart-模板编写" class="headerlink" title="Chart 模板编写"></a>Chart 模板编写</h2><p>参考官方文档：<a target="_blank" rel="noopener" href="https://helm.sh/zh/docs/chart_template_guide/">https://helm.sh/zh/docs/chart_template_guide/</a></p>
-<h2 id="Chart-Hooks"><a href="#Chart-Hooks" class="headerlink" title="Chart Hooks"></a>Chart Hooks</h2><p>参考官方文档：<a target="_blank" rel="noopener" href="https://helm.sh/zh/docs/topics/charts_hooks/">https://helm.sh/zh/docs/topics/charts_hooks/</a></p>
-<h2 id="内置函数和Values"><a href="#内置函数和Values" class="headerlink" title="内置函数和Values"></a>内置函数和Values</h2><h3 id="创建第一个Helm-chart"><a href="#创建第一个Helm-chart" class="headerlink" title="创建第一个Helm chart"></a>创建第一个Helm chart</h3><p>创建一个 mychart 包，参考：<a target="_blank" rel="noopener" href="https://helm.sh/zh/docs/chart_template_guide/getting_started/">https://helm.sh/zh/docs/chart_template_guide/getting_started/</a></p>
+<h2 id="chart-基本概念和使用"><a class="markdownIt-Anchor" href="#chart-基本概念和使用"></a> Chart 基本概念和使用</h2>
+<p>参考官方文档：<a target="_blank" rel="noopener" href="https://helm.sh/zh/docs/topics/charts/">https://helm.sh/zh/docs/topics/charts/</a></p>
+<h2 id="chart-模板编写"><a class="markdownIt-Anchor" href="#chart-模板编写"></a> Chart 模板编写</h2>
+<p>参考官方文档：<a target="_blank" rel="noopener" href="https://helm.sh/zh/docs/chart_template_guide/">https://helm.sh/zh/docs/chart_template_guide/</a></p>
+<h2 id="chart-hooks"><a class="markdownIt-Anchor" href="#chart-hooks"></a> Chart Hooks</h2>
+<p>参考官方文档：<a target="_blank" rel="noopener" href="https://helm.sh/zh/docs/topics/charts_hooks/">https://helm.sh/zh/docs/topics/charts_hooks/</a></p>
+<h2 id="内置函数和values"><a class="markdownIt-Anchor" href="#内置函数和values"></a> 内置函数和Values</h2>
+<h3 id="创建第一个helm-chart"><a class="markdownIt-Anchor" href="#创建第一个helm-chart"></a> 创建第一个Helm chart</h3>
+<p>创建一个 mychart 包，参考：<a target="_blank" rel="noopener" href="https://helm.sh/zh/docs/chart_template_guide/getting_started/">https://helm.sh/zh/docs/chart_template_guide/getting_started/</a></p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># zhangquan @ MacBook-Pro in ~/code/github.com/k8s-app/
 $ mkdir -p helm/charts &amp;&amp; cd helm/charts
 
@@ -548,12 +554,11 @@ mychart
 └── values.yaml
 
 3 directories, 10 files<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>我们把 templates 目录下面所有文件全部删除掉，这里我们自己来创建模板文件：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># zhangquan @ MacBook-Pro in ~/code/github.com/k8s-app/helm/charts [19:25:33] 
 $ rm -rf mychart/templates/*<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<h3 id="创建模板"><a href="#创建模板" class="headerlink" title="创建模板"></a>创建模板</h3><p>这里我们来创建一个非常简单的模板 ConfigMap，在 templates 目录下面新建一个<code>configmap.yaml</code>文件：</p>
+<h3 id="创建模板"><a class="markdownIt-Anchor" href="#创建模板"></a> 创建模板</h3>
+<p>这里我们来创建一个非常简单的模板 ConfigMap，在 templates 目录下面新建一个<code>configmap.yaml</code>文件：</p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># zhangquan @ MacBook-Pro in ~/code/github.com/k8s-app/helm/charts [19:25:41] </span>
 $ vi mychart/templates/configmap.yaml
 <span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
@@ -562,7 +567,6 @@ $ vi mychart/templates/configmap.yaml
   <span class="token key atrule">name</span><span class="token punctuation">:</span> mychart<span class="token punctuation">-</span>configmap
 <span class="token key atrule">data</span><span class="token punctuation">:</span>
   <span class="token key atrule">myvalue</span><span class="token punctuation">:</span> <span class="token string">"Hello World"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>实际上现在我们就有一个可安装的 chart 包了，通过<code>helm install</code>命令来进行安装：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ helm install ./mychart --generate-name
 NAME: mychart-1662020439
@@ -571,7 +575,6 @@ NAMESPACE: default
 STATUS: deployed
 REVISION: 1
 TEST SUITE: None<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>在上面的输出中，我们可以看到我们的 ConfigMap 资源对象已经创建了。然后使用如下命令我们可以看到实际的模板被渲染过后的资源文件：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># zhangquan @ MacBook-Pro in ~/code/github.com/k8s-app/helm/charts [16:20:41] 
 $ helm get  manifest mychart-1662020439 
@@ -583,7 +586,6 @@ metadata:
   name: mychart-configmap
 data:
   myvalue: "Hello World"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>现在我们看到上面的 ConfigMap 文件是不是正是我们前面在模板文件中设计的，现在我们删除当前的<code>release</code>:</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ helm ls
 NAME                    NAMESPACE       REVISION        UPDATED                                 STATUS          CHART           APP VERSION
@@ -594,8 +596,8 @@ rude-cardinal           default         1               2022-08-30 21:26:33.9265
 
 $ helm uninstall mychart-1662020439
 release "mychart-1662020439" uninstalled<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="添加一个简单的模板"><a href="#添加一个简单的模板" class="headerlink" title="添加一个简单的模板"></a>添加一个简单的模板</h3><p>我们可以看到上面我们定义的 ConfigMap 的名字是固定的，但往往这并不是一种很好的做法，我们可以通过插入 release 的名称来生成资源的名称，比如这里 ConfigMap 的名称我们希望是：zq-configmap，这就需要用到 Chart 的模板定义方法了。</p>
+<h3 id="添加一个简单的模板"><a class="markdownIt-Anchor" href="#添加一个简单的模板"></a> 添加一个简单的模板</h3>
+<p>我们可以看到上面我们定义的 ConfigMap 的名字是固定的，但往往这并不是一种很好的做法，我们可以通过插入 release 的名称来生成资源的名称，比如这里 ConfigMap 的名称我们希望是：zq-configmap，这就需要用到 Chart 的模板定义方法了。</p>
 <p>Helm Chart 模板使用的是<a target="_blank" rel="noopener" href="https://pkg.go.dev/text/template"><code>Go</code>语言模板</a>编写而成，并添加了<a target="_blank" rel="noopener" href="https://masterminds.github.io/sprig/"><code>Sprig</code>库</a>中的50多个附件模板函数。</p>
 <p>现在我们来重新定义下上面的 configmap.yaml 文件：</p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
@@ -604,7 +606,6 @@ release "mychart-1662020439" uninstalled<span aria-hidden="true" class="line-num
   <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .Release.Name <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">-</span>configmap
 <span class="token key atrule">data</span><span class="token punctuation">:</span>
   <span class="token key atrule">myvalue</span><span class="token punctuation">:</span> <span class="token string">"Hello World"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>我们将名称替换成了<code>{{ .Release.Name }}-configmap</code>，其中包含在<code>{{`和`}}</code>之中的就是模板指令，<code>{{ .Release.Name }}</code> 将 release 的名称注入到模板中来，这样最终生成的 ConfigMap 名称就是以 release 的名称开头的了。这里的 Release 模板对象属于 Helm 内置的一种对象，还有其他很多内置的对象，稍后我们将接触到。</p>
 <p>现在我们来重新安装我们的 Chart 包，注意观察 ConfigMap 资源对象的名称：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># zhangquan @ MacBook-Pro in ~/code/github.com/k8s-app/helm/charts [16:21:53] 
@@ -615,7 +616,6 @@ NAMESPACE: default
 STATUS: deployed
 REVISION: 1
 TEST SUITE: None<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>可以看到现在生成的名称变成了<strong>mychart-1662020625</strong>，证明已经生效了，当然我们也可以使用命令<code>helm get manifest mychart-1662020625</code>查看最终生成的清单文件的样子。</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ helm get manifest  mychart-1662020625
 ---
@@ -626,8 +626,8 @@ metadata:
   name: mychart-1662020625-configmap
 data:
   myvalue: "Hello World"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h3><p>我们用模板来生成资源文件的清单，但是如果我们想要调试就非常不方便了，不可能我们每次都去部署一个<code>release</code>实例来校验模板是否正确，所幸的时 Helm 为我们提供了<code>--dry-run --debug</code>这个可选参数，在执行<code>helm install</code>的时候带上这两个参数就可以把对应的 values 值和生成的最终的资源清单文件打印出来，而不会真正的去部署一个<code>release</code>实例，比如我们来调试上面创建的 chart 包：</p>
+<h3 id="调试"><a class="markdownIt-Anchor" href="#调试"></a> 调试</h3>
+<p>我们用模板来生成资源文件的清单，但是如果我们想要调试就非常不方便了，不可能我们每次都去部署一个<code>release</code>实例来校验模板是否正确，所幸的时 Helm 为我们提供了<code>--dry-run --debug</code>这个可选参数，在执行<code>helm install</code>的时候带上这两个参数就可以把对应的 values 值和生成的最终的资源清单文件打印出来，而不会真正的去部署一个<code>release</code>实例，比如我们来调试上面创建的 chart 包：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># zhangquan @ MacBook-Pro in ~/code/github.com/k8s-app/helm/charts [16:25:52] 
 $ helm install --dry-run --debug --generate-name ./mychart                 
 install.go:178: [debug] Original chart version: ""
@@ -654,10 +654,11 @@ metadata:
   name: mychart-1662020797-configmap
 data:
   myvalue: "Hello World"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>现在我们使用<code>--dry-run</code>就可以很容易地测试代码了，不需要每次都去安装一个 release 实例了，但是要注意的是这不能确保 Kubernetes 本身就一定会接受生成的模板，在调试完成后，还是需要去安装一个实际的 release 实例来进行验证的。</p>
-<h3 id="内置对象"><a href="#内置对象" class="headerlink" title="内置对象"></a>内置对象</h3><p>参考官方文档：<a target="_blank" rel="noopener" href="https://helm.sh/zh/docs/chart_template_guide/builtin_objects/">https://helm.sh/zh/docs/chart_template_guide/builtin_objects/</a></p>
-<h3 id="values-文件"><a href="#values-文件" class="headerlink" title="values 文件"></a>values 文件</h3><p>参考官方文档：<a target="_blank" rel="noopener" href="https://helm.sh/zh/docs/chart_template_guide/values_files/">https://helm.sh/zh/docs/chart_template_guide/values_files/</a></p>
+<h3 id="内置对象"><a class="markdownIt-Anchor" href="#内置对象"></a> 内置对象</h3>
+<p>参考官方文档：<a target="_blank" rel="noopener" href="https://helm.sh/zh/docs/chart_template_guide/builtin_objects/">https://helm.sh/zh/docs/chart_template_guide/builtin_objects/</a></p>
+<h3 id="values-文件"><a class="markdownIt-Anchor" href="#values-文件"></a> values 文件</h3>
+<p>参考官方文档：<a target="_blank" rel="noopener" href="https://helm.sh/zh/docs/chart_template_guide/values_files/">https://helm.sh/zh/docs/chart_template_guide/values_files/</a></p>
 
                 
             </div>

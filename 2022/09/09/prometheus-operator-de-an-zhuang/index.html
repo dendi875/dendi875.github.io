@@ -525,10 +525,14 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Prometheus-Operator-的安装"><a href="#Prometheus-Operator-的安装" class="headerlink" title="Prometheus Operator 的安装"></a>Prometheus Operator 的安装</h1><p>传统的Prometheus监控Kubernetes集群，有所缺陷，比如Prometheus、Alertmanager等组件的高可用，虽然可以通过自定义的方式实现，但是不够灵活。那么Prometheus Operator是一种更高级，更云原生的Kubernetes集群监控方式。其项目地址为：<a target="_blank" rel="noopener" href="https://github.com/prometheus-operator/kube-prometheus">https://github.com/prometheus-operator/kube-prometheus</a></p>
-<h2 id="Operator"><a href="#Operator" class="headerlink" title="Operator"></a>Operator</h2><h3 id="什么是-Operator？"><a href="#什么是-Operator？" class="headerlink" title="什么是 Operator？"></a>什么是 Operator？</h3><p>Operator = Controller + CRD。假如你不了解什么是 Controller 和 CRD，可以看一个 Kubernetes 本身的例子：我们提交一个 Deployment 对象来声明期望状态，比如 3 个副本；而 Kubernetes 的 Controller 会不断地干活（跑控制循环）来达成期望状态，比如看到只有 2 个副本就创建一个，看到有 4 个副本了就删除一个。在这里，Deployment 是 Kubernetes 本身的 API 对象。那假如我们想自己设计一些 API 对象来完成需求呢？Kubernetes 本身提供了 CRD(Custom Resource Definition)，允许我们定义新的 API 对象。但在定义完之后，Kubernetes 本身当然不可能知道这些 API 对象的期望状态该如何到达。这时，我们就要写对应的 Controller 去实现这个逻辑。而这种自定义 API 对象 + 自己写 Controller 去解决问题的模式，就是 Operator Pattern。</p>
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>首先我们先来了解下<code>Prometheus-Operator</code>的架构图：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220909134822.png"></p>
+                <h1 id="prometheus-operator-的安装"><a class="markdownIt-Anchor" href="#prometheus-operator-的安装"></a> Prometheus Operator 的安装</h1>
+<p>传统的Prometheus监控Kubernetes集群，有所缺陷，比如Prometheus、Alertmanager等组件的高可用，虽然可以通过自定义的方式实现，但是不够灵活。那么Prometheus Operator是一种更高级，更云原生的Kubernetes集群监控方式。其项目地址为：<a target="_blank" rel="noopener" href="https://github.com/prometheus-operator/kube-prometheus">https://github.com/prometheus-operator/kube-prometheus</a></p>
+<h2 id="operator"><a class="markdownIt-Anchor" href="#operator"></a> Operator</h2>
+<h3 id="什么是-operator"><a class="markdownIt-Anchor" href="#什么是-operator"></a> 什么是 Operator？</h3>
+<p>Operator = Controller + CRD。假如你不了解什么是 Controller 和 CRD，可以看一个 Kubernetes 本身的例子：我们提交一个 Deployment 对象来声明期望状态，比如 3 个副本；而 Kubernetes 的 Controller 会不断地干活（跑控制循环）来达成期望状态，比如看到只有 2 个副本就创建一个，看到有 4 个副本了就删除一个。在这里，Deployment 是 Kubernetes 本身的 API 对象。那假如我们想自己设计一些 API 对象来完成需求呢？Kubernetes 本身提供了 CRD(Custom Resource Definition)，允许我们定义新的 API 对象。但在定义完之后，Kubernetes 本身当然不可能知道这些 API 对象的期望状态该如何到达。这时，我们就要写对应的 Controller 去实现这个逻辑。而这种自定义 API 对象 + 自己写 Controller 去解决问题的模式，就是 Operator Pattern。</p>
+<h2 id="介绍"><a class="markdownIt-Anchor" href="#介绍"></a> 介绍</h2>
+<p>首先我们先来了解下<code>Prometheus-Operator</code>的架构图：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220909134822.png" alt=""></p>
 <p>上图是 Prometheus-Operator 官方提供的架构图，各组件以不同的方式运行在 Kubernetes 集群中，其中 Operator 是最核心的部分，作为一个控制器，他会去创建Prometheus、ServiceMonitor、AlertManager 以及 PrometheusRule 4个 CRD 资源对象，然后会一直监控并维持这4个资源对象的状态。</p>
 <ul>
 <li><code>Operator</code>：根据自定义资源来部署和管理 Prometheus Server，同时监控这些自定义资源事件的变化来做相应的处理，是整个系统的控制中心。</li>
@@ -539,14 +543,14 @@
 <li><code>Alertmanager</code>：定义 AlertManager 资源对象期望的状态，Operator 确保这个资源对象运行时一直与定义保持一致。</li>
 </ul>
 <p>这样我们要在集群中监控什么数据，就变成了直接去操作 Kubernetes 集群的资源对象了，是不是方便很多了。上图中的 Service 和 ServiceMonitor 都是 Kubernetes 的资源，一个 ServiceMonitor 可以通过 labelSelector 的方式去匹配一类 Service，Prometheus 也可以通过 labelSelector 去匹配多个ServiceMonitor。</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><blockquote>
+<h2 id="安装"><a class="markdownIt-Anchor" href="#安装"></a> 安装</h2>
+<blockquote>
 <p>注意集群版本，自己先到Github上下载对应的版本。</p>
 </blockquote>
 <p>我们可以使用 Helm 来快速安装 Prometheus Operator，也可以通过 <a target="_blank" rel="noopener" href="https://github.com/coreos/kube-prometheus/blob/master/manifests/prometheus-service.yaml">https://github.com/coreos/kube-prometheus</a> 项目来手动安装，我们这里采用手动安装的方式可以去了解更多的实现细节。</p>
 <p>首先 clone 项目代码：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ git clone https://github.com/coreos/kube-prometheus.git
 $ cd manifests<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <p>进入到 <code>manifests</code> 目录下面，首先我们需要安装 <code>setup</code> 目录下面的 CRD 和 Operator 资源对象：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master manifests]# kubectl apply -f setup/
 namespace/monitoring unchanged
@@ -577,11 +581,9 @@ prometheuses.monitoring.coreos.com                    2022-09-09T06:07:45Z
 prometheusrules.monitoring.coreos.com                 2022-09-09T05:57:31Z
 servicemonitors.monitoring.coreos.com                 2022-09-09T05:57:31Z
 thanosrulers.monitoring.coreos.com                    2022-09-09T05:57:31Z<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>这会创建一个名为 <code>monitoring</code> 的命名空间，以及相关的 CRD 资源对象声明和 Prometheus Operator 控制器。当我们声明完 CRD 过后，就可以来自定义资源清单了，但是要让我们声明的自定义资源对象生效就需要安装对应的 Operator 控制器，这里我们都已经安装了，所以接下来就可以来用 CRD 创建真正的自定义资源对象了。其实在 <code>manifests</code> 目录下面的就是我们要去创建的 Prometheus、Alertmanager 以及各种监控对象的资源清单。</p>
 <p>没有特殊的定制需求我们可以直接一键安装：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master manifests]# kubectl apply -f .<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>这会自动安装 node-exporter、kube-state-metrics、grafana、prometheus-adapter 以及 prometheus 和 alertmanager 组件，而且 prometheus 和 alertmanager 还是多副本的。</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master manifests]#  kubectl get pods -n monitoring
 NAME                                   READY   STATUS    RESTARTS   AGE
@@ -613,7 +615,6 @@ prometheus-adapter      ClusterIP   10.96.198.116   &lt;none&gt;        443/TCP 
 prometheus-k8s          ClusterIP   10.96.166.175   &lt;none&gt;        9090/TCP                     6m18s
 prometheus-operated     ClusterIP   None            &lt;none&gt;        9090/TCP                     6m18s
 prometheus-operator     ClusterIP   None            &lt;none&gt;        8443/TCP                     11m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>可以看到上面针对 grafana、alertmanager 和 prometheus 都创建了一个类型为 ClusterIP 的 Service，当然如果我们想要在外网访问这两个服务的话可以通过创建对应的 Ingress 对象或者使用 NodePort 类型的 Service，我们这里为了简单，直接使用 NodePort 类型的服务即可，编辑 grafana、alertmanager-main 和 prometheus-k8s 这3个 Service，将服务类型更改为 NodePort:</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master manifests]# kubectl get svc -n monitoring
 NAME                    TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE
@@ -621,17 +622,17 @@ alertmanager-main       NodePort    10.96.246.4     &lt;none&gt;        9093:327
 grafana                 NodePort    10.96.241.17    &lt;none&gt;        3000:31319/TCP               9m53s
 prometheus-k8s          NodePort    10.96.166.175   &lt;none&gt;        9090:30343/TCP               9m52s
 ......<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>更改完成后，我们就可以通过上面的 NodePort 去访问对应的服务了，比如查看 prometheus 的服务发现页面：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220909142557.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220909142557.png" alt=""></p>
 <p>查看 prometheus 的 targets 页面：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220909143353.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220909143353.png" alt=""></p>
 <p>我们就可以去查看下 Grafana 下面的监控图表，同样使用上面的 NodePort 访问即可，第一次登录使用 <code>admin:admin</code> 登录即可，进入首页后，我们可以发现其实 Grafana 已经有很多配置好的监控图表了。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220909144353.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220909144353.png" alt=""></p>
 <p>我们可以随便选择一个 Dashboard 查看监控图表信息。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220909144624.png"></p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://www.qikqiak.com/k8s-book/docs/58.Prometheus%20Operator.html">https://www.qikqiak.com/k8s-book/docs/58.Prometheus%20Operator.html</a></li>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220909144624.png" alt=""></p>
+<h2 id="参考"><a class="markdownIt-Anchor" href="#参考"></a> 参考</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.qikqiak.com/k8s-book/docs/58.Prometheus%20Operator.html">https://www.qikqiak.com/k8s-book/docs/58.Prometheus Operator.html</a></li>
 </ul>
 
                 

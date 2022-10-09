@@ -521,39 +521,51 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="外观模式-Facade-Pattern"><a href="#外观模式-Facade-Pattern" class="headerlink" title="外观模式 (Facade Pattern)"></a>外观模式 (Facade Pattern)</h1><hr>
-<h3 id="0-外观模式概述"><a href="#0-外观模式概述" class="headerlink" title="0. 外观模式概述"></a>0. 外观模式概述</h3><p>不知道大家有没有比较过自己泡茶和去茶馆喝茶的区别，如果是自己泡茶需要自行准备茶叶、茶具和开水，如图(A)所示，而去茶馆喝茶，最简单的方式就是跟茶馆服务员说想要一杯什么样的茶，是铁观音、碧螺春还是西湖龙井？正因为茶馆有服务员，顾客无须直接和茶叶、茶具、开水等交互，整个泡茶过程由服务员来完成，顾客只需与服务员交互即可，整个过程非常简单省事，如图(B)所示。</p>
+                <h1 id="外观模式-facade-pattern"><a class="markdownIt-Anchor" href="#外观模式-facade-pattern"></a> 外观模式 (Facade Pattern)</h1>
+<hr>
+<h3 id="0-外观模式概述"><a class="markdownIt-Anchor" href="#0-外观模式概述"></a> 0. 外观模式概述</h3>
+<p>不知道大家有没有比较过自己泡茶和去茶馆喝茶的区别，如果是自己泡茶需要自行准备茶叶、茶具和开水，如图(A)所示，而去茶馆喝茶，最简单的方式就是跟茶馆服务员说想要一杯什么样的茶，是铁观音、碧螺春还是西湖龙井？正因为茶馆有服务员，顾客无须直接和茶叶、茶具、开水等交互，整个泡茶过程由服务员来完成，顾客只需与服务员交互即可，整个过程非常简单省事，如图(B)所示。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/tea.jpg" alt="tea"></p>
 <p>在软件开发中，有时候为了完成一项较为复杂的功能，一个客户端类需要和多个业务类交互，而这些需要交互的业务类经常会作为一个整体出现，由于涉及到的类比较多，导致使用时代码较为复杂，此时，特别需要一个类似服务员一样的角色，由它来负责和多个业务类进行交互，而客户端类只需与该类交互。外观模式通过引入一个新的外观类(Facade)来实现该功能，外观类充当了软件系统中的“服务员”，它为多个业务类的调用提供了一个统一的入口，简化了类与类之间的交互。在外观模式中，那些需要交互的业务类被称为子系统(Subsystem)。如果没有外观类，那么每个客户端类需要和多个子系统之间进行复杂的交互，系统的耦合度将很大；而引入外观类之后，客户端类只需要直接与外观类交互，客户端类与子系统之间原有的复杂引用关系由外观类来实现，从而降低了系统的耦合度。</p>
-<h3 id="1-模式定义"><a href="#1-模式定义" class="headerlink" title="1. 模式定义"></a>1. 模式定义</h3><blockquote>
+<h3 id="1-模式定义"><a class="markdownIt-Anchor" href="#1-模式定义"></a> 1. 模式定义</h3>
+<blockquote>
 <p>外观模式 (Facade Pattern)：为子系统中的一组接口提供一个统一的入口。外观模式定义了一个高层接口，这个接口使得这一子系统更加容易使用。</p>
 </blockquote>
 <p>外观模式又称为门面模式，它是一种<strong>对象结构型模式</strong>。</p>
 <p>外观模式是<strong>迪米特法则</strong>的一种具体实现，通过引入一个新的外观角色可以降低原有系统的复杂度，同时降低客户端类与子系统的耦合度。</p>
-<h3 id="2-模式结构"><a href="#2-模式结构" class="headerlink" title="2. 模式结构"></a>2. 模式结构</h3><p>外观模式包含如下角色：</p>
+<h3 id="2-模式结构"><a class="markdownIt-Anchor" href="#2-模式结构"></a> 2. 模式结构</h3>
+<p>外观模式包含如下角色：</p>
 <ul>
-<li><p><code>Facade</code>：<strong>外观</strong></p>
+<li>
+<p><code>Facade</code>：<strong>外观</strong></p>
 <ul>
 <li>客户端可以调用它的方法，在外观角色中可以知道相关的（一个或者多个）子系统的功能和责任；在正常情况下，它将所有从客户端发来的请求委派到相应的子系统去，传递给相应的子系统对象处理。</li>
 </ul>
 </li>
-<li><p><code>SubSystem</code>：<strong>子系统</strong></p>
+<li>
+<p><code>SubSystem</code>：<strong>子系统</strong></p>
 <ul>
 <li>在软件系统中可以有一个或者多个子系统角色，每一个子系统可以不是一个单独的类，而是一个类的集合，它实现子系统的功能；每一个子系统都可以被客户端直接调用，或者被外观角色调用，它处理由外观类传过来的请求；子系统并不知道外观的存在，对于子系统而言，外观角色仅仅是另外一个客户端而已。</li>
 </ul>
 </li>
 </ul>
 <p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/FacadePattern-0.png" alt="FacadePattern-0"></p>
-<h3 id="3-模式实现"><a href="#3-模式实现" class="headerlink" title="3. 模式实现"></a>3. 模式实现</h3><ul>
-<li><p>外观模式的主要目的在于降低系统的复杂程度，在面向对象软件系统中，类与类之间的关系越多，不能表示系统设计得越好，反而表示系统中类之间的耦合度太大，这样的系统在维护和修改时都缺乏灵活性，因为一个类的改动会导致多个类发生变化，而外观模式的引入在很大程度上降低了类与类之间的耦合关系。引入外观模式之后，增加新的子系统或者移除子系统都非常方便，客户端类无须进行修改（或者极少的修改），只需要在外观类中增加或移除对子系统的引用即可。从这一点来说，外观模式在一定程度上并不符合开闭原则，增加新的子系统需要对原有系统进行一定的修改，虽然这个修改工作量不大。</p>
+<h3 id="3-模式实现"><a class="markdownIt-Anchor" href="#3-模式实现"></a> 3. 模式实现</h3>
+<ul>
+<li>
+<p>外观模式的主要目的在于降低系统的复杂程度，在面向对象软件系统中，类与类之间的关系越多，不能表示系统设计得越好，反而表示系统中类之间的耦合度太大，这样的系统在维护和修改时都缺乏灵活性，因为一个类的改动会导致多个类发生变化，而外观模式的引入在很大程度上降低了类与类之间的耦合关系。引入外观模式之后，增加新的子系统或者移除子系统都非常方便，客户端类无须进行修改（或者极少的修改），只需要在外观类中增加或移除对子系统的引用即可。从这一点来说，外观模式在一定程度上并不符合开闭原则，增加新的子系统需要对原有系统进行一定的修改，虽然这个修改工作量不大。</p>
 </li>
-<li><p>外观模式中所指的子系统是一个广义的概念，它可以是一个类、一个功能模块、系统的一个组成部分或者一个完整的系统。子系统类通常是一些业务类，实现了一些具体的、独立的业务功能。</p>
+<li>
+<p>外观模式中所指的子系统是一个广义的概念，它可以是一个类、一个功能模块、系统的一个组成部分或者一个完整的系统。子系统类通常是一些业务类，实现了一些具体的、独立的业务功能。</p>
 </li>
 </ul>
-<h3 id="4-外观模式应用实例"><a href="#4-外观模式应用实例" class="headerlink" title="4. 外观模式应用实例"></a>4. 外观模式应用实例</h3><p>下面通过一个实例进一步学习和理解外观模式。</p>
-<h3 id="实例说明"><a href="#实例说明" class="headerlink" title="实例说明"></a>实例说明</h3><p>现在需要开发一个文件加密功能，该功能可以对文件中的数据进行加密并将加密之后的数据存储在一个新文件中，具体的流程包括三个部分，分别是读取源文件、加密、保存加密之后的文件。这三个操作相对独立，为了实现代码的独立重用，让设计更符合<strong>单一职责原则</strong>，这三个操作的业务代码封装在三个不同的类中。</p>
+<h3 id="4-外观模式应用实例"><a class="markdownIt-Anchor" href="#4-外观模式应用实例"></a> 4. 外观模式应用实例</h3>
+<p>下面通过一个实例进一步学习和理解外观模式。</p>
+<h3 id="实例说明"><a class="markdownIt-Anchor" href="#实例说明"></a> 实例说明</h3>
+<p>现在需要开发一个文件加密功能，该功能可以对文件中的数据进行加密并将加密之后的数据存储在一个新文件中，具体的流程包括三个部分，分别是读取源文件、加密、保存加密之后的文件。这三个操作相对独立，为了实现代码的独立重用，让设计更符合<strong>单一职责原则</strong>，这三个操作的业务代码封装在三个不同的类中。</p>
 <p>现使用外观模式设计该文件加密功能。</p>
-<h3 id="实例代码"><a href="#实例代码" class="headerlink" title="实例代码"></a>实例代码</h3><ul>
+<h3 id="实例代码"><a class="markdownIt-Anchor" href="#实例代码"></a> 实例代码</h3>
+<ul>
 <li>EncryptFacade：<code>外观类</code></li>
 </ul>
 <pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token comment">/**
@@ -598,7 +610,6 @@
         <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">fileWriter</span><span class="token operator">-&gt;</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token variable">$encryptStr</span><span class="token punctuation">,</span> <span class="token variable">$fileNameDes</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <ul>
 <li>FileReader、CipherMachine、FileWriter： <code>子系统类</code></li>
 </ul>
@@ -686,34 +697,34 @@
         <span class="token function">fclose</span><span class="token punctuation">(</span><span class="token variable">$handle</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <ul>
 <li>加密文件<code>src.txt</code>内容为</li>
 </ul>
 <pre class="line-numbers language-ssh" data-language="ssh"><code class="language-ssh">[root@localhost Facade-Pattern]# echo 'hello,world!' &gt;  src.txt<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <ul>
 <li>客户端测试</li>
 </ul>
 <pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token variable">$encryptFacade</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">EncryptFacade</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token variable">$encryptFacade</span><span class="token operator">-&gt;</span><span class="token function">fileEncrypt</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'src.txt'</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'des.txt'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <ul>
 <li>加密后的<code>des.txt</code>内容为</li>
 </ul>
 <pre class="line-numbers language-ssh" data-language="ssh"><code class="language-ssh">[root@localhost Facade-Pattern]# cat des.txt
 pw2x3UEeO8GVjum36A==<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<h3 id="5-UML类图"><a href="#5-UML类图" class="headerlink" title="5. UML类图"></a>5. UML类图</h3><p>示例代码UML图：</p>
+<h3 id="5-uml类图"><a class="markdownIt-Anchor" href="#5-uml类图"></a> 5. UML类图</h3>
+<p>示例代码UML图：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/FacadePattern-1.png" alt="FacadePattern-1"></p>
-<h3 id="6-外观模式的优点"><a href="#6-外观模式的优点" class="headerlink" title="6. 外观模式的优点"></a>6. 外观模式的优点</h3><p>外观模式的主要优点如下：</p>
+<h3 id="6-外观模式的优点"><a class="markdownIt-Anchor" href="#6-外观模式的优点"></a> 6. 外观模式的优点</h3>
+<p>外观模式的主要优点如下：</p>
 <p>(1)它对客户端屏蔽了子系统组件，减少了客户端所需处理的对象数目，并使得子系统使用起来更加容易。通过引入外观模式，客户端代码将变得很简单，与之关联的对象也很少。</p>
 <p>(2)它实现了子系统与客户端之间的松耦合关系，这使得子系统的变化不会影响到调用它的客户端，只需要调整外观类即可。</p>
 <p>(3)一个子系统的修改对其他子系统没有任何影响，而且子系统内部变化也不会影响到外观对象。</p>
-<h3 id="7-外观模式的缺点"><a href="#7-外观模式的缺点" class="headerlink" title="7. 外观模式的缺点"></a>7. 外观模式的缺点</h3><p>外观模式的主要缺点如下：</p>
+<h3 id="7-外观模式的缺点"><a class="markdownIt-Anchor" href="#7-外观模式的缺点"></a> 7. 外观模式的缺点</h3>
+<p>外观模式的主要缺点如下：</p>
 <p>(1)不能很好地限制客户端直接使用子系统类，如果对客户端访问子系统类做太多的限制则减少了可变性和灵活性。</p>
 <p>(2)增加新的子系统可能需要修改外观类的源代码，违背了<strong>开闭原则</strong>。</p>
-<h3 id="8-外观模式适用场景"><a href="#8-外观模式适用场景" class="headerlink" title="8. 外观模式适用场景"></a>8. 外观模式适用场景</h3><p>在以下情况下可以考虑使用外观模式：</p>
+<h3 id="8-外观模式适用场景"><a class="markdownIt-Anchor" href="#8-外观模式适用场景"></a> 8. 外观模式适用场景</h3>
+<p>在以下情况下可以考虑使用外观模式：</p>
 <p>(1)当要为访问一系列复杂的子系统提供一个简单入口时可以使用外观模式。</p>
 <p>(2)客户端程序与多个子系统之间存在很大的依赖性。引入外观类可以将子系统与客户端解耦，从而提高子系统的独立性和可移植性。</p>
 <p>(3)在层次化结构中，可以使用外观模式定义系统中每一层的入口，层与层之间不直接产生联系，而通过外观类建立联系，降低层之间的耦合度。</p>

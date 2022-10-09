@@ -521,13 +521,16 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="适配器模式-Adapter-Pattern"><a href="#适配器模式-Adapter-Pattern" class="headerlink" title="适配器模式 (Adapter Pattern)"></a>适配器模式 (Adapter Pattern)</h1><hr>
-<h3 id="0-前言"><a href="#0-前言" class="headerlink" title="0. 前言"></a>0. 前言</h3><p>我的笔记本电脑的工作电压是20V，而我国的家庭用电是220V，如何让20V的笔记本电脑能够在220V的电压下工作？答案是引入一个电源适配器(AC Adapter)，俗称充电器或变压器，有了这个电源适配器，生活用电和笔记本电脑即可兼容，如图1所示：</p>
+                <h1 id="适配器模式-adapter-pattern"><a class="markdownIt-Anchor" href="#适配器模式-adapter-pattern"></a> 适配器模式 (Adapter Pattern)</h1>
+<hr>
+<h3 id="0-前言"><a class="markdownIt-Anchor" href="#0-前言"></a> 0. 前言</h3>
+<p>我的笔记本电脑的工作电压是20V，而我国的家庭用电是220V，如何让20V的笔记本电脑能够在220V的电压下工作？答案是引入一个电源适配器(AC Adapter)，俗称充电器或变压器，有了这个电源适配器，生活用电和笔记本电脑即可兼容，如图1所示：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/ac.jpg" alt="ac"></p>
 <p>图1 电源适配器示意图</p>
 <p>在软件开发中，有时也存在类似这种不兼容的情况，我们也可以像引入一个电源适配器一样引入一个称之为适配器的角色来协调这些存在不兼容的结构，这种设计方案即为适配器模式。</p>
 <p>与电源适配器相似，在适配器模式中引入了一个被称为适配器(Adapter)的包装类，而它所包装的对象称为适配者(Adaptee)，即被适配的类。适配器的实现就是把客户类的请求转化为对适配者的相应接口的调用。也就是说：当客户类调用适配器的方法时，在适配器类的内部将调用适配者类的方法，而这个过程对客户类是透明的，客户类并不直接访问适配者类。因此，适配器让那些由于接口不兼容而不能交互的类可以一起工作。</p>
-<h3 id="1-模式定义"><a href="#1-模式定义" class="headerlink" title="1. 模式定义"></a>1. 模式定义</h3><blockquote>
+<h3 id="1-模式定义"><a class="markdownIt-Anchor" href="#1-模式定义"></a> 1. 模式定义</h3>
+<blockquote>
 <p>适配器模式 (Adapter Pattern)：将一个接口转换成客户希望的另一个接口，使接口不兼容的那些类可以一起工作，其别名为包装器(Wrapper)。</p>
 </blockquote>
 <p>适配器模式既可以作为<strong>类结构型模式</strong>，也可以作为<strong>对象结构型模式</strong>。</p>
@@ -536,19 +539,23 @@
 <li>在适配器模式定义中所提及的接口是指广义的接口，它可以表示一个方法或者方法的集合。</li>
 <li>在适配器模式中，我们通过增加一个新的适配器类来解决接口不兼容的问题，使得原本没有任何关系的类可以协同工作。根据适配器类与适配者类的关系不同，适配器模式可分为对象适配器和类适配器两种，在对象适配器模式中，适配器与适配者之间是关联关系；在类适配器模式中，适配器与适配者之间是继承（或实现）关系。在实际开发中，对象适配器的使用频率更高。</li>
 </ul>
-<h3 id="2-对象适配器模式结构"><a href="#2-对象适配器模式结构" class="headerlink" title="2. 对象适配器模式结构"></a>2. 对象适配器模式结构</h3><p>对象适配器模式包含如下角色：</p>
+<h3 id="2-对象适配器模式结构"><a class="markdownIt-Anchor" href="#2-对象适配器模式结构"></a> 2. 对象适配器模式结构</h3>
+<p>对象适配器模式包含如下角色：</p>
 <ul>
-<li><p><code>Target</code>：<strong>目标抽象类</strong></p>
+<li>
+<p><code>Target</code>：<strong>目标抽象类</strong></p>
 <ul>
 <li>目标抽象类定义客户所需接口，可以是一个抽象类或接口，也可以是具体类。</li>
 </ul>
 </li>
-<li><p><code>Adaptee</code>：<strong>适配者类</strong></p>
+<li>
+<p><code>Adaptee</code>：<strong>适配者类</strong></p>
 <ul>
 <li>适配者即被适配的角色，它定义了一个已经存在的接口，这个接口需要适配，适配者类一般是一个具体的类，包含了客户希望使用的业务方法，在某些情况下可能没有适配者类的源代码。</li>
 </ul>
 </li>
-<li><p><code>Adapter</code>：<strong>适配器类</strong></p>
+<li>
+<p><code>Adapter</code>：<strong>适配器类</strong></p>
 <ul>
 <li>适配器可以调用另一个接口，作为一个转换器，对Adaptee和Target进行适配，适配器类是适配器模式的核心，在对象适配器中，它通过继承Targe并关联一个Adaptee对象使二者产生联系。</li>
 </ul>
@@ -556,8 +563,10 @@
 </ul>
 <p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/Adapter-Pattern-0.jpg" alt="Adapter-Pattern-0"></p>
 <p>根据对象适配器模式结构图，在对象适配器中，客户端需要调用request()方法，而适配者类Adaptee没有该方法，但是它所提供的specificRequest()方法却是客户端所需要的。为了使客户端能够使用适配者类，需要提供一个包装类Adapter，即适配器类。这个包装类包装了一个适配者的实例，从而将客户端与适配者衔接起来，在适配器的request()方法中调用适配者的specificRequest()方法。因为适配器类与适配者类是关联关系（也可称之为委派关系），所以这种适配器模式称为对象适配器模式。</p>
-<h3 id="3-适配器模式应用实例"><a href="#3-适配器模式应用实例" class="headerlink" title="3. 适配器模式应用实例"></a>3. 适配器模式应用实例</h3><p>下面通过一个实例进一步学习和理解适配器模式。</p>
-<h3 id="实例说明"><a href="#实例说明" class="headerlink" title="实例说明"></a>实例说明</h3><blockquote>
+<h3 id="3-适配器模式应用实例"><a class="markdownIt-Anchor" href="#3-适配器模式应用实例"></a> 3. 适配器模式应用实例</h3>
+<p>下面通过一个实例进一步学习和理解适配器模式。</p>
+<h3 id="实例说明"><a class="markdownIt-Anchor" href="#实例说明"></a> 实例说明</h3>
+<blockquote>
 <p>Sunny软件公司在很久以前曾开发了一个算法库，里面包含了一些常用的算法，例如排序算法和查找算法，在进行各类软件开发时经常需要重用该算法库中的算法。在为某学校开发教务管理系统时，开发人员发现需要对学生成绩进行排序和查找，该系统的设计人员已经开发了一个成绩操作接口ScoreOperation，在该接口中声明了排序方法<code>arraySort(array $list): array</code>和查找方法<code>arraySearch(int $needle, array $haystack): int</code>，为了提高排序和查找的效率，开发人员决定重用算法库中的快速排序算法类QuickSort和二分查找算法类BinarySearch，其中QuickSort的<code>qSort(array $list): array</code>方法实现了快速排序，BinarySearch的<code>binsearch(array $arr, int $start, int $end, int $needle): int</code>方法实现了二分查找。</p>
 </blockquote>
 <p>由于某些原因，现在Sunny公司开发人员已经找不到该算法库的源代码，无法直接通过复制和粘贴操作来重用其中的代码；部分开发人员已经针对ScoreOperation接口编程，如果再要求对该接口进行修改或要求大家直接使用QuickSort类和BinarySearch类将导致大量代码需要修改。</p>
@@ -566,7 +575,8 @@
 <p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/algorithm.jpg" alt="algorithm"></p>
 <p>图2 需协调的两个系统的结构示意图</p>
 <p>解决方案：我们需要ScoreOperation接口能够和已有算法库一起工作，让它们在同一个系统中能够兼容，最好的实现方法是增加一个类似电源适配器一样的适配器角色，通过适配器来协调这两个原本不兼容的结构。</p>
-<h3 id="实例代码"><a href="#实例代码" class="headerlink" title="实例代码"></a>实例代码</h3><ul>
+<h3 id="实例代码"><a class="markdownIt-Anchor" href="#实例代码"></a> 实例代码</h3>
+<ul>
 <li>ScoreOperation：<code>目标抽象类</code></li>
 </ul>
 <pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token comment">/**
@@ -583,7 +593,6 @@
 
     <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">arraySearch</span><span class="token punctuation">(</span><span class="token keyword type-hint">int</span> <span class="token variable">$needle</span><span class="token punctuation">,</span> <span class="token keyword type-hint">array</span> <span class="token variable">$haystack</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword return-type">int</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <ul>
 <li>QuickSort、BinarySearch： <code>适配者类</code></li>
 </ul>
@@ -650,7 +659,6 @@
         <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <ul>
 <li>OperationAdapter： <code>适配器类</code></li>
 </ul>
@@ -684,7 +692,6 @@
         <span class="token keyword">return</span> <span class="token variable">$this</span><span class="token operator">-&gt;</span><span class="token property">searchObj</span><span class="token operator">-&gt;</span><span class="token function">binsearch</span><span class="token punctuation">(</span><span class="token variable">$haystack</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token function">count</span><span class="token punctuation">(</span><span class="token variable">$haystack</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token variable">$needle</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <ul>
 <li>客户端测试代码</li>
 </ul>
@@ -701,19 +708,22 @@
 <span class="token keyword">echo</span> <span class="token string double-quoted-string">"查找成绩为90的索引位置："</span><span class="token operator">.</span><span class="token variable">$key1</span><span class="token punctuation">;</span>   <span class="token comment">//output：查找成绩为90的索引位置：5</span>
 <span class="token keyword">echo</span> <span class="token string double-quoted-string">"查找成绩84的索引位置："</span><span class="token operator">.</span><span class="token variable">$key2</span><span class="token punctuation">;</span>   <span class="token comment">//output：查查找成绩84的索引位置：3</span>
 <span class="token keyword">echo</span> <span class="token string double-quoted-string">"查找成绩100的索引位置："</span><span class="token operator">.</span><span class="token variable">$key3</span><span class="token punctuation">;</span>  <span class="token comment">//output：查找成绩100的索引位置：-1</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="4-UML类图"><a href="#4-UML类图" class="headerlink" title="4. UML类图"></a>4. UML类图</h3><p>示例代码UML图：</p>
+<h3 id="4-uml类图"><a class="markdownIt-Anchor" href="#4-uml类图"></a> 4. UML类图</h3>
+<p>示例代码UML图：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/AdapterPattern-1.png" alt="AdapterPattern-1"></p>
-<h3 id="5-适配器模式的优点"><a href="#5-适配器模式的优点" class="headerlink" title="5. 适配器模式的优点"></a>5. 适配器模式的优点</h3><p>适配器模式的主要优点如下：</p>
+<h3 id="5-适配器模式的优点"><a class="markdownIt-Anchor" href="#5-适配器模式的优点"></a> 5. 适配器模式的优点</h3>
+<p>适配器模式的主要优点如下：</p>
 <p>(1)将目标类和适配者类解耦，通过引入一个适配器类来重用现有的适配者类，无须修改原有结构。</p>
 <p>(2)增加了类的透明性和复用性，将具体的业务实现过程封装在适配者类中，对于客户端类而言是透明的，而且提高了适配者的复用性，同一个适配者类可以在多个不同的系统中复用。</p>
 <p>(3)一个对象适配器可以把多个不同的适配者适配到同一个目标。</p>
-<h3 id="6-适配器模式的缺点"><a href="#6-适配器模式的缺点" class="headerlink" title="6. 适配器模式的缺点"></a>6. 适配器模式的缺点</h3><p>类适配器模式的主要缺点如下：</p>
+<h3 id="6-适配器模式的缺点"><a class="markdownIt-Anchor" href="#6-适配器模式的缺点"></a> 6. 适配器模式的缺点</h3>
+<p>类适配器模式的主要缺点如下：</p>
 <p>(1)PHP不支持多继承，一次最多只能适配一个适配者类，不能同时适配多个适配者；但可以通过<code>Trait</code>来减少单继承的限制。</p>
 <p>(2)适配者类不能为最终类，如在PHP中不能为final类；</p>
 <p>对象适配器模式的缺点如下：</p>
 <p>与类适配器模式相比，要在适配器中置换适配者类的某些方法比较麻烦。如果一定要置换掉适配者类的一个或多个方法，可以先做一个适配者类的子类，将适配者类的方法置换掉，然后再把适配者类的子类当做真正的适配者进行适配，实现过程较为复杂。</p>
-<h3 id="7-适配器模式适用场景"><a href="#7-适配器模式适用场景" class="headerlink" title="7.适配器模式适用场景"></a>7.适配器模式适用场景</h3><p>在以下情况下可以考虑使用适配器模式：</p>
+<h3 id="7适配器模式适用场景"><a class="markdownIt-Anchor" href="#7适配器模式适用场景"></a> 7.适配器模式适用场景</h3>
+<p>在以下情况下可以考虑使用适配器模式：</p>
 <p>(1)系统需要使用一些现有的类，而这些类的接口（如方法名）不符合系统的需要，甚至没有这些类的源代码。</p>
 <p>(2) 想创建一个可以重复使用的类，用于与一些彼此之间没有太大关联的一些类，包括一些可能在将来引进的类一起工作。</p>
 

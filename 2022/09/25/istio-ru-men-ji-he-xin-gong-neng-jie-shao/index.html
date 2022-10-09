@@ -525,10 +525,12 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Istio-入门及核心功能介绍"><a href="#Istio-入门及核心功能介绍" class="headerlink" title="Istio 入门及核心功能介绍"></a>Istio 入门及核心功能介绍</h1><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220925170849.png"></p>
+                <h1 id="istio-入门及核心功能介绍"><a class="markdownIt-Anchor" href="#istio-入门及核心功能介绍"></a> Istio 入门及核心功能介绍</h1>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220925170849.png" alt=""></p>
 <p>现在最火的后端架构无疑是<strong>微服务</strong>了，微服务将之前的单体应用拆分成了许多独立的服务，好处自然很多，但是随着应用的越来越大，微服务暴露出来的问题也就随之而来了，微服务越来越多，管理越来越麻烦，特别是要你部署一套新环境的时候，你就能体会到这种痛苦了，随之而来的<strong>服务发现、负载均衡、Trace跟踪、流量管理、安全认证等等</strong>问题。如果从头到尾完成过一套微服务框架的话，你就会知道这里面涉及到的东西真的非常多。对于 Java 领域来说还有 Spring Cloud 这种完整的微服务框架，但是也仅仅局限于 Java 语言。当然随着微服务的不断发展，微服务的生态也不断完善，最近就发现新一代的微服务开发就悄然兴起了，那就是 Service Mesh（服务网格）。</p>
 <p>而 istio 是现在最热门的 Service Mesh 工具，istio 是由 Google、IBM、Lyft 等共同开源的 Service Mesh（服务网格）框架，于2017年初开始进入大众视野。Kubernetes 解决了云原生应用的部署问题，istio 解决的是应用的服务（流量）治理问题。所以我们完全有必要去学习了解 istio，因为这就是微服务领域的下一个标准。</p>
-<h2 id="什么是-Istio"><a href="#什么是-Istio" class="headerlink" title="什么是 Istio"></a>什么是 Istio</h2><p>官方定义：它是一个完全开源的<strong>服务网格</strong>，作为<strong>透明</strong>的一层接入到现有的分布式应用中。它也是一个平台，可以与任何日志、遥测和策略系统进行集成。Istio 多样化的特性让你能够成功且高效地运行<strong>微服务架构</strong>，并<strong>提供保护、连接和监控微服务</strong>的统一方法。</p>
+<h2 id="什么是-istio"><a class="markdownIt-Anchor" href="#什么是-istio"></a> 什么是 Istio</h2>
+<p>官方定义：它是一个完全开源的<strong>服务网格</strong>，作为<strong>透明</strong>的一层接入到现有的分布式应用中。它也是一个平台，可以与任何日志、遥测和策略系统进行集成。Istio 多样化的特性让你能够成功且高效地运行<strong>微服务架构</strong>，并<strong>提供保护、连接和监控微服务</strong>的统一方法。</p>
 <p>我们从官方定义中可以罗列下 Istio 的几个核心要点：</p>
 <ul>
 <li>它依然是一个服务网格产品</li>
@@ -536,8 +538,11 @@
 <li>它是为微服务架构来服务的</li>
 <li>它可以连接、控制、保护、观测微服务系统</li>
 </ul>
-<h2 id="Istio-名字来源"><a href="#Istio-名字来源" class="headerlink" title="Istio 名字来源"></a>Istio 名字来源</h2><p>Istio 并不是一个英语单词，而是来源于希腊语，它的意思是扬帆起航，从 Istio 的 Logo 中也可以看到它是一个船的「帆」，Kubernetes 也起源于希腊语，它的意思和 Logo 也是一样的「舵」即舵手的意思，Google 为什么用 Istio 来给这个产品命名，其实是非常有深意的，它的意思是你不仅有 Kubernetes 这个舵，还得有 Istio 这个帆，由它们一起驾驶着你的云原生应用扬帆起航，Istio 也被称作是第二代的 Service Mesh，在原来数据平面的基础上增加了控制平面，它为现代的 Service Mesh 的产品定义了一个新的形态。</p>
-<h2 id="Istio-核心功能"><a href="#Istio-核心功能" class="headerlink" title="Istio 核心功能"></a>Istio 核心功能</h2><h3 id="流量控制"><a href="#流量控制" class="headerlink" title="流量控制"></a>流量控制</h3><p>流量控制顾名思义就是对流量请求进行控制和管理，拿交通为例，红绿灯其实就是用来管理交通流量的一种手段，家里用的路由器或者说是设置黑白名单也是一种流量控制的手段，Istio 提供的流量控制能力非常强大除了基本的<strong>服务发现和负载均衡</strong>以外，还有以下四个功能：</p>
+<h2 id="istio-名字来源"><a class="markdownIt-Anchor" href="#istio-名字来源"></a> Istio 名字来源</h2>
+<p>Istio 并不是一个英语单词，而是来源于希腊语，它的意思是扬帆起航，从 Istio 的 Logo 中也可以看到它是一个船的「帆」，Kubernetes 也起源于希腊语，它的意思和 Logo 也是一样的「舵」即舵手的意思，Google 为什么用 Istio 来给这个产品命名，其实是非常有深意的，它的意思是你不仅有 Kubernetes 这个舵，还得有 Istio 这个帆，由它们一起驾驶着你的云原生应用扬帆起航，Istio 也被称作是第二代的 Service Mesh，在原来数据平面的基础上增加了控制平面，它为现代的 Service Mesh 的产品定义了一个新的形态。</p>
+<h2 id="istio-核心功能"><a class="markdownIt-Anchor" href="#istio-核心功能"></a> Istio 核心功能</h2>
+<h3 id="流量控制"><a class="markdownIt-Anchor" href="#流量控制"></a> 流量控制</h3>
+<p>流量控制顾名思义就是对流量请求进行控制和管理，拿交通为例，红绿灯其实就是用来管理交通流量的一种手段，家里用的路由器或者说是设置黑白名单也是一种流量控制的手段，Istio 提供的流量控制能力非常强大除了基本的<strong>服务发现和负载均衡</strong>以外，还有以下四个功能：</p>
 <ul>
 <li>路由、流量转移：我们经常听到的像灰度发布、蓝绿部署、AB测试都是基于它演变出来的</li>
 <li>流量进出：我们可以用 API 网关对流量进出进行管理</li>
@@ -549,71 +554,89 @@
 <p>流量镜像：我们很难在本地的开发环境中去模拟线上环境，有的时候本地测试的没有任务问题，但系统部署到了线上就会出现问题，这是因为环境不同以及流量不同，而流量镜像这个功能可以完全地把生产环境的流量镜像一份，然后发送到你的镜像服务中，这样就可以在镜像服务中来调试线上环境可能出现的问题。</p>
 <p>Istio 提供的流量控制能力主要由以下这些自定义资源来实现：</p>
 <ul>
-<li><p>核心资源（CRD）</p>
+<li>
+<p>核心资源（CRD）</p>
 <ul>
-<li><p>虚拟服务（Virtual Service）</p>
+<li>
+<p>虚拟服务（Virtual Service）</p>
 </li>
-<li><p>目标规则（Destination Rule）</p>
+<li>
+<p>目标规则（Destination Rule）</p>
 </li>
-<li><p>网关（Gateway）</p>
+<li>
+<p>网关（Gateway）</p>
 </li>
-<li><p>服务入口（Service Entry）</p>
+<li>
+<p>服务入口（Service Entry）</p>
 </li>
-<li><p>Sidecar</p>
+<li>
+<p>Sidecar</p>
 </li>
 </ul>
 </li>
 </ul>
 <p>其中虚拟服务和目标规则主要是用来管理网格内部的流量，而网关是用来管理网格以外的流量，服务入口则面向的主要是服务，Sidecar 它是对流量进行一个全局的控制。</p>
-<h4 id="虚拟服务（Virtual-Service）"><a href="#虚拟服务（Virtual-Service）" class="headerlink" title="虚拟服务（Virtual Service）"></a>虚拟服务（Virtual Service）</h4><p>虚拟服务是实现路由功能的重要组件，它主要的功能是把请求的流量路由到指定的目标地址，它可以做到把请求的地址和真实的工作负载进行解藕，本质上来讲它就是一组路由规则。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220925173836.png"></p>
+<h4 id="虚拟服务virtual-service"><a class="markdownIt-Anchor" href="#虚拟服务virtual-service"></a> 虚拟服务（Virtual Service）</h4>
+<p>虚拟服务是实现路由功能的重要组件，它主要的功能是把请求的流量路由到指定的目标地址，它可以做到把请求的地址和真实的工作负载进行解藕，本质上来讲它就是一组路由规则。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220925173836.png" alt=""></p>
 <p>如上图展示了一个虚拟服务，它里面定义了两个不同的路由规则，其中规则1会把请求指向目标地址A，规则2会把请求指向目标地址B。</p>
 <p>虚拟服务通常和目标规则（Destination Rule）成对出现，它提供了丰富的路由匹配规则，比如可以针对 Endpoint、针对 Uri、针对 Header 这样不同粒度的路由进行匹配。</p>
-<h4 id="目标规则（Destination-Rule）"><a href="#目标规则（Destination-Rule）" class="headerlink" title="目标规则（Destination Rule）"></a>目标规则（Destination Rule）</h4><p>目标规则定义了虚拟服务里面配置的具体的目标地址，在它的配置中是以<strong>子集</strong>这个概率存在的，也就是每个子集里会配置一个对应的目标地址。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220925175600.png"></p>
+<h4 id="目标规则destination-rule"><a class="markdownIt-Anchor" href="#目标规则destination-rule"></a> 目标规则（Destination Rule）</h4>
+<p>目标规则定义了虚拟服务里面配置的具体的目标地址，在它的配置中是以<strong>子集</strong>这个概率存在的，也就是每个子集里会配置一个对应的目标地址。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220925175600.png" alt=""></p>
 <p>如上图所示，上半部分是虚拟服务，而下面虚线框内表示的就是具体的目标规则，在目标地址A中定义了两个子集A1和A2，目标地址B中定义了另外两个子集B1和B2，目标规则除了能定义子集，还可以<strong>对负载均衡的策略进行修改</strong>，默认情况下是以轮巡的方式进行负载均衡的，你可以配置使用随机、权重、最少请求数这样的方式进行负载均衡。</p>
-<h4 id="网关（Gateway）"><a href="#网关（Gateway）" class="headerlink" title="网关（Gateway）"></a>网关（Gateway）</h4><p>Istio 内部定义的这个 Gateway 和我们平常所说的 API 网关本质是一个东西，它同样存在于整个网格的边界，用来管理进出的流量。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220925180353.png"></p>
+<h4 id="网关gateway"><a class="markdownIt-Anchor" href="#网关gateway"></a> 网关（Gateway）</h4>
+<p>Istio 内部定义的这个 Gateway 和我们平常所说的 API 网关本质是一个东西，它同样存在于整个网格的边界，用来管理进出的流量。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220925180353.png" alt=""></p>
 <p>如上图所示，有两个网关，其中负责管理流量进入的网关叫 Ingress，管理流量出去的网关叫 Egress，Egress 网关并不是必选项，你可以不去使用它，内部服务的流量可以直接指向外部服务。我们可以通过网关来管理内部流量一样来管理网格外的流量，比如说为进出的流量增加负载均衡的能力，增加超时重试这样的能力，Istio 内部预定了两个网关分别是 Ingress Gateway 和 Egress Gateway，你也可以自己去实现自己的Gateway。</p>
-<h4 id="服务入口（Service-Entry）"><a href="#服务入口（Service-Entry）" class="headerlink" title="服务入口（Service Entry）"></a>服务入口（Service Entry）</h4><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/istio-service-entry.png"></p>
+<h4 id="服务入口service-entry"><a class="markdownIt-Anchor" href="#服务入口service-entry"></a> 服务入口（Service Entry）</h4>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/istio-service-entry.png" alt=""></p>
 <p>服务入口面向的主要是服务，它主要的功能是把外部的服务注册到网格内，这样你就可以像管理网格内部的服务一样去管理外部的服务，服务入口主要的功能有以下三点：</p>
 <ul>
-<li><p>它可以为外部的目标转发请求</p>
+<li>
+<p>它可以为外部的目标转发请求</p>
 </li>
-<li><p>它可以添加超时重试等策略</p>
+<li>
+<p>它可以添加超时重试等策略</p>
 </li>
-<li><p>它可以扩展你的网格</p>
+<li>
+<p>它可以扩展你的网格</p>
 </li>
 </ul>
 <p>一个简单的例子比如你的服务部署在不同的集群中，那么你可以通过定义服务入口的方式把这几个不同的集群集中起来，共同用同一个网格进行管理。</p>
-<h4 id="Sidecar"><a href="#Sidecar" class="headerlink" title="Sidecar"></a>Sidecar</h4><p>Sidecar 它是对流量进行一个全局的控制，而前几个资源它主要是做一些细粒度的控制，Sidecar 主要有以下两个功能：</p>
+<h4 id="sidecar"><a class="markdownIt-Anchor" href="#sidecar"></a> Sidecar</h4>
+<p>Sidecar 它是对流量进行一个全局的控制，而前几个资源它主要是做一些细粒度的控制，Sidecar 主要有以下两个功能：</p>
 <ul>
 <li>调整 Envoy 代理接管的端口和协议</li>
 <li>限制 Envoy 代理可访问的服务</li>
 </ul>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220925182110.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220925182110.png" alt=""></p>
 <p>默认情况下 Envoy 是接管所有发送到服务的请求的，而通过 Sidecar 你可以调整接管流量的范围，比如上图所示的，我们只监听来自于端口 9080 的HTTP协议，另外它还可以限制 Envoy 代理可访问的服务，默认情况下 Envoy 是可以访问整个网格内的所有的服务，假设你可以像上图所示，让它只访问服务A而切断它对服务B的访问权限。</p>
-<h3 id="可观察性"><a href="#可观察性" class="headerlink" title="可观察性"></a>可观察性</h3><p>有一句话是这样描述的：能够在生产环境中监控系统的运行状态比在开发环境中完整地测试所有的功能更重要。如果你仔细体会一下就会发现这句话非常有道理，在生产环境中对于服务的观察是非常重要的，特别是对于微服务这样的架构来说，因为服务很多又比较分散，服务本身又是多样化的，所以能够了解整个应用的状态是非常重要的，</p>
-<h4 id="什么是可观察性？"><a href="#什么是可观察性？" class="headerlink" title="什么是可观察性？"></a>什么是可观察性？</h4><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220925192235.png"></p>
+<h3 id="可观察性"><a class="markdownIt-Anchor" href="#可观察性"></a> 可观察性</h3>
+<p>有一句话是这样描述的：能够在生产环境中监控系统的运行状态比在开发环境中完整地测试所有的功能更重要。如果你仔细体会一下就会发现这句话非常有道理，在生产环境中对于服务的观察是非常重要的，特别是对于微服务这样的架构来说，因为服务很多又比较分散，服务本身又是多样化的，所以能够了解整个应用的状态是非常重要的，</p>
+<h4 id="什么是可观察性"><a class="markdownIt-Anchor" href="#什么是可观察性"></a> 什么是可观察性？</h4>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220925192235.png" alt=""></p>
 <p>云原生基金会（CNCF）在 18 年的时候把可观察性作为了自己蓝图中的一个模块，有些人一提到可观察性就说这不就是监控嘛，实际上它和监控还是有非常大的区别，监控指的是从运维人员的角度去审视系统的行为，审核系统的状态，它是一个被动的方式，是从系统之外去探究系统的运行状态。而可观察性是指从开发人员的角度主动地去探究系统的运行情况，对于开发人员来说，研发是他的主要工作，他需要在自己的开发过程中主动地去考虑把哪些系统的指标暴露出去，而在以前我们只是通过记录日志的方式去查看系统运行的情况，可观察性的出现无疑不是一种巨大的进步。</p>
 <p>一般情况我们把可观察性分为指标、日志收集和分布式追踪。</p>
-<h4 id="指标"><a href="#指标" class="headerlink" title="指标"></a>指标</h4><p>指标又叫度量，它指的是以聚合数据的方式来理解和查看系统的行为，举个例子，我们可以在系统运行的过程中在一些时间点上做一些记录，然后把这些生成的数据统一起来，最后就能以一个趋势图的方式来展示系统在这段时间中运行的状态。</p>
+<h4 id="指标"><a class="markdownIt-Anchor" href="#指标"></a> 指标</h4>
+<p>指标又叫度量，它指的是以聚合数据的方式来理解和查看系统的行为，举个例子，我们可以在系统运行的过程中在一些时间点上做一些记录，然后把这些生成的数据统一起来，最后就能以一个趋势图的方式来展示系统在这段时间中运行的状态。</p>
 <p>Istio 中的指标主要分为三类：</p>
 <ul>
-<li>代理级别的指标（Proxy-level） </li>
-<li>服务级别的指标（Service-level） </li>
+<li>代理级别的指标（Proxy-level）</li>
+<li>服务级别的指标（Service-level）</li>
 <li>控制平面指标（Control plane）</li>
 </ul>
-<h5 id="代理级别的指标"><a href="#代理级别的指标" class="headerlink" title="代理级别的指标"></a>代理级别的指标</h5><p>代理级别的指标顾名思义就是用来收集 Sidecar 代理上的一些数据，Sidecar 代理会接管所有来自于服务的请求，因此有很多丰富的数据供我们收集，我们还可以指定让某一个或者某几个 Sidecar 进行指标的收集，这样方便我们进行一些问题的调试。</p>
+<h5 id="代理级别的指标"><a class="markdownIt-Anchor" href="#代理级别的指标"></a> 代理级别的指标</h5>
+<p>代理级别的指标顾名思义就是用来收集 Sidecar 代理上的一些数据，Sidecar 代理会接管所有来自于服务的请求，因此有很多丰富的数据供我们收集，我们还可以指定让某一个或者某几个 Sidecar 进行指标的收集，这样方便我们进行一些问题的调试。</p>
 <p>代理级别指标的例子：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">envoy_cluster_internal_upstream_rq{response_code_class="2xx",cluster_name="xds-grpc"} 7163
 
 envoy_cluster_upstream_rq_completed{cluster_name="xds-grpc"} 7164
 
 envoy_cluster_ssl_connection_error{cluster_name="xds-grpc"} 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>上面列举了三个比较典型的代理级别的指标，第一个指标是当前集群中来自于上游服务的总的请求数量，第二个指标是上游服务的完成的请求数量，第三个SSL连接出错的数量。</p>
-<h5 id="服务级别的指标"><a href="#服务级别的指标" class="headerlink" title="服务级别的指标"></a>服务级别的指标</h5><p>服务级别的指标主要是用来收集服务本身的一些信息，主要是根据延迟、流量、错误、饱和这四个服务的基本监控需求来进行收集，默认认情况下这些指标数据会导出到 Prometheus，当然你也可以自定义或修改，服务级别的指标不一定输出，你可以根据情况进行开启或关闭。</p>
+<h5 id="服务级别的指标"><a class="markdownIt-Anchor" href="#服务级别的指标"></a> 服务级别的指标</h5>
+<p>服务级别的指标主要是用来收集服务本身的一些信息，主要是根据延迟、流量、错误、饱和这四个服务的基本监控需求来进行收集，默认认情况下这些指标数据会导出到 Prometheus，当然你也可以自定义或修改，服务级别的指标不一定输出，你可以根据情况进行开启或关闭。</p>
 <p>服务级别指标的例子：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">istio_requests_total{
   connection_security_policy="mutual_tls",  # 连接的安全策略是双向tls
@@ -639,27 +662,30 @@ envoy_cluster_ssl_connection_error{cluster_name="xds-grpc"} 0<span aria-hidden="
   source_workload="productpage-v1",
   source_workload_namespace="default"
 } 214<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>上面演示了一个服务级别的指标 istio_requests_total，它主要包含以下信息，比如说连接的安全策略是双向tls，以及目标地址的详细信息，还有请求的协议是 http，response 的响应码是 200。</p>
-<h5 id="控制平面指标"><a href="#控制平面指标" class="headerlink" title="控制平面指标"></a>控制平面指标</h5><p>除了通过代理级别的指标和服务级别的指标来监控应用的状态，你还可以收集控制平面的指标来监控 Istio 本身的运行状况，这样你就可以了解到整个网格的健康情况，</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220925195258.png"></p>
+<h5 id="控制平面指标"><a class="markdownIt-Anchor" href="#控制平面指标"></a> 控制平面指标</h5>
+<p>除了通过代理级别的指标和服务级别的指标来监控应用的状态，你还可以收集控制平面的指标来监控 Istio 本身的运行状况，这样你就可以了解到整个网格的健康情况，</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220925195258.png" alt=""></p>
 <p>上图显示的是 Istio 官方文档提供的一些控制平台的指标，有关这些被维护指标的更多信息，请查看<a target="_blank" rel="noopener" href="https://istio.io/latest/zh/docs/reference/commands/pilot-discovery/#metrics">参考文档</a>。</p>
-<h4 id="日志收集"><a href="#日志收集" class="headerlink" title="日志收集"></a>日志收集</h4><p>指标是通过聚合的数据来监测你的应用运行情况，而日志指的是通过系统产生的事件来监控你的应用。</p>
+<h4 id="日志收集"><a class="markdownIt-Anchor" href="#日志收集"></a> 日志收集</h4>
+<p>指标是通过聚合的数据来监测你的应用运行情况，而日志指的是通过系统产生的事件来监控你的应用。</p>
 <p>Istio 里提供的访问日志包括了非常完整的元数据信息，比如说请求的来源以及目标地址，同时你还可以对日志产生的位置进行设置，可以把它保存在本地，也可以把它直接导入到远程的第三方工具里（如 ELK、EFK）。</p>
 <p>一般来说日志内容主要包括两部分，一部分是应用本身的日志，就是开发人员在开发应用时自己输出的一些 Log，另一部分是Envoy产生的信息，它会对请求产生的数据进行一个详细地记录，查看的方式也非常简单，直接通 kubectl 的 logs 命令对 Envoy 的 Container 进行查看就可以了。</p>
 <p>Envoy 日志查看示例：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">kubectl logs -l app=demo -c istio-proxy<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<h4 id="分布式追踪"><a href="#分布式追踪" class="headerlink" title="分布式追踪"></a>分布式追踪</h4><p>分布工追踪通过追踪请求来了解服务之间的调用关系，我们主要把分布式追踪用于问题的排查以及性能分析方面。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220925200515.png"></p>
+<h4 id="分布式追踪"><a class="markdownIt-Anchor" href="#分布式追踪"></a> 分布式追踪</h4>
+<p>分布工追踪通过追踪请求来了解服务之间的调用关系，我们主要把分布式追踪用于问题的排查以及性能分析方面。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220925200515.png" alt=""></p>
 <p>如上图所示，左图中是一个没有使用分布式跟踪的应用，当第一个节点出现问题时候，你不知道具体的问题出现在哪个服务中，因为你没有办法追踪它，只能通过不停的尝试来发现问题的所在。而在右图中是使用了分布式追踪的一个系统，一旦你的第一个节点出现了问题，你能通过分布式追踪系统很快地发现在调用链上是哪个节点出现了问题，非常的方便和高效。</p>
 <p>我们经常在开发中遇到这样的案例，你负责服务A，调用你的人跑过来说你的服务出现了问题，通过排错你发现实际上出现问题的是你调用的服务B，于是你又跑去找服务B，服务B的开发者经过调试，发现实际上是它的调用的服务C出了问题，这样的案例很常见，整个问题排查的过程是非常低效的，但有了分布式追踪系统就可以极大地提升排查问题的效率，也可以避免被别人甩锅，你可以把本属于你的锅甩给应该背锅的人。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220925201541.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220925201541.png" alt=""></p>
 <p>上图是分布式追踪系统 Jeager 里的截图，可以从左边的部分看到整个服务的一个调用关系，以及整个服务执行完所需要的时间，每一个调用耗费了多少时间都列得非常清楚，一旦某个调用链出现了问题，也可以很快发现它的异常情况。</p>
-<h3 id="安全"><a href="#安全" class="headerlink" title="安全"></a>安全</h3><p>安全对于一个互联网应用来说是非常重要的，因此 Service Mesh 技术也必须提供安全相关的功能，Istio 中的安全主要分为<strong>认证和授权</strong>两大部分，绝大部分功能是由 Istiod 这个控制平面来实现的。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220925202414.png"></p>
+<h3 id="安全"><a class="markdownIt-Anchor" href="#安全"></a> 安全</h3>
+<p>安全对于一个互联网应用来说是非常重要的，因此 Service Mesh 技术也必须提供安全相关的功能，Istio 中的安全主要分为<strong>认证和授权</strong>两大部分，绝大部分功能是由 Istiod 这个控制平面来实现的。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220925202414.png" alt=""></p>
 <p>上图为 Istio 官方提供的安全架构图，CA 主要用来负责证书的管理，认证策略和授权策略都会被存储在对应的模块中，由API Server 将这些策略变成配置下发到对应的数据平面中，当一个终端用户调用网格内服务的时候，它可以使用经典的 JWT 方式进行认证，而网格内服务与服务之间可以使用双向TLS进行认证。</p>
-<h4 id="认证"><a href="#认证" class="headerlink" title="认证"></a>认证</h4><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220925203158.png"></p>
+<h4 id="认证"><a class="markdownIt-Anchor" href="#认证"></a> 认证</h4>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220925203158.png" alt=""></p>
 <p>如上图所示，管理员配置了两种策略，一种是针对 Foo 这个 Namespace，它的目标是全体的服务，另外一种策略是针对 Bar 这个Namespace，它的目标是 Workload X，这些策略会被转变成具体的配置信息，然后由 istiod 下发给具体的 Sidecar 代理，Istio 在认证中提供了一种兼容的模式，你可以以不加密的方式和加密的方式同时进行请求的传输，这为我们进行安全设置方面的调试带来了很大的便利性，比如当我们想要增加 mTLS 这样的认证策略的时候，我们可以先用纯文本的方式测试服务之间的连通性，然后再把这个策略加上去。</p>
 <p>Istio 认证主要包括两种：</p>
 <ul>
@@ -682,21 +708,22 @@ envoy_cluster_ssl_connection_error{cluster_name="xds-grpc"} 0<span aria-hidden="
       <span class="token key atrule">app</span><span class="token punctuation">:</span> reviews
   <span class="token key atrule">mtls</span><span class="token punctuation">:</span>
     <span class="token key atrule">mode</span><span class="token punctuation">:</span> STRICT<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>具体的配置策略就是最下面的 mtls ，它的模式是严格模式，也可以修改成兼容模式，一旦策略进行了更新，Istio 几乎会实时地将这些策略推送到具体的数据平面中，但是 Istio 它不能保证同时更新所有的数据平面，这个时候你就需要注意避免策略的中断，一般情况下推荐两种方式：</p>
 <p>如果是对等认证，你需要设置 MTLS 那么这个时候你最好使用兼容模式，等调试完成之后再使用严格模式。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220925205342.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220925205342.png" alt=""></p>
 <p>如果是身份认证，你可以把新旧两个 JWT 同时配置进你的策略当中，当请求全部迁移到新的JWT里面之后，再把旧的删除就可以了。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220925205532.png"></p>
-<h4 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h4><p>授权分了三个级别，分别是针对网格，针对命名空间，以及服务进行授权。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220925205953.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220925205532.png" alt=""></p>
+<h4 id="授权"><a class="markdownIt-Anchor" href="#授权"></a> 授权</h4>
+<p>授权分了三个级别，分别是针对网格，针对命名空间，以及服务进行授权。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220925205953.png" alt=""></p>
 <p>如上图所示，当管理员增加一个授权策略的时候，API Server 会把策略转换成对应的配置，然后下发给对应的数据平面的 Sidecar，每个 Sidecar 会运行一个授权引擎，该引擎在运行的时候进行授权请求，如果请求到达代理时，授权引擎根据当前的策略评估请求上下文并返回授权的结果，授权在默认情况下无需你显式地启动，默认就是启动状态。</p>
 <p>下面我们来看看授权策略是如何配置的？</p>
 <p>授权策略的配置需要通过创建一个叫 AuthorizationPolicy 的 CRD，这个 CRD 主要有以下组成部分</p>
 <ul>
 <li>选择器（selector）：指定策略的目标</li>
 <li>动作（action）：可以配置允许或者拒绝两种行为</li>
-<li>具体的规则列表（rules）：指定何时触发动作，规则列表包括三部分内容<ul>
+<li>具体的规则列表（rules）：指定何时触发动作，规则列表包括三部分内容
+<ul>
 <li><code>from</code> 字段指定请求的来源</li>
 <li><code>to</code> 字段指定请求的具体操作</li>
 <li><code>when</code> 字段代表具体的匹配条件</li>
@@ -726,12 +753,10 @@ envoy_cluster_ssl_connection_error{cluster_name="xds-grpc"} 0<span aria-hidden="
    <span class="token key atrule">when</span><span class="token punctuation">:</span>
    <span class="token punctuation">-</span> <span class="token key atrule">key</span><span class="token punctuation">:</span> request.auth.claims<span class="token punctuation">[</span>iss<span class="token punctuation">]</span>
      <span class="token key atrule">values</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"https://accounts.google.com"</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
 <p>授权策略的设置方式也很多：</p>
 <ul>
-<li><p>范围（目标）设置：主要通过 metadata/namespace，selector 来指定具体的服务</p>
+<li>
+<p>范围（目标）设置：主要通过 metadata/namespace，selector 来指定具体的服务</p>
 <p>以下示例策略 <code>allow-read</code> 允许对 <code>default</code> 命名空间中带有标签 <code>app: products</code> 的工作负载的 <code>"GET"</code> 和 <code>"HEAD"</code> 访问。</p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> security.istio.io/v1beta1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> AuthorizationPolicy
@@ -746,8 +771,10 @@ envoy_cluster_ssl_connection_error{cluster_name="xds-grpc"} 0<span aria-hidden="
   <span class="token key atrule">rules</span><span class="token punctuation">:</span>
   <span class="token punctuation">-</span> <span class="token key atrule">to</span><span class="token punctuation">:</span>
     <span class="token punctuation">-</span> <span class="token key atrule">operation</span><span class="token punctuation">:</span>
-         <span class="token key atrule">methods</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"GET"</span><span class="token punctuation">,</span> <span class="token string">"HEAD"</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li><p>值匹配：精确、模糊、前缀、后缀</p>
+         <span class="token key atrule">methods</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"GET"</span><span class="token punctuation">,</span> <span class="token string">"HEAD"</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li>
+<p>值匹配：精确、模糊、前缀、后缀</p>
 <p>以下示例策略允许访问前缀为 <code>/test/*</code> 或后缀为 <code>*/info</code> 的路径。</p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> security.istio.io/v1beta1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> AuthorizationPolicy
@@ -763,8 +790,10 @@ envoy_cluster_ssl_connection_error{cluster_name="xds-grpc"} 0<span aria-hidden="
   <span class="token punctuation">-</span> <span class="token key atrule">to</span><span class="token punctuation">:</span>
     <span class="token punctuation">-</span> <span class="token key atrule">operation</span><span class="token punctuation">:</span>
         <span class="token key atrule">paths</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"/test/*"</span><span class="token punctuation">,</span> <span class="token string">"*/info"</span><span class="token punctuation">]</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li><p>全部容许和拒绝</p>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li>
+<p>全部容许和拒绝</p>
 <p>以下示例显示了一个简单的 <code>allow-all</code> 授权策略，该策略允许完全访问 <code>default</code> 命名空间中的所有工作负载。</p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> security.istio.io/v1beta1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> AuthorizationPolicy
@@ -775,8 +804,10 @@ envoy_cluster_ssl_connection_error{cluster_name="xds-grpc"} 0<span aria-hidden="
   <span class="token key atrule">action</span><span class="token punctuation">:</span> ALLOW
   <span class="token key atrule">rules</span><span class="token punctuation">:</span>
   <span class="token punctuation">-</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li><p>自定义条件</p>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li>
+<p>自定义条件</p>
 <p>您还可以使用 <code>when</code> 部分指定其他条件。 例如，下面的 <code>AuthorizationPolicy</code> 定义包括以下条件：<code>request.headers [version]</code> 是 <code>v1</code> 或 <code>v2</code>。 在这种情况下，key 是 <code>request.headers [version]</code>，它是 Istio 属性 <code>request.headers</code>（是个字典）中的一项。</p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> security.istio.io/v1beta1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> AuthorizationPolicy
@@ -798,15 +829,20 @@ envoy_cluster_ssl_connection_error{cluster_name="xds-grpc"} 0<span aria-hidden="
        <span class="token key atrule">methods</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"GET"</span><span class="token punctuation">]</span>
    <span class="token key atrule">when</span><span class="token punctuation">:</span>
    <span class="token punctuation">-</span> <span class="token key atrule">key</span><span class="token punctuation">:</span> request.headers<span class="token punctuation">[</span>version<span class="token punctuation">]</span>
-     <span class="token key atrule">values</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"v1"</span><span class="token punctuation">,</span> <span class="token string">"v2"</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-<h3 id="策略"><a href="#策略" class="headerlink" title="策略"></a>策略</h3><ul>
-<li><p>限流</p>
-</li>
-<li><p>黑白名单</p>
+     <span class="token key atrule">values</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"v1"</span><span class="token punctuation">,</span> <span class="token string">"v2"</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ul>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<h3 id="策略"><a class="markdownIt-Anchor" href="#策略"></a> 策略</h3>
+<ul>
+<li>
+<p>限流</p>
+</li>
+<li>
+<p>黑白名单</p>
+</li>
+</ul>
+<h2 id="参考"><a class="markdownIt-Anchor" href="#参考"></a> 参考</h2>
+<ul>
 <li><a target="_blank" rel="noopener" href="https://istio.io/latest/zh/docs/concepts/traffic-management/">https://istio.io/latest/zh/docs/concepts/traffic-management/</a></li>
 <li><a target="_blank" rel="noopener" href="https://istio.io/latest/zh/docs/concepts/observability/">https://istio.io/latest/zh/docs/concepts/observability/</a></li>
 <li><a target="_blank" rel="noopener" href="https://istio.io/latest/zh/docs/concepts/security/">https://istio.io/latest/zh/docs/concepts/security/</a></li>

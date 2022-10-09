@@ -499,7 +499,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    595
+                    596
                 </div>
                 
 
@@ -529,26 +529,31 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="一、编写一个-springboot-与-cat-整合的案例"><a href="#一、编写一个-springboot-与-cat-整合的案例" class="headerlink" title="一、编写一个 springboot 与 cat 整合的案例"></a>一、编写一个 springboot 与 cat 整合的案例</h2><h3 id="将-cat-client-通过源码安装到本地仓库"><a href="#将-cat-client-通过源码安装到本地仓库" class="headerlink" title="将 cat-client 通过源码安装到本地仓库"></a>将 cat-client 通过源码安装到本地仓库</h3><ul>
+                <h2 id="一-编写一个-springboot-与-cat-整合的案例"><a class="markdownIt-Anchor" href="#一-编写一个-springboot-与-cat-整合的案例"></a> 一、编写一个 springboot 与 cat 整合的案例</h2>
+<h3 id="将-cat-client-通过源码安装到本地仓库"><a class="markdownIt-Anchor" href="#将-cat-client-通过源码安装到本地仓库"></a> 将 cat-client 通过源码安装到本地仓库</h3>
+<ul>
 <li>cat-client的源码路径：cat/lib/java</li>
-<li>进入源码路径后，执行命令：<pre class="line-numbers language-none"><code class="language-none">mvn clean install -DskipTests<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li>进入源码路径后，执行命令：</li>
 </ul>
+<pre class="line-numbers language-none"><code class="language-none">mvn clean install -DskipTests<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>安装成功后，在本地仓库就存在 cat-client-3.0.0.jar 包了</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/cat-10.png"></p>
-<h3 id="CAT客户端-Demo"><a href="#CAT客户端-Demo" class="headerlink" title="CAT客户端 Demo"></a>CAT客户端 Demo</h3><h4 id="maven-引入-cat-客户端包，在-pom-xml-加入"><a href="#maven-引入-cat-客户端包，在-pom-xml-加入" class="headerlink" title="maven 引入 cat 客户端包，在 pom.xml 加入"></a>maven 引入 cat 客户端包，在 pom.xml 加入</h4><pre class="line-numbers language-none"><code class="language-none">&lt;dependency&gt;
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/cat-10.png" alt=""></p>
+<h3 id="cat客户端-demo"><a class="markdownIt-Anchor" href="#cat客户端-demo"></a> CAT客户端 Demo</h3>
+<h4 id="maven-引入-cat-客户端包在-pomxml-加入"><a class="markdownIt-Anchor" href="#maven-引入-cat-客户端包在-pomxml-加入"></a> maven 引入 cat 客户端包，在 pom.xml 加入</h4>
+<pre class="line-numbers language-none"><code class="language-none">&lt;dependency&gt;
     &lt;groupId&gt;com.dianping.cat&lt;/groupId&gt;
     &lt;artifactId&gt;cat-client&lt;/artifactId&gt;
     &lt;version&gt;3.0.0&lt;/version&gt;
 &lt;/dependency&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h4 id="配置domain"><a href="#配置domain" class="headerlink" title="配置domain"></a>配置domain</h4><ul>
+<h4 id="配置domain"><a class="markdownIt-Anchor" href="#配置domain"></a> 配置domain</h4>
+<ul>
 <li>在资源文件中新建app.properties文件</li>
 </ul>
 <p>在resources资源文件META-INF下，注意是src/main/resources/META-INF/文件夹，加上domain配置，如：app.name=spring-boot-cat-simple</p>
 <ul>
 <li>接着我们以一个简单的接口测试演练下，项目结构如下：</li>
 </ul>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/cat-dashboard-5.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/cat-dashboard-5.png" alt=""></p>
 <p>HelloController 类</p>
 <pre class="line-numbers language-none"><code class="language-none">package com.zq.controller;
 
@@ -581,7 +586,6 @@ public class HelloController {
     }
 }
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>Service 类</p>
 <pre class="line-numbers language-none"><code class="language-none">package com.zq.service.impl;
 
@@ -648,23 +652,26 @@ public class CatServiceImpl implements CatService {
     }
 }
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <ul>
-<li><p>请求：<a target="_blank" rel="noopener" href="http://localhost:8900/hello">http://localhost:8900/hello</a></p>
+<li>
+<p>请求：<a target="_blank" rel="noopener" href="http://localhost:8900/hello">http://localhost:8900/hello</a></p>
 </li>
-<li><p>请求：<a target="_blank" rel="noopener" href="http://localhost:8900/hello/error">http://localhost:8900/hello/error</a></p>
+<li>
+<p>请求：<a target="_blank" rel="noopener" href="http://localhost:8900/hello/error">http://localhost:8900/hello/error</a></p>
 </li>
 </ul>
-<h2 id="二、查看监控信息"><a href="#二、查看监控信息" class="headerlink" title="二、查看监控信息"></a>二、查看监控信息</h2><p>进入 cat 控制台，点击 Transaction 按钮 ，之后点击全部，会看到有哪些客户端，如图：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/cat-dashboard-1.png"></p>
+<h2 id="二-查看监控信息"><a class="markdownIt-Anchor" href="#二-查看监控信息"></a> 二、查看监控信息</h2>
+<p>进入 cat 控制台，点击 Transaction 按钮 ，之后点击全部，会看到有哪些客户端，如图：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/cat-dashboard-1.png" alt=""></p>
 <p>点击客户端 spring-boot-cat-simple ，出现如图：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/cat-dashboard-2.png"></p>
-<p>接着再点击 URL 的 Type </p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/cat-dashboard-3.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/cat-dashboard-2.png" alt=""></p>
+<p>接着再点击 URL 的 Type</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/cat-dashboard-3.png" alt=""></p>
 <p>如上图，可以清晰的看到 请求的 总个数（tatal）、均值（avg）、最大/最小（max/min)、标准差（std）等，其他都比较直观</p>
 <p>点击 “log View” 可以查看 错误信息，如图：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/cat-dashboard-4.png"></p>
-<h2 id="三、源码"><a href="#三、源码" class="headerlink" title="三、源码"></a>三、源码</h2><ul>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/cat-dashboard-4.png" alt=""></p>
+<h2 id="三-源码"><a class="markdownIt-Anchor" href="#三-源码"></a> 三、源码</h2>
+<ul>
 <li><a target="_blank" rel="noopener" href="https://github.com/dendi875/spring-boot-study/tree/main/spring-boot-cat-simple">spring-boot-cat-simple</a></li>
 </ul>
 

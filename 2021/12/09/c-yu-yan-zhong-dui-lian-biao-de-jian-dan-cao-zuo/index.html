@@ -522,10 +522,13 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <hr>
-<h3 id="一、链表"><a href="#一、链表" class="headerlink" title="一、链表"></a>一、链表</h3><p>链表（linked list）就是一个或多个节点的集合。链表中的每个节点通过指针连接在一起。程序通过指针访问链表中的节点。</p>
-<h3 id="二、单链表"><a href="#二、单链表" class="headerlink" title="二、单链表"></a>二、单链表</h3><p>在单链表中，每个节点包含一个指向链表下一个节点的指针。链表的最后一个节点的指针字段值为<code>NULL</code>，表示链表后面不再有其他节点。</p>
+<h3 id="一-链表"><a class="markdownIt-Anchor" href="#一-链表"></a> 一、链表</h3>
+<p>链表（linked list）就是一个或多个节点的集合。链表中的每个节点通过指针连接在一起。程序通过指针访问链表中的节点。</p>
+<h3 id="二-单链表"><a class="markdownIt-Anchor" href="#二-单链表"></a> 二、单链表</h3>
+<p>在单链表中，每个节点包含一个指向链表下一个节点的指针。链表的最后一个节点的指针字段值为<code>NULL</code>，表示链表后面不再有其他节点。</p>
 <p>在你找到链表的第1个节点后，指针就可以带你访问剩余所有节点。为了记住链表的起始位置，可以使用一个根指针（root pointer）。根指针指向链表的第一个节点。</p>
-<h3 id="三、单链表操作"><a href="#三、单链表操作" class="headerlink" title="三、单链表操作"></a>三、单链表操作</h3><p>以下所有例子中的节点的类型定义我们放在<strong>node.h</strong>，内容如下：</p>
+<h3 id="三-单链表操作"><a class="markdownIt-Anchor" href="#三-单链表操作"></a> 三、单链表操作</h3>
+<p>以下所有例子中的节点的类型定义我们放在<strong>node.h</strong>，内容如下：</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">ifndef</span> <span class="token expression">_NODE_H</span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">_NODE_H</span></span>
 
@@ -534,8 +537,8 @@
         <span class="token keyword">int</span>             value<span class="token punctuation">;</span>
 <span class="token punctuation">}</span> Node<span class="token punctuation">;</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">endif</span> <span class="token comment">/* _NODE_H */</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h4 id="向单链表表头插入节点"><a href="#向单链表表头插入节点" class="headerlink" title="向单链表表头插入节点"></a>向单链表表头插入节点</h4><p>我们简单的实现一个向链表表头插入节点的程序</p>
+<h4 id="向单链表表头插入节点"><a class="markdownIt-Anchor" href="#向单链表表头插入节点"></a> 向单链表表头插入节点</h4>
+<p>我们简单的实现一个向链表表头插入节点的程序</p>
 <p>例子：node.c</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h&gt;</span></span>
@@ -581,12 +584,10 @@
 	<span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>运行结果</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[dendi875@192 list]$ ./node
 10
 5<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
 <p>向链表中插入节点这种操作是经常被使用的，我们把上述步骤封装成一个函数</p>
 <p>例子：node2.c</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
@@ -641,14 +642,13 @@
 		current <span class="token operator">=</span> current<span class="token operator">-&gt;</span>link<span class="token punctuation">;</span>
 	<span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>运行结果</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[dendi875@192 list]$ ./node2
 15
 10
 5<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h4 id="从单链表中删除一个节点"><a href="#从单链表中删除一个节点" class="headerlink" title="从单链表中删除一个节点"></a>从单链表中删除一个节点</h4><p>我们简单的实现一个指定一个 <code>value</code>值，从链表中删除第一个包含该值的节点，返回删除后的新链表</p>
+<h4 id="从单链表中删除一个节点"><a class="markdownIt-Anchor" href="#从单链表中删除一个节点"></a> 从单链表中删除一个节点</h4>
+<p>我们简单的实现一个指定一个 <code>value</code>值，从链表中删除第一个包含该值的节点，返回删除后的新链表</p>
 <p>例子：node3.c</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h&gt;</span></span>
@@ -736,12 +736,10 @@
 
 	<span class="token keyword">return</span> root<span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>运行结果</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[dendi875@192 list]$ ./node3             
 15
 5<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
 
                 
             </div>

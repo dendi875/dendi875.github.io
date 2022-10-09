@@ -517,42 +517,57 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Kubernetes-持久化存储PV-和-PVC-的使用"><a href="#Kubernetes-持久化存储PV-和-PVC-的使用" class="headerlink" title="Kubernetes 持久化存储PV 和 PVC 的使用"></a>Kubernetes 持久化存储PV 和 PVC 的使用</h1><p>我们知道可以通过 <code>hostPath</code> 或者 <code>emptyDir</code> 的方式来持久化我们的数据，但是显然我们还需要更加可靠的存储来保存应用的持久化数据，这样容器在重建后，依然可以使用之前的数据。但是显然存储资源和 CPU 资源以及内存资源有很大不同，为了屏蔽底层的技术实现细节，让用户更加方便的使用，<code>Kubernetes</code> 便引入了 <code>PV</code> 和 <code>PVC</code> 两个重要的资源对象来实现对存储的管理。</p>
-<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p><code>PV</code> 的全称是：<code>PersistentVolume</code>（持久化卷），是对底层的共享存储的一种抽象，PV 由管理员进行创建和配置，它和具体的底层的共享存储技术的实现方式有关，比如 <code>Ceph</code>、<code>GlusterFS</code>、<code>NFS</code> 等，都是通过插件机制完成与共享存储的对接。</p>
+                <h1 id="kubernetes-持久化存储pv-和-pvc-的使用"><a class="markdownIt-Anchor" href="#kubernetes-持久化存储pv-和-pvc-的使用"></a> Kubernetes 持久化存储PV 和 PVC 的使用</h1>
+<p>我们知道可以通过 <code>hostPath</code> 或者 <code>emptyDir</code> 的方式来持久化我们的数据，但是显然我们还需要更加可靠的存储来保存应用的持久化数据，这样容器在重建后，依然可以使用之前的数据。但是显然存储资源和 CPU 资源以及内存资源有很大不同，为了屏蔽底层的技术实现细节，让用户更加方便的使用，<code>Kubernetes</code> 便引入了 <code>PV</code> 和 <code>PVC</code> 两个重要的资源对象来实现对存储的管理。</p>
+<h2 id="概念"><a class="markdownIt-Anchor" href="#概念"></a> 概念</h2>
+<p><code>PV</code> 的全称是：<code>PersistentVolume</code>（持久化卷），是对底层的共享存储的一种抽象，PV 由管理员进行创建和配置，它和具体的底层的共享存储技术的实现方式有关，比如 <code>Ceph</code>、<code>GlusterFS</code>、<code>NFS</code> 等，都是通过插件机制完成与共享存储的对接。</p>
 <p><code>PVC</code> 的全称是：<code>PersistentVolumeClaim</code>（持久化卷声明），PVC 是用户存储的一种声明，PVC 和 Pod 比较类似，Pod 消耗的是节点，PVC 消耗的是 PV 资源，Pod 可以请求 CPU 和内存，而 PVC 可以请求特定的存储空间和访问模式。对于真正使用存储的用户不需要关心底层的存储实现细节，只需要直接使用 PVC 即可。</p>
 <p>但是通过 PVC 请求到一定的存储空间也很有可能不足以满足应用对于存储设备的各种需求，而且不同的应用程序对于存储性能的要求可能也不尽相同，比如读写速度、并发性能等，为了解决这一问题，Kubernetes 又为我们引入了一个新的资源对象：<code>StorageClass</code>，通过 StorageClass 的定义，管理员可以将存储资源定义为某种类型的资源，比如快速存储、慢速存储等，用户根据 StorageClass 的描述就可以非常直观的知道各种存储资源的具体特性了，这样就可以根据应用的特性去申请合适的存储资源了。</p>
-<h2 id="NFS"><a href="#NFS" class="headerlink" title="NFS"></a>NFS</h2><p>我们这里为了演示方便，使用相对简单的 NFS 这种存储资源，接下来我们在节点 <strong>k8s-master</strong> 上来安装 NFS 服务器，数据目录：/nfs/data，k8s-node1，k8s-node2安装NFS 客户端</p>
-<h3 id="k8s-master-节点上操作"><a href="#k8s-master-节点上操作" class="headerlink" title="k8s-master 节点上操作"></a>k8s-master 节点上操作</h3><ul>
-<li><p>安装 NFS 服务器软件</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">yum install -y  nfs-utils rpcbind<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
-<li><p>创建挂载目录并设置权限</p>
+<h2 id="nfs"><a class="markdownIt-Anchor" href="#nfs"></a> NFS</h2>
+<p>我们这里为了演示方便，使用相对简单的 NFS 这种存储资源，接下来我们在节点 <strong>k8s-master</strong> 上来安装 NFS 服务器，数据目录：/nfs/data，k8s-node1，k8s-node2安装NFS 客户端</p>
+<h3 id="k8s-master-节点上操作"><a class="markdownIt-Anchor" href="#k8s-master-节点上操作"></a> k8s-master 节点上操作</h3>
+<ul>
+<li>
+<p>安装 NFS 服务器软件</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">yum install -y  nfs-utils rpcbind<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li>
+<p>创建挂载目录并设置权限</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 创建挂载目录
 mkdir -p /nfs/data
 
 # 设置权限
-chmod 755 /nfs/data<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li><p>配置 nfs，nfs 的默认配置文件在 /etc/exports 文件下，在该文件中添加下面的配置信息：</p>
+chmod 755 /nfs/data<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li>
+<p>配置 nfs，nfs 的默认配置文件在 /etc/exports 文件下，在该文件中添加下面的配置信息：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ vi /etc/exports
 /nfs/data/ *(insecure,rw,sync,no_root_squash)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <p>配置说明：</p>
 <ul>
-<li><p><code>/nfs/data/</code>：是共享的数据目录</p>
+<li>
+<p><code>/nfs/data/</code>：是共享的数据目录</p>
 </li>
-<li><p><code>*</code>：表示任何人都有权限连接，当然也可以是一个网段，一个 IP，也可以是域名</p>
+<li>
+<p><code>*</code>：表示任何人都有权限连接，当然也可以是一个网段，一个 IP，也可以是域名</p>
 </li>
-<li><p>insecure：允许客户端从大于1024的tcp/ip端口连接服务器</p>
+<li>
+<p>insecure：允许客户端从大于1024的tcp/ip端口连接服务器</p>
 </li>
-<li><p>rw：读写的权限</p>
+<li>
+<p>rw：读写的权限</p>
 </li>
-<li><p>sync：表示文件同时写入硬盘和内存</p>
+<li>
+<p>sync：表示文件同时写入硬盘和内存</p>
 </li>
-<li><p>no_root_squash：当登录 NFS 主机使用共享目录的使用者是 root 时，其权限将被转换成为匿名使用者，通常它的 UID 与 GID，都会变成 nobody 身份</p>
+<li>
+<p>no_root_squash：当登录 NFS 主机使用共享目录的使用者是 root 时，其权限将被转换成为匿名使用者，通常它的 UID 与 GID，都会变成 nobody 身份</p>
 <p>当然 nfs 的配置还有很多，感兴趣的同学可以在网上去查找一下。</p>
 </li>
 </ul>
 </li>
-<li><p>先启动 rpcbind</p>
+<li>
+<p>先启动 rpcbind</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# systemctl start rpcbind.service
 [root@k8s-master ~]# systemctl enable rpcbind
 [root@k8s-master ~]# systemctl status rpcbind
@@ -564,8 +579,10 @@ chmod 755 /nfs/data<span aria-hidden="true" class="line-numbers-rows"><span></sp
            └─5229 /sbin/rpcbind -w
 
 Aug 21 20:40:07 k8s-master systemd[1]: Starting RPC bind service...
-Aug 21 20:40:07 k8s-master systemd[1]: Started RPC bind service.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li><p>然后启动 nfs 服务器</p>
+Aug 21 20:40:07 k8s-master systemd[1]: Started RPC bind service.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li>
+<p>然后启动 nfs 服务器</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# systemctl start nfs.service
 [root@k8s-master ~]# systemctl enable nfs
 Created symlink from /etc/systemd/system/multi-user.target.wants/nfs-server.service to /usr/lib/systemd/system/nfs-server.service.
@@ -579,31 +596,47 @@ Created symlink from /etc/systemd/system/multi-user.target.wants/nfs-server.serv
    CGroup: /system.slice/nfs-server.service
 
 Aug 21 20:40:32 k8s-master systemd[1]: Starting NFS server and services...
-Aug 21 20:40:32 k8s-master systemd[1]: Started NFS server and services.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li><p>使配置生效</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">exportfs -r<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
-<li><p>确认配置</p>
+Aug 21 20:40:32 k8s-master systemd[1]: Started NFS server and services.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li>
+<p>使配置生效</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">exportfs -r<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li>
+<p>确认配置</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# exportfs
-/nfs/data       &lt;world&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
+/nfs/data       &lt;world&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
 </ul>
-<h3 id="K8s-node1、k8s-node2-节点上操作"><a href="#K8s-node1、k8s-node2-节点上操作" class="headerlink" title="K8s-node1、k8s-node2 节点上操作"></a>K8s-node1、k8s-node2 节点上操作</h3><p>到这里我们就把 nfs server 给安装成功了，接下来我们在 node 节点上来安装 nfs 的客户端来验证下 nfs</p>
+<h3 id="k8s-node1-k8s-node2-节点上操作"><a class="markdownIt-Anchor" href="#k8s-node1-k8s-node2-节点上操作"></a> K8s-node1、k8s-node2 节点上操作</h3>
+<p>到这里我们就把 nfs server 给安装成功了，接下来我们在 node 节点上来安装 nfs 的客户端来验证下 nfs</p>
 <ul>
-<li><p>安装 NFS客户端 软件</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">yum install -y  nfs-utils rpcbind<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
-<li><p>挂载数据目录 客户端启动完成后，我们在客户端来挂载下 nfs 测试下</p>
+<li>
+<p>安装 NFS客户端 软件</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">yum install -y  nfs-utils rpcbind<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li>
+<p>挂载数据目录 客户端启动完成后，我们在客户端来挂载下 nfs 测试下</p>
 <ul>
-<li><p>查看下 NFS 服务器有哪些目录供我们挂载</p>
+<li>
+<p>查看下 NFS 服务器有哪些目录供我们挂载</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 使用内网 ip 查看就行
 [root@k8s-node1 ~]# showmount -e 172.31.0.2
 Export list for 172.31.0.2:
-/nfs/data *<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li><p>然后我们在客户端上新建目录</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">mkdir -p /root/nfsmount<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
-<li><p>将 nfs 共享目录挂载到上面的目录</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">mount -t nfs 172.31.0.2:/nfs/data /root/nfsmount<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+/nfs/data *<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li>
+<p>然后我们在客户端上新建目录</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">mkdir -p /root/nfsmount<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li>
+<p>将 nfs 共享目录挂载到上面的目录</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">mount -t nfs 172.31.0.2:/nfs/data /root/nfsmount<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
 </ul>
 </li>
-<li><p>挂载成功后，在客户端上面的目录中新建一个文件，然后我们观察下 nfs 服务端的共享目录下面是否也会出现该文件</p>
+<li>
+<p>挂载成功后，在客户端上面的目录中新建一个文件，然后我们观察下 nfs 服务端的共享目录下面是否也会出现该文件</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 在 nfs server 上写一个测试文件
 [root@k8s-master ~]# echo "hello nfs server" &gt; /nfs/data/test.txt 
 
@@ -612,10 +645,12 @@ Export list for 172.31.0.2:
 hello nfs server
 
 [root@k8s-node2 ~]# cat /root/nfsmount/test.txt 
-hello nfs server<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+hello nfs server<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
 </ul>
-<h2 id="原生方式数据挂载"><a href="#原生方式数据挂载" class="headerlink" title="原生方式数据挂载"></a>原生方式数据挂载</h2><ul>
-<li>资源文件 nginx-pv-demo.yaml </li>
+<h2 id="原生方式数据挂载"><a class="markdownIt-Anchor" href="#原生方式数据挂载"></a> 原生方式数据挂载</h2>
+<ul>
+<li>资源文件 nginx-pv-demo.yaml</li>
 </ul>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
@@ -644,15 +679,19 @@ hello nfs server<span aria-hidden="true" class="line-numbers-rows"><span></span>
           <span class="token key atrule">nfs</span><span class="token punctuation">:</span>
             <span class="token key atrule">server</span><span class="token punctuation">:</span> 172.31.0.2 <span class="token comment">#写上自己master节点的内网ip</span>
             <span class="token key atrule">path</span><span class="token punctuation">:</span> /nfs/data/nginx<span class="token punctuation">-</span>pv<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>上面资源清单文件的意思是我们生成两个Pod，这两个Pod的镜像来自nginx，<code>volumeMounts.mountPath: /usr/share/nginx/html</code> 表示需要挂载，挂载到<code>nvolumeMounts.name: html</code>，最终效果就是 <code>/usr/share/nginx/html</code> 目录与<code>/nfs/data/nginx-pv</code>目录操持同步</p>
 <ul>
-<li><p>创建目录</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">mkdir /nfs/data/nginx-pv<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
-<li><p>执行资源清单</p>
+<li>
+<p>创建目录</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">mkdir /nfs/data/nginx-pv<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li>
+<p>执行资源清单</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl apply -f storage/nginx-pv-demo.yaml 
-deployment.apps/nginx-pv-demo created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
-<li><p>查看部署</p>
+deployment.apps/nginx-pv-demo created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li>
+<p>查看部署</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get deploy
 NAME            READY   UP-TO-DATE   AVAILABLE   AGE
 nginx-pv-demo   2/2     2            2           8m43s
@@ -660,15 +699,22 @@ nginx-pv-demo   2/2     2            2           8m43s
 [root@k8s-master ~]# kubectl get pods
 NAME                             READY   STATUS    RESTARTS   AGE
 nginx-pv-demo-6ff58db964-c7vqw   1/1     Running   0          8m48s
-nginx-pv-demo-6ff58db964-ggzp7   1/1     Running   0          8m48s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li><p>修改挂载目录后，测试Pod中的目录也同步修改</p>
+nginx-pv-demo-6ff58db964-ggzp7   1/1     Running   0          8m48s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li>
+<p>修改挂载目录后，测试Pod中的目录也同步修改</p>
 <ul>
-<li><p>查看挂载目录 </p>
+<li>
+<p>查看挂载目录</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# ll /nfs/data/nginx-pv/
-total 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
-<li><p>修改 nginx 默认首页</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# echo "success" &gt; /nfs/data/nginx-pv/index.html   <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
-<li><p>进入 Pod 中查看</p>
+total 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li>
+<p>修改 nginx 默认首页</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# echo "success" &gt; /nfs/data/nginx-pv/index.html   <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li>
+<p>进入 Pod 中查看</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 第一个 pod
 [root@k8s-master ~]# kubectl exec -it nginx-pv-demo-6ff58db964-c7vqw -- /bin/bash
 root@nginx-pv-demo-6ff58db964-c7vqw:/# curl localhost
@@ -681,36 +727,46 @@ success
 root@nginx-pv-demo-6ff58db964-ggzp7:/# curl localhost
 success
 root@nginx-pv-demo-6ff58db964-ggzp7:/# cat /usr/share/nginx/html/index.html 
-success<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+success<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
 </ul>
 </li>
 </ul>
 <p>原生方式数据挂载的方式有以下几个问题：</p>
 <ol>
-<li><p>要挂载的目录需要我们手动创建，比如上面的 <code>nfs/data/nginx-pv</code>目录 </p>
+<li>
+<p>要挂载的目录需要我们手动创建，比如上面的 <code>nfs/data/nginx-pv</code>目录</p>
 </li>
-<li><p>我们把部署的Pod删除之后，我们挂载的文件还存在，不会跟着Pod一起删除，下面我们来验证这一点</p>
+<li>
+<p>我们把部署的Pod删除之后，我们挂载的文件还存在，不会跟着Pod一起删除，下面我们来验证这一点</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 删除上面原生方式数据挂载产生的 Pod
 [root@k8s-master ~]# kubectl delete -f storage/nginx-pv-demo.yaml 
 deployment.apps "nginx-pv-demo" deleted
 
 # 查看挂载目录
 [root@k8s-master ~]# cat  /nfs/data/nginx-pv/index.html   
-success<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li><p>对于 Pod 挂载的的目录没有存储容易的限制</p>
+success<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li>
+<p>对于 Pod 挂载的的目录没有存储容易的限制</p>
 </li>
 </ol>
 <p>所以我们就有了 PV，PVC 挂载方式</p>
-<h2 id="PV-与-PVC"><a href="#PV-与-PVC" class="headerlink" title="PV 与 PVC"></a>PV 与 PVC</h2><p>下面我们来使用 PV 和 PVC 了。PV 作为存储资源，主要包括存储能力、访问模式、存储类型、回收策略等关键信息，可以把上面<code>/nfs/data/nginx-pv</code> 目录比作持久卷。持久卷就是我们的数据要存在哪？数据存储的位置叫做持久卷，PVC 相当于申请，你的Pod想要申请多大的磁盘空间。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-storage-pv.png"></p>
+<h2 id="pv-与-pvc"><a class="markdownIt-Anchor" href="#pv-与-pvc"></a> PV 与 PVC</h2>
+<p>下面我们来使用 PV 和 PVC 了。PV 作为存储资源，主要包括存储能力、访问模式、存储类型、回收策略等关键信息，可以把上面<code>/nfs/data/nginx-pv</code> 目录比作持久卷。持久卷就是我们的数据要存在哪？数据存储的位置叫做持久卷，PVC 相当于申请，你的Pod想要申请多大的磁盘空间。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-storage-pv.png" alt=""></p>
 <p>下面我们来测试下 PV 与PVC的使用</p>
-<h3 id="创建-pv-池"><a href="#创建-pv-池" class="headerlink" title="创建 pv 池"></a>创建 pv 池</h3><p>我的场地先创建出来做准备好，你Pod如果要使用就写好申请书（PVC）来申请</p>
+<h3 id="创建-pv-池"><a class="markdownIt-Anchor" href="#创建-pv-池"></a> 创建 pv 池</h3>
+<p>我的场地先创建出来做准备好，你Pod如果要使用就写好申请书（PVC）来申请</p>
 <ul>
-<li><p>nfs 服务器上（master节点上）执行</p>
+<li>
+<p>nfs 服务器上（master节点上）执行</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">mkdir -p /nfs/data/01
 mkdir -p /nfs/data/02
-mkdir -p /nfs/data/03<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
-<li><p>准备资源文件 nfs-pv.yaml</p>
+mkdir -p /nfs/data/03<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li>
+<p>准备资源文件 nfs-pv.yaml</p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> PersistentVolume  <span class="token comment"># 持久化卷</span>
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
@@ -751,22 +807,29 @@ mkdir -p /nfs/data/03<span aria-hidden="true" class="line-numbers-rows"><span></
   <span class="token key atrule">storageClassName</span><span class="token punctuation">:</span> nfs
   <span class="token key atrule">nfs</span><span class="token punctuation">:</span>
     <span class="token key atrule">path</span><span class="token punctuation">:</span> /nfs/data/03
-    <span class="token key atrule">server</span><span class="token punctuation">:</span> 172.31.0.2  <span class="token comment">#nfs服务器的ip</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li><p>执行上面的资源文件</p>
+    <span class="token key atrule">server</span><span class="token punctuation">:</span> 172.31.0.2  <span class="token comment">#nfs服务器的ip</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li>
+<p>执行上面的资源文件</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl apply -f storage/nfs-pv.yaml 
 persistentvolume/pv01-10m created
 persistentvolume/pv02-1gi created
-persistentvolume/pv03-3gi created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li><p>查看PV</p>
+persistentvolume/pv03-3gi created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li>
+<p>查看PV</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get pv
 NAME       CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS      CLAIM   STORAGECLASS   REASON   AGE
 pv01-10m   10M        RWX            Retain           Available           nfs                     22s
 pv02-1gi   1Gi        RWX            Retain           Available           nfs                     22s
-pv03-3gi   3Gi        RWX            Retain           Available           nfs                     22s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+pv03-3gi   3Gi        RWX            Retain           Available           nfs                     22s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
 </ul>
-<h3 id="创建-pvc"><a href="#创建-pvc" class="headerlink" title="创建 pvc"></a>创建 pvc</h3><p>pvc 相当于我们的申请书，可以类比学校里在操场上搞活动，场地（pv）已经有了，哪个班级需要使用多大的场地就写一份申请书来申请场地</p>
+<h3 id="创建-pvc"><a class="markdownIt-Anchor" href="#创建-pvc"></a> 创建 pvc</h3>
+<p>pvc 相当于我们的申请书，可以类比学校里在操场上搞活动，场地（pv）已经有了，哪个班级需要使用多大的场地就写一份申请书来申请场地</p>
 <ul>
-<li><p>准备nfs-pvc.yaml</p>
+<li>
+<p>准备nfs-pvc.yaml</p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">kind</span><span class="token punctuation">:</span> PersistentVolumeClaim
 <span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
@@ -777,11 +840,15 @@ pv03-3gi   3Gi        RWX            Retain           Available           nfs   
   <span class="token key atrule">resources</span><span class="token punctuation">:</span>
     <span class="token key atrule">requests</span><span class="token punctuation">:</span>
       <span class="token key atrule">storage</span><span class="token punctuation">:</span> 200Mi <span class="token comment"># 我需要一个 200M的空间</span>
-  <span class="token key atrule">storageClassName</span><span class="token punctuation">:</span> nfs <span class="token comment">#这个值要和 nfs-pv.yaml中的 storageClassName 值一致</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li><p>执行创建</p>
+  <span class="token key atrule">storageClassName</span><span class="token punctuation">:</span> nfs <span class="token comment">#这个值要和 nfs-pv.yaml中的 storageClassName 值一致</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li>
+<p>执行创建</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl apply -f storage/nfs-pvc.yaml 
-persistentvolumeclaim/nginx-pvc created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
-<li><p>查看pvc，pv情况</p>
+persistentvolumeclaim/nginx-pvc created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li>
+<p>查看pvc，pv情况</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get pvc
 NAME        STATUS   VOLUME     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
 nginx-pvc   Bound    pv02-1gi   1Gi        RWX            nfs            2m11s
@@ -790,10 +857,13 @@ nginx-pvc   Bound    pv02-1gi   1Gi        RWX            nfs            2m11s
 NAME       CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS      CLAIM               STORAGECLASS   REASON   AGE
 pv01-10m   10M        RWX            Retain           Available                       nfs                     11m
 pv02-1gi   1Gi        RWX            Retain           Bound       default/nginx-pvc   nfs                     11m
-pv03-3gi   3Gi        RWX            Retain           Available                       nfs                     11m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+pv03-3gi   3Gi        RWX            Retain           Available                       nfs                     11m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
 </ul>
-<h3 id="创建Pod绑定PVC"><a href="#创建Pod绑定PVC" class="headerlink" title="创建Pod绑定PVC"></a>创建Pod绑定PVC</h3><ul>
-<li><p>准备 nginx-deploy-pvc.yaml </p>
+<h3 id="创建pod绑定pvc"><a class="markdownIt-Anchor" href="#创建pod绑定pvc"></a> 创建Pod绑定PVC</h3>
+<ul>
+<li>
+<p>准备 nginx-deploy-pvc.yaml</p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
@@ -819,15 +889,19 @@ pv03-3gi   3Gi        RWX            Retain           Available                 
       <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
         <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> html
           <span class="token key atrule">persistentVolumeClaim</span><span class="token punctuation">:</span>
-            <span class="token key atrule">claimName</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>pvc    <span class="token comment"># pvc名称（申请书名称）</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+            <span class="token key atrule">claimName</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>pvc    <span class="token comment"># pvc名称（申请书名称）</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
 </ul>
 <p>比原生方式数据挂载的比较 volumes 使用的是 persistentVolumeClaim</p>
 <p>表示 <code>/usr/share/nginx/html</code>目录与申请书 <code>nginx-pvc</code>内容保持一致的</p>
 <ul>
-<li><p>执行</p>
+<li>
+<p>执行</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl apply -f storage/nginx-deploy-pvc.yaml 
-deployment.apps/nginx-deploy-pvc created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
-<li><p>查看</p>
+deployment.apps/nginx-deploy-pvc created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li>
+<p>查看</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get pods
 NAME                                READY   STATUS    RESTARTS   AGE
 nginx-deploy-pvc-79fc8558c7-9vswp   1/1     Running   0          18s
@@ -840,13 +914,17 @@ persistentvolume/pv02-1gi   1Gi        RWX            Retain           Bound    
 persistentvolume/pv03-3gi   3Gi        RWX            Retain           Available                       nfs                     25m
 
 NAME                              STATUS   VOLUME     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
-persistentvolumeclaim/nginx-pvc   Bound    pv02-1gi   1Gi        RWX            nfs            15m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li><p>修改内容，可以看到分配给 pv02-1gi ，所以修改 /nfs/data/02</p>
+persistentvolumeclaim/nginx-pvc   Bound    pv02-1gi   1Gi        RWX            nfs            15m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li>
+<p>修改内容，可以看到分配给 pv02-1gi ，所以修改 /nfs/data/02</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# ll /nfs/data/02/
 total 0
 
-[root@k8s-master ~]# echo "hello,pv,pvc" &gt; /nfs/data/02/index.html  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li><p>进入 Pod 中验证有效</p>
+[root@k8s-master ~]# echo "hello,pv,pvc" &gt; /nfs/data/02/index.html  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li>
+<p>进入 Pod 中验证有效</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl exec -it nginx-deploy-pvc-79fc8558c7-9vswp -- /bin/bash
 root@nginx-deploy-pvc-79fc8558c7-9vswp:/# curl localhost
 hello,pv,pvc
@@ -857,8 +935,10 @@ hello,pv,pvc
 root@nginx-deploy-pvc-79fc8558c7-pgtlb:/# curl localhost
 hello,pv,pvc
 root@nginx-deploy-pvc-79fc8558c7-pgtlb:/# cat /usr/share/nginx/html/index.html 
-hello,pv,pvc<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li><p>需要注意的是，我们上面手动创建 PV 的方式，即静态的 PV 管理方式，在删除 PV 时需要按如下流程执行操作：</p>
+hello,pv,pvc<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li>
+<p>需要注意的是，我们上面手动创建 PV 的方式，即静态的 PV 管理方式，在删除 PV 时需要按如下流程执行操作：</p>
 <ul>
 <li>删除使用这个 PV 的 Pod</li>
 <li>从宿主机移除本地磁盘</li>

@@ -521,11 +521,12 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Kubernetes-安装Grafana及使用"><a href="#Kubernetes-安装Grafana及使用" class="headerlink" title="Kubernetes 安装Grafana及使用"></a>Kubernetes 安装Grafana及使用</h1><p>我们可以使用 Prometheus 采集了 Kubernetes 集群中的一些监控数据指标，我们也使用 promQL 语句查询出了一些数据，并且在 Prometheus 的 Dashboard 中进行了展示，但是明显可以感觉到 Prometheus 的图表功能相对较弱，所以一般情况下我们会一个第三方的工具来展示这些数据，今天我们要和大家使用到的就是 <a target="_blank" rel="noopener" href="http://grafana.com/">Grafana</a>。</p>
+                <h1 id="kubernetes-安装grafana及使用"><a class="markdownIt-Anchor" href="#kubernetes-安装grafana及使用"></a> Kubernetes 安装Grafana及使用</h1>
+<p>我们可以使用 Prometheus 采集了 Kubernetes 集群中的一些监控数据指标，我们也使用 promQL 语句查询出了一些数据，并且在 Prometheus 的 Dashboard 中进行了展示，但是明显可以感觉到 Prometheus 的图表功能相对较弱，所以一般情况下我们会一个第三方的工具来展示这些数据，今天我们要和大家使用到的就是 <a target="_blank" rel="noopener" href="http://grafana.com/">Grafana</a>。</p>
 <p>Grafana 是一个可视化面板，有着非常漂亮的图表和布局展示，功能齐全的度量仪表盘和图形编辑器，支持 Graphite、zabbix、InfluxDB、Prometheus、OpenTSDB、Elasticsearch 等作为数据源，比 Prometheus 自带的图表展示功能强大太多，更加灵活，有丰富的插件，功能更加强大。</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>我们将 grafana 安装到 Kubernetes 集群中，第一步去查看 grafana 的 docker 镜像的介绍，我们可以在 dockerhub 上去搜索，也可以在官网去查看相关资料，镜像地址如下：<a target="_blank" rel="noopener" href="https://hub.docker.com/r/grafana/grafana/%EF%BC%8C%E6%88%91%E4%BB%AC%E5%8F%AF%E4%BB%A5%E7%9C%8B%E5%88%B0%E4%BB%8B%E7%BB%8D%E4%B8%AD%E8%BF%90%E8%A1%8C">https://hub.docker.com/r/grafana/grafana/，我们可以看到介绍中运行</a> grafana 容器的命令非常简单：</p>
+<h2 id="安装"><a class="markdownIt-Anchor" href="#安装"></a> 安装</h2>
+<p>我们将 grafana 安装到 Kubernetes 集群中，第一步去查看 grafana 的 docker 镜像的介绍，我们可以在 dockerhub 上去搜索，也可以在官网去查看相关资料，镜像地址如下：<a target="_blank" rel="noopener" href="https://hub.docker.com/r/grafana/grafana/%EF%BC%8C%E6%88%91%E4%BB%AC%E5%8F%AF%E4%BB%A5%E7%9C%8B%E5%88%B0%E4%BB%8B%E7%BB%8D%E4%B8%AD%E8%BF%90%E8%A1%8C">https://hub.docker.com/r/grafana/grafana/，我们可以看到介绍中运行</a> grafana 容器的命令非常简单：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ docker run -d --name=grafana -p 3000:3000 grafana/grafana<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>但是还有一个需要注意的是 Changelog 中 v5.1.0 版本的更新介绍：</p>
 <pre class="line-numbers language-none"><code class="language-none">Major restructuring of the container
 Usage of chown removed
@@ -534,7 +535,6 @@ user id changed from 104 to 472
 group id changed from 107 to 472
 Runs as the grafana user by default (instead of root)
 All default volumes removed<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>特别需要注意第3条，userid 和 groupid 都有所变化，所以我们在运行的容器的时候需要注意这个变化。</p>
 <blockquote>
 <p><strong>Note</strong></p>
@@ -542,7 +542,6 @@ All default volumes removed<span aria-hidden="true" class="line-numbers-rows"><s
 </blockquote>
 <p>把用到的资源文件统一放到 <code>grafana</code> 目录下</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">mkdir ~/grafana &amp;&amp; cd grafana<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>现在我们将这个容器转化成 Kubernetes 中的 Pod：grafana-deploy.yaml</p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
@@ -610,7 +609,6 @@ All default volumes removed<span aria-hidden="true" class="line-numbers-rows"><s
       <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> storage
         <span class="token key atrule">persistentVolumeClaim</span><span class="token punctuation">:</span>
           <span class="token key atrule">claimName</span><span class="token punctuation">:</span> grafana<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>我们<code>grafana/grafana:5.3.4</code>镜像，然后添加了监控检查、资源声明，另外两个比较重要的环境变量<code>GF_SECURITY_ADMIN_USER</code>和<code>GF_SECURITY_ADMIN_PASSWORD</code>，用来配置 grafana 的管理员用户和密码的，由于 grafana 将 dashboard、插件这些数据保存在<code>/var/lib/grafana</code>这个目录下面的，所以我们这里如果需要做数据持久化的话，就需要针对这个目录进行 volume 挂载声明，其他的和我们之前的 Deployment 没什么区别，由于上面我们刚刚提到的 Changelog 中 grafana 的 userid 和 groupid 有所变化，所以我们这里需要增加一个<code>securityContext</code>的声明来进行声明。</p>
 <p>当然如果要使用一个 pvc 对象来持久化数据，我们就需要添加一个可用的 pv 供 pvc 绑定使用：grafana-volume.yaml</p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
@@ -638,7 +636,6 @@ All default volumes removed<span aria-hidden="true" class="line-numbers-rows"><s
   <span class="token key atrule">resources</span><span class="token punctuation">:</span>
     <span class="token key atrule">requests</span><span class="token punctuation">:</span>
       <span class="token key atrule">storage</span><span class="token punctuation">:</span> 1Gi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>最后，我们需要对外暴露 grafana 这个服务，所以我们需要一个对应的 Service 对象，当然用 NodePort 或者再建立一个 ingress 对象都是可行的：grafana-svc.yaml</p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> Service
@@ -653,7 +650,6 @@ All default volumes removed<span aria-hidden="true" class="line-numbers-rows"><s
     <span class="token punctuation">-</span> <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">3000</span>
   <span class="token key atrule">selector</span><span class="token punctuation">:</span>
     <span class="token key atrule">app</span><span class="token punctuation">:</span> grafana<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>现在我们直接创建上面的这些资源对象：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master grafana]# kubectl create -f grafana-volume.yaml 
 persistentvolume/grafana created
@@ -662,18 +658,15 @@ persistentvolumeclaim/grafana created
 deployment.apps/grafana created
 [root@k8s-master grafana]# kubectl create -f grafana-svc.yaml 
 service/grafana created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>创建完成后，我们可以查看 grafana 对应的 Pod 是否正常：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master grafana]# kubectl get pods -n kube-mon -l app=grafana         
 NAME                       READY   STATUS             RESTARTS   AGE
 grafana-869db94654-m2qpj   0/1     CrashLoopBackOff   1          104s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
 <p>我们可以看到这里的状态是<code>CrashLoopBackOff</code>，并没有正常启动，我们查看下这个 Pod 的日志：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master grafana]# kubectl logs -f grafana-869db94654-m2qpj -n kube-mon
 GF_PATHS_DATA='/var/lib/grafana' is not writable.
 You may have issues with file permissions, more information here: http://docs.grafana.org/installation/docker/#migration-from-a-previous-version-of-the-docker-container-to-5-1-or-later
 mkdir: cannot create directory '/var/lib/grafana/plugins': Permission denied<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
 <blockquote>
 <p>上面的错误是在<code>5.1</code>版本之后才会出现的，当然你也可以使用之前的版本来规避这个问题。</p>
 </blockquote>
@@ -700,7 +693,6 @@ mkdir: cannot create directory '/var/lib/grafana/plugins': Permission denied<spa
       <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> storage
         <span class="token key atrule">persistentVolumeClaim</span><span class="token punctuation">:</span>
           <span class="token key atrule">claimName</span><span class="token punctuation">:</span> grafana<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>上面我们利用一个 busybox 镜像将<code>/var/lib/grafana</code>目录更改成了<code>472</code>这个 user 和 group，不过还需要注意的是下面的 volumeMounts 和 volumes 需要和上面的 Deployment 对应上。</p>
 <p>现在我们删除之前创建的 Deployment 对象，重新创建：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master grafana]# kubectl delete -f grafana-deploy.yaml 
@@ -711,31 +703,29 @@ deployment.apps/grafana created
 
 [root@k8s-master grafana]# kubectl create -f grafana-chown-job.yaml 
 job.batch/grafana-chown created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>重新执行完成后，可以查看下上面的创建的资源对象是否正确了：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master grafana]# kubectl get pod -n kube-mon
 NAME                          READY   STATUS      RESTARTS   AGE
 grafana-869db94654-gxgjk      1/1     Running     2          102s
 grafana-chown-jwkhb           0/1     Completed   0          86s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>我们可以看到有一个状态为<code>Completed</code>的 Pod，这就是上面我们用来更改 grafana 目录权限的 Pod，是一个 Job 任务，所以执行成功后就退出了，状态变成了<code>Completed</code>，而上面的 grafana 的 Pod 也已经是<code>Running</code>状态了，可以查看下该 Pod 的日志确认下：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master grafana]# kubectl logs -f grafana-869db94654-gxgjk -n kube-mon
 t=2022-09-04T09:34:26+0000 lvl=info msg="Starting Grafana" logger=server version=5.3.4 commit=69630b9 compiled=2018-11-13T12:19:12+0000
 t=2022-09-04T09:34:26+0000 lvl=info msg="Config loaded from" logger=settings file=/usr/share/grafana/conf/defaults.ini
 t=2022-09-04T09:34:26+0000 lvl=info msg="Config loaded from" logger=settings file=/etc/grafana/grafana.ini
 ......<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>看到上面的日志信息就证明我们的 grafana 的 Pod 已经正常启动起来了。这个时候我们可以查看 Service 对象：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master grafana]# kubectl get svc -n kube-mon -l app=grafana
 NAME      TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
 grafana   NodePort   10.96.179.102   &lt;none&gt;        3000:30907/TCP   8m50s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
 <p>现在我们就可以在浏览器中使用<code>http://&lt;任意节点IP:30907&gt;</code>来访问 grafana 这个服务了</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-grafana-1.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-grafana-1.png" alt=""></p>
 <p>由于上面我们配置了管理员的，所以第一次打开的时候会跳转到登录界面，然后就可以用上面我们配置的两个环境变量的值来进行登录了，登录完成后就可以进入到下面 Grafana 的首页</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220904174238.png"></p>
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>在上面的首页中我们可以看到已经安装了 Grafana，接下来点击<code>Add data source</code>进入添加数据源界面。</p>
-<h3 id="数据源"><a href="#数据源" class="headerlink" title="数据源"></a>数据源</h3><p>我们这个地方配置的数据源是 Prometheus，所以选择这个 Type 即可，给改数据源添加一个 name：prometheus-ds，最主要的是下面<code>HTTP</code>区域是配置数据源的访问模式。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220904174238.png" alt=""></p>
+<h2 id="配置"><a class="markdownIt-Anchor" href="#配置"></a> 配置</h2>
+<p>在上面的首页中我们可以看到已经安装了 Grafana，接下来点击<code>Add data source</code>进入添加数据源界面。</p>
+<h3 id="数据源"><a class="markdownIt-Anchor" href="#数据源"></a> 数据源</h3>
+<p>我们这个地方配置的数据源是 Prometheus，所以选择这个 Type 即可，给改数据源添加一个 name：prometheus-ds，最主要的是下面<code>HTTP</code>区域是配置数据源的访问模式。</p>
 <p>访问模式是用来控制如何处理对数据源的请求的：</p>
 <ul>
 <li>服务器(Server)访问模式（默认）：所有请求都将从浏览器发送到 Grafana 后端的服务器，后者又将请求转发到数据源，通过这种方式可以避免一些跨域问题，其实就是在 Grafana 后端做了一次转发，需要从Grafana 后端服务器访问该 URL。</li>
@@ -747,24 +737,24 @@ NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)             AGE
 grafana      NodePort    10.96.179.102   &lt;none&gt;        3000:30907/TCP      30m
 prometheus   NodePort    10.96.146.110   &lt;none&gt;        9090:32640/TCP      44h
 redis        ClusterIP   10.96.143.235   &lt;none&gt;        6379/TCP,9121/TCP   43h<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220904180103.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220904180103.png" alt=""></p>
 <p>数据源添加完成后，就可以来添加 Dashboard 了。</p>
-<h3 id="Dashboard"><a href="#Dashboard" class="headerlink" title="Dashboard"></a>Dashboard</h3><p>同样，切换到主页，我们可以根据自己的需求手动新建一个 Dashboard，除此之外，grafana 的官方网站上还有很多公共的 Dashboard 可以供我们使用，我们这里可以使用<a target="_blank" rel="noopener" href="https://grafana.com/dashboards/162/revisions">Kubernetes cluster monitoring (via Prometheus)(dashboard id 为162)</a>这个 Dashboard 来展示 Kubernetes 集群的监控信息，在左侧侧边栏 Create 中点击<code>import</code>导入： </p>
+<h3 id="dashboard"><a class="markdownIt-Anchor" href="#dashboard"></a> Dashboard</h3>
+<p>同样，切换到主页，我们可以根据自己的需求手动新建一个 Dashboard，除此之外，grafana 的官方网站上还有很多公共的 Dashboard 可以供我们使用，我们这里可以使用<a target="_blank" rel="noopener" href="https://grafana.com/dashboards/162/revisions">Kubernetes cluster monitoring (via Prometheus)(dashboard id 为162)</a>这个 Dashboard 来展示 Kubernetes 集群的监控信息，在左侧侧边栏 Create 中点击<code>import</code>导入：</p>
 <p>![image-20220904180506120](/Users/zhangquan/Library/Application Support/typora-user-images/image-20220904180506120.png)</p>
-<p>我们可以将上面编号<code>162</code>的 dashboard 下载到本地，然后这里重新上传即可，也可以在上面的文本框中直接输入<code>162</code>编号回车即可，导入这个 dashboard： </p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220904180639.png"></p>
-<p>需要注意的是在执行上面的 import 之前要记得选择我们的<code>prometheus-ds</code>这个名字的数据源，执行<code>import</code>操作，就可以进入到 dashboard 页面： </p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220904180822.png"></p>
+<p>我们可以将上面编号<code>162</code>的 dashboard 下载到本地，然后这里重新上传即可，也可以在上面的文本框中直接输入<code>162</code>编号回车即可，导入这个 dashboard：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220904180639.png" alt=""></p>
+<p>需要注意的是在执行上面的 import 之前要记得选择我们的<code>prometheus-ds</code>这个名字的数据源，执行<code>import</code>操作，就可以进入到 dashboard 页面：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220904180822.png" alt=""></p>
 <p>我们可以看到 dashboard 页面上出现了很多漂亮的图表，但是看上去数据不正常，这是因为这个 dashboard 里面需要的数据指标名称和我们 Prometheus 里面采集到的数据指标不一致造成的，比如，第一个<code>Cluster memory usage(集群内存使用情况)</code>，我们可以点击标题 -&gt; Edit，进入编辑这个图表的编辑页面：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220904180923.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220904180923.png" alt=""></p>
 <p>进入编辑页面我们就可以看到这个图表的查询语句：</p>
 <blockquote>
 <p>(sum(node_memory_MemTotal) - sum(node_memory_MemFree+node_memory_Buffers+node_memory_Cached) ) / sum(node_memory_MemTotal) * 100</p>
 </blockquote>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220904181041.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220904181041.png" alt=""></p>
 <p>这就是我们之前在 Prometheus 里面查询的<code>promQL</code>语句，我们可以将上面的查询语句复制到 Prometheus 的 Graph 页面进行查询，其实可以预想到是没有对应的数据的。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220904181334.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220904181334.png" alt=""></p>
 <p>因为我们用<code>node_exporter</code>采集到的数据指标不是<code>node_memory_MemTotal</code>关键字，而是<code>node_memory_MemTotal_bytes</code></p>
 <p>![image-20220904181527134](/Users/zhangquan/Library/Application Support/typora-user-images/image-20220904181527134.png)</p>
 <p>将上面的<code>promQL</code>语句做相应的更改：</p>
@@ -772,22 +762,22 @@ redis        ClusterIP   10.96.143.235   &lt;none&gt;        6379/TCP,9121/TCP  
 <pre class="line-numbers language-none"><code class="language-none">(sum(node_memory_MemTotal_bytes) - sum(node_memory_MemFree_bytes + node_memory_Buffers_bytes+node_memory_Cached_bytes)) / sum(node_memory_MemTotal_bytes) * 100<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </blockquote>
 <p>这个语句的意思就是<code>(整个集群的内存-(整个集群剩余的内存以及Buffer和Cached))/整个集群的内存</code>，简单来说就是总的集群内存使用百分比。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220904181735.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220904181735.png" alt=""></p>
 <p>可以看到 Prometheus 可以查到数据了。</p>
 <p>将上面 grafana 的<code>promQL</code>语句替换掉，就可以看到图表正常了：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220904182227.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220904182227.png" alt=""></p>
 <p>同样的，我们可以更改后面的 CPU 和 FileSystem 的使用</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220904182813.png"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220904183812.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220904182813.png" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220904183812.png" alt=""></p>
 <p>同样下面的<code>Pod CPU Usage</code>用来展示 Pod CPU 的使用情况，对应的<code>promQL</code>语句如下，根据 pod_name 来进行统计：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sum by (pod)( rate(container_cpu_usage_seconds_total{image!=""}[1m] ) )<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>按照上面的方法替换 grafana 中的 dashboard 图表中的查询语句： </p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220904184335.png"></p>
-<p>其他的也按照我们的实际需求重新编辑下就可以，下图是最终整个 dashboard 的效果图： </p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220904185720.png"></p>
+<p>按照上面的方法替换 grafana 中的 dashboard 图表中的查询语句：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220904184335.png" alt=""></p>
+<p>其他的也按照我们的实际需求重新编辑下就可以，下图是最终整个 dashboard 的效果图：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220904185720.png" alt=""></p>
 <p>最后要记得保存这个 dashboard，除此之外，我们也可以前往 grafana dashboard 的页面去搜索其他的关于 Kubernetes 的监控页面，地址：<a target="_blank" rel="noopener" href="https://grafana.com/dashboards%EF%BC%8C%E6%AF%94%E5%A6%82id">https://grafana.com/dashboards，比如id</a> 为747和741的这两个 dashboard。</p>
-<h2 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h2><p>我们也可以安装一些其他插件，比如 grafana 就有一个专门针对 Kubernetes 集群监控的插件：<a target="_blank" rel="noopener" href="https://grafana.com/plugins/grafana-kubernetes-app">grafana-kubernetes-app</a>，但是该插件很久没有更新了，这里我们介绍一个功能更加强大的插件 <a target="_blank" rel="noopener" href="https://github.com/devopsprodigy/kubegraf/">DevOpsProdigy KubeGraf</a>，它是 Grafana 官方的 <a target="_blank" rel="noopener" href="https://grafana.com/plugins/grafana-kubernetes-app">Kubernetes 插件</a> 的升级版本，该插件可以用来可视化和分析 Kubernetes 集群的性能，通过各种图形直观的展示了 Kubernetes 集群的主要服务的指标和特征，还可以用于检查应用程序的生命周期和错误日志。</p>
+<h2 id="插件"><a class="markdownIt-Anchor" href="#插件"></a> 插件</h2>
+<p>我们也可以安装一些其他插件，比如 grafana 就有一个专门针对 Kubernetes 集群监控的插件：<a target="_blank" rel="noopener" href="https://grafana.com/plugins/grafana-kubernetes-app">grafana-kubernetes-app</a>，但是该插件很久没有更新了，这里我们介绍一个功能更加强大的插件 <a target="_blank" rel="noopener" href="https://github.com/devopsprodigy/kubegraf/">DevOpsProdigy KubeGraf</a>，它是 Grafana 官方的 <a target="_blank" rel="noopener" href="https://grafana.com/plugins/grafana-kubernetes-app">Kubernetes 插件</a> 的升级版本，该插件可以用来可视化和分析 Kubernetes 集群的性能，通过各种图形直观的展示了 Kubernetes 集群的主要服务的指标和特征，还可以用于检查应用程序的生命周期和错误日志。</p>
 <p>要安装这个插件，需要到 grafana 的 Pod 里面去执行安装命令：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get pods -n kube-mon -l app=grafana
 NAME                       READY   STATUS    RESTARTS   AGE
@@ -814,22 +804,18 @@ into: /var/lib/grafana/plugins
 ✔ Installed Grafana-piechart-panel successfully 
 
 Restart grafana after installing plugins . &lt;service grafana-server restart&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>安装完成后需要重启 grafana 才会生效，我们这里直接删除 Pod，重建即可。</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master grafana]# kubectl delete -f grafana-deploy.yaml 
 deployment.apps "grafana" deleted
 
 [root@k8s-master grafana]# kubectl create -f grafana-deploy.yaml            
 deployment.apps/grafana created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
 <p>然后通过浏览器打开 Grafana 找到该插件，点击 <code>enable</code> 启用插件。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220904214630.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220904214630.png" alt=""></p>
 <p>点击 <code>Set up your first k8s-cluster</code> 创建一个新的 Kubernetes 集群:</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-grafana-20.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-grafana-20.png" alt=""></p>
 <ul>
-<li>URL 使用 Kubernetes Service 地址即可：<a target="_blank" rel="noopener" href="https://kubernetes.default/">https://kubernetes.default:443</a></li>
+<li>URL 使用 Kubernetes Service 地址即可：<a target="_blank" rel="noopener" href="https://kubernetes.default:443">https://kubernetes.default:443</a></li>
 <li>Access 访问模式使用：<code>Server(default)</code></li>
 <li>由于插件访问 Kubernetes 集群的各种资源对象信息，所以我们需要配置访问权限，这里我们可以简单使用 kubectl 的 <code>kubeconfig</code> 来进行配置即可。</li>
 <li>勾选 Auth 下面的 <code>TLS Client Auth</code> 和 <code>With CA Cert</code> 两个选项</li>
@@ -864,33 +850,32 @@ users:
   user:
     client-certificate: /root/certs/zq.crt
     client-key: /root/certs/zq.key<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>那么 <code>CA Cert</code> 的值就对应 <code>kubeconfig</code> 里面的 <code>&lt;certificate-authority-data&gt;</code> 进行 base64 解码过后的值；<code>Client Cert</code> 的值对应 <code>&lt;client-certificate-data&gt;</code> 进行 base64 解码过后的值；<code>Client Key</code> 的值就对应 <code>&lt;client-key-data&gt;</code> 进行 base64 解码过后的值。</p>
 <ul>
 <li>最后在 <code>additional datasources</code> 下拉列表中选择 prometheus 的数据源。</li>
 <li>点击 <code>Save &amp; Test</code> 正常就可以保存成功了。</li>
 </ul>
 <p>插件配置完成后，在左侧侧边栏就会出现 <code>DevOpsProdigy KubeGraf</code> 插件的入口，通过插件页面可以查看整个集群的状态。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220904220329.png"></p>
-<h2 id="自定义图表"><a href="#自定义图表" class="headerlink" title="自定义图表"></a>自定义图表</h2><p>导入现成的第三方 Dashboard 或许能解决我们大部分问题，但是毕竟还会有需要定制图表的时候，这个时候就需要了解如何去自定义图表了。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220904220329.png" alt=""></p>
+<h2 id="自定义图表"><a class="markdownIt-Anchor" href="#自定义图表"></a> 自定义图表</h2>
+<p>导入现成的第三方 Dashboard 或许能解决我们大部分问题，但是毕竟还会有需要定制图表的时候，这个时候就需要了解如何去自定义图表了。</p>
 <p>同样在侧边栏点击 “+”，选择 Dashboard，可以根据需要选择各种类型的图表，比如我们这里选择一个 <code>Graph</code> 类型的：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-grafana-21.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-grafana-21.png" alt=""></p>
 <p>然后选择左侧图标中的第一个 <code>Queries</code> tab，然后选择 <code>Prometheus</code> 这个数据源：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-grafana-23.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-grafana-23.png" alt=""></p>
 <p>然后在 <code>Metrics</code> 区域输入我们要查询的监控 PromQL 语句，比如我们这里想要查询集群节点 CPU 的使用率：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">(1 - sum(increase(node_cpu_seconds_total{mode="idle", instance=~"$node"}[1m])) by (instance) / sum(increase(node_cpu_seconds_total{instance=~"$node"}[1m])) by (instance)) * 100<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>虽然我们现在还没有具体的学习过 PromQL 语句，但其实我们仔细分析上面的语句也不是很困难，集群节点的 CPU 使用率实际上就相当于排除空闲 CPU 的使用率，所以我们可以优先计算空闲 CPU 的使用时长，除以总的 CPU 时长就是使用率了，用 1 减掉过后就是 CPU 的使用率了，如果想用百分比来表示的话则乘以 100 即可。</p>
 <p>这里有一个需要注意的地方是在 PromQL 语句中有一个 <code>install=~"$node"</code> 的标签，其实意思就是根据 <code>$node</code> 这个参数来进行过滤，也就是我们希望在 Grafana 里面通过参数化来控制每一次计算哪一个节点的 CPU 使用率。</p>
 <p>所以这里就涉及到 Grafana 里面的参数使用。点击页面顶部的 <code>Dashboard Settings</code> 按钮进入配置页面：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-grafana-24.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-grafana-24.png" alt=""></p>
 <p>在左侧 tab 栏点击 <code>Variables</code> 进入参数配置页面，如果还没有任何参数，可以通过点击 <code>Add Variable</code> 添加一个新的变量：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-grafana-25.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-grafana-25.png" alt=""></p>
 <p>这里需要注意的是变量的名称 <code>node</code> 就是上面我们在 PromQL 语句里面使用的 <code>$node</code> 这个参数，这两个地方必须保持一致，然后最重要的就是参数的获取方式了，比如我们可以通过 <code>Prometheus</code>这个数据源，通过 <code>kubelet_node_name</code> 这个指标来获取，在 Prometheus 里面我们可以查询该指标获取到的值为：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-grafana-26.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-grafana-26.png" alt=""></p>
 <p>我们其实只是想要获取节点的名称，所以我们可以用正则表达式去匹配 <code>node=xxx</code> 这个标签，将匹配的值作为参数的值即可。在最下面的 <code>Preview of values</code> 里面会有获取的参数值的预览结果。</p>
 <p>另外由于我们希望能够让用户自由选择一次性可以查询多少个节点的数据，所以我们将 <code>Multi-value</code> 以及 <code>Include All option</code> 都勾选上了，最后记得保存，保存后跳转到 Dashboard 页面就可以看到我们自定义的图表信息：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-grafana-29.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-grafana-29.png" alt=""></p>
 
                 
             </div>

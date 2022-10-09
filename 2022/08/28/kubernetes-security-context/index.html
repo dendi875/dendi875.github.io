@@ -517,7 +517,8 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Kubernetes-Security-Context"><a href="#Kubernetes-Security-Context" class="headerlink" title="Kubernetes Security Context"></a>Kubernetes Security Context</h1><p>我们有时候在运行一个容器的时候，可能需要使用 <code>sysctl</code> 命令来修改内核参数，比如 <code>net</code>、<code>vm</code>、<code>kernel</code> 等参数，但是 <code>systcl</code> 需要容器拥有超级权限，才可以使用，在 Docker 容器启动的时候我们可以加上 <code>--privileged</code> 参数来使用特权模式。那么在 Kubernetes 中应该如何来使用呢？</p>
+                <h1 id="kubernetes-security-context"><a class="markdownIt-Anchor" href="#kubernetes-security-context"></a> Kubernetes Security Context</h1>
+<p>我们有时候在运行一个容器的时候，可能需要使用 <code>sysctl</code> 命令来修改内核参数，比如 <code>net</code>、<code>vm</code>、<code>kernel</code> 等参数，但是 <code>systcl</code> 需要容器拥有超级权限，才可以使用，在 Docker 容器启动的时候我们可以加上 <code>--privileged</code> 参数来使用特权模式。那么在 Kubernetes 中应该如何来使用呢？</p>
 <p>这个时候我们就需要使用到 Kubernetes 中的 <code>Security Context</code>，也就是常说的安全上下文，主要是来限制容器非法操作宿主节点的系统级别的内容，使得节点的系统或者节点上其他容器组受到影响。Kubernetes 提供了三种配置安全上下文级别的方法：</p>
 <ul>
 <li>Container-level Security Context：仅应用到指定的容器</li>
@@ -532,16 +533,17 @@
 <li>Linux Capabilities：给某个特定的进程超级权限，而不用给 root 用户所有的 privileged 权限</li>
 <li>AppArmor：使用程序文件来限制单个程序的权限</li>
 <li>Seccomp：过滤容器中进程的系统调用（system call）</li>
-<li>AllowPrivilegeEscalation（允许特权扩大）：此项配置是一个布尔值，定义了一个进程是否可以比其父进程获得更多的特权，直接效果是，容器的进程上是否被设置 no_new_privs 标记。当出现如下情况时，AllowPrivilegeEscalation 的值始终为 true：<ul>
+<li>AllowPrivilegeEscalation（允许特权扩大）：此项配置是一个布尔值，定义了一个进程是否可以比其父进程获得更多的特权，直接效果是，容器的进程上是否被设置 no_new_privs 标记。当出现如下情况时，AllowPrivilegeEscalation 的值始终为 true：
+<ul>
 <li>容器以 <code>privileged</code> 模式运行</li>
 <li>容器拥有 <code>CAP_SYS_ADMIN</code> 的 Linux Capability</li>
 </ul>
 </li>
 </ul>
-<h2 id="为-Pod-设置-Security-Context"><a href="#为-Pod-设置-Security-Context" class="headerlink" title="为 Pod 设置 Security Context"></a>为 Pod 设置 Security Context</h2><p>我们只需要在 Pod 定义的资源清单文件中添加 <code>securityContext</code> 字段，就可以为 Pod 指定安全上下文相关的设定，通过该字段指定的内容将会对当前 Pod 中的所有容器生效。</p>
+<h2 id="为-pod-设置-security-context"><a class="markdownIt-Anchor" href="#为-pod-设置-security-context"></a> 为 Pod 设置 Security Context</h2>
+<p>我们只需要在 Pod 定义的资源清单文件中添加 <code>securityContext</code> 字段，就可以为 Pod 指定安全上下文相关的设定，通过该字段指定的内容将会对当前 Pod 中的所有容器生效。</p>
 <p>新建一个目录来存放相关资源文件：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">mkdir ~/security-context<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>security-context-pod-demo-1.yaml 内容如下：</p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod
@@ -564,25 +566,25 @@
       <span class="token key atrule">mountPath</span><span class="token punctuation">:</span> /pod/demo
     <span class="token key atrule">securityContext</span><span class="token punctuation">:</span>
       <span class="token key atrule">allowPrivilegeEscalation</span><span class="token punctuation">:</span> <span class="token boolean important">false</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>在当前资源清单文件中我们在 Pod 下面添加了 <code>securityContext</code> 字段，其中：</p>
 <ul>
-<li><code>runAsUser</code> 字段指定了该 Pod 中所有容器的进程都以 UID 1000 的身份运行，<code>runAsGroup</code> 字段指定了该 Pod 中所有容器的进程都以 GID 3000 的身份运行<ul>
+<li><code>runAsUser</code> 字段指定了该 Pod 中所有容器的进程都以 UID 1000 的身份运行，<code>runAsGroup</code> 字段指定了该 Pod 中所有容器的进程都以 GID 3000 的身份运行
+<ul>
 <li>如果省略该字段，容器进程的 GID 为 <code>root(0)</code></li>
 <li>容器中创建的文件，其所有者为 userID 1000，groupID 3000</li>
 </ul>
 </li>
-<li><code>fsGroup</code> 字段指定了该 Pod 的 fsGroup 为 2000<ul>
+<li><code>fsGroup</code> 字段指定了该 Pod 的 fsGroup 为 2000
+<ul>
 <li>数据卷 （对应挂载点 <code>/pod/demo</code> 的数据卷为 <code>sec-ctx-demo</code>） 的所有者以及在该数据卷下创建的任何文件，其 GID 都为 2000</li>
 </ul>
 </li>
 </ul>
 <p>下表是我们常用的一些 <code>securityContext</code> 字段设置内容介绍：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220827114703.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220827114703.png" alt=""></p>
 <p>直接创建上面的 Pod 对象：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master security-context]# kubectl apply -f security-context-pod-demo-1.yaml
 pod/security-context-pod-demo created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <p>运行完成后，我们可以验证下容器中的进程运行的 ownership：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master security-context]# kubectl exec security-context-pod-demo top
 kubectl exec [POD] [COMMAND] is DEPRECATED and will be removed in a future version. Use kubectl exec [POD] -- [COMMAND] instead.
@@ -592,19 +594,16 @@ Load average: 0.00 0.08 0.08 1/515 13
   PID  PPID USER     STAT   VSZ %VSZ CPU %CPU COMMAND
     8     0 1000     R     1312  0.0   1  0.0 top
     1     0 1000     S     1300  0.0   1  0.0 sleep 60m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>我们直接运行一个 <code>top</code> 进程，查看容器中的所有正在执行的进程，我们可以看到 USER ID 都为 1000（<code>runAsUser</code> 指定的），然后查看下挂载的数据卷的 ownership：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master security-context]# kubectl exec security-context-pod-demo -- ls -la /pod
 total 0
 drwxr-xr-x    3 root     root            18 Aug 28 02:42 .
 drwxr-xr-x    1 root     root            28 Aug 28 02:42 ..
 drwxrwsrwx    2 root     2000             6 Aug 28 02:42 demo<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>因为上面我们指定了 <code>fsGroup=2000</code>，所以声明挂载的数据卷 <code>/pod/demo</code> 的 GID 也变成了 2000。直接调用容器中的 id 命令：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master security-context]# kubectl exec security-context-pod-demo id
 kubectl exec [POD] [COMMAND] is DEPRECATED and will be removed in a future version. Use kubectl exec [POD] -- [COMMAND] instead.
 uid=1000 gid=3000 groups=2000<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
 <p>我们可以看到 gid 为 3000，与 <code>runAsGroup</code> 字段所指定的一致，如果 <code>runAsGroup</code> 字段被省略，则 gid 取值为 0（即 root），此时容器中的进程将可以操作 root Group 的文件。</p>
 <p>比如我们现在想要去删除容器中的 <code>/tmp</code> 目录就没有权限了，因为该目录的用户和组都是 root，而我们当前要去删除使用的进程的 ID 号就变成了 1000:3000，所以没有权限操作：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master security-context]# kubectl exec security-context-pod-demo -- ls -la /tmp
@@ -615,8 +614,8 @@ drwxr-xr-x    1 root     root            28 Aug 28 02:42 ..
 [root@k8s-master security-context]# kubectl exec security-context-pod-demo -- rm -rf /tmp/
 rm: can't remove '/tmp': Permission denied
 command terminated with exit code 1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="为容器设置-Security-Context"><a href="#为容器设置-Security-Context" class="headerlink" title="为容器设置 Security Context"></a>为容器设置 Security Context</h2><p>除了在 Pod 中可以设置安全上下文之外，我们还可以单独为某个容器设置安全上下文，同样也是通过 <code>securityContext</code> 字段设置，当该字段的配置与 Pod 级别的 securityContext 配置相冲突时，容器级别的配置将覆盖 Pod 级别的配置。容器级别的 securityContext 不影响 Pod 中的数据卷。如下资源清单所示：security-context-pod-demo-2.yaml </p>
+<h2 id="为容器设置-security-context"><a class="markdownIt-Anchor" href="#为容器设置-security-context"></a> 为容器设置 Security Context</h2>
+<p>除了在 Pod 中可以设置安全上下文之外，我们还可以单独为某个容器设置安全上下文，同样也是通过 <code>securityContext</code> 字段设置，当该字段的配置与 Pod 级别的 securityContext 配置相冲突时，容器级别的配置将覆盖 Pod 级别的配置。容器级别的 securityContext 不影响 Pod 中的数据卷。如下资源清单所示：security-context-pod-demo-2.yaml</p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
@@ -631,11 +630,9 @@ command terminated with exit code 1<span aria-hidden="true" class="line-numbers-
     <span class="token key atrule">securityContext</span><span class="token punctuation">:</span>
       <span class="token key atrule">runAsUser</span><span class="token punctuation">:</span> <span class="token number">2000</span>
       <span class="token key atrule">allowPrivilegeEscalation</span><span class="token punctuation">:</span> <span class="token boolean important">false</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>直接创建上面的 Pod 对象：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master security-context]# kubectl apply -f security-context-pod-demo-2.yaml 
 pod/security-context-container-demo created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <p>同样我们直接执行容器中的 <code>top</code> 命令：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master security-context]# kubectl exec security-context-container-demo top
 kubectl exec [POD] [COMMAND] is DEPRECATED and will be removed in a future version. Use kubectl exec [POD] -- [COMMAND] instead.
@@ -646,38 +643,37 @@ Load average: 0.00 0.06 0.05 1/449 19
     8     0 2000     S     1312  0.0   1  0.0 top
    14     0 2000     R     1312  0.0   0  0.0 top
     1     0 2000     S     1300  0.0   1  0.0 sleep 60m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>容器的进程以 UID 2000 的身份运行，该取值由 <code>spec.containers[*].securityContext.runAsUser</code> 容器组中的字段定义。Pod 中定义的 <code>spec.securityContext.runAsUser</code> 取值 1000 被覆盖。</p>
-<h2 id="设置-Linux-Capabilities"><a href="#设置-Linux-Capabilities" class="headerlink" title="设置 Linux Capabilities"></a>设置 Linux Capabilities</h2><p>我们使用 <code>docker run</code> 的时候可以通过 <code>--cap-add</code> 和 <code>--cap-drop</code> 命令来给容器添加 <code>Linux Capabilities</code>。那么在 Kubernetes 下面如何来设置呢？要了解如何设置，首先我们还是需要了解下 <code>Linux Capabilities</code> 是什么？</p>
-<h3 id="Linux-Capabilities"><a href="#Linux-Capabilities" class="headerlink" title="Linux Capabilities"></a>Linux Capabilities</h3><p>要了解 <code>Linux Capabilities</code>，这就得从 Linux 的权限控制发展来说明。在 Linux 2.2 版本之前，当内核对进程进行权限验证的时候，Linux 将进程划分为两类：特权进程（UID=0，也就是超级用户）和非特权进程（UID!=0），特权进程拥有所有的内核权限，而非特权进程则根据进程凭证（effective UID, effective GID，supplementary group 等）进行权限检查。</p>
+<h2 id="设置-linux-capabilities"><a class="markdownIt-Anchor" href="#设置-linux-capabilities"></a> 设置 Linux Capabilities</h2>
+<p>我们使用 <code>docker run</code> 的时候可以通过 <code>--cap-add</code> 和 <code>--cap-drop</code> 命令来给容器添加 <code>Linux Capabilities</code>。那么在 Kubernetes 下面如何来设置呢？要了解如何设置，首先我们还是需要了解下 <code>Linux Capabilities</code> 是什么？</p>
+<h3 id="linux-capabilities"><a class="markdownIt-Anchor" href="#linux-capabilities"></a> Linux Capabilities</h3>
+<p>要了解 <code>Linux Capabilities</code>，这就得从 Linux 的权限控制发展来说明。在 Linux 2.2 版本之前，当内核对进程进行权限验证的时候，Linux 将进程划分为两类：特权进程（UID=0，也就是超级用户）和非特权进程（UID!=0），特权进程拥有所有的内核权限，而非特权进程则根据进程凭证（effective UID, effective GID，supplementary group 等）进行权限检查。</p>
 <p>比如我们以常用的 <code>passwd</code> 命令为例，修改用户密码需要具有 root 权限，而普通用户是没有这个权限的。但是实际上普通用户又可以修改自己的密码，这是怎么回事呢？在 Linux 的权限控制机制中，有一类比较特殊的权限设置，比如 SUID(Set User ID on execution)，允许用户以可执行文件的 owner 的权限来运行可执行文件。因为程序文件 <code>/bin/passwd</code> 被设置了 <code>SUID</code> 标识，所以普通用户在执行 passwd 命令时，进程是以 passwd 的所有者，也就是 root 用户的身份运行，从而就可以修改密码了。</p>
 <p>但是使用 <code>SUID</code> 却带来了新的安全隐患，当我们运行设置了 <code>SUID</code> 的命令时，通常只是需要很小一部分的特权，但是 <code>SUID</code> 却给了它 root 具有的全部权限，一旦 被设置了 <code>SUID</code> 的命令出现漏洞，是不是就很容易被利用了。</p>
 <p>为此 Linux 引入了 <code>Capabilities</code> 机制来对 root 权限进行了更加细粒度的控制，实现按需进行授权，这样就大大减小了系统的安全隐患。</p>
-<h4 id="什么是-Capabilities"><a href="#什么是-Capabilities" class="headerlink" title="什么是 Capabilities"></a>什么是 Capabilities</h4><p>从内核 2.2 开始，Linux 将传统上与超级用户 root 关联的特权划分为不同的单元，称为 <code>capabilites</code>。<code>Capabilites</code> 每个单元都可以独立启用和禁用。这样当系统在作权限检查的时候就变成了：<strong>在执行特权操作时，如果进程的有效身份不是 root，就去检查是否具有该特权操作所对应的 capabilites，并以此决定是否可以进行该特权操作</strong>。比如如果我们要设置系统时间，就得具有 <code>CAP_SYS_TIME</code> 这个 capabilites。下面是从 <a target="_blank" rel="noopener" href="http://man7.org/linux/man-pages/man7/capabilities.7.html">capabilities man page</a> 中摘取的 capabilites 列表：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220827115800.png"></p>
-<h4 id="如何使用-Capabilities"><a href="#如何使用-Capabilities" class="headerlink" title="如何使用 Capabilities"></a>如何使用 Capabilities</h4><p>我们可以通过 <code>getcap</code> 和 <code>setcap</code> 两条命令来分别查看和设置程序文件的 <code>capabilities</code> 属性。比如当前我们是<code>zhangquan</code> 这个用户，使用 <code>getcap</code> 命令查看 <code>ping</code> 命令目前具有的 <code>capabilities</code>：</p>
+<h4 id="什么是-capabilities"><a class="markdownIt-Anchor" href="#什么是-capabilities"></a> 什么是 Capabilities</h4>
+<p>从内核 2.2 开始，Linux 将传统上与超级用户 root 关联的特权划分为不同的单元，称为 <code>capabilites</code>。<code>Capabilites</code> 每个单元都可以独立启用和禁用。这样当系统在作权限检查的时候就变成了：<strong>在执行特权操作时，如果进程的有效身份不是 root，就去检查是否具有该特权操作所对应的 capabilites，并以此决定是否可以进行该特权操作</strong>。比如如果我们要设置系统时间，就得具有 <code>CAP_SYS_TIME</code> 这个 capabilites。下面是从 <a target="_blank" rel="noopener" href="http://man7.org/linux/man-pages/man7/capabilities.7.html">capabilities man page</a> 中摘取的 capabilites 列表：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220827115800.png" alt=""></p>
+<h4 id="如何使用-capabilities"><a class="markdownIt-Anchor" href="#如何使用-capabilities"></a> 如何使用 Capabilities</h4>
+<p>我们可以通过 <code>getcap</code> 和 <code>setcap</code> 两条命令来分别查看和设置程序文件的 <code>capabilities</code> 属性。比如当前我们是<code>zhangquan</code> 这个用户，使用 <code>getcap</code> 命令查看 <code>ping</code> 命令目前具有的 <code>capabilities</code>：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[zhangquan@10 ~]$ ll /bin/ping
 -rwxr-xr-x. 1 root root 66176 8月   4 2017 /bin/ping
 
 [zhangquan@10 ~]$ getcap /bin/ping
 /bin/ping = cap_net_admin,cap_net_raw+p<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>我们可以看到具有 <code>cap_net_admin</code> 这个属性，所以我们现在可以执行 <code>ping</code> 命令：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[zhangquan@10 ~]$ ping www.zhangquan.me
 PING dendi875.github.io (185.199.111.153) 56(84) bytes of data.
 64 bytes from cdn-185-199-111-153.github.com (185.199.111.153): icmp_seq=1 ttl=63 time=134 ms
 64 bytes from cdn-185-199-111-153.github.com (185.199.111.153): icmp_seq=2 ttl=63 time=128 ms<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>但是如果我们把命令的 <code>capabilities</code> 属性移除掉：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[zhangquan@10 ~]$ sudo setcap cap_net_admin,cap_net_raw-p /bin/ping
 
 [zhangquan@10 ~]$ getcap /bin/ping
 /bin/ping =<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>这个时候我们执行 <code>ping</code> 命令可以发现已经没有权限了：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[zhangquan@10 ~]$ ping www.zhangquan.me
 ping: socket: 不允许的操作<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <p>因为 ping 命令在执行时需要访问网络，所需的 <code>capabilities</code> 为 <code>cap_net_admin</code> 和 <code>cap_net_raw</code>，所以我们可以通过 <code>setcap</code> 命令可来添加它们：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[zhangquan@10 ~]$ sudo setcap cap_net_admin,cap_net_raw+p /bin/ping  
 
@@ -688,7 +684,6 @@ ping: socket: 不允许的操作<span aria-hidden="true" class="line-numbers-row
 PING www.zhangquan.me (185.199.111.153) 56(84) bytes of data.
 64 bytes from 153.111.199.185.in-addr.arpa (185.199.111.153): icmp_seq=1 ttl=63 time=122 ms
 64 bytes from 153.111.199.185.in-addr.arpa (185.199.111.153): icmp_seq=2 ttl=63 time=124 ms<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>命令中的 <code>p</code> 表示 <code>Permitted</code> 集合(接下来会介绍)，<code>+</code> 号表示把指定的<code>capabilities</code> 添加到这些集合中，<code>-</code> 号表示从集合中移除。</p>
 <p>对于可执行文件的属性中有三个集合来保存三类 <code>capabilities</code>，它们分别是：</p>
 <ul>
@@ -713,13 +708,13 @@ CapAmb: 0000000000000000
 # 使用 capsh 命令把它们转义为可读的格式
 [zhangquan@10 ~]$ capsh --decode=0000001fffffffff
 0x0000001fffffffff=cap_chown,cap_dac_override,cap_dac_read_search,cap_fowner,cap_fsetid,cap_kill,cap_setgid,cap_setuid,cap_setpcap,cap_linux_immutable,cap_net_bind_service,cap_net_broadcast,cap_net_admin,cap_net_raw,cap_ipc_lock,cap_ipc_owner,cap_sys_module,cap_sys_rawio,cap_sys_chroot,cap_sys_ptrace,cap_sys_pacct,cap_sys_admin,cap_sys_boot,cap_sys_nice,cap_sys_resource,cap_sys_time,cap_sys_tty_config,cap_mknod,cap_lease,cap_audit_write,cap_audit_control,cap_setfcap,cap_mac_override,cap_mac_admin,cap_syslog,35,36<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="Docker-Container-Capabilities"><a href="#Docker-Container-Capabilities" class="headerlink" title="Docker Container Capabilities"></a>Docker Container Capabilities</h3><p>我们说 Docker 容器本质上就是一个进程，所以理论上容器就会和进程一样会有一些默认的开放权限，默认情况下 Docker 会删除必须的 <code>capabilities</code> 之外的所有 <code>capabilities</code>，因为在容器中我们经常会以 root 用户来运行，使用 <code>capabilities</code> 现在后，容器中的使用的 root 用户权限就比我们平时在宿主机上使用的 root 用户权限要少很多了，这样即使出现了安全漏洞，也很难破坏或者获取宿主机的 root 权限，所以 Docker 支持 <code>Capabilities</code> 对于容器的安全性来说是非常有必要的。</p>
+<h3 id="docker-container-capabilities"><a class="markdownIt-Anchor" href="#docker-container-capabilities"></a> Docker Container Capabilities</h3>
+<p>我们说 Docker 容器本质上就是一个进程，所以理论上容器就会和进程一样会有一些默认的开放权限，默认情况下 Docker 会删除必须的 <code>capabilities</code> 之外的所有 <code>capabilities</code>，因为在容器中我们经常会以 root 用户来运行，使用 <code>capabilities</code> 现在后，容器中的使用的 root 用户权限就比我们平时在宿主机上使用的 root 用户权限要少很多了，这样即使出现了安全漏洞，也很难破坏或者获取宿主机的 root 权限，所以 Docker 支持 <code>Capabilities</code> 对于容器的安全性来说是非常有必要的。</p>
 <p>不过我们在运行容器的时候可以通过指定 <code>--privileded</code> 参数来开启容器的超级权限，这个参数一定要慎用，因为他会获取系统 root 用户所有能力赋值给容器，并且会扫描宿主机的所有设备文件挂载到容器内部，所以是非常危险的操作。</p>
 <p>但是如果你确实需要一些特殊的权限，我们可以通过 <code>--cap-add</code> 和 <code>--cap-drop</code> 这两个参数来动态调整，可以最大限度地保证容器的使用安全。下面表格中列出的 <code>Capabilities</code> 是 Docker 默认给容器添加的，我们可以通过 <code>--cap-drop</code> 去除其中一个或者多个：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220827121751.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220827121751.png" alt=""></p>
 <p>下面表格中列出的 <code>Capabilities</code> 是 Docker 默认删除的，我们可以通过<code>--cap-add</code>添加其中一个或者多个：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220827121859.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220827121859.png" alt=""></p>
 <blockquote>
 <pre class="line-numbers language-none"><code class="language-none">--cap-add 和 --cap-drop  这两参数都支持 `ALL` 值，比如如果你想让某个容器拥有除了 `MKNOD` 之外的所有内核权限，那么可以执行下面的命令： $ sudo docker run --cap-add=ALL --cap-drop=MKNOD ...<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </blockquote>
@@ -728,14 +723,13 @@ CapAmb: 0000000000000000
 / # ip link add dummy0 type dummy
 ip: RTNETLINK answers: Operation not permitted
 / # <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>所以在不使用 <code>--privileged</code> 的情况下（不建议）我们可以使用 <code>--cap-add=NET_ADMIN</code> 将这个 <code>Capabilities</code> 添加回来：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master security-context]# docker run -it --rm --cap-add=NET_ADMIN busybox /bin/sh
 / #  ip link add dummy0 type dummy
 / # <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
 <p>可以看到已经 OK 了。</p>
-<h3 id="Kubernetes-配置-Capabilities"><a href="#Kubernetes-配置-Capabilities" class="headerlink" title="Kubernetes 配置 Capabilities"></a>Kubernetes 配置 Capabilities</h3><p>上面我介绍了在 Docker 容器下如何来配置 <code>Capabilities</code>，在 Kubernetes 中也可以很方便的来定义，我们只需要添加到 Pod 定义的 <code>spec.containers.sercurityContext.capabilities</code>中即可，也可以进行 <code>add</code> 和 <code>drop</code> 配置，同样上面的示例，我们要给 busybox 容器添加 <code>NET_ADMIN</code> 这个 <code>Capabilities</code>，对应的 YAML 文件可以这样定义：(cpb-demo.yaml)</p>
+<h3 id="kubernetes-配置-capabilities"><a class="markdownIt-Anchor" href="#kubernetes-配置-capabilities"></a> Kubernetes 配置 Capabilities</h3>
+<p>上面我介绍了在 Docker 容器下如何来配置 <code>Capabilities</code>，在 Kubernetes 中也可以很方便的来定义，我们只需要添加到 Pod 定义的 <code>spec.containers.sercurityContext.capabilities</code>中即可，也可以进行 <code>add</code> 和 <code>drop</code> 配置，同样上面的示例，我们要给 busybox 容器添加 <code>NET_ADMIN</code> 这个 <code>Capabilities</code>，对应的 YAML 文件可以这样定义：(cpb-demo.yaml)</p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
@@ -753,7 +747,6 @@ ip: RTNETLINK answers: Operation not permitted
         <span class="token punctuation">-</span> NET_ADMIN
         <span class="token key atrule">drop</span><span class="token punctuation">:</span>  <span class="token comment"># 删除</span>
         <span class="token punctuation">-</span> KILL<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>我们在 <code>securityContext</code> 下面添加了 <code>capabilities</code> 字段，其中添加了 <code>NET_ADMIN</code> 并且删除了 <code>KILL</code>这个默认的容器 <code>Capabilities</code>，这样我们就可以在 Pod 中修改网络接口数据了：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master security-context]#  kubectl apply -f cpb-demo.yaml
 pod/cpb-demo created
@@ -761,14 +754,14 @@ pod/cpb-demo created
 [root@k8s-master security-context]#  kubectl exec -it  cpb-demo -- /bin/sh
 / # ip link add dummy0 type dummy
 / # <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>在 Kubernetes 中通过 <code>sercurityContext.capabilities</code> 进行配置容器的 <code>Capabilities</code>，当然最终还是通过 Docker 的 <code>libcontainer</code> 去借助 <code>Linux kernel capabilities</code> 实现的权限管理。</p>
-<h2 id="为容器设置-SELinux-标签"><a href="#为容器设置-SELinux-标签" class="headerlink" title="为容器设置 SELinux 标签"></a>为容器设置 <code>SELinux</code> 标签</h2><p><code>SELinux</code> (Security-Enhanced Linux) 是一种强制访问控制（mandatory access control）的实现。它的作法是以最小权限原则（principle of least privilege）为基础，在 Linux 核心中使用 Linux 安全模块（Linux Security Modules）。Pod 或容器定义的 securityContext 中 <code>seLinuxOptions</code> 字段是一个 <a target="_blank" rel="noopener" href="https://v1-21.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#selinuxoptions-v1-core">SELinuxOptions 对象</a>，该字段可用于为容器指定 <code>SELinux</code> 标签。</p>
+<h2 id="为容器设置-selinux-标签"><a class="markdownIt-Anchor" href="#为容器设置-selinux-标签"></a> 为容器设置 <code>SELinux</code> 标签</h2>
+<p><code>SELinux</code> (Security-Enhanced Linux) 是一种强制访问控制（mandatory access control）的实现。它的作法是以最小权限原则（principle of least privilege）为基础，在 Linux 核心中使用 Linux 安全模块（Linux Security Modules）。Pod 或容器定义的 securityContext 中 <code>seLinuxOptions</code> 字段是一个 <a target="_blank" rel="noopener" href="https://v1-21.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#selinuxoptions-v1-core">SELinuxOptions 对象</a>，该字段可用于为容器指定 <code>SELinux</code> 标签。</p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">securityContext</span><span class="token punctuation">:</span>
   <span class="token key atrule">seLinuxOptions</span><span class="token punctuation">:</span>
     <span class="token key atrule">level</span><span class="token punctuation">:</span> <span class="token string">"s0:c123,c456"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<h2 id="参考"><a class="markdownIt-Anchor" href="#参考"></a> 参考</h2>
+<ul>
 <li><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/tasks/configure-pod-container/security-context/">https://kubernetes.io/docs/tasks/configure-pod-container/security-context/</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.qikqiak.com/k8strain/security/security-context/">https://www.qikqiak.com/k8strain/security/security-context/</a></li>
 </ul>

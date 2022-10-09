@@ -525,28 +525,33 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Prometheus报警系统AlertManager"><a href="#Prometheus报警系统AlertManager" class="headerlink" title="Prometheus报警系统AlertManager"></a>Prometheus报警系统AlertManager</h1><h2 id="AlertManager-简介"><a href="#AlertManager-简介" class="headerlink" title="AlertManager 简介"></a>AlertManager 简介</h2><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220905151134.png"></p>
+                <h1 id="prometheus报警系统alertmanager"><a class="markdownIt-Anchor" href="#prometheus报警系统alertmanager"></a> Prometheus报警系统AlertManager</h1>
+<h2 id="alertmanager-简介"><a class="markdownIt-Anchor" href="#alertmanager-简介"></a> AlertManager 简介</h2>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220905151134.png" alt=""></p>
 <p>Alertmanager 主要用于接收 Prometheus 发送的告警信息，它支持丰富的告警通知渠道，而且很容易做到告警信息进行去重，降噪，分组等，是一款前卫的告警通知系统。</p>
 <p>通过在 Prometheus 中定义告警规则，Prometheus会周期性的对告警规则进行计算，如果满足告警触发条件就会向Alertmanager 发送告警信息。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220905151208.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220905151208.png" alt=""></p>
 <p>在 Prometheus 中一条告警规则主要由以下几部分组成：</p>
 <ul>
 <li>告警名称：用户需要为告警规则命名，当然对于命名而言，需要能够直接表达出该告警的主要内容</li>
 <li>告警规则：告警规则实际上主要由 <code>PromQL</code> 进行定义，其实际意义是当表达式（PromQL）查询结果持续多长时间（During）后出发告警</li>
 </ul>
 <p>在 Prometheus 中，还可以通过 Group（告警组）对一组相关的告警进行统一定义。Alertmanager 作为一个独立的组件，负责接收并处理来自 Prometheus Server 的告警信息。Alertmanager 可以对这些告警信息进行进一步的处理，比如当接收到大量重复告警时能够消除重复的告警信息，同时对告警信息进行分组并且路由到正确的通知方，Prometheus 内置了对邮件、Slack 多种通知方式的支持，同时还支持与 Webhook 的集成，以支持更多定制化的场景。例如，目前 Alertmanager 还不支持钉钉，用户完全可以通过 Webhook 与钉钉机器人进行集成，从而通过钉钉接收告警信息。同时 AlertManager 还提供了静默和告警抑制机制来对告警通知行为进行优化。</p>
-<p>让<code>AlertManager</code>提供服务总的来说就下面3步： </p>
+<p>让<code>AlertManager</code>提供服务总的来说就下面3步：</p>
 <ol>
-<li><p>安装和配置<code>AlertManger</code></p>
+<li>
+<p>安装和配置<code>AlertManger</code></p>
 </li>
-<li><p>配置<code>Prometheus</code>来和<code>AlertManager</code>通信</p>
+<li>
+<p>配置<code>Prometheus</code>来和<code>AlertManager</code>通信</p>
 </li>
-<li><p>在<code>Prometheus</code>中创建报警规则</p>
+<li>
+<p>在<code>Prometheus</code>中创建报警规则</p>
 </li>
 </ol>
-<h2 id="安装和配置AlertManager"><a href="#安装和配置AlertManager" class="headerlink" title="安装和配置AlertManager"></a>安装和配置AlertManager</h2><p>从官方文档 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/alerting/configuration/">https://prometheus.io/docs/alerting/configuration/</a> 中我们可以看到下载 AlertManager 二进制文件后，可以通过下面的命令运行：</p>
+<h2 id="安装和配置alertmanager"><a class="markdownIt-Anchor" href="#安装和配置alertmanager"></a> 安装和配置AlertManager</h2>
+<p>从官方文档 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/alerting/configuration/">https://prometheus.io/docs/alerting/configuration/</a> 中我们可以看到下载 AlertManager 二进制文件后，可以通过下面的命令运行：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ ./alertmanager --config.file=simple.yml<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>其中 <code>-config.file</code> 参数是用来指定对应的配置文件的，由于我们这里同样要运行到 Kubernetes 集群中来，所以我们使用 Docker 镜像的方式来安装，使用的镜像是：<code>prom/alertmanager:v0.20.0</code>。</p>
 <blockquote>
 <p><strong>Note</strong></p>
@@ -554,7 +559,6 @@
 </blockquote>
 <p>把用到的资源文件统一放到 <code>alertmanager</code> 目录下</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# mkdir ~/alertmanager &amp;&amp; cd alertmanager<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>首先，指定配置文件，同样的，我们这里使用一个 ConfigMap 资源对象：alertmanager-config.yaml</p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> ConfigMap
@@ -604,7 +608,6 @@
       <span class="token key atrule">email_configs</span><span class="token punctuation">:</span>
       <span class="token punctuation">-</span> <span class="token key atrule">to</span><span class="token punctuation">:</span> <span class="token string">'943299849@qq.com'</span>
         <span class="token key atrule">send_resolved</span><span class="token punctuation">:</span> <span class="token boolean important">true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <blockquote>
 <p><strong>Note</strong></p>
 <p>分组机制可以将详细的告警信息合并成一个通知，在某些情况下，比如由于系统宕机导致大量的告警被同时触发，在这种情况下分组机制可以将这些被触发的告警合并为一个告警通知，避免一次性接受大量的告警通知，而无法对问题进行快速定位。</p>
@@ -612,7 +615,6 @@
 <p>这是 AlertManager 的配置文件，我们先直接创建这个 ConfigMap 资源对象：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master alertmanager]# kubectl apply -f alertmanager-config.yaml 
 configmap/alert-config created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <p>然后配置 AlertManager 的容器，直接使用一个 Deployment 来进行管理即可，对应的 YAML 资源声明如下：alertmanager-deploy.yaml</p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
@@ -653,11 +655,9 @@ configmap/alert-config created<span aria-hidden="true" class="line-numbers-rows"
           <span class="token key atrule">limits</span><span class="token punctuation">:</span>
             <span class="token key atrule">cpu</span><span class="token punctuation">:</span> 100m
             <span class="token key atrule">memory</span><span class="token punctuation">:</span> 256Mi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>这里我们将上面创建的 <code>alert-config</code> 这个 ConfigMap 资源对象以 Volume 的形式挂载到 <code>/etc/alertmanager</code> 目录下去，然后在启动参数中指定了配置文件 <code>--config.file=/etc/alertmanager/config.yml</code>，然后我们可以来创建这个资源对象：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master alertmanager]# kubectl apply -f alertmanager-deploy.yaml 
 deployment.apps/alertmanager created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <p>为了可以访问到 AlertManager，同样需要我们创建一个对应的 Service 对象：alertmanager-svc.yaml</p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> Service
@@ -674,24 +674,21 @@ deployment.apps/alertmanager created<span aria-hidden="true" class="line-numbers
     <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> web
       <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">9093</span>
       <span class="token key atrule">targetPort</span><span class="token punctuation">:</span> http<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>使用 NodePort 类型也是为了方便测试，创建上面的 Service 这个资源对象：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master alertmanager]# kubectl apply -f alertmanager-svc.yaml 
 service/alertmanager created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<h2 id="配置Prometheus来和AlertManager通信"><a href="#配置Prometheus来和AlertManager通信" class="headerlink" title="配置Prometheus来和AlertManager通信"></a>配置Prometheus来和AlertManager通信</h2><p>AlertManager 的容器启动起来后，我们还需要在 Prometheus 中配置下 AlertManager 的地址，让 Prometheus 能够访问到 AlertManager，在 Prometheus 的 ConfigMap 资源清单中添加如下配置：prometheus-cm.yaml </p>
+<h2 id="配置prometheus来和alertmanager通信"><a class="markdownIt-Anchor" href="#配置prometheus来和alertmanager通信"></a> 配置Prometheus来和AlertManager通信</h2>
+<p>AlertManager 的容器启动起来后，我们还需要在 Prometheus 中配置下 AlertManager 的地址，让 Prometheus 能够访问到 AlertManager，在 Prometheus 的 ConfigMap 资源清单中添加如下配置：prometheus-cm.yaml</p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">alerting</span><span class="token punctuation">:</span>
   <span class="token key atrule">alertmanagers</span><span class="token punctuation">:</span>
     <span class="token punctuation">-</span> <span class="token key atrule">static_configs</span><span class="token punctuation">:</span>
       <span class="token punctuation">-</span> <span class="token key atrule">targets</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"alertmanager:9093"</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>更新这个资源对象后，稍等一小会儿，执行 reload 操作即可。</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master prometheus]# kubectl apply -f prometheus-cm.yaml 
 configmap/prometheus-config configured
 
 # 隔一会儿执行reload操作
 [root@k8s-master prometheus]# curl -X POST "http://10.96.146.110:9090/-/reload"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>更新完成后，我们查看 Pod 已经是 Running 状态了：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master prometheus]# kubectl get pods -n kube-mon
 NAME                            READY   STATUS      RESTARTS   AGE
@@ -702,13 +699,12 @@ node-exporter-fwzlt             1/1     Running     3          2d16h
 node-exporter-pcr9w             1/1     Running     3          2d16h
 prometheus-75d4666dcd-vlth8     1/1     Running     3          2d17h
 redis-6468bf6c84-qmm2k          2/2     Running     6          2d17h<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="在Prometheus中创建报警规则"><a href="#在Prometheus中创建报警规则" class="headerlink" title="在Prometheus中创建报警规则"></a>在Prometheus中创建报警规则</h2><p>现在我们只是把 AlertManager 容器运行起来了，也和 Prometheus 进行了关联，但是现在我们并不知道要做什么报警，因为没有任何地方告诉我们要报警，所以我们还需要配置一些报警规则来告诉我们对哪些数据进行报警。</p>
+<h2 id="在prometheus中创建报警规则"><a class="markdownIt-Anchor" href="#在prometheus中创建报警规则"></a> 在Prometheus中创建报警规则</h2>
+<p>现在我们只是把 AlertManager 容器运行起来了，也和 Prometheus 进行了关联，但是现在我们并不知道要做什么报警，因为没有任何地方告诉我们要报警，所以我们还需要配置一些报警规则来告诉我们对哪些数据进行报警。</p>
 <p>警报规则允许你基于 Prometheus 表达式语言的表达式来定义报警报条件，并在触发警报时发送通知给外部的接收者。</p>
 <p>同样在 Prometheus 的配置文件中添加如下报警规则配置：</p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">rule_files</span><span class="token punctuation">:</span>
 <span class="token punctuation">-</span> /etc/prometheus/rules.yml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <p>其中 <code>rule_files</code> 就是用来指定报警规则的，这里我们同样将 <code>rules.yml</code> 文件用 ConfigMap 的形式挂载到 <code>/etc/prometheus</code> 目录下面即可：</p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> ConfigMap
@@ -740,7 +736,6 @@ redis-6468bf6c84-qmm2k          2/2     Running     6          2d17h<span aria-h
         annotations:
           summary: "{{$labels.instance}}: High Memory usage detected"
           description: "{{$labels.instance}}: Memory usage is above 20% (current value is: {{ $value }}"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>上面我们定义了一个名为 <code>NodeMemoryUsage</code> 的报警规则，一条报警规则主要由以下几部分组成：</p>
 <ul>
 <li><code>alert</code>：告警规则的名称</li>
@@ -761,7 +756,6 @@ configmap/prometheus-config configured
 
 # 隔一会儿执行reload操作
 [root@k8s-master prometheus]# curl -X POST "http://10.96.146.110:9090/-/reload"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>确认<code>/etc/prometheus</code>目录下面有 rules.yml 文件</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master prometheus]# kubectl get pod -n kube-mon -l app=prometheus            
 NAME                          READY   STATUS    RESTARTS   AGE
@@ -770,9 +764,8 @@ prometheus-75d4666dcd-vlth8   1/1     Running   3          2d18h
 [root@k8s-master prometheus]# kubectl exec  -it prometheus-75d4666dcd-vlth8 -n kube-mon  -- /bin/sh
 /prometheus # ls /etc/prometheus/
 prometheus.yml  rules.yml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>查看报警配置规则的数据：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220905155534.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220905155534.png" alt=""></p>
 <p>页面中出现了我们刚刚定义的报警规则信息，而且报警信息中还有状态显示，一个报警信息在生命周期内有下面3种状态：</p>
 <ul>
 <li><code>pending</code>: 表示在设置的阈值时间范围内被激活了</li>
@@ -781,7 +774,6 @@ prometheus.yml  rules.yml<span aria-hidden="true" class="line-numbers-rows"><spa
 </ul>
 <p>同时对于已经 <code>pending</code> 或者 <code>firing</code> 的告警，Prometheus 也会将它们存储到时间序列<code>ALERTS{}</code>中。当然我们也可以通过表达式去查询告警实例：</p>
 <pre class="line-numbers language-none"><code class="language-none">ALERTS{alertname="&lt;alert name&gt;", alertstate="pending|firing", &lt;additional alert labels&gt;}<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>样本值为<code>1</code>表示当前告警处于活动状态（pending 或者 firing），当告警从活动状态转换为非活动状态时，样本值则为0。</p>
 <p>我们这里的状态现在是 <code>firing</code> 就表示这个报警已经被激活了，我们这里的报警信息有一个 <code>team=node</code> 这样的标签，而最上面我们配置 alertmanager 的时候就有如下的路由配置信息了：alertmanager-config.yaml</p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">routes</span><span class="token punctuation">:</span>
@@ -789,22 +781,21 @@ prometheus.yml  rules.yml<span aria-hidden="true" class="line-numbers-rows"><spa
   <span class="token key atrule">group_wait</span><span class="token punctuation">:</span> 10s
   <span class="token key atrule">match</span><span class="token punctuation">:</span>
     <span class="token key atrule">team</span><span class="token punctuation">:</span> node<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>我们可以通过 NodePort 的形式去访问到 AlertManager 的 Dashboard 页面：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master alertmanager]# kubectl get svc -n kube-mon
 NAME           TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)             AGE
 alertmanager   NodePort    10.96.242.35    &lt;none&gt;        9093:30265/TCP      73m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
 <p>然后通过 <code>&lt;任一Node节点&gt;:30265</code> 进行访问，我们就可以查看到 AlertManager 的 Dashboard 页面，在这个页面中我们可以进行一些操作，比如过滤、分组等等，里面还有两个新的概念：<code>Inhibition(抑制)</code> 和 <code>Silences(静默)</code>。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220905163918.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220905163918.png" alt=""></p>
 <ul>
 <li>Inhibition：如果某些其他警报已经触发了，则对于某些警报，Inhibition 是一个抑制通知的概念。例如：一个警报已经触发，它正在通知整个集群是不可达的时，Alertmanager 则可以配置成关心这个集群的其他警报无效。这可以防止与实际问题无关的数百或数千个触发警报的通知，Inhibition 需要通过上面的配置文件进行配置。</li>
 <li>Silences：静默是一个非常简单的方法，可以在给定时间内简单地忽略所有警报。Silences 基于 matchers配置，类似路由树。来到的警告将会被检查，判断它们是否和活跃的 Silences 相等或者正则表达式匹配。如果匹配成功，则不会将这些警报发送给接收者。</li>
 </ul>
 <p>由于全局配置中我们配置的 <code>repeat_interval: 1h</code>，所以正常来说，上面的测试报警如果一直满足报警条件(内存使用率大于20%)的话，那么每1小时我们就可以收到一条报警邮件。</p>
 <p>一条告警产生后，还要经过 Alertmanager 的分组、抑制处理、静默处理、去重处理和降噪处理最后再发送给接收者。这个过程中可能会因为各种原因会导致告警产生了却最终没有进行通知，可以通过下图了解整个告警的生命周期：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220905164016.png"></p>
-<h2 id="FQA"><a href="#FQA" class="headerlink" title="FQA"></a>FQA</h2><ul>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220905164016.png" alt=""></p>
+<h2 id="fqa"><a class="markdownIt-Anchor" href="#fqa"></a> FQA</h2>
+<ul>
 <li>为什么没有收到邮件？</li>
 </ul>
 <p>alertmanager-config.yaml 文件中邮箱账号和密码要替换成自己的，并且 AlertManager 和 Prometheus 一样也支持 <code>reload</code>操作，修改了 AlertManager 配置文件之后也要执行 reload</p>
@@ -817,9 +808,9 @@ redis          ClusterIP   10.96.143.235   &lt;none&gt;        6379/TCP,9121/TCP
 
 # 通过 9093 来执行 AlertManager 的reload操作
 [root@k8s-master ~]# curl -X POST "http://10.96.242.35:9093/-/reload" <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://www.qikqiak.com/k8s-book/docs/57.AlertManager%E7%9A%84%E4%BD%BF%E7%94%A8.html">https://www.qikqiak.com/k8s-book/docs/57.AlertManager%E7%9A%84%E4%BD%BF%E7%94%A8.html</a></li>
+<h2 id="参考"><a class="markdownIt-Anchor" href="#参考"></a> 参考</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.qikqiak.com/k8s-book/docs/57.AlertManager%E7%9A%84%E4%BD%BF%E7%94%A8.html">https://www.qikqiak.com/k8s-book/docs/57.AlertManager的使用.html</a></li>
 </ul>
 
                 

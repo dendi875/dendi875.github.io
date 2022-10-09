@@ -517,15 +517,16 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CentOS-RHEL-7-下安装-Shadowsocks-客户端"><a href="#CentOS-RHEL-7-下安装-Shadowsocks-客户端" class="headerlink" title="CentOS/RHEL 7 下安装 Shadowsocks 客户端"></a>CentOS/RHEL 7 下安装 Shadowsocks 客户端</h1><p>在 CentOS 7 或 RHEL(Red Hat Enterprise Linux) 7 下安装 Shadowsocks 的客户端非常容易。由于在 <a target="_blank" rel="noopener" href="https://copr.fedorainfracloud.org/coprs/librehat/shadowsocks/">COPR</a> (Cool Other Package Repo) 中已经有打包好的 <em>shadowsocks-libev</em>，因此我们只需几条命令便能完成安装。</p>
+                <h1 id="centosrhel-7-下安装-shadowsocks-客户端"><a class="markdownIt-Anchor" href="#centosrhel-7-下安装-shadowsocks-客户端"></a> CentOS/RHEL 7 下安装 Shadowsocks 客户端</h1>
+<p>在 CentOS 7 或 RHEL「Red Hat Enterprise Linux」 7 下安装 Shadowsocks 的客户端非常容易。由于在 <a target="_blank" rel="noopener" href="https://copr.fedorainfracloud.org/coprs/librehat/shadowsocks/">COPR</a> 「Cool Other Package Repo」 中已经有打包好的 <em>shadowsocks-libev</em>，因此我们只需几条命令便能完成安装。</p>
 <p>注：本文介绍的是 Shadowsocks 客户端在 CentOS/RHEL 7 上的配置方法，如需了解 Shadowsocks 服务端在 CentOS/RHEL 7 上的配置，请参阅 <a target="_blank" rel="noopener" href="https://zhangquan.me/2022/10/09/centos-rhel-7-xia-an-zhuang-shadowsocks-fu-wu-duan/">CentOS/RHEL 7 下安装 Shadowsocks 服务端</a>。</p>
-<h2 id="安装-Shadowsocks"><a href="#安装-Shadowsocks" class="headerlink" title="安装 Shadowsocks"></a>安装 Shadowsocks</h2><p>执行安装 Shadowsocks 的命令之前，我们需要先切换到 root 用户（直接以 root 身份登入；或是以普通用户登入，通过命令 <code>sudo su -</code> 切换为 root 用户)，或者使用普通用户，但在每条命令前加上 <code>sudo</code>。</p>
+<h2 id="安装-shadowsocks"><a class="markdownIt-Anchor" href="#安装-shadowsocks"></a> 安装 Shadowsocks</h2>
+<p>执行安装 Shadowsocks 的命令之前，我们需要先切换到 root 用户（直接以 root 身份登入；或是以普通用户登入，通过命令 <code>sudo su -</code> 切换为 root 用户)，或者使用普通用户，但在每条命令前加上 <code>sudo</code>。</p>
 <p>另外，后续的配置也需要以 root 用户的身份进行。</p>
 <p>具体安装 <em>shadowsocks-libev</em> 的命令如下：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd /etc/yum.repos.d/
 curl -O https://copr.fedorainfracloud.org/coprs/librehat/shadowsocks/repo/epel-7/librehat-shadowsocks-epel-7.repo
 yum install -y shadowsocks-libev<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
 <p>安装完成后，会有 <code>ss-local</code>, <code>ss-manager</code>, <code>ss-nat</code>, <code>ss-redir</code>, <code>ss-server</code>, <code>ss-tunnel</code> 命令可用。</p>
 <p>其中，作为客户端，我们需要的是 <code>ss-local</code>，不过后文中我们将通过服务文件启动 Shadowsocks，而不会直接与 <code>ss-local</code> 命令打交道。</p>
 <p>注，如果安装报类似如下错误：</p>
@@ -533,22 +534,23 @@ yum install -y shadowsocks-libev<span aria-hidden="true" class="line-numbers-row
            Requires: libsodium &gt;= 1.0.4
 Error: Package: shadowsocks-libev-3.1.3-1.el7.centos.x86_64 (librehat-shadowsocks)
            Requires: mbedtls<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>说明系统没有启用 EPEL (Extra Packages for Entreprise Linux)。那么我们需要首先启用 EPEL，再安装 shadowsocks-libev：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 yum install -y shadowsocks-libev<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<h2 id="验证安装"><a href="#验证安装" class="headerlink" title="验证安装"></a>验证安装</h2><p>在继续后文的配置之前，我们先在命令行中执行一次 ss-local 命令，以确认 shadowsocks 及其依赖已正确安装。</p>
-<h3 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h3><ul>
-<li><p>执行 <code>ss-local</code> 报错：<code>ss-local: error while loading shared libraries: libmbedcrypto.so.0: cannot open shared object file: No such file or directory</code>:</p>
+<h2 id="验证安装"><a class="markdownIt-Anchor" href="#验证安装"></a> 验证安装</h2>
+<p>在继续后文的配置之前，我们先在命令行中执行一次 ss-local 命令，以确认 shadowsocks 及其依赖已正确安装。</p>
+<h3 id="常见问题"><a class="markdownIt-Anchor" href="#常见问题"></a> 常见问题</h3>
+<ul>
+<li>
+<p>执行 <code>ss-local</code> 报错：<code>ss-local: error while loading shared libraries: libmbedcrypto.so.0: cannot open shared object file: No such file or directory</code>:</p>
 <p>使用 root 身份执行以下命令即可：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd /usr/lib64
 ln -s libmbedcrypto.so.1 libmbedcrypto.so.0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <p>参考：<a target="_blank" rel="noopener" href="https://github.com/shadowsocks/shadowsocks-libev/issues/1966">error while loading shared libraries: libmbedcrypto.so.0 · Issue #1966 · shadowsocks/shadowsocks-libev</a></p>
 </li>
 </ul>
-<h2 id="添加配置文件"><a href="#添加配置文件" class="headerlink" title="添加配置文件"></a>添加配置文件</h2><p>COPR 里的 <em>shadowsocks-libev</em> 默认读取位于 <code>/etc/shadowsocks-libev/config.json</code> 的配置文件，我们可以根据需要参考以下配置文件进行修改：</p>
+<h2 id="添加配置文件"><a class="markdownIt-Anchor" href="#添加配置文件"></a> 添加配置文件</h2>
+<p>COPR 里的 <em>shadowsocks-libev</em> 默认读取位于 <code>/etc/shadowsocks-libev/config.json</code> 的配置文件，我们可以根据需要参考以下配置文件进行修改：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">{
 	"server": "zhangquan.me",
 	"server_port": 55278,
@@ -558,22 +560,29 @@ ln -s libmbedcrypto.so.1 libmbedcrypto.so.0<span aria-hidden="true" class="line-
 	"mode": "tcp_and_udp",
 	"timeout": 600
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <ul>
-<li><p><code>"server"</code>： 必填，填入要连接的 shadowsocks 服务器域名或 IP。</p>
+<li>
+<p><code>"server"</code>： 必填，填入要连接的 shadowsocks 服务器域名或 IP。</p>
 </li>
-<li><p><code>"server_port"</code>： 必填，填入服务器上 shadowsocks 所监听的端口。</p>
+<li>
+<p><code>"server_port"</code>： 必填，填入服务器上 shadowsocks 所监听的端口。</p>
 </li>
-<li><p><code>"local_port"</code>： 必填，填入本地 shadowsocks 客户端 SOCKS5 代理要监听的端口。</p>
+<li>
+<p><code>"local_port"</code>： 必填，填入本地 shadowsocks 客户端 SOCKS5 代理要监听的端口。</p>
 </li>
-<li><p><code>"password"</code>： 必填，密码，需与 shadowsocks 服务器端配置一致。</p>
+<li>
+<p><code>"password"</code>： 必填，密码，需与 shadowsocks 服务器端配置一致。</p>
 </li>
-<li><p><code>"method"</code>： 必填，加密方法，需与 shadowsocks 服务器端配置一致。</p>
+<li>
+<p><code>"method"</code>： 必填，加密方法，需与 shadowsocks 服务器端配置一致。</p>
 </li>
-<li><p><code>"mode"</code>： 选填，默认 <code>"tcp_only"</code>。</p>
-<p>shadowsocks 所要监听的协议，可填 <code>"tcp_only"</code>, <code>"udp_only"</code> 和 <code>"tcp_and_udp"</code>。<br>填入 <code>"tcp_and_udp"</code> 相当于命令行上提供 <code>-u</code> 参数；填入 <code>"udp_only"</code> 相当于命令行上提供 <code>-U</code> 参数。</p>
+<li>
+<p><code>"mode"</code>： 选填，默认 <code>"tcp_only"</code>。</p>
+<p>shadowsocks 所要监听的协议，可填 <code>"tcp_only"</code>, <code>"udp_only"</code> 和 <code>"tcp_and_udp"</code>。<br>
+填入 <code>"tcp_and_udp"</code> 相当于命令行上提供 <code>-u</code> 参数；填入 <code>"udp_only"</code> 相当于命令行上提供 <code>-U</code> 参数。</p>
 </li>
-<li><p><code>"timeout"</code>： 选填，不活动连接的保持时间。</p>
+<li>
+<p><code>"timeout"</code>： 选填，不活动连接的保持时间。</p>
 <p>默认 60 秒，设置较长时间有助于保持 HTTP 长连接等。设置时间过长则会导致不必要地占用过多 shadowsocks 服务器资源。</p>
 </li>
 </ul>
@@ -584,17 +593,16 @@ CONFFILE="/etc/shadowsocks-libev/config.json"
 
 # Extra command line arguments
 DAEMON_ARGS="-u"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>其中 <code>CONFFILE</code> 指定了 <em>shadowsocks-libev</em> 所读取的配置文件；<code>DAEMON_ARGS</code> 则指定了额外的命令行参数，此处的 <code>"-u"</code> 表示启用 UDP 协议。</p>
 <p>需要注意的是，命令行参数 <code>DAEMON_ARGS</code> 比配置文件 <code>CONFFILE</code> 中指定的选项优先级要更高一些。</p>
-<h2 id="启动-Shadowsocks-服务"><a href="#启动-Shadowsocks-服务" class="headerlink" title="启动 Shadowsocks 服务"></a>启动 Shadowsocks 服务</h2><p>有了 Shadowsocks 客户端的配置文件后，我们通过 systemd 启动 Shadowsocks 的客户端服务：</p>
+<h2 id="启动-shadowsocks-服务"><a class="markdownIt-Anchor" href="#启动-shadowsocks-服务"></a> 启动 Shadowsocks 服务</h2>
+<p>有了 Shadowsocks 客户端的配置文件后，我们通过 systemd 启动 Shadowsocks 的客户端服务：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">systemctl enable --now shadowsocks-libev-local<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>以上命令同时也会配置 Shadowsocks 客户端服务的开机自动启动。</p>
 <p>至此，客户端所需要的所有配置就都已经完成了。</p>
-<h2 id="检查-Shadowsocks-服务状态"><a href="#检查-Shadowsocks-服务状态" class="headerlink" title="检查 Shadowsocks 服务状态"></a>检查 Shadowsocks 服务状态</h2><p>要确认 Shadowsocks 的服务运行状态及最新日志，我们可以执行命令：</p>
+<h2 id="检查-shadowsocks-服务状态"><a class="markdownIt-Anchor" href="#检查-shadowsocks-服务状态"></a> 检查 Shadowsocks 服务状态</h2>
+<p>要确认 Shadowsocks 的服务运行状态及最新日志，我们可以执行命令：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">systemctl status shadowsocks-libev-local<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>要查看 Shadowsocks 服务的全部日志，我们可以执行命令：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">journalctl -u shadowsocks-libev-local<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
                 

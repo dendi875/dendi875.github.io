@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2022-10-09T03:39:03.875Z</updated>
+  <updated>2022-10-09T03:56:28.757Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -21,14 +21,14 @@
     <link href="https://www.zhangquan.me/2022/10/09/centos-rhel-7-xia-an-zhuang-shadowsocks-ke-hu-duan/"/>
     <id>https://www.zhangquan.me/2022/10/09/centos-rhel-7-xia-an-zhuang-shadowsocks-ke-hu-duan/</id>
     <published>2022-10-09T03:16:03.000Z</published>
-    <updated>2022-10-09T03:39:03.875Z</updated>
+    <updated>2022-10-09T03:56:28.757Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;CentOS-RHEL-7-下安装-Shadowsocks-客户端&quot;&gt;&lt;a href=&quot;#CentOS-RHEL-7-下安装-Shadowsocks-客户端&quot; class=&quot;headerlink&quot; title=&quot;CentOS/RHEL 7 下安装</summary>
+    <summary type="html">&lt;h1 id=&quot;centosrhel-7-下安装-shadowsocks-客户端&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#centosrhel-7-下安装-shadowsocks-客户端&quot;&gt;&lt;/a&gt; CentOS/RHEL 7 下安装</summary>
         
       
     
@@ -46,14 +46,14 @@
     <link href="https://www.zhangquan.me/2022/10/09/centos-rhel-7-xia-an-zhuang-shadowsocks-fu-wu-duan/"/>
     <id>https://www.zhangquan.me/2022/10/09/centos-rhel-7-xia-an-zhuang-shadowsocks-fu-wu-duan/</id>
     <published>2022-10-09T03:15:52.000Z</published>
-    <updated>2022-10-09T03:34:22.183Z</updated>
+    <updated>2022-10-09T03:56:46.173Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;CentOS-RHEL-7-下安装-Shadowsocks-服务端&quot;&gt;&lt;a href=&quot;#CentOS-RHEL-7-下安装-Shadowsocks-服务端&quot; class=&quot;headerlink&quot; title=&quot;CentOS/RHEL 7 下安装</summary>
+    <summary type="html">&lt;h1 id=&quot;centosrhel-7-下安装-shadowsocks-服务端&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#centosrhel-7-下安装-shadowsocks-服务端&quot;&gt;&lt;/a&gt; CentOS/RHEL 7 下安装</summary>
         
       
     
@@ -78,7 +78,8 @@
       
         
         
-    <summary type="html">&lt;h1 id=&quot;Istio的安装和部署&quot;&gt;&lt;a href=&quot;#Istio的安装和部署&quot; class=&quot;headerlink&quot; title=&quot;Istio的安装和部署&quot;&gt;&lt;/a&gt;Istio的安装和部署&lt;/h1&gt;&lt;h2 id=&quot;环境&quot;&gt;&lt;a href=&quot;#环境&quot;</summary>
+    <summary type="html">&lt;h1 id=&quot;istio的安装和部署&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#istio的安装和部署&quot;&gt;&lt;/a&gt; Istio的安装和部署&lt;/h1&gt;
+&lt;h2 id=&quot;环境&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot;</summary>
         
       
     
@@ -107,7 +108,8 @@
       
         
         
-    <summary type="html">&lt;h1 id=&quot;Istio-入门及核心功能介绍&quot;&gt;&lt;a href=&quot;#Istio-入门及核心功能介绍&quot; class=&quot;headerlink&quot; title=&quot;Istio 入门及核心功能介绍&quot;&gt;&lt;/a&gt;Istio 入门及核心功能介绍&lt;/h1&gt;&lt;p&gt;&lt;img</summary>
+    <summary type="html">&lt;h1 id=&quot;istio-入门及核心功能介绍&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#istio-入门及核心功能介绍&quot;&gt;&lt;/a&gt; Istio 入门及核心功能介绍&lt;/h1&gt;
+&lt;p&gt;&lt;img</summary>
         
       
     
@@ -136,7 +138,7 @@
       
         
         
-    <summary type="html">&lt;h1 id=&quot;Prometheus-Operator-的安装&quot;&gt;&lt;a href=&quot;#Prometheus-Operator-的安装&quot; class=&quot;headerlink&quot; title=&quot;Prometheus Operator 的安装&quot;&gt;&lt;/a&gt;Prometheus</summary>
+    <summary type="html">&lt;h1 id=&quot;prometheus-operator-的安装&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#prometheus-operator-的安装&quot;&gt;&lt;/a&gt; Prometheus Operator</summary>
         
       
     
@@ -165,7 +167,7 @@
       
         
         
-    <summary type="html">&lt;h1 id=&quot;Prometheus报警系统AlertManager&quot;&gt;&lt;a href=&quot;#Prometheus报警系统AlertManager&quot; class=&quot;headerlink&quot;</summary>
+    <summary type="html">&lt;h1 id=&quot;prometheus报警系统alertmanager&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#prometheus报警系统alertmanager&quot;&gt;&lt;/a&gt;</summary>
         
       
     
@@ -194,7 +196,7 @@
       
         
         
-    <summary type="html">&lt;h1 id=&quot;Prometheus-查询语言-PromQL-使用说明&quot;&gt;&lt;a href=&quot;#Prometheus-查询语言-PromQL-使用说明&quot; class=&quot;headerlink&quot; title=&quot;Prometheus 查询语言 PromQL</summary>
+    <summary type="html">&lt;h1 id=&quot;prometheus-查询语言-promql-使用说明&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#prometheus-查询语言-promql-使用说明&quot;&gt;&lt;/a&gt; Prometheus 查询语言 PromQL</summary>
         
       
     
@@ -221,7 +223,8 @@
       
         
         
-    <summary type="html">&lt;h1 id=&quot;Kubernetes-安装Grafana及使用&quot;&gt;&lt;a href=&quot;#Kubernetes-安装Grafana及使用&quot; class=&quot;headerlink&quot; title=&quot;Kubernetes 安装Grafana及使用&quot;&gt;&lt;/a&gt;Kubernetes</summary>
+    <summary type="html">&lt;h1 id=&quot;kubernetes-安装grafana及使用&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#kubernetes-安装grafana及使用&quot;&gt;&lt;/a&gt; Kubernetes 安装Grafana及使用&lt;/h1&gt;
+&lt;p&gt;我们可以使用</summary>
         
       
     
@@ -248,7 +251,7 @@
       
         
         
-    <summary type="html">&lt;h1 id=&quot;使用-Prometheus-监控-Kubernetes-中常用的资源对象&quot;&gt;&lt;a href=&quot;#使用-Prometheus-监控-Kubernetes-中常用的资源对象&quot; class=&quot;headerlink&quot; title=&quot;使用 Prometheus  监控</summary>
+    <summary type="html">&lt;h1 id=&quot;使用-prometheus-监控-kubernetes-中常用的资源对象&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#使用-prometheus-监控-kubernetes-中常用的资源对象&quot;&gt;&lt;/a&gt; 使用 Prometheus </summary>
         
       
     
@@ -275,7 +278,7 @@
       
         
         
-    <summary type="html">&lt;h1 id=&quot;使用-Prometheus-监控-Kubernetes-集群节点&quot;&gt;&lt;a href=&quot;#使用-Prometheus-监控-Kubernetes-集群节点&quot; class=&quot;headerlink&quot; title=&quot;使用 Prometheus  监控</summary>
+    <summary type="html">&lt;h1 id=&quot;使用-prometheus-监控-kubernetes-集群节点&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#使用-prometheus-监控-kubernetes-集群节点&quot;&gt;&lt;/a&gt; 使用 Prometheus  监控</summary>
         
       
     
@@ -302,7 +305,7 @@
       
         
         
-    <summary type="html">&lt;h1 id=&quot;使用-Prometheus-监控-Kubernetes-集群中的应用&quot;&gt;&lt;a href=&quot;#使用-Prometheus-监控-Kubernetes-集群中的应用&quot; class=&quot;headerlink&quot; title=&quot;使用 Prometheus  监控</summary>
+    <summary type="html">&lt;h1 id=&quot;使用-prometheus-监控-kubernetes-集群中的应用&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#使用-prometheus-监控-kubernetes-集群中的应用&quot;&gt;&lt;/a&gt; 使用 Prometheus  监控</summary>
         
       
     
@@ -329,7 +332,7 @@
       
         
         
-    <summary type="html">&lt;h1 id=&quot;Kubernetes-中手动安装-Prometheus&quot;&gt;&lt;a href=&quot;#Kubernetes-中手动安装-Prometheus&quot; class=&quot;headerlink&quot; title=&quot;Kubernetes 中手动安装</summary>
+    <summary type="html">&lt;h1 id=&quot;kubernetes-中手动安装-prometheus&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#kubernetes-中手动安装-prometheus&quot;&gt;&lt;/a&gt; Kubernetes 中手动安装</summary>
         
       
     
@@ -356,7 +359,7 @@
       
         
         
-    <summary type="html">&lt;h1 id=&quot;Kubernetes-Helm-模板之内置函数和Values&quot;&gt;&lt;a href=&quot;#Kubernetes-Helm-模板之内置函数和Values&quot; class=&quot;headerlink&quot; title=&quot;Kubernetes Helm</summary>
+    <summary type="html">&lt;h1 id=&quot;kubernetes-helm-模板之内置函数和values&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#kubernetes-helm-模板之内置函数和values&quot;&gt;&lt;/a&gt; Kubernetes Helm</summary>
         
       
     
@@ -381,7 +384,8 @@
       
         
         
-    <summary type="html">&lt;h1 id=&quot;Kubernetes-包管理工具-Helm&quot;&gt;&lt;a href=&quot;#Kubernetes-包管理工具-Helm&quot; class=&quot;headerlink&quot; title=&quot;Kubernetes 包管理工具 Helm&quot;&gt;&lt;/a&gt;Kubernetes 包管理工具</summary>
+    <summary type="html">&lt;h1 id=&quot;kubernetes-包管理工具-helm&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#kubernetes-包管理工具-helm&quot;&gt;&lt;/a&gt; Kubernetes 包管理工具 Helm&lt;/h1&gt;
+&lt;h2</summary>
         
       
     
@@ -406,7 +410,7 @@
       
         
         
-    <summary type="html">&lt;h1 id=&quot;Kubernetes-StorageClass-的使用&quot;&gt;&lt;a href=&quot;#Kubernetes-StorageClass-的使用&quot; class=&quot;headerlink&quot; title=&quot;Kubernetes StorageClass</summary>
+    <summary type="html">&lt;h1 id=&quot;kubernetes-storageclass-的使用&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#kubernetes-storageclass-的使用&quot;&gt;&lt;/a&gt; Kubernetes StorageClass</summary>
         
       
     
@@ -431,7 +435,7 @@
       
         
         
-    <summary type="html">&lt;h1 id=&quot;Kubernetes-Ingress-Traefik-的安装及简单使用&quot;&gt;&lt;a href=&quot;#Kubernetes-Ingress-Traefik-的安装及简单使用&quot; class=&quot;headerlink&quot; title=&quot;Kubernetes Ingress</summary>
+    <summary type="html">&lt;h1 id=&quot;kubernetes-ingress-traefik-的安装及简单使用&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#kubernetes-ingress-traefik-的安装及简单使用&quot;&gt;&lt;/a&gt; Kubernetes</summary>
         
       
     
@@ -456,7 +460,8 @@
       
         
         
-    <summary type="html">&lt;h1 id=&quot;Kubernetes-HPA&quot;&gt;&lt;a href=&quot;#Kubernetes-HPA&quot; class=&quot;headerlink&quot; title=&quot;Kubernetes HPA&quot;&gt;&lt;/a&gt;Kubernetes HPA&lt;/h1&gt;&lt;p&gt;在  k8s 中我们可以使用</summary>
+    <summary type="html">&lt;h1 id=&quot;kubernetes-hpa&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#kubernetes-hpa&quot;&gt;&lt;/a&gt; Kubernetes HPA&lt;/h1&gt;
+&lt;p&gt;在  k8s 中我们可以使用 &lt;code&gt;kubectl</summary>
         
       
     
@@ -481,7 +486,7 @@
       
         
         
-    <summary type="html">&lt;h1 id=&quot;Kubernetes-Security-Context&quot;&gt;&lt;a href=&quot;#Kubernetes-Security-Context&quot; class=&quot;headerlink&quot; title=&quot;Kubernetes Security</summary>
+    <summary type="html">&lt;h1 id=&quot;kubernetes-security-context&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#kubernetes-security-context&quot;&gt;&lt;/a&gt; Kubernetes Security</summary>
         
       
     
@@ -506,7 +511,7 @@
       
         
         
-    <summary type="html">&lt;h1 id=&quot;Kubernetes-RBAC-权限控制&quot;&gt;&lt;a href=&quot;#Kubernetes-RBAC-权限控制&quot; class=&quot;headerlink&quot; title=&quot;Kubernetes RBAC 权限控制&quot;&gt;&lt;/a&gt;Kubernetes RBAC</summary>
+    <summary type="html">&lt;h1 id=&quot;kubernetes-rbac-权限控制&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#kubernetes-rbac-权限控制&quot;&gt;&lt;/a&gt; Kubernetes RBAC</summary>
         
       
     
@@ -531,7 +536,7 @@
       
         
         
-    <summary type="html">&lt;h1 id=&quot;Kubernetes-ServiceAccount&quot;&gt;&lt;a href=&quot;#Kubernetes-ServiceAccount&quot; class=&quot;headerlink&quot; title=&quot;Kubernetes ServiceAccount&quot;&gt;&lt;/a&gt;Kubernetes</summary>
+    <summary type="html">&lt;h1 id=&quot;kubernetes-serviceaccount&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#kubernetes-serviceaccount&quot;&gt;&lt;/a&gt; Kubernetes</summary>
         
       
     

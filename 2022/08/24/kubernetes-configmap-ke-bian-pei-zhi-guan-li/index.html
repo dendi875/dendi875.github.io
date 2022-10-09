@@ -517,13 +517,15 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Kubernetes-ConfigMap-可变配置管理"><a href="#Kubernetes-ConfigMap-可变配置管理" class="headerlink" title="Kubernetes ConfigMap 可变配置管理"></a>Kubernetes ConfigMap 可变配置管理</h1><p>我们经常都需要为我们的应用程序配置一些特殊的数据，比如密钥、Token 、数据库连接地址或者其他私密的信息。</p>
+                <h1 id="kubernetes-configmap-可变配置管理"><a class="markdownIt-Anchor" href="#kubernetes-configmap-可变配置管理"></a> Kubernetes ConfigMap 可变配置管理</h1>
+<p>我们经常都需要为我们的应用程序配置一些特殊的数据，比如密钥、Token 、数据库连接地址或者其他私密的信息。</p>
 <p>对于应用的可变配置在 Kubernetes 中是通过一个 <code>ConfigMap</code> 资源对象来实现的，我们知道许多应用经常会有从配置文件、命令行参数或者环境变量中读取一些配置信息的需求，这些配置信息我们肯定不会直接写死到应用程序中去的，比如你一个应用连接一个 redis 服务，下一次想更换一个了的，还得重新去修改代码，重新制作一个镜像，这肯定是不可取的，而<code>ConfigMap</code> 就给我们提供了向容器中注入配置信息的能力，不仅可以用来保存单个属性，还可以用来保存整个配置文件，比如我们可以用来配置一个 redis 服务的访问地址，也可以用来保存整个 redis 的配置文件。接下来我们就来了解下 <code>ConfigMap</code> 这种资源对象的使用方法。</p>
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>ConfigMap 顾名思义，叫配置集。它是用于保存配置数据的键值对，可以用来保存单个属性，也可以保存配置文件。</p>
+<h2 id="概述"><a class="markdownIt-Anchor" href="#概述"></a> 概述</h2>
+<p>ConfigMap 顾名思义，叫配置集。它是用于保存配置数据的键值对，可以用来保存单个属性，也可以保存配置文件。</p>
 <blockquote>
 <p>就是把数据存放到 Etcd 中。然后，你就可以通过在 Pod 的容器里挂载 Volume 的方式，访问到这些 ConfigMap 里保存的信息。</p>
 </blockquote>
-<p>configmap 简写为 cm，常用命令如下： </p>
+<p>configmap 简写为 cm，常用命令如下：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 创建
 $ kubectl create configmap
 # 删除
@@ -534,8 +536,8 @@ $ kubectl edit configmap ConfigMap名称
 $ kubectl get configmap
 # 查看-详情
 $ kubectl describe configmap ConfigMap名称<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h2><p>我们可以使用<code>kubectl create configmap -h</code>来查看关于创建 <code>ConfigMap</code> 的帮助信息：</p>
+<h2 id="创建"><a class="markdownIt-Anchor" href="#创建"></a> 创建</h2>
+<p>我们可以使用<code>kubectl create configmap -h</code>来查看关于创建 <code>ConfigMap</code> 的帮助信息：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">Examples:
   # Create a new configmap named my-config based on folder bar
   kubectl create configmap my-config --from-file=path/to/bar
@@ -552,7 +554,6 @@ $ kubectl describe configmap ConfigMap名称<span aria-hidden="true" class="line
   # Create a new configmap named my-config from an env file
   kubectl create configmap my-config --from-env-file=path/to/bar.env
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>我们可以看到可以使用多种方式来创建ConfigMap</p>
 <ul>
 <li>1）<strong>yaml 描述文件</strong>：事先写好标准的configmap的yaml文件，然后kubectl create -f 创建</li>
@@ -560,7 +561,8 @@ $ kubectl describe configmap ConfigMap名称<span aria-hidden="true" class="line
 <li>3）<strong>–from-literal</strong>：通过直接在命令行中通过 key-value 字符串方式指定configmap参数创建</li>
 <li>4）<strong>–from-env-file</strong>：从 env 文件读取配置信息并创建为一个ConfigMap</li>
 </ul>
-<h3 id="从yaml描述文件创建-ConfigMap"><a href="#从yaml描述文件创建-ConfigMap" class="headerlink" title="从yaml描述文件创建 ConfigMap"></a>从yaml描述文件创建 ConfigMap</h3><p>cm-demo.yaml 如下：</p>
+<h3 id="从yaml描述文件创建-configmap"><a class="markdownIt-Anchor" href="#从yaml描述文件创建-configmap"></a> 从yaml描述文件创建 ConfigMap</h3>
+<p>cm-demo.yaml 如下：</p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> ConfigMap
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
@@ -573,13 +575,12 @@ $ kubectl describe configmap ConfigMap名称<span aria-hidden="true" class="line
     property.1=value-1
     property.2=value-2
     property.3=value-3</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p><code>ConfigMap</code> 资源对象使用 <code>key-value</code> 形式的键值对来配置数据，这些数据可以在 Pod 里面使用。其中配置数据在 <code>data</code> 属性下面进行配置，前两个被用来保存单个属性，后面一个被用来保存一个配置文件。</p>
-<p>创建 configMap </p>
+<p>创建 configMap</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl create -f cm/cm-demo.yaml 
 configmap/cm-demo created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<h3 id="从一个给定的目录来创建ConfigMap"><a href="#从一个给定的目录来创建ConfigMap" class="headerlink" title="从一个给定的目录来创建ConfigMap"></a>从一个给定的目录来创建ConfigMap</h3><p>我们可以从一个给定的目录来创建一个 <code>ConfigMap</code> 对象，比如我们有一个 testcm 的目录，该目录下面包含一些配置文件，redis 和 mysql 的连接信息，如下：</p>
+<h3 id="从一个给定的目录来创建configmap"><a class="markdownIt-Anchor" href="#从一个给定的目录来创建configmap"></a> 从一个给定的目录来创建ConfigMap</h3>
+<p>我们可以从一个给定的目录来创建一个 <code>ConfigMap</code> 对象，比如我们有一个 testcm 的目录，该目录下面包含一些配置文件，redis 和 mysql 的连接信息，如下：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ ls testcm
 redis.conf
 mysql.conf
@@ -591,18 +592,15 @@ port=6379
 $ cat testcm/mysql.conf
 host=127.0.0.1
 port=3306<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>然后我们就可以使用 <code>from-file</code> 关键字来创建包含这个目录下面所有配置文件的 <code>ConfigMap</code>：</p>
 <pre class="line-numbers language-none"><code class="language-none">[root@k8s-master ~]# kubectl create cm cm-demo1 --from-file=testcm
 configmap/cm-demo1 created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <p>其中 <code>from-file</code> 参数指定在该目录下面的所有文件都会被用在 <code>ConfigMap</code> 里面创建一个键值对，<strong>键的名字就是文件名，值就是文件的内容</strong>。创建完成后，同样我们可以使用如下命令来查看 <code>ConfigMap</code> 列表：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get cm
 NAME               DATA   AGE
 cm-demo            3      101s
 cm-demo1           2      8s
 kube-root-ca.crt   1      8d<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>可以看到已经创建了一个 cm-demo1 的 <code>ConfigMap</code> 对象，然后可以使用 <code>describe</code> 命令查看详细信息：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl describe cm cm-demo1
 Name:         cm-demo1
@@ -623,7 +621,6 @@ host=127.0.0.1
 port=6379
 
 Events:  &lt;none&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>我们可以看到两个 <code>key</code> 是 testcm 目录下面的文件名称，对应的 <code>value</code> 值就是文件内容，这里值得注意的是如果文件里面的配置信息很大的话，<code>describe</code> 的时候可能不会显示对应的值，要查看完整的键值，可以使用如下命令：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get cm cm-demo1 -o yaml
 apiVersion: v1
@@ -652,8 +649,8 @@ metadata:
   namespace: default
   resourceVersion: "80137"
   uid: 2c23a5a2-b4ac-47e9-b0fa-a50d7395797c<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="使用指定的文件进行创建ConfigMap"><a href="#使用指定的文件进行创建ConfigMap" class="headerlink" title="使用指定的文件进行创建ConfigMap"></a>使用指定的文件进行创建ConfigMap</h3><p>以上面的配置文件为例，我们为 redis 的配置单独创建一个 <code>ConfigMap</code> 对象：</p>
+<h3 id="使用指定的文件进行创建configmap"><a class="markdownIt-Anchor" href="#使用指定的文件进行创建configmap"></a> 使用指定的文件进行创建ConfigMap</h3>
+<p>以上面的配置文件为例，我们为 redis 的配置单独创建一个 <code>ConfigMap</code> 对象：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl create cm cm-demo2 --from-file=testcm/redis.conf 
 configmap/cm-demo2 created
 
@@ -687,8 +684,8 @@ metadata:
   namespace: default
   resourceVersion: "80395"
   uid: 75652115-e5f6-4968-ac1e-504675b98530<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="在命令行中通过字符串方式创建ConfigMap"><a href="#在命令行中通过字符串方式创建ConfigMap" class="headerlink" title="在命令行中通过字符串方式创建ConfigMap"></a>在命令行中通过字符串方式创建ConfigMap</h3><p>通过帮助文档我们可以看到我们还可以直接使用字符串进行创建，通过 <code>--from-literal</code> 参数传递配置信息，同样的，这个参数可以使用多次，格式如下：</p>
+<h3 id="在命令行中通过字符串方式创建configmap"><a class="markdownIt-Anchor" href="#在命令行中通过字符串方式创建configmap"></a> 在命令行中通过字符串方式创建ConfigMap</h3>
+<p>通过帮助文档我们可以看到我们还可以直接使用字符串进行创建，通过 <code>--from-literal</code> 参数传递配置信息，同样的，这个参数可以使用多次，格式如下：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl create configmap cm-demo3 --from-literal=db.host=localhost --from-literal=db.port=3306
 configmap/cm-demo3 created
 
@@ -715,14 +712,13 @@ metadata:
   namespace: default
   resourceVersion: "80599"
   uid: 88bc0a75-de42-48c3-aaf9-29cf30af8dfa<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="从-env-文件读取配置信息并创建ConfigMap"><a href="#从-env-文件读取配置信息并创建ConfigMap" class="headerlink" title="从 env 文件读取配置信息并创建ConfigMap"></a>从 env 文件读取配置信息并创建ConfigMap</h3><p><code>conf.env</code>文件如下</p>
+<h3 id="从-env-文件读取配置信息并创建configmap"><a class="markdownIt-Anchor" href="#从-env-文件读取配置信息并创建configmap"></a> 从 env 文件读取配置信息并创建ConfigMap</h3>
+<p><code>conf.env</code>文件如下</p>
 <blockquote>
 <p>语法为 key=value</p>
 </blockquote>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">id=1
 name=zhangquan<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <p>使用<code>–from-env-file</code>创建</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]#  kubectl create cm cm-demo4 --from-env-file=cm/conf.env
 configmap/cm-demo4 created
@@ -750,8 +746,8 @@ metadata:
   namespace: default
   resourceVersion: "81265"
   uid: a96487d0-b2ac-4db6-8f51-e693dbe35883<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p><code>ConfigMap</code> 创建成功了，那么我们应该怎么在 Pod 中来使用呢？ <code>ConfigMap</code> 这些配置数据可以通过很多种方式在 Pod 里使用，主要有以下几种方式：</p>
+<h2 id="使用"><a class="markdownIt-Anchor" href="#使用"></a> 使用</h2>
+<p><code>ConfigMap</code> 创建成功了，那么我们应该怎么在 Pod 中来使用呢？ <code>ConfigMap</code> 这些配置数据可以通过很多种方式在 Pod 里使用，主要有以下几种方式：</p>
 <ul>
 <li>用作环境变量</li>
 <li>在容器里设置命令行参数</li>
@@ -759,14 +755,18 @@ metadata:
 </ul>
 <p><strong>注意</strong></p>
 <ol>
-<li><p>ConfigMap 必须在 Pod 使用它之前创建</p>
+<li>
+<p>ConfigMap 必须在 Pod 使用它之前创建</p>
 </li>
-<li><p>使用 envFrom 时，将会自动忽略无效的键</p>
+<li>
+<p>使用 envFrom 时，将会自动忽略无效的键</p>
 </li>
-<li><p>一个Pod 只能使用同一个命名空间的 ConfigMap</p>
+<li>
+<p>一个Pod 只能使用同一个命名空间的 ConfigMap</p>
 </li>
 </ol>
-<h3 id="用作环境变量"><a href="#用作环境变量" class="headerlink" title="用作环境变量"></a>用作环境变量</h3><p>首先，我们使用 <code>ConfigMap</code> 来填充我们的环境变量，如下所示的 Pod 资源对象：testcm1.yaml</p>
+<h3 id="用作环境变量"><a class="markdownIt-Anchor" href="#用作环境变量"></a> 用作环境变量</h3>
+<p>首先，我们使用 <code>ConfigMap</code> 来填充我们的环境变量，如下所示的 Pod 资源对象：testcm1.yaml</p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
@@ -790,7 +790,6 @@ metadata:
       <span class="token key atrule">envFrom</span><span class="token punctuation">:</span>
         <span class="token punctuation">-</span> <span class="token key atrule">configMapRef</span><span class="token punctuation">:</span>
             <span class="token key atrule">name</span><span class="token punctuation">:</span> cm<span class="token punctuation">-</span>demo1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>通过 <code>env</code>单个指定或者通过<code>envFrom</code>直接加载整个 configmap</p>
 <p>根据以上 yaml 文件创建 pod 并查看日志</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl apply -f cm/testcm1.yaml 
@@ -808,8 +807,8 @@ port=3306
 redis.conf=host=127.0.0.1
 port=6379
 ......<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="在容器里设置命令行参数"><a href="#在容器里设置命令行参数" class="headerlink" title="在容器里设置命令行参数"></a>在容器里设置命令行参数</h3><p><code>ConfigMap</code> 也可以被用来设置容器中的命令或者参数值，如下 Pod:  testcm2.yaml</p>
+<h3 id="在容器里设置命令行参数"><a class="markdownIt-Anchor" href="#在容器里设置命令行参数"></a> 在容器里设置命令行参数</h3>
+<p><code>ConfigMap</code> 也可以被用来设置容器中的命令或者参数值，如下 Pod:  testcm2.yaml</p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
@@ -830,21 +829,24 @@ port=6379
             <span class="token key atrule">configMapKeyRef</span><span class="token punctuation">:</span>
               <span class="token key atrule">name</span><span class="token punctuation">:</span> cm<span class="token punctuation">-</span>demo3
               <span class="token key atrule">key</span><span class="token punctuation">:</span> db.port<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>根据以上 yaml 文件创建 pod 并查看日志：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl apply -f cm/testcm2.yaml 
 pod/testcm2-pod created
 
 [root@k8s-master ~]# kubectl logs testcm2-pod 
 localhost 3306<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="使用-Volume-将-ConfigMap-作为文件或目录挂载"><a href="#使用-Volume-将-ConfigMap-作为文件或目录挂载" class="headerlink" title="使用 Volume 将 ConfigMap 作为文件或目录挂载"></a>使用 Volume 将 ConfigMap 作为文件或目录挂载</h3><p>另外一种是非常常见的使用 <code>ConfigMap</code> 的方式：通过<strong>数据卷</strong>使用，在数据卷里面使用 ConfigMap，就是将文件填入数据卷，在这个文件中，键就是文件名，键值就是文件内容，</p>
+<h3 id="使用-volume-将-configmap-作为文件或目录挂载"><a class="markdownIt-Anchor" href="#使用-volume-将-configmap-作为文件或目录挂载"></a> 使用 Volume 将 ConfigMap 作为文件或目录挂载</h3>
+<p>另外一种是非常常见的使用 <code>ConfigMap</code> 的方式：通过<strong>数据卷</strong>使用，在数据卷里面使用 ConfigMap，就是将文件填入数据卷，在这个文件中，键就是文件名，键值就是文件内容，</p>
 <ul>
-<li><p>先创建 ConfigMap</p>
+<li>
+<p>先创建 ConfigMap</p>
 <ul>
-<li><p>redis.conf 文件内容如下</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">appendonly yes<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
-<li><p>创建 ConfigMap</p>
+<li>
+<p>redis.conf 文件内容如下</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">appendonly yes<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li>
+<p>创建 ConfigMap</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl create cm redis-conf --from-file=cm/redis.conf
 configmap/redis-conf created
 
@@ -869,10 +871,12 @@ metadata:
   name: redis-conf
   namespace: default
   resourceVersion: "84601"
-  uid: 309e08bc-1ea3-4370-9998-332eb3d22016<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+  uid: 309e08bc-1ea3-4370-9998-332eb3d22016<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
 </ul>
 </li>
-<li><p>创建测试 Pod，如下资源对象所示：testcmredis.yaml</p>
+<li>
+<p>创建测试 Pod，如下资源对象所示：testcmredis.yaml</p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
@@ -899,19 +903,25 @@ metadata:
         <span class="token key atrule">name</span><span class="token punctuation">:</span> redis<span class="token punctuation">-</span>conf
         <span class="token key atrule">items</span><span class="token punctuation">:</span>
         <span class="token punctuation">-</span> <span class="token key atrule">key</span><span class="token punctuation">:</span> redis.conf
-          <span class="token key atrule">path</span><span class="token punctuation">:</span> redis.conf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+          <span class="token key atrule">path</span><span class="token punctuation">:</span> redis.conf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
 </ul>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-configMap-1.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-configMap-1.png" alt=""></p>
 <ul>
-<li><p>根据以上 yaml 文件创建 pod</p>
+<li>
+<p>根据以上 yaml 文件创建 pod</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl apply -f cm/testcmredis.yaml 
-pod/redis created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
-<li><p>进入 Pod 查看配置</p>
+pod/redis created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li>
+<p>进入 Pod 查看配置</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl exec -it redis -- redis-cli
 127.0.0.1:6379&gt; CONFIG GET appendonly
 1) "appendonly"
-2) "yes"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li><p>在外面把修改了，容器里的配置也会跟着修改</p>
+2) "yes"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li>
+<p>在外面把修改了，容器里的配置也会跟着修改</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 修改配置
 [root@k8s-master ~]# kubectl edit cm redis-conf
 # Please edit the object below. Lines beginning with a '#' will be ignored,
@@ -946,12 +956,16 @@ root@redis:/data# redis-cli
 2) "yes"
 127.0.0.1:6379&gt; CONFIG GET requirepass
 1) "requirepass"
-2) ""<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
-<li><p><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/">https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/</a></p>
+2) ""<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
-<li><p><a target="_blank" rel="noopener" href="https://www.qikqiak.com/k8strain/config/configmap/">https://www.qikqiak.com/k8strain/config/configmap/</a></p>
+</ul>
+<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
+<ul>
+<li>
+<p><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/">https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/</a></p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://www.qikqiak.com/k8strain/config/configmap/">https://www.qikqiak.com/k8strain/config/configmap/</a></p>
 </li>
 </ul>
 

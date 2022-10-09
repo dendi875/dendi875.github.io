@@ -521,9 +521,11 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="使用-Prometheus-监控-Kubernetes-集群中的应用"><a href="#使用-Prometheus-监控-Kubernetes-集群中的应用" class="headerlink" title="使用 Prometheus  监控 Kubernetes 集群中的应用"></a>使用 Prometheus  监控 Kubernetes 集群中的应用</h1><p>前面<code>Prometheus</code>的数据指标是通过一个公开的 HTTP(S) 数据接口获取到的，我们不需要单独安装监控的 agent，只需要暴露一个 metrics 接口，Prometheus 就会定期去拉取数据；对于一些普通的 HTTP 服务，我们完全可以直接重用这个服务，添加一个<code>/metrics</code>接口暴露给 Prometheus；而且获取到的指标数据格式是非常易懂的，不需要太高的学习成本。</p>
+                <h1 id="使用-prometheus-监控-kubernetes-集群中的应用"><a class="markdownIt-Anchor" href="#使用-prometheus-监控-kubernetes-集群中的应用"></a> 使用 Prometheus  监控 Kubernetes 集群中的应用</h1>
+<p>前面<code>Prometheus</code>的数据指标是通过一个公开的 HTTP(S) 数据接口获取到的，我们不需要单独安装监控的 agent，只需要暴露一个 metrics 接口，Prometheus 就会定期去拉取数据；对于一些普通的 HTTP 服务，我们完全可以直接重用这个服务，添加一个<code>/metrics</code>接口暴露给 Prometheus；而且获取到的指标数据格式是非常易懂的，不需要太高的学习成本。</p>
 <p>现在很多服务从一开始就内置了一个<code>/metrics</code>接口，比如 Kubernetes 的各个组件、istio 服务网格都直接提供了数据指标接口。有一些服务即使没有原生集成该接口，也完全可以使用一些 exporter 来获取到指标数据，比如 mysqld_exporter、node_exporter，这些 exporter 就有点类似于传统监控服务中的 agent，作为一直服务存在，用来收集目标服务的指标数据然后直接暴露给 Prometheus。</p>
-<h2 id="普通应用监控"><a href="#普通应用监控" class="headerlink" title="普通应用监控"></a>普通应用监控</h2><p>对于普通应用只需要能够提供一个满足 prometheus 格式要求的 <code>/metrics</code> 接口就可以让 Prometheus 来接管监控，比如 Kubernetes 集群中非常重要的 CoreDNS 插件，一般默认情况下就开启了 <code>/metrics</code> 接口：</p>
+<h2 id="普通应用监控"><a class="markdownIt-Anchor" href="#普通应用监控"></a> 普通应用监控</h2>
+<p>对于普通应用只需要能够提供一个满足 prometheus 格式要求的 <code>/metrics</code> 接口就可以让 Prometheus 来接管监控，比如 Kubernetes 集群中非常重要的 CoreDNS 插件，一般默认情况下就开启了 <code>/metrics</code> 接口：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master prometheus]# kubectl get cm coredns -n kube-system -o yaml
 apiVersion: v1
 data:
@@ -565,13 +567,11 @@ metadata:
   namespace: kube-system
   resourceVersion: "225"
   uid: c643c27a-210e-4f0e-8897-7fa33cf78626<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>上面 ConfigMap 中 <code>prometheus :9153</code> 就是开启 prometheus 的插件：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master prometheus]# kubectl get pods -n kube-system -l k8s-app=kube-dns -o wide
 NAME                       READY   STATUS    RESTARTS   AGE   IP                NODE         NOMINATED NODE   READINESS GATES
 coredns-5897cd56c4-kqfn2   1/1     Running   14         20d   192.168.235.243   k8s-master   &lt;none&gt;           &lt;none&gt;
 coredns-5897cd56c4-wcgdh   1/1     Running   14         20d   192.168.235.240   k8s-master   &lt;none&gt;           &lt;none&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>我们可以先尝试手动访问下 <code>/metrics</code> 接口，如果能够手动访问到那证明接口是没有任何问题的：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master prometheus]# curl http://192.168.235.243:9153/metrics
 # HELP coredns_build_info A metric with a constant '1' value labeled by version, revision, and goversion from which CoreDNS was built.
@@ -592,7 +592,6 @@ coredns_dns_request_duration_seconds_bucket{server="dns://:53",type="A",zone="."
 coredns_dns_request_duration_seconds_bucket{server="dns://:53",type="A",zone=".",le="0.002"} 4
 coredns_dns_request_duration_seconds_bucket{server="dns://:53",type="A",zone=".",le="0.004"} 4
 ......<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>我们可以看到可以正常访问到，从这里可以看到 CoreDNS 的监控数据接口是正常的了，然后我们就可以将这个 <code>/metrics</code> 接口配置到 <code>prometheus.yml</code> 中去了，直接加到默认的 prometheus 这个 <code>job</code> 下面：prometheus-cm.yaml</p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> ConfigMap
@@ -613,7 +612,6 @@ coredns_dns_request_duration_seconds_bucket{server="dns://:53",type="A",zone="."
     <span class="token punctuation">-</span> <span class="token key atrule">job_name</span><span class="token punctuation">:</span> <span class="token string">'coredns'</span>
       <span class="token key atrule">static_configs</span><span class="token punctuation">:</span>
         <span class="token punctuation">-</span> <span class="token key atrule">targets</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'192.168.235.243:9153'</span><span class="token punctuation">,</span> <span class="token string">'192.168.235.240:9153'</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>当然，我们这里只是一个很简单的配置，<code>scrape_configs</code> 下面可以支持很多参数，例如：</p>
 <ul>
 <li><code>basic_auth</code> 和 <code>bearer_token</code>：比如我们提供的 <code>/metrics</code> 接口需要 basic 认证的时候，通过传统的用户名/密码或者在请求的 header 中添加对应的 token 都可以支持</li>
@@ -622,24 +620,23 @@ coredns_dns_request_duration_seconds_bucket{server="dns://:53",type="A",zone="."
 <p>现在我们重新更新这个 ConfigMap 资源对象：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master prometheus]# kubectl apply -f prometheus-cm.yaml 
 configmap/prometheus-config configured<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <p>现在 Prometheus 的配置文件内容已经更改了，隔一会儿被挂载到 Pod 中的 prometheus.yml 文件也会更新，由于我们之前的 Prometheus 启动参数中添加了 <code>--web.enable-lifecycle</code> 参数，所以现在我们只需要执行一个 <code>reload</code> 命令即可让配置生效：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master prometheus]# kubectl get pods -n kube-mon -o wide
 NAME                          READY   STATUS    RESTARTS   AGE   IP                NODE        NOMINATED NODE   READINESS GATES
 prometheus-75d4666dcd-vlth8   1/1     Running   0          28m   192.168.169.155   k8s-node2   &lt;none&gt;           &lt;none&gt;
 
 [root@k8s-master prometheus]# curl -X POST "http://192.168.169.155:9090/-/reload"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <blockquote>
 <p><strong>热更新</strong></p>
 <p>由于 ConfigMap 通过 Volume 的形式挂载到 Pod 中去的热更新需要一定的间隔时间才会生效，所以需要稍微等一小会儿。</p>
 </blockquote>
-<p>reload 这个 url 是一个 POST 请求，所以这里我们通过 service 的 CLUSTER-IP:PORT 就可以访问到这个重载的接口，这个时候我们再去看 Prometheus 的 Dashboard 中查看采集的目标数据： </p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220902221421.png"></p>
+<p>reload 这个 url 是一个 POST 请求，所以这里我们通过 service 的 CLUSTER-IP:PORT 就可以访问到这个重载的接口，这个时候我们再去看 Prometheus 的 Dashboard 中查看采集的目标数据：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220902221421.png" alt=""></p>
 <p>可以看到我们刚刚添加的 coredns 这个任务已经出现了，然后同样的我们可以切换到 Graph 下面去，我们可以找到一些 CoreDNS 的指标数据，至于这些指标数据代表什么意义，一般情况下，我们可以去查看对应的 <code>/metrics</code> 接口，里面一般情况下都会有对应的注释。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220902221611.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220902221611.png" alt=""></p>
 <p>到这里我们就在 Prometheus 上配置了第一个 Kubernetes 应用。</p>
-<h2 id="使用-exporter-监控应用"><a href="#使用-exporter-监控应用" class="headerlink" title="使用 exporter 监控应用"></a>使用 exporter 监控应用</h2><p>有一些应用可能没有自带 <code>/metrics</code> 接口供 Prometheus 使用，在这种情况下，我们就需要利用 <code>exporter</code> 服务来为 Prometheus 提供指标数据了。Prometheus 官方为许多应用就提供了对应的 <code>exporter</code> 应用，也有许多第三方的实现，我们可以前往官方网站进行查看：<a target="_blank" rel="noopener" href="https://prometheus.io/docs/instrumenting/exporters/">exporters</a>，当然如果你的应用本身也没有 exporter 实现，那么就要我们自己想办法去实现一个 <code>/metrics</code> 接口了，只要你能提供一个合法的 <code>/metrics</code> 接口，Prometheus 就可以监控你的应用。</p>
+<h2 id="使用-exporter-监控应用"><a class="markdownIt-Anchor" href="#使用-exporter-监控应用"></a> 使用 exporter 监控应用</h2>
+<p>有一些应用可能没有自带 <code>/metrics</code> 接口供 Prometheus 使用，在这种情况下，我们就需要利用 <code>exporter</code> 服务来为 Prometheus 提供指标数据了。Prometheus 官方为许多应用就提供了对应的 <code>exporter</code> 应用，也有许多第三方的实现，我们可以前往官方网站进行查看：<a target="_blank" rel="noopener" href="https://prometheus.io/docs/instrumenting/exporters/">exporters</a>，当然如果你的应用本身也没有 exporter 实现，那么就要我们自己想办法去实现一个 <code>/metrics</code> 接口了，只要你能提供一个合法的 <code>/metrics</code> 接口，Prometheus 就可以监控你的应用。</p>
 <p>比如我们这里通过一个 <a target="_blank" rel="noopener" href="https://github.com/oliver006/redis_exporter">redis-exporter</a> 的服务来监控 redis 服务，对于这类应用，我们一般会以 <code>sidecar</code> 的形式和主应用部署在同一个 Pod 中，比如我们这里来部署一个 redis 应用，并用 redis-exporter 的方式来采集监控数据供 Prometheus 使用，如下资源清单文件：prometheus-redis.yaml</p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
@@ -691,12 +688,10 @@ prometheus-75d4666dcd-vlth8   1/1     Running   0          28m   192.168.169.155
   <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> prom
     <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">9121</span>
     <span class="token key atrule">targetPort</span><span class="token punctuation">:</span> <span class="token number">9121</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>可以看到上面我们在 redis 这个 Pod 中包含了两个容器，一个就是 redis 本身的主应用，另外一个容器就是 redis_exporter。现在直接创建上面的应用：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master prometheus]# kubectl apply -f prometheus-redis.yaml 
 deployment.apps/redis created
 service/redis created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
 <p>创建完成后，我们可以看到 redis 的 Pod 里面包含有两个容器：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master prometheus]# kubectl get pods -n kube-mon
 NAME                          READY   STATUS    RESTARTS   AGE
@@ -707,7 +702,6 @@ redis-6468bf6c84-qmm2k        2/2     Running   0          45s
 NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)             AGE
 prometheus   NodePort    10.96.146.110   &lt;none&gt;        9090:32640/TCP      35m
 redis        ClusterIP   10.96.143.235   &lt;none&gt;        6379/TCP,9121/TCP   66s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>我们可以通过 9121 端口来校验是否能够采集到数据：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master prometheus]# curl 10.96.143.235:9121/metrics
 # HELP go_gc_duration_seconds A summary of the pause duration of garbage collection cycles.
@@ -726,8 +720,7 @@ redis_up 1
 # HELP redis_uptime_in_seconds uptime_in_seconds metric
 # TYPE redis_uptime_in_seconds gauge
 redis_uptime_in_seconds 70<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>同样的，现在我们只需要更新 Prometheus 的配置文件：prometheus-cm.yaml </p>
+<p>同样的，现在我们只需要更新 Prometheus 的配置文件：prometheus-cm.yaml</p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> ConfigMap
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
@@ -751,7 +744,6 @@ redis_uptime_in_seconds 70<span aria-hidden="true" class="line-numbers-rows"><sp
     <span class="token punctuation">-</span> <span class="token key atrule">job_name</span><span class="token punctuation">:</span> <span class="token string">'redis'</span>
       <span class="token key atrule">static_configs</span><span class="token punctuation">:</span>
       <span class="token punctuation">-</span> <span class="token key atrule">targets</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'redis:9121'</span><span class="token punctuation">]</span>    <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>由于我们这里是通过 Service 去配置的 redis 服务，当然直接配置 Pod IP 也是可以的，因为和 Prometheus 处于同一个 namespace，所以我们直接使用 servicename 即可。配置文件更新后，重新加载：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master prometheus]# kubectl apply -f prometheus-cm.yaml 
 configmap/prometheus-config configured
@@ -763,18 +755,17 @@ prometheus   NodePort    10.96.146.110   &lt;none&gt;        9090:32640/TCP     
 redis        ClusterIP   10.96.143.235   &lt;none&gt;        6379/TCP,9121/TCP   5m34s
 
 [root@k8s-master prometheus]# curl -X POST "http://10.96.146.110:9090/-/reload"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>这个时候我们再去看 Prometheus 的 Dashboard 中查看采集的目标数据： </p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220902222816.png"></p>
+<p>这个时候我们再去看 Prometheus 的 Dashboard 中查看采集的目标数据：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220902222816.png" alt=""></p>
 <p>可以看到配置的 redis 这个 job 已经生效了。切换到 Graph 下面可以看到很多关于 redis 的指标数据：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220902222955.png"></p>
-<p>我们选择任意一个指标，比如<code>redis_exporter_scrapes_total</code>，然后点击执行就可以看到对应的数据图表了： </p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220902223203.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220902222955.png" alt=""></p>
+<p>我们选择任意一个指标，比如<code>redis_exporter_scrapes_total</code>，然后点击执行就可以看到对应的数据图表了：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220902223203.png" alt=""></p>
 <blockquote>
 <p><strong>Note</strong></p>
 <p>如果时间有问题，我们需要手动在 Graph 下面调整下时间</p>
 </blockquote>
-<p> prometheus-cm.yaml  内容如下：</p>
+<p>prometheus-cm.yaml  内容如下：</p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> ConfigMap
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
@@ -798,11 +789,9 @@ redis        ClusterIP   10.96.143.235   &lt;none&gt;        6379/TCP,9121/TCP  
     <span class="token punctuation">-</span> <span class="token key atrule">job_name</span><span class="token punctuation">:</span> <span class="token string">'redis'</span>
       <span class="token key atrule">static_configs</span><span class="token punctuation">:</span>
       <span class="token punctuation">-</span> <span class="token key atrule">targets</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'redis:9121'</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://www.qikqiak.com/k8s-book/docs/53.%E7%9B%91%E6%8E%A7Kubernetes%E9%9B%86%E7%BE%A4%E5%BA%94%E7%94%A8.html">https://www.qikqiak.com/k8s-book/docs/53.%E7%9B%91%E6%8E%A7Kubernetes%E9%9B%86%E7%BE%A4%E5%BA%94%E7%94%A8.html</a></li>
+<h2 id="参考"><a class="markdownIt-Anchor" href="#参考"></a> 参考</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.qikqiak.com/k8s-book/docs/53.%E7%9B%91%E6%8E%A7Kubernetes%E9%9B%86%E7%BE%A4%E5%BA%94%E7%94%A8.html">https://www.qikqiak.com/k8s-book/docs/53.监控Kubernetes集群应用.html</a></li>
 </ul>
 
                 

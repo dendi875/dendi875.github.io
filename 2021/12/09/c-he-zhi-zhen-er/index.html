@@ -526,7 +526,8 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <hr>
-<h2 id="一、数组指针"><a href="#一、数组指针" class="headerlink" title="一、数组指针"></a>一、数组指针</h2><p>数组指针就是指向数组的指针。首先它是一个指针，这个指针指向的是一个数组。</p>
+<h2 id="一-数组指针"><a class="markdownIt-Anchor" href="#一-数组指针"></a> 一、数组指针</h2>
+<p>数组指针就是指向数组的指针。首先它是一个指针，这个指针指向的是一个数组。</p>
 <ul>
 <li>例子1</li>
 </ul>
@@ -558,7 +559,6 @@
 
 	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>这是用数组取下标的方式。<code>calendar[month][day] = 0;</code>等价于<code>*(calendar[month] + day) = 0;</code>，也等价于<code>*(*(calendar + month) + day) = 0;</code></p>
 <ul>
 <li>calendar2.c</li>
@@ -577,8 +577,8 @@
 
 	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>这是用<strong>数组指针</strong>的方式来遍历数组calendar。<br>其中<code>for</code>语句中的<code>monthp = calendar; monthp &lt; calendar + 12; monthp++</code>可以换成<code>monthp = &amp;calendar[0]; monthp &lt; &amp;calendar[0] + 12; monthp++</code>。</p>
+<p>这是用<strong>数组指针</strong>的方式来遍历数组calendar。<br>
+其中<code>for</code>语句中的<code>monthp = calendar; monthp &lt; calendar + 12; monthp++</code>可以换成<code>monthp = &amp;calendar[0]; monthp &lt; &amp;calendar[0] + 12; monthp++</code>。</p>
 <ul>
 <li>calendar3.c</li>
 </ul>
@@ -597,9 +597,10 @@
 	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>像用指针的方式遍历一维数组那样，用指针来遍历<code>*monthp</code>。<br>内层的<code>for</code>语句中的<code>dayp = *monthp; dayp &lt; *monthp + 31; dayp++</code>可以换成<code>dayp = &amp;(*monthp)[0]; dayp &lt; &amp;(*monthp)[0] + 31; dayp++</code>，也可以换成<code>dayp = *monthp; dayp &lt; &amp;(*monthp)[31]; dayp++</code></p>
-<h2 id="二、指针数组"><a href="#二、指针数组" class="headerlink" title="二、指针数组"></a>二、指针数组</h2><p>指针数组它的类型是一个数组，数组中每个元素是一个指针。</p>
+<p>像用指针的方式遍历一维数组那样，用指针来遍历<code>*monthp</code>。<br>
+内层的<code>for</code>语句中的<code>dayp = *monthp; dayp &lt; *monthp + 31; dayp++</code>可以换成<code>dayp = &amp;(*monthp)[0]; dayp &lt; &amp;(*monthp)[0] + 31; dayp++</code>，也可以换成<code>dayp = *monthp; dayp &lt; &amp;(*monthp)[31]; dayp++</code></p>
+<h2 id="二-指针数组"><a class="markdownIt-Anchor" href="#二-指针数组"></a> 二、指针数组</h2>
+<p>指针数组它的类型是一个数组，数组中每个元素是一个指针。</p>
 <p>我们用一个<strong>二维字符数组</strong>来说明下，C中的字符串可以当作以<code>NULL</code>字符结尾的<strong>一维字符数组</strong>，如下面的例子</p>
 <ul>
 <li>一维字符数组</li>
@@ -620,7 +621,6 @@ const char keyword[][9] = {
 	{'r', 'e', 's', 't',  'r',   'i',   'c',   't', '\0'},
 	{'v', 'o', 'l', 'a',  't',   'i',   'l',   'e', '\0'},
 };<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">const</span> <span class="token keyword">char</span> keyword<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">9</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
 	<span class="token string">"auto"</span><span class="token punctuation">,</span>
 	<span class="token string">"static"</span><span class="token punctuation">,</span>
@@ -630,7 +630,6 @@ const char keyword[][9] = {
 	<span class="token string">"restrict"</span><span class="token punctuation">,</span>
 	<span class="token string">"volatile"</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>上面这两种写法也是等价的，它们都可以当作<strong>二维字符数组</strong>，数组中每个元素是一个一维字符数组，或者每个元素以字符串的方式存储在数组中。</p>
 <ul>
 <li>指针数组</li>
@@ -658,9 +657,9 @@ const char keyword[][9] = {
 
 	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>这种声明方式表示keyword是个数组，数组中每个元素是一个指向字符的指针。所以keyword是<strong>指针数组</strong>。它比<strong>二维字符数组</strong>声明方式更节约内存，特意数组最后加一个<code>NULL</code>指针，是为了可以在遍历是不需要知道数组的长度。</p>
-<h2 id="三、函数指针"><a href="#三、函数指针" class="headerlink" title="三、函数指针"></a>三、函数指针</h2><p>函数指针就是指向函数的指针。它是一个指针，这个指针指向的是一个函数。</p>
+<h2 id="三-函数指针"><a class="markdownIt-Anchor" href="#三-函数指针"></a> 三、函数指针</h2>
+<p>函数指针就是指向函数的指针。它是一个指针，这个指针指向的是一个函数。</p>
 <ul>
 <li>pf.c</li>
 </ul>
@@ -689,7 +688,6 @@ const char keyword[][9] = {
 <span class="token punctuation">{</span>
 	<span class="token keyword">return</span> x <span class="token operator">+</span> y<span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>上面的例子是<code>pf</code>就是一个函数指针，这个指针指向的是一个函数，这个函数需要满足有两个整型参数，返回值是整型。关于函数指针需要注意：</p>
 <p>1）声明一个函数指针并不意味着它马上可以使用。和其它指针一样，对函数指针执行间接访问之前必须它把初始化为指向某个函数。</p>
 <p>2）在函数指针初始化之前具有<code>f</code>的原型是很重要的，否则编译器就无法检查<code>f</code>的类型是否与<code>pf</code>所指向的类型一致（参数的个数、参数的类型、返回值的类型）</p>
@@ -783,10 +781,12 @@ const char keyword[][9] = {
 		<span class="token keyword">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
 	<span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="四、指针函数"><a href="#四、指针函数" class="headerlink" title="四、指针函数"></a>四、指针函数</h2><p>指针函数就是返回值为指针的函数。</p>
+<h2 id="四-指针函数"><a class="markdownIt-Anchor" href="#四-指针函数"></a> 四、指针函数</h2>
+<p>指针函数就是返回值为指针的函数。</p>
 <ul>
-<li>max.c <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+<li>max.c</li>
+</ul>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 
 <span class="token keyword">int</span> <span class="token operator">*</span><span class="token function">max</span><span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token operator">*</span><span class="token punctuation">,</span> <span class="token keyword">int</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
@@ -808,8 +808,7 @@ const char keyword[][9] = {
 		<span class="token keyword">return</span> y<span class="token punctuation">;</span>
 	<span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-max函数就是一个指针函数，它返回值的类型是一个指向整型的指针。</li>
-</ul>
+<p>max函数就是一个指针函数，它返回值的类型是一个指向整型的指针。</p>
 <p>max函数还可以返回指向外部变量的指针</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 
@@ -830,7 +829,6 @@ max函数就是一个指针函数，它返回值的类型是一个指向整型�
 <span class="token punctuation">{</span>
 	<span class="token keyword">return</span> <span class="token operator">&amp;</span>z<span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>max函数还可以返回指向函数内部声明为<code>static</code>变量的指针。</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 
@@ -851,15 +849,13 @@ max函数就是一个指针函数，它返回值的类型是一个指向整型�
 
 	<span class="token keyword">return</span> <span class="token operator">&amp;</span>s<span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="五、typedef定义函数指针类型"><a href="#五、typedef定义函数指针类型" class="headerlink" title="五、typedef定义函数指针类型"></a>五、typedef定义函数指针类型</h2><p>可以用<code>typedef</code>来<strong>定义函数指针</strong>，然后简化一些复杂的定义。比如C中的的信号处理函数</p>
+<h2 id="五-typedef定义函数指针类型"><a class="markdownIt-Anchor" href="#五-typedef定义函数指针类型"></a> 五、typedef定义函数指针类型</h2>
+<p>可以用<code>typedef</code>来<strong>定义函数指针</strong>，然后简化一些复杂的定义。比如C中的的信号处理函数</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">void</span> <span class="token punctuation">(</span><span class="token operator">*</span><span class="token function">signal</span><span class="token punctuation">(</span><span class="token keyword">int</span> signum<span class="token punctuation">,</span> <span class="token keyword">void</span> <span class="token punctuation">(</span><span class="token operator">*</span>func<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>用<code>typedef</code>定义函数指针，简化上面的定义</p>
 <pre class="line-numbers language-C" data-language="C"><code class="language-C">typedef void (*sighandler_t)(int);
 
 sighandler_t signal(int signum, sighandler_t handler);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
 <p>typedef定义函数指针类型的一个例子</p>
 <pre class="line-numbers language-C" data-language="C"><code class="language-C">#include &lt;stdio.h&gt;
 
@@ -880,11 +876,9 @@ double add(double x, double y)
 {
 	return x + y;
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <pre class="line-numbers language-ptrfun```是自定义的数据类型，可以像其它数据类型一样用来定义变量，或定义函数的返回值，或定义函数参数等，只不过```ptrfun```定义的变量是**指向函数的指针类型**。可以理解为像```int" data-language="ptrfun```是自定义的数据类型，可以像其它数据类型一样用来定义变量，或定义函数的返回值，或定义函数参数等，只不过```ptrfun```定义的变量是**指向函数的指针类型**。可以理解为像```int"><div class="caption"><span>*```定义的变量是指向整型的指针类型一样。</span></div><code class="language-ptrfun```是自定义的数据类型，可以像其它数据类型一样用来定义变量，或定义函数的返回值，或定义函数参数等，只不过```ptrfun```定义的变量是**指向函数的指针类型**。可以理解为像```int">
 ```c
 int *p;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
 <pre class="line-numbers language-ptrfun```和```int" data-language="ptrfun```和```int"><div class="caption"><span>*```类似都是指向某种类型的指针。一个是指向函数的指针，一个是指针整型的指针。</span></div><code class="language-ptrfun```和```int">
 
 
@@ -894,12 +888,9 @@ int *p;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></s
 
 ```c
 void (*signal(int signum, void (*func)(int)))(int);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>用<code>typedef</code>定义函数，来简化上面的定义</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">typedef</span> <span class="token keyword">void</span> <span class="token function">Sigfunc</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 Sigfunc <span class="token operator">*</span><span class="token function">signal</span><span class="token punctuation">(</span><span class="token keyword">int</span> signum<span class="token punctuation">,</span> Sigfunc <span class="token operator">*</span>func<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-
 <p>typedef定义函数类型的一个例子</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 
@@ -920,11 +911,9 @@ Sigfunc <span class="token operator">*</span><span class="token function">signal
 <span class="token punctuation">{</span>
 	<span class="token keyword">return</span> x <span class="token operator">+</span> y<span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>注意：<code>Fun pf = add;</code>这是错误的，因为<code>add</code>是<strong>函数指针</strong>，而Fun的类型是<strong>函数</strong>;</p>
 <p>使用<code>typedef</code>定义的Fun是函数。可以把它理解成像定义了整型一样：</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">typedef</span> <span class="token keyword">int</span> <span class="token class-name">int_t</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>用<code>Fun</code>来定义指针变量和用<code>int_t</code>来定义指针变量一样都要加<code>*</code>号。</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token class-name">int_t</span> <span class="token operator">*</span>pi<span class="token punctuation">;</span>
 Func <span class="token operator">*</span>pf<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>

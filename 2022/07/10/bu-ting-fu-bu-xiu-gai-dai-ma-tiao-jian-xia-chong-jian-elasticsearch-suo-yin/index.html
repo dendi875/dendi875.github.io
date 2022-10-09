@@ -521,21 +521,27 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/es.png"></p>
-<h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><p>在某些情况下，重建索引不可避免。例如，如果我们需要更改任何现有的字段映射（mapping）或分析器（analyzer）。ES 是不允许直接更改的，因些需要重建一个与现有索引分开的新索引。</p>
+                <p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/es.png" alt=""></p>
+<h2 id="一-前言"><a class="markdownIt-Anchor" href="#一-前言"></a> 一、前言</h2>
+<p>在某些情况下，重建索引不可避免。例如，如果我们需要更改任何现有的字段映射（mapping）或分析器（analyzer）。ES 是不允许直接更改的，因些需要重建一个与现有索引分开的新索引。</p>
 <p>我们来分析下如何才能做到 <strong>不停服不修改代码</strong> 情况下重建索引？</p>
-<h3 id="不停服"><a href="#不停服" class="headerlink" title="不停服"></a>不停服</h3><p>不能停服，那就要求新老索引在系统中能平稳过渡，需要在重建新索引时保持旧索引还在使用状态。因此，当旧索引仍然在使用的时候，我们不能将现有老索引名称用于新索引，必须得创建一个新的索引名称。</p>
-<h3 id="不修改代码"><a href="#不修改代码" class="headerlink" title="不修改代码"></a>不修改代码</h3><p>要做到每次重建时不更新代码而使用新的索引名称，那就要求我们代码中不能直接使用索引名称进行搜索和索引文档。我们应该为索引创建一个别名，并在我们的搜索/索引代码中使用别名。然后在重建时更新ES中的别名以指向新索引。这样，我们访问索引的代码就不需要在每次重建索引时都更新发版。</p>
-<h2 id="二、借助工具"><a href="#二、借助工具" class="headerlink" title="二、借助工具"></a>二、借助工具</h2><ul>
+<h3 id="不停服"><a class="markdownIt-Anchor" href="#不停服"></a> 不停服</h3>
+<p>不能停服，那就要求新老索引在系统中能平稳过渡，需要在重建新索引时保持旧索引还在使用状态。因此，当旧索引仍然在使用的时候，我们不能将现有老索引名称用于新索引，必须得创建一个新的索引名称。</p>
+<h3 id="不修改代码"><a class="markdownIt-Anchor" href="#不修改代码"></a> 不修改代码</h3>
+<p>要做到每次重建时不更新代码而使用新的索引名称，那就要求我们代码中不能直接使用索引名称进行搜索和索引文档。我们应该为索引创建一个别名，并在我们的搜索/索引代码中使用别名。然后在重建时更新ES中的别名以指向新索引。这样，我们访问索引的代码就不需要在每次重建索引时都更新发版。</p>
+<h2 id="二-借助工具"><a class="markdownIt-Anchor" href="#二-借助工具"></a> 二、借助工具</h2>
+<ul>
 <li>cerebro</li>
 </ul>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/cerebro.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/cerebro.png" alt=""></p>
 <ul>
 <li>kibana</li>
 </ul>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/kibana.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/kibana.png" alt=""></p>
 <p>cerebro 和 kinaba 都有控制台来输入执行命令，十分方便</p>
-<h2 id="三、重建索引步骤"><a href="#三、重建索引步骤" class="headerlink" title="三、重建索引步骤"></a>三、重建索引步骤</h2><h3 id="在搜索和索引的代码中使用别名"><a href="#在搜索和索引的代码中使用别名" class="headerlink" title="在搜索和索引的代码中使用别名"></a>在搜索和索引的代码中使用别名</h3><ol>
+<h2 id="三-重建索引步骤"><a class="markdownIt-Anchor" href="#三-重建索引步骤"></a> 三、重建索引步骤</h2>
+<h3 id="在搜索和索引的代码中使用别名"><a class="markdownIt-Anchor" href="#在搜索和索引的代码中使用别名"></a> 在搜索和索引的代码中使用别名</h3>
+<ol>
 <li>最终要使用重建的索引，原始的索引将被删除。如果你的代码中正在直接使用索引名，在重建前创建别名，更新代码。如果已经使用的是别名那可以跳过这一步。</li>
 </ol>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">POST /_aliases
@@ -549,11 +555,11 @@
     }
   ]
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/es-alias.jpeg"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/es-alias.jpeg" alt=""></p>
 <ol start="2">
-<li>记得查看 Elasticsearch 的 Disk Usage，如果不够，请先申请好足够的空间。<h3 id="创建新索引"><a href="#创建新索引" class="headerlink" title="创建新索引"></a>创建新索引</h3></li>
+<li>记得查看 Elasticsearch 的 Disk Usage，如果不够，请先申请好足够的空间。</li>
 </ol>
+<h3 id="创建新索引"><a class="markdownIt-Anchor" href="#创建新索引"></a> 创建新索引</h3>
 <p>和创建普通索引一样创建新索引。这里值得一提的时，当数据量很大的时候，需要设置刷新时间间隔，在此期间写入的数据不能搜到，从而提高重建速度：<code>refresh_intervals = -1, number_of_replicas = 0</code></p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">PUT /new_index
 {
@@ -567,27 +573,29 @@
         "properties": {}
     }
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-<h3 id="关闭自动刷新"><a href="#关闭自动刷新" class="headerlink" title="关闭自动刷新"></a>关闭自动刷新</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">PUT new_index/_settings
+<h3 id="关闭自动刷新"><a class="markdownIt-Anchor" href="#关闭自动刷新"></a> 关闭自动刷新</h3>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">PUT new_index/_settings
 {
     "index" : {
         "refresh_interval" : "-1"
     }
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>ES 中刷新索引和写入磁盘是两个不同的过程。</p>
 <p><strong>刷新索引</strong>：当一个文档被索引时，它被添加到内存缓冲区并附加到 translog 文件中。当刷新发生时，缓冲区中的文档被写入一个新的 segment，没有发生 fsync，该 segment 被打开以使其对搜索可见并清除缓冲区。 translog 尚未清除，实际上没有任何东西保存到磁盘（因为没有发生 fsync）。没有索引刷新，你不能搜索你的文档，段不是在缓存中创建的</p>
 <p><strong>写入磁盘</strong>：默认情况下，当 translog 大小达到 512mb 或 30 分钟后。这实际上是将数据保存在磁盘上，其他所有内容都在文件系统缓存中（如果节点死亡或机器重新启动，缓存将丢失，translog 是唯一的救赎）</p>
 <p>此处的refresh_interval指的是刷新（写入磁盘）的时间。</p>
 <p>默认情况下 refresh_interval 设置为 1s。 实际上，这在 ES 中可以称为昂贵的操作，尤其是在索引时。通过将 refresh_interval 设置为 -1 意味着您正在禁用它，并且在索引 ES 时可以为您带来显著的性能提升。 您只需要禁用 refresh_interval （完成索引数据后再次启用它）</p>
-<h3 id="数据迁移，把老索引数据迁移到新索引中"><a href="#数据迁移，把老索引数据迁移到新索引中" class="headerlink" title="数据迁移，把老索引数据迁移到新索引中"></a>数据迁移，把老索引数据迁移到新索引中</h3><p>使用 <code>reindex API</code> 就可以将数据 copy 到新索引中。这里几条路可以选：</p>
+<h3 id="数据迁移把老索引数据迁移到新索引中"><a class="markdownIt-Anchor" href="#数据迁移把老索引数据迁移到新索引中"></a> 数据迁移，把老索引数据迁移到新索引中</h3>
+<p>使用 <code>reindex API</code> 就可以将数据 copy 到新索引中。这里几条路可以选：</p>
 <ol>
-<li><p>当只是改变 mapping 数据结构时，可以仅仅使用 reindex api 即可。例如：删除字段，更新字段分词方式等。</p>
+<li>
+<p>当只是改变 mapping 数据结构时，可以仅仅使用 reindex api 即可。例如：删除字段，更新字段分词方式等。</p>
 </li>
-<li><p>当需要写入新的字段，新的字段是由老的字段计算得到时，可以使用 script 参数。例如，计算某条数据某字段的总和。script 有很多坑，当 script 出错时，reindex 跑了很久之后失败，即使将数据恢复，也需要重新跑 reindex。</p>
+<li>
+<p>当需要写入新的字段，新的字段是由老的字段计算得到时，可以使用 script 参数。例如，计算某条数据某字段的总和。script 有很多坑，当 script 出错时，reindex 跑了很久之后失败，即使将数据恢复，也需要重新跑 reindex。</p>
 </li>
-<li><p>当含有很复杂的逻辑时，还是自己写程序吧。</p>
+<li>
+<p>当含有很复杂的逻辑时，还是自己写程序吧。</p>
 </li>
 </ol>
 <p>调用 reindex 接口，接口将会在 reindex 结束后返回，而接口返回超时只有30秒，如果 reindex 时间过长，建议加上wait_for_completion=false的参数条件，这样 reindex 将直接返回taskId</p>
@@ -601,23 +609,21 @@
     "index": "new_index"
   }
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-<h3 id="重建索引中"><a href="#重建索引中" class="headerlink" title="重建索引中"></a>重建索引中</h3><p>重建索引非常耗时，可以使用 <code>task API</code> 以看到重建进程，其中包含耗时，剩余doc数量等信息。</p>
+<h3 id="重建索引中"><a class="markdownIt-Anchor" href="#重建索引中"></a> 重建索引中</h3>
+<p>重建索引非常耗时，可以使用 <code>task API</code> 以看到重建进程，其中包含耗时，剩余doc数量等信息。</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">GET _tasks/{taskID}<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/es-task2.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/es-task2.png" alt=""></p>
 <p>如果发现错误，可以使用<code>PUT _tasks/{taskID}/cancel</code>接口放弃任务，从头再来。</p>
-<h3 id="恢复自动刷新，恢复副本数"><a href="#恢复自动刷新，恢复副本数" class="headerlink" title="恢复自动刷新，恢复副本数"></a>恢复自动刷新，恢复副本数</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">PUT new_index/_settings
+<h3 id="恢复自动刷新恢复副本数"><a class="markdownIt-Anchor" href="#恢复自动刷新恢复副本数"></a> 恢复自动刷新，恢复副本数</h3>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">PUT new_index/_settings
 {
     "index" : {
         "refresh_interval" : "1s",
         "number_of_replicas" : "1"
     }
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-<h3 id="给新索引设置别名，它的名称为程序中使用的，解除老索引与别名的绑定"><a href="#给新索引设置别名，它的名称为程序中使用的，解除老索引与别名的绑定" class="headerlink" title="给新索引设置别名，它的名称为程序中使用的，解除老索引与别名的绑定"></a>给新索引设置别名，它的名称为程序中使用的，解除老索引与别名的绑定</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">POST /_aliases
+<h3 id="给新索引设置别名它的名称为程序中使用的解除老索引与别名的绑定"><a class="markdownIt-Anchor" href="#给新索引设置别名它的名称为程序中使用的解除老索引与别名的绑定"></a> 给新索引设置别名，它的名称为程序中使用的，解除老索引与别名的绑定</h3>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">POST /_aliases
 {
     "actions": [
         {
@@ -632,18 +638,21 @@
         }
     ]
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/es-new_index.jpeg"></p>
-<h3 id="删除旧索引"><a href="#删除旧索引" class="headerlink" title="删除旧索引"></a>删除旧索引</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">DELETE current_index<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/es-new_index.jpeg" alt=""></p>
+<h3 id="删除旧索引"><a class="markdownIt-Anchor" href="#删除旧索引"></a> 删除旧索引</h3>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">DELETE current_index<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>删除旧的 index，释放磁盘空间</p>
-<h2 id="四、总结"><a href="#四、总结" class="headerlink" title="四、总结"></a>四、总结</h2><ul>
-<li><p>修改索引是一件费时费力的工作，特别是如果发生了错误，整个人都不好了。所以还是在创建索引的时候尽量想好能否满足需求</p>
+<h2 id="四-总结"><a class="markdownIt-Anchor" href="#四-总结"></a> 四、总结</h2>
+<ul>
+<li>
+<p>修改索引是一件费时费力的工作，特别是如果发生了错误，整个人都不好了。所以还是在创建索引的时候尽量想好能否满足需求</p>
 </li>
-<li><p>我们使用Kafka把Mysql中的数据同步到Elasticsearch中的，如果没有kafka，也要记录同步数据的时间，方便后面重新同步数据。无论使用哪种同步数据的方式，都需要记录同步数据的offset或时间。重建索引可能非常耗时，在这段时间内，同步进程仍然在向旧索引更新数据，此时重建索引是无法更新这些新数据的。</p>
+<li>
+<p>我们使用Kafka把Mysql中的数据同步到Elasticsearch中的，如果没有kafka，也要记录同步数据的时间，方便后面重新同步数据。无论使用哪种同步数据的方式，都需要记录同步数据的offset或时间。重建索引可能非常耗时，在这段时间内，同步进程仍然在向旧索引更新数据，此时重建索引是无法更新这些新数据的。</p>
 </li>
 </ul>
-<h2 id="五-参考资料"><a href="#五-参考资料" class="headerlink" title="五. 参考资料"></a>五. 参考资料</h2><ul>
+<h2 id="五-参考资料"><a class="markdownIt-Anchor" href="#五-参考资料"></a> 五. 参考资料</h2>
+<ul>
 <li><a target="_blank" rel="noopener" href="https://medium.com/craftsmenltd/rebuild-elasticsearch-index-without-downtime-168363829ea4">https://medium.com/craftsmenltd/rebuild-elasticsearch-index-without-downtime-168363829ea4</a></li>
 <li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/36449506/what-exactly-does-1-refresh-interval-in-elasticsearch-mean">https://stackoverflow.com/questions/36449506/what-exactly-does-1-refresh-interval-in-elasticsearch-mean</a></li>
 <li><a target="_blank" rel="noopener" href="https://sematext.com/blog/elasticsearch-refresh-interval-vs-indexing-performance/">Elasticsearch 刷新间隔与索引性能</a></li>

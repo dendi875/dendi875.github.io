@@ -517,19 +517,20 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Kubernetes-Secret-敏感信息配置管理"><a href="#Kubernetes-Secret-敏感信息配置管理" class="headerlink" title="Kubernetes Secret 敏感信息配置管理"></a>Kubernetes Secret 敏感信息配置管理</h1><p>Secret 和 Configmap 类似，不过 Secret 是加密后的，一般用于存储敏感数据，如 比如密码，token，密钥等。</p>
+                <h1 id="kubernetes-secret-敏感信息配置管理"><a class="markdownIt-Anchor" href="#kubernetes-secret-敏感信息配置管理"></a> Kubernetes Secret 敏感信息配置管理</h1>
+<p>Secret 和 Configmap 类似，不过 Secret 是加密后的，一般用于存储敏感数据，如 比如密码，token，密钥等。</p>
 <p>Secret 主要使用的有以下几种类型：</p>
 <ul>
 <li><code>Opaque</code>：base64 编码格式的 Secret，用来存储密码、密钥等；但数据也可以通过<code>base64 –decode</code>解码得到原始数据，所有加密性很弱。</li>
 <li><code>kubernetes.io/dockerconfigjson</code>：用来存储私有<code>docker registry</code>的认证信息。</li>
 <li><code>kubernetes.io/service-account-token</code>：用来访问Kubernetes API，由Kubernetes自动创建，并且会自动挂载到Pod的 /run/secrets/kubernetes.io/serviceaccount 目录中</li>
 </ul>
-<h2 id="Opaque"><a href="#Opaque" class="headerlink" title="Opaque"></a>Opaque</h2><p><code>Opaque</code> 类型的数据是一个 map 类型，要求 value 必须是 <code>base64</code> 编码格式，比如我们来创建一个用户名为 admin，密码为 admin321 的 <code>Secret</code> 对象，首先我们需要先把用户名和密码做 <code>base64</code>编码：</p>
+<h2 id="opaque"><a class="markdownIt-Anchor" href="#opaque"></a> Opaque</h2>
+<p><code>Opaque</code> 类型的数据是一个 map 类型，要求 value 必须是 <code>base64</code> 编码格式，比如我们来创建一个用户名为 admin，密码为 admin321 的 <code>Secret</code> 对象，首先我们需要先把用户名和密码做 <code>base64</code>编码：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ echo -n "admin" | base64
 YWRtaW4=
 $ echo -n "admin321" | base64
 YWRtaW4zMjE=<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>然后我们就可以利用上面编码过后的数据来编写一个 YAML 文件：<em>secret-demo.yaml</em></p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> Secret
@@ -539,17 +540,14 @@ YWRtaW4zMjE=<span aria-hidden="true" class="line-numbers-rows"><span></span><spa
 <span class="token key atrule">data</span><span class="token punctuation">:</span>
   <span class="token key atrule">username</span><span class="token punctuation">:</span> YWRtaW4=
   <span class="token key atrule">password</span><span class="token punctuation">:</span> YWRtaW4zMjE=<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>然后我们就可以使用 kubectl 命令来创建了：</p>
 <pre class="line-numbers language-none"><code class="language-none">[root@k8s-master ~]# kubectl create -f secret/secret-demo.yaml 
 secret/mysecret created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <p>利用<code>get secret</code>命令查看：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get secret
 NAME                  TYPE                                  DATA   AGE
 default-token-pvpv2   kubernetes.io/service-account-token   3      8d
 mysecret              Opaque                                2      11s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>其中 default-token-pvpv2为创建集群时默认创建的 Secret，被 <code>serviceacount/default</code> 引用。我们可以使用 <code>describe</code> 命令查看详情：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl describe secret mysecret
 Name:         mysecret
@@ -563,7 +561,6 @@ Data
 ====
 password:  8 bytes
 username:  5 bytes<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>我们可以看到利用 describe 命令查看到的 Data 没有直接显示出来，如果想看到 Data 里面的详细信息，同样我们可以输出成YAML 文件进行查看：</p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">[</span>root@k8s<span class="token punctuation">-</span>master ~<span class="token punctuation">]</span><span class="token comment"># kubectl describe secret mysecret</span>
 <span class="token key atrule">Name</span><span class="token punctuation">:</span>         mysecret
@@ -602,13 +599,13 @@ Data
   <span class="token key atrule">resourceVersion</span><span class="token punctuation">:</span> <span class="token string">"87952"</span>
   <span class="token key atrule">uid</span><span class="token punctuation">:</span> eff0b3d4<span class="token punctuation">-</span>8b5e<span class="token punctuation">-</span>43e2<span class="token punctuation">-</span>b198<span class="token punctuation">-</span>46d9fcbecc5c
 <span class="token key atrule">type</span><span class="token punctuation">:</span> Opaque<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>创建好 <code>Secret</code>对象后，有两种方式来使用它：</p>
 <ul>
 <li>以环境变量的形式</li>
 <li>以Volume的形式挂载</li>
 </ul>
-<h3 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h3><p>首先我们来测试下环境变量的方式，同样的，我们来使用一个简单的 busybox 镜像来测试下：<em>secret1-pod.yaml</em></p>
+<h3 id="环境变量"><a class="markdownIt-Anchor" href="#环境变量"></a> 环境变量</h3>
+<p>首先我们来测试下环境变量的方式，同样的，我们来使用一个简单的 busybox 镜像来测试下：<em>secret1-pod.yaml</em></p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
@@ -629,7 +626,6 @@ Data
         <span class="token key atrule">secretKeyRef</span><span class="token punctuation">:</span>
           <span class="token key atrule">name</span><span class="token punctuation">:</span> mysecret
           <span class="token key atrule">key</span><span class="token punctuation">:</span> password<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>主要需要注意的是上面环境变量中定义的 <code>secretKeyRef</code> 字段，和ConfigMap中的 <code>configMapKeyRef</code> 类似，一个是从 <code>Secret</code> 对象中获取，一个是从 <code>ConfigMap</code> 对象中获取，创建上面的 Pod并查看日志：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl create -f secret/secret1-pod.yaml 
 pod/secret1-pod created
@@ -639,8 +635,8 @@ pod/secret1-pod created
 USERNAME=admin
 PASSWORD=admin321
 ......<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="Volume-挂载"><a href="#Volume-挂载" class="headerlink" title="Volume 挂载"></a>Volume 挂载</h3><p>同样的我们用一个 Pod 来验证下 <code>Volume</code> 挂载，创建一个 Pod 文件：<em>secret2-pod.yaml</em></p>
+<h3 id="volume-挂载"><a class="markdownIt-Anchor" href="#volume-挂载"></a> Volume 挂载</h3>
+<p>同样的我们用一个 Pod 来验证下 <code>Volume</code> 挂载，创建一个 Pod 文件：<em>secret2-pod.yaml</em></p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
@@ -657,7 +653,6 @@ PASSWORD=admin321
   <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> secrets
     <span class="token key atrule">secret</span><span class="token punctuation">:</span>
      <span class="token key atrule">secretName</span><span class="token punctuation">:</span> mysecret<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>创建 Pod，然后查看输出日志：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl create -f secret/secret2-pod.yaml 
 pod/secret2-pod created
@@ -665,11 +660,11 @@ pod/secret2-pod created
 [root@k8s-master ~]# kubectl logs secret2-pod
 password
 username<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>可以看到 Secret 把两个 key 挂载成了两个对应的文件。</p>
-<h2 id="kubernetes-io-dockerconfigjson"><a href="#kubernetes-io-dockerconfigjson" class="headerlink" title="kubernetes.io/dockerconfigjson"></a>kubernetes.io/dockerconfigjson</h2><p>除了上面的 <code>Opaque</code> 这种类型外，我们还可以来创建用户 <code>docker registry</code> 认证的 <code>Secret</code>，比如我们把自己在 docker hub 上某个仓库镜像设置为私有的</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-secret-dockerhub.png"></p>
-<p>然后观察下创建 Pod 时 docker hub 上的私有仓库来拉取镜像会发生什么 </p>
+<h2 id="kubernetesiodockerconfigjson"><a class="markdownIt-Anchor" href="#kubernetesiodockerconfigjson"></a> <a target="_blank" rel="noopener" href="http://kubernetes.io/dockerconfigjson">kubernetes.io/dockerconfigjson</a></h2>
+<p>除了上面的 <code>Opaque</code> 这种类型外，我们还可以来创建用户 <code>docker registry</code> 认证的 <code>Secret</code>，比如我们把自己在 docker hub 上某个仓库镜像设置为私有的</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-secret-dockerhub.png" alt=""></p>
+<p>然后观察下创建 Pod 时 docker hub 上的私有仓库来拉取镜像会发生什么</p>
 <p>准备好创建Pod的资源文件 <em>secret-private-php.yaml</em></p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod
@@ -679,20 +674,17 @@ username<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
   <span class="token key atrule">containers</span><span class="token punctuation">:</span>
   <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> private<span class="token punctuation">-</span>php
     <span class="token key atrule">image</span><span class="token punctuation">:</span> dendi875/php<span class="token punctuation">-</span>php<span class="token punctuation">:</span><span class="token number">7.3</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>接着创建 Pod</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl apply -f secret/secret-private-php.yaml 
 pod/private-php created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <p>观察事件</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-secret-dockerhub-2.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-secret-dockerhub-2.png" alt=""></p>
 <p>可以看到这个  Pod 是创建失败，因为我们的仓库镜像是私有的</p>
 <p>我们先删除这个 Pod</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl delete -f secret/secret-private-php.yaml 
 pod "private-php" deleted<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <p>如果这时我们需要从私有仓库拉取镜像怎么办呢？</p>
-<p>我们可以使用 <code>kubectl create secret docker-registry </code> 来创建一个 secret，如下：</p>
+<p>我们可以使用 <code>kubectl create secret docker-registry</code> 来创建一个 secret，如下：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl create secret docker-registry myregistry \
 --docker-server=&lt;你的镜像仓库服务器&gt; \
 --docker-username=&lt;你的用户名&gt; \
@@ -700,14 +692,12 @@ pod "private-php" deleted<span aria-hidden="true" class="line-numbers-rows"><spa
 --docker-email=&lt;你的邮箱地址&gt;
 
 secret/myregistry created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>然后查看 Secret 列表：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get secret
 NAME                  TYPE                                  DATA   AGE
 default-token-pvpv2   kubernetes.io/service-account-token   3      8d
 myregistry            kubernetes.io/dockerconfigjson        1      14s
 mysecret              Opaque                                2      73m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>注意看上面的 TYPE 类型，myregistry 对应的type是 <code>kubernetes.io/dockerconfigjson</code>，同样的可以使用 describe 或 get -o yaml 命令来查看详细信息：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]#  kubectl describe secret myregistry
 Name:         myregistry
@@ -720,8 +710,7 @@ Type:  kubernetes.io/dockerconfigjson
 Data
 ====
 .dockerconfigjson:  152 bytes<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-secret-dockerhub-4.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-secret-dockerhub-4.png" alt=""></p>
 <p>把上面的 <code>data.dockerconfigjson</code> 下面的数据做一个 <code>base64</code> 解码，内容就如下：</p>
 <pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">{</span>
     <span class="token property">"auths"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
@@ -733,7 +722,6 @@ Data
         <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>我们需要拉取私有仓库镜像，我们就需要在 Pod 中指定 <code>imagePullSecrets</code>，在 <em>secret-private-php.yaml</em> 中加入 <code>imagePullSecrets</code></p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod
@@ -745,20 +733,15 @@ Data
     <span class="token key atrule">image</span><span class="token punctuation">:</span> dendi875/php<span class="token punctuation">-</span>php<span class="token punctuation">:</span><span class="token number">7.3</span>
   <span class="token key atrule">imagePullSecrets</span><span class="token punctuation">:</span>
   <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> myregistry  <span class="token comment"># 创建的 secret 名字  </span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>重新创建</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl apply -f secret/secret-private-php.yaml 
 pod/private-php created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <p>在次观察</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-secret-dockerhub-3.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-secret-dockerhub-3.png" alt=""></p>
 <p>可以发现镜像已经成功拉取</p>
 <p>去 node2机器上也能看到镜像被成功拉取</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-node2 ~]# docker images | grep dendi875
 dendi875/php-php                                                            7.3        d5a49dc91b8c   2 years ago     183MB<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-
-
 <blockquote>
 <p><code>ImagePullSecrets</code> 与 <code>Secrets</code> 不同，因为 <code>Secrets</code> 可以挂载到 Pod 中，但是 <code>ImagePullSecrets</code> 只能由 Kubelet 访问。</p>
 </blockquote>
@@ -776,8 +759,8 @@ dendi875/php-php                                                            7.3 
 <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> default<span class="token punctuation">-</span>token<span class="token punctuation">-</span>5tsh4
 <span class="token key atrule">imagePullSecrets</span><span class="token punctuation">:</span>
 <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> myregistry<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="kubernetes-io-service-account-token"><a href="#kubernetes-io-service-account-token" class="headerlink" title="kubernetes.io/service-account-token"></a>kubernetes.io/service-account-token</h2><p>另外一种 <code>Secret</code> 类型就是 <code>kubernetes.io/service-account-token</code>，用于被 <code>ServiceAccount</code> 引用。<code>ServiceAccout</code> 创建时 Kubernetes 会默认创建对应的 <code>Secret</code>。Pod 如果使用了 <code>ServiceAccount</code>，对应的 <code>Secret</code> 会自动挂载到 Pod 的 <code>/var/run/secrets/kubernetes.io/serviceaccount/</code> 目录中。如下所示我们随意创建一个 Pod：</p>
+<h2 id="kubernetesioservice-account-token"><a class="markdownIt-Anchor" href="#kubernetesioservice-account-token"></a> <a target="_blank" rel="noopener" href="http://kubernetes.io/service-account-token">kubernetes.io/service-account-token</a></h2>
+<p>另外一种 <code>Secret</code> 类型就是 <code>kubernetes.io/service-account-token</code>，用于被 <code>ServiceAccount</code> 引用。<code>ServiceAccout</code> 创建时 Kubernetes 会默认创建对应的 <code>Secret</code>。Pod 如果使用了 <code>ServiceAccount</code>，对应的 <code>Secret</code> 会自动挂载到 Pod 的 <code>/var/run/secrets/kubernetes.io/serviceaccount/</code> 目录中。如下所示我们随意创建一个 Pod：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl run secret-pod3 --image nginx:1.7.9
 pod/secret-pod3 created
 
@@ -786,7 +769,6 @@ NAME          READY   STATUS             RESTARTS   AGE
 ......
 secret-pod3   1/1     Running            0          57s
 ......<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>我们可以直接查看这个 Pod 的详细信息：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">......
     volumeMounts:
@@ -802,39 +784,53 @@ secret-pod3   1/1     Running            0          57s
     secret:
       defaultMode: 420
       secretName: default-token-pvpv2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>可以看到默认把名为 <code>default</code>（自动创建的）的 <code>ServiceAccount</code> 对应的 Secret 对象通过 Volume 挂载到了容器的 <code>/var/run/secrets/kubernetes.io/serviceaccount</code> 的目录中</p>
-<h2 id="Secret-vs-ConfigMap"><a href="#Secret-vs-ConfigMap" class="headerlink" title="Secret vs ConfigMap"></a>Secret vs ConfigMap</h2><p>最后我们来对比下 <code>Secret</code> 和 <code>ConfigMap</code>这两种资源对象的异同点：</p>
-<h3 id="相同点"><a href="#相同点" class="headerlink" title="相同点"></a>相同点</h3><ul>
-<li><p>key/value的形式</p>
+<h2 id="secret-vs-configmap"><a class="markdownIt-Anchor" href="#secret-vs-configmap"></a> Secret vs ConfigMap</h2>
+<p>最后我们来对比下 <code>Secret</code> 和 <code>ConfigMap</code>这两种资源对象的异同点：</p>
+<h3 id="相同点"><a class="markdownIt-Anchor" href="#相同点"></a> 相同点</h3>
+<ul>
+<li>
+<p>key/value的形式</p>
 </li>
-<li><p>属于某个特定的命名空间</p>
+<li>
+<p>属于某个特定的命名空间</p>
 </li>
-<li><p>可以导出到环境变量</p>
+<li>
+<p>可以导出到环境变量</p>
 </li>
-<li><p>可以通过目录/文件形式挂载</p>
+<li>
+<p>可以通过目录/文件形式挂载</p>
 </li>
-<li><p>通过 volume 挂载的配置信息均可热更新</p>
+<li>
+<p>通过 volume 挂载的配置信息均可热更新</p>
 </li>
 </ul>
-<h3 id="不同点"><a href="#不同点" class="headerlink" title="不同点"></a>不同点</h3><ul>
-<li><p>Secret 可以被 ServerAccount 关联</p>
+<h3 id="不同点"><a class="markdownIt-Anchor" href="#不同点"></a> 不同点</h3>
+<ul>
+<li>
+<p>Secret 可以被 ServerAccount 关联</p>
 </li>
-<li><p>Secret 可以存储 <code>docker register</code> 的鉴权信息，用在 <code>ImagePullSecret</code> 参数中，用于拉取私有仓库的镜像</p>
+<li>
+<p>Secret 可以存储 <code>docker register</code> 的鉴权信息，用在 <code>ImagePullSecret</code> 参数中，用于拉取私有仓库的镜像</p>
 </li>
-<li><p>Secret 支持 <code>Base64</code> 加密</p>
+<li>
+<p>Secret 支持 <code>Base64</code> 加密</p>
 </li>
-<li><p>Secret 分为 <code>kubernetes.io/service-account-token</code>、<code>kubernetes.io/dockerconfigjson</code>、<code>Opaque</code> 三种类型，而 <code>Configmap</code> 不区分类型</p>
+<li>
+<p>Secret 分为 <code>kubernetes.io/service-account-token</code>、<code>kubernetes.io/dockerconfigjson</code>、<code>Opaque</code> 三种类型，而 <code>Configmap</code> 不区分类型</p>
 <blockquote>
 <p><strong>Warning</strong></p>
 <p>同样 Secret 文件大小限制为 <code>1MB</code>（ETCD 的要求）；Secret 虽然采用 <code>Base64</code> 编码，但是我们还是可以很方便解码获取到原始信息，所以对于非常重要的数据还是需要慎重考虑，可以考虑使用 <a target="_blank" rel="noopener" href="https://www.vaultproject.io/">Vault</a> 来进行加密管理。</p>
 </blockquote>
 </li>
 </ul>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><p><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/configuration/secret/">https://kubernetes.io/docs/concepts/configuration/secret/</a></p>
+<h2 id="参考"><a class="markdownIt-Anchor" href="#参考"></a> 参考</h2>
+<ul>
+<li>
+<p><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/configuration/secret/">https://kubernetes.io/docs/concepts/configuration/secret/</a></p>
 </li>
-<li><p> <a target="_blank" rel="noopener" href="https://www.qikqiak.com/k8strain/config/secret/#opaque-secret">https://www.qikqiak.com/k8strain/config/secret/#opaque-secret</a></p>
+<li>
+<p><a target="_blank" rel="noopener" href="https://www.qikqiak.com/k8strain/config/secret/#opaque-secret">https://www.qikqiak.com/k8strain/config/secret/#opaque-secret</a></p>
 </li>
 </ul>
 

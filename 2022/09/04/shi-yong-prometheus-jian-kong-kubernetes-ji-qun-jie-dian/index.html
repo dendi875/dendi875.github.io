@@ -521,7 +521,8 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="使用-Prometheus-监控-Kubernetes-集群节点"><a href="#使用-Prometheus-监控-Kubernetes-集群节点" class="headerlink" title="使用 Prometheus  监控 Kubernetes 集群节点"></a>使用 Prometheus  监控 Kubernetes 集群节点</h1><p>对于 Kubernetes 集群本身的监控也是非常重要的，我们需要时时刻刻了解集群的运行状态。</p>
+                <h1 id="使用-prometheus-监控-kubernetes-集群节点"><a class="markdownIt-Anchor" href="#使用-prometheus-监控-kubernetes-集群节点"></a> 使用 Prometheus  监控 Kubernetes 集群节点</h1>
+<p>对于 Kubernetes 集群本身的监控也是非常重要的，我们需要时时刻刻了解集群的运行状态。</p>
 <p>对于集群的监控一般我们需要考虑以下几个方面：</p>
 <ul>
 <li>Kubernetes 节点的监控：比如节点的 cpu、load、disk、memory 等指标</li>
@@ -537,12 +538,15 @@
 </ul>
 <p>不过 kube-state-metrics 和 metrics-server 之间还是有很大不同的，二者的主要区别如下：</p>
 <ul>
-<li><p>kube-state-metrics 主要关注的是业务相关的一些元数据，比如 Deployment、Pod、副本状态等</p>
+<li>
+<p>kube-state-metrics 主要关注的是业务相关的一些元数据，比如 Deployment、Pod、副本状态等</p>
 </li>
-<li><p>metrics-server 主要关注的是<a target="_blank" rel="noopener" href="https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/resource-metrics-api.md">资源度量 API</a> 的实现，比如 CPU、文件描述符、内存、请求延时等指标。</p>
+<li>
+<p>metrics-server 主要关注的是<a target="_blank" rel="noopener" href="https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/resource-metrics-api.md">资源度量 API</a> 的实现，比如 CPU、文件描述符、内存、请求延时等指标。</p>
 </li>
 </ul>
-<h2 id="监控集群节点"><a href="#监控集群节点" class="headerlink" title="监控集群节点"></a>监控集群节点</h2><p>要监控节点其实我们已经有很多非常成熟的方案了，比如 Nagios、zabbix，甚至我们自己来收集数据也可以，我们这里通过 Prometheus 来采集节点的监控指标数据，可以通过 <a target="_blank" rel="noopener" href="https://github.com/prometheus/node_exporter">node_exporter</a>来获取，顾名思义，<code>node_exporter</code> 就是抓取用于采集服务器节点的各种运行指标，目前 <code>node_exporter</code> 支持几乎所有常见的监控点，比如 conntrack，cpu，diskstats，filesystem，loadavg，meminfo，netstat 等，详细的监控点列表可以参考其 <a target="_blank" rel="noopener" href="https://github.com/prometheus/node_exporter">Github 仓库</a>。</p>
+<h2 id="监控集群节点"><a class="markdownIt-Anchor" href="#监控集群节点"></a> 监控集群节点</h2>
+<p>要监控节点其实我们已经有很多非常成熟的方案了，比如 Nagios、zabbix，甚至我们自己来收集数据也可以，我们这里通过 Prometheus 来采集节点的监控指标数据，可以通过 <a target="_blank" rel="noopener" href="https://github.com/prometheus/node_exporter">node_exporter</a>来获取，顾名思义，<code>node_exporter</code> 就是抓取用于采集服务器节点的各种运行指标，目前 <code>node_exporter</code> 支持几乎所有常见的监控点，比如 conntrack，cpu，diskstats，filesystem，loadavg，meminfo，netstat 等，详细的监控点列表可以参考其 <a target="_blank" rel="noopener" href="https://github.com/prometheus/node_exporter">Github 仓库</a>。</p>
 <p>我们可以通过 DaemonSet 控制器来部署该服务，这样每一个节点都会自动运行一个这样的 Pod，如果我们从集群中删除或者添加节点后，也会进行自动扩展。</p>
 <p>在部署 <code>node-exporter</code> 的时候有一些细节需要注意，如下资源清单文件：prometheus-node-exporter.yaml</p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
@@ -607,7 +611,6 @@
         <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> rootfs
           <span class="token key atrule">hostPath</span><span class="token punctuation">:</span>
             <span class="token key atrule">path</span><span class="token punctuation">:</span> /<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>由于我们要获取到的数据是主机的监控指标数据，而我们的 <code>node-exporter</code> 是运行在容器中的，所以我们在 Pod 中需要配置一些 Pod 的安全策略，这里我们就添加了 <code>hostPID: true</code>、<code>hostIPC: true</code>、<code>hostNetwork: true</code> 3个策略，用来使用主机的 <code>PID namespace</code>、<code>IPC namespace</code> 以及主机网络，这些 namespace 就是用于容器隔离的关键技术，要注意这里的 namespace 和集群中的 namespace 是两个完全不相同的概念。</p>
 <p>另外我们还将主机的 <code>/dev</code>、<code>/proc</code>、<code>/sys</code>这些目录挂载到容器中，这些因为我们采集的很多节点数据都是通过这些文件夹下面的文件来获取到的，比如我们在使用 <code>top</code> 命令可以查看当前 cpu 使用情况，数据就来源于文件 <code>/proc/stat</code>，使用 <code>free</code> 命令可以查看当前内存使用情况，其数据来源是来自 <code>/proc/meminfo</code> 文件。</p>
 <p>另外由于我们集群使用的是 <code>kubeadm</code> 搭建的，所以如果希望 master 节点也一起被监控，则需要添加相应的容忍，然后直接创建上面的资源对象：</p>
@@ -621,7 +624,6 @@ node-exporter-fwzlt           1/1     Running   0          2m34s   172.31.0.4   
 node-exporter-pcr9w           1/1     Running   0          2m34s   172.31.0.3        k8s-node1    &lt;none&gt;           &lt;none&gt;
 prometheus-75d4666dcd-vlth8   1/1     Running   0          66m     192.168.169.155   k8s-node2    &lt;none&gt;           &lt;none&gt;
 redis-6468bf6c84-qmm2k        2/2     Running   0          27m     192.168.36.93     k8s-node1    &lt;none&gt;           &lt;none&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>部署完成后，我们可以看到在3个节点上都运行了一个 Pod，我们这里不需要创建一个 Service 吗？我们应该怎样去获取<code>/metrics</code>数据呢？我们上面是不是指定了<code>hostNetwork=true</code>，所以在每个节点上就会绑定一个端口 9100，我们可以通过这个端口去获取到监控指标数据：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master prometheus]# curl localhost:9100/metrics | more 
 # HELP go_gc_duration_seconds A summary of the GC invocation durations.
@@ -637,11 +639,10 @@ go_gc_duration_seconds_count 2
 promhttp_metric_handler_requests_total{code="200"} 0
 promhttp_metric_handler_requests_total{code="500"} 0
 promhttp_metric_handler_requests_total{code="503"} 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>当然如果你觉得上面的手动安装方式比较麻烦，我们也可以使用 Helm 的方式来安装：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ helm upgrade --install --name node-exporter --namespace kube-mon stable/prometheus-node-exporter<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<h2 id="服务发现"><a href="#服务发现" class="headerlink" title="服务发现"></a>服务发现</h2><p>由于我们这里每个节点上面都运行了 <code>node-exporter</code> 程序，如果我们通过一个 Service 来将数据收集到一起用静态配置的方式配置到 Prometheus 去中，就只会显示一条数据，我们得自己在指标数据中去过滤每个节点的数据，当然我们也可以手动的把所有节点用静态的方式配置到 Prometheus 中去，但是以后要新增或者去掉节点的时候就还得手动去配置，那么有没有一种方式可以让 Prometheus 去自动发现我们节点的 <code>node-exporter</code> 程序，并且按节点进行分组呢？这就是 Prometheus 里面非常重要的<strong>服务发现</strong>功能了。</p>
+<h2 id="服务发现"><a class="markdownIt-Anchor" href="#服务发现"></a> 服务发现</h2>
+<p>由于我们这里每个节点上面都运行了 <code>node-exporter</code> 程序，如果我们通过一个 Service 来将数据收集到一起用静态配置的方式配置到 Prometheus 去中，就只会显示一条数据，我们得自己在指标数据中去过滤每个节点的数据，当然我们也可以手动的把所有节点用静态的方式配置到 Prometheus 中去，但是以后要新增或者去掉节点的时候就还得手动去配置，那么有没有一种方式可以让 Prometheus 去自动发现我们节点的 <code>node-exporter</code> 程序，并且按节点进行分组呢？这就是 Prometheus 里面非常重要的<strong>服务发现</strong>功能了。</p>
 <p>在 Kubernetes 下，Promethues 通过与 Kubernetes API 集成，主要支持5中服务发现模式，分别是：<code>Node</code>、<code>Service</code>、<code>Pod</code>、<code>Endpoints</code>、<code>Ingress</code>。</p>
 <p>我们通过 kubectl 命令可以很方便的获取到当前集群中的所有节点信息：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master prometheus]# kubectl get nodes
@@ -649,12 +650,10 @@ NAME         STATUS   ROLES                  AGE   VERSION
 k8s-master   Ready    control-plane,master   20d   v1.20.9
 k8s-node1    Ready    &lt;none&gt;                 20d   v1.20.9
 k8s-node2    Ready    &lt;none&gt;                 20d   v1.20.9<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>但是要让 Prometheus 也能够获取到当前集群中的所有节点信息的话，我们就需要利用 Node 的服务发现模式，同样的，在 <code> prometheus-cm.yaml</code> 文件中配置如下的 job 任务即可：</p>
+<p>但是要让 Prometheus 也能够获取到当前集群中的所有节点信息的话，我们就需要利用 Node 的服务发现模式，同样的，在 <code>prometheus-cm.yaml</code> 文件中配置如下的 job 任务即可：</p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">-</span> <span class="token key atrule">job_name</span><span class="token punctuation">:</span> <span class="token string">'kubernetes-nodes'</span>
   <span class="token key atrule">kubernetes_sd_configs</span><span class="token punctuation">:</span>
   <span class="token punctuation">-</span> <span class="token key atrule">role</span><span class="token punctuation">:</span> node<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
 <p>通过指定 <code>kubernetes_sd_configs</code> 的模式为<code>node</code>，Prometheus 就会自动从 Kubernetes 中发现所有的 node 节点并作为当前 job 监控的目标实例，发现的节点 <code>/metrics</code> 接口是默认的 kubelet 的 HTTP 接口。</p>
 <p>prometheus 的 ConfigMap 更新完成后，同样的我们执行 reload 操作，让配置生效：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master prometheus]# kubectl apply -f prometheus-cm.yaml 
@@ -667,15 +666,13 @@ prometheus   NodePort    10.96.146.110   &lt;none&gt;        9090:32640/TCP     
 redis        ClusterIP   10.96.143.235   &lt;none&gt;        6379/TCP,9121/TCP   36m
 
 [root@k8s-master prometheus]# curl -X POST "http://10.96.146.110:9090/-/reload"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>配置生效后，我们再去 prometheus 的 dashboard 中查看 Targets 是否能够正常抓取数据，访问<code>http://任意节点IP:32640</code>：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220902225935.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220902225935.png" alt=""></p>
 <p>我们可以看到上面的<code>kubernetes-nodes</code>这个 job 任务已经自动发现了我们3个 node 节点，但是在获取数据的时候失败了，出现了类似于下面的错误信息：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">server returned HTTP status 400 Bad Request<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>这个是因为 prometheus 去发现 Node 模式的服务的时候，访问的端口默认是10250，而默认是需要认证的 https 协议才有权访问的，但实际上我们并不是希望让去访问10250端口的 <code>/metrics</code>接口，而是 <code>node-exporter</code> 绑定到节点的 9100 端口，所以我们应该将这里的 <code>10250</code> 替换成 <code>9100</code>，但是应该怎样替换呢？</p>
 <p>这里我们就需要使用到 Prometheus 提供的 <code>relabel_configs</code> 中的 <code>replace</code> 能力了，<code>relabel</code> 可以在 Prometheus 采集数据之前，通过 Target 实例的 <code>Metadata</code> 信息，动态重新写入 Label 的值。除此之外，我们还能根据 Target 实例的 <code>Metadata</code> 信息选择是否采集或者忽略该 Target 实例。比如我们这里就可以去匹配 <code>__address__</code> 这个 Label 标签，然后替换掉其中的端口，如果你不知道有哪些 Label 标签可以操作的话，可以将鼠标移动到 Targets 的标签区域，其中显示的 <code>Before relabeling</code> 区域都是我们可以操作的标签：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220902230807.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220902230807.png" alt=""></p>
 <p>现在我们来替换掉端口，修改 ConfigMap：prometheus-cm.yaml</p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">-</span> <span class="token key atrule">job_name</span><span class="token punctuation">:</span> <span class="token string">'kubernetes-nodes'</span>
   <span class="token key atrule">kubernetes_sd_configs</span><span class="token punctuation">:</span>
@@ -686,9 +683,8 @@ redis        ClusterIP   10.96.143.235   &lt;none&gt;        6379/TCP,9121/TCP  
     <span class="token key atrule">replacement</span><span class="token punctuation">:</span> <span class="token string">'${1}:9100'</span>
     <span class="token key atrule">target_label</span><span class="token punctuation">:</span> __address__
     <span class="token key atrule">action</span><span class="token punctuation">:</span> replace<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>这里就是一个正则表达式，去匹配 <code>__address__</code> 这个标签，然后将 host 部分保留下来，port 替换成了 9100，现在我们重新更新配置文件，执行 reload 操作，然后再去看 Prometheus 的 Dashboard 的 Targets 路径下面 kubernetes-nodes 这个 job 任务是否正常了：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220902231454.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220902231454.png" alt=""></p>
 <p>我们可以看到现在已经正常了，但是还有一个问题就是我们采集的指标数据 Label 标签就只有一个节点的 hostname，这对于我们在进行监控分组分类查询的时候带来了很多不方便的地方，要是我们能够将集群中 Node 节点的 Label 标签也能获取到就很好了。这里我们可以通过 <code>labelmap</code> 这个属性来将 Kubernetes 的 Label 标签添加为 Prometheus 的指标数据的标签：</p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">-</span> <span class="token key atrule">job_name</span><span class="token punctuation">:</span> <span class="token string">'kubernetes-nodes'</span>
   <span class="token key atrule">kubernetes_sd_configs</span><span class="token punctuation">:</span>
@@ -701,7 +697,6 @@ redis        ClusterIP   10.96.143.235   &lt;none&gt;        6379/TCP,9121/TCP  
     <span class="token key atrule">action</span><span class="token punctuation">:</span> replace
   <span class="token punctuation">-</span> <span class="token key atrule">action</span><span class="token punctuation">:</span> labelmap
     <span class="token key atrule">regex</span><span class="token punctuation">:</span> __meta_kubernetes_node_label_(.+)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>添加了一个 action 为 <code>labelmap</code>，正则表达式是 <code>__meta_kubernetes_node_label_(.+)</code> 的配置，这里的意思就是表达式中匹配都的数据也添加到指标数据的 Label 标签中去。</p>
 <p>对于 <code>kubernetes_sd_configs</code> 下面可用的元信息标签如下：</p>
 <ul>
@@ -723,7 +718,6 @@ redis        ClusterIP   10.96.143.235   &lt;none&gt;        6379/TCP,9121/TCP  
   <span class="token key atrule">relabel_configs</span><span class="token punctuation">:</span>
   <span class="token punctuation">-</span> <span class="token key atrule">action</span><span class="token punctuation">:</span> labelmap
     <span class="token key atrule">regex</span><span class="token punctuation">:</span> __meta_kubernetes_node_label_(.+)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>但是这里需要特别注意的是这里必须使用 <code>https</code> 协议访问，这样就必然需要提供证书，我们这里是通过配置 <code>insecure_skip_verify: true</code> 来跳过了证书校验，但是除此之外，要访问集群的资源，还必须要有对应的权限才可以，也就是对应的 ServiceAccount 的权限允许才可以，我们这里部署的 prometheus 关联的 ServiceAccount 对象前面我们已经提到过了，这里我们只需要将 Pod 中自动注入的 <code>/var/run/secrets/kubernetes.io/serviceaccount/ca.crt</code> 和 <code>/var/run/secrets/kubernetes.io/serviceaccount/token</code> 文件配置上，就可以获取到对应的权限了。</p>
 <p>现在我们再去更新下配置文件，执行 reload 操作，让配置生效</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master prometheus]# kubectl apply -f prometheus-cm.yaml 
@@ -731,16 +725,15 @@ configmap/prometheus-config configured
 
 # 隔一会儿执行reload操作
 [root@k8s-master prometheus]# curl -X POST "http://10.96.146.110:9090/-/reload"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>然后访问 Prometheus 的 Dashboard 查看 Targets 路径：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220902232253.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220902232253.png" alt=""></p>
 <p>现在可以看到我们上面添加的 <code>kubernetes-kubelet</code> 和 <code>kubernetes-nodes</code> 这两个 job 任务都已经配置成功了，而且二者的 Labels 标签都和集群的 node 节点标签保持一致了。</p>
 <p>现在我们就可以切换到 Graph 路径下面查看采集的一些指标数据了，比如查询 node_load1 指标：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220902232620.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220902232620.png" alt=""></p>
 <p>我们可以看到将3个 node 节点对应的 node_load1 指标数据都查询出来了，同样的，我们还可以使用 PromQL 语句来进行更复杂的一些聚合查询操作，还可以根据我们的 Labels 标签对指标数据进行聚合，比如我们这里只查询  k8s-node1 节点的数据，可以使用表达式<code>node_load1{instance="k8s-node1"}</code>来进行查询：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220902232750.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220902232750.png" alt=""></p>
 <p>到这里我们就把 Kubernetes 集群节点使用 Prometheus 监控起来了。</p>
-<p> prometheus-cm.yaml  内容如下：</p>
+<p>prometheus-cm.yaml  内容如下：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -788,11 +781,9 @@ data:
       relabel_configs:
       - action: labelmap
         regex: __meta_kubernetes_node_label_(.+)  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://www.qikqiak.com/k8s-book/docs/54.%E7%9B%91%E6%8E%A7Kubernetes%E9%9B%86%E7%BE%A4%E8%8A%82%E7%82%B9.html">https://www.qikqiak.com/k8s-book/docs/54.%E7%9B%91%E6%8E%A7Kubernetes%E9%9B%86%E7%BE%A4%E8%8A%82%E7%82%B9.html</a></li>
+<h2 id="参考"><a class="markdownIt-Anchor" href="#参考"></a> 参考</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.qikqiak.com/k8s-book/docs/54.%E7%9B%91%E6%8E%A7Kubernetes%E9%9B%86%E7%BE%A4%E8%8A%82%E7%82%B9.html">https://www.qikqiak.com/k8s-book/docs/54.监控Kubernetes集群节点.html</a></li>
 </ul>
 
                 

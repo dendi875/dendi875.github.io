@@ -517,64 +517,89 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Kubernetes-中资源对象的简单使用"><a href="#Kubernetes-中资源对象的简单使用" class="headerlink" title="Kubernetes 中资源对象的简单使用"></a>Kubernetes 中资源对象的简单使用</h1><p>在本文中，记录了 Namespaces、Pod 资源对象的简单使用</p>
-<h2 id="资源对象"><a href="#资源对象" class="headerlink" title="资源对象"></a>资源对象</h2><p>Kubernetes 中的所有内容都被抽象为“资源”，如 Pod、Service、Node 等都是资源。“对象”就是“资源”的实例，是持久化的实体。如某个具体的 Pod、某个具体的 Node。Kubernetes 使用这些实体去表示整个集群的状态。  </p>
-<p>对象的创建、删除、修改都是通过 “Kubernetes API”，也就是 “Api Server” 组件提供的 API 接口，这些是 RESTful 风格的 Api，与 k8s 的“万物皆对象”理念相符。命令行工具 “kubectl”，实际上也是调用 kubernetes api。  </p>
+                <h1 id="kubernetes-中资源对象的简单使用"><a class="markdownIt-Anchor" href="#kubernetes-中资源对象的简单使用"></a> Kubernetes 中资源对象的简单使用</h1>
+<p>在本文中，记录了 Namespaces、Pod 资源对象的简单使用</p>
+<h2 id="资源对象"><a class="markdownIt-Anchor" href="#资源对象"></a> 资源对象</h2>
+<p>Kubernetes 中的所有内容都被抽象为“资源”，如 Pod、Service、Node 等都是资源。“对象”就是“资源”的实例，是持久化的实体。如某个具体的 Pod、某个具体的 Node。Kubernetes 使用这些实体去表示整个集群的状态。</p>
+<p>对象的创建、删除、修改都是通过 “Kubernetes API”，也就是 “Api Server” 组件提供的 API 接口，这些是 RESTful 风格的 Api，与 k8s 的“万物皆对象”理念相符。命令行工具 “kubectl”，实际上也是调用 kubernetes api。</p>
 <p>K8s 中的资源类别有很多种，kubectl 可以通过配置文件来创建这些 “对象”，配置文件更像是描述对象“属性”的文件，配置文件格式可以是 “JSON” 或 “YAML”，常用 “YAML”。</p>
-<h2 id="资源创建方式"><a href="#资源创建方式" class="headerlink" title="资源创建方式"></a>资源创建方式</h2><p>在 K8s 中，创建资源有两种方式：</p>
+<h2 id="资源创建方式"><a class="markdownIt-Anchor" href="#资源创建方式"></a> 资源创建方式</h2>
+<p>在 K8s 中，创建资源有两种方式：</p>
 <ul>
 <li>直接使用命令行方式创建</li>
 <li>使用 <code>kubectl create/apply</code>  命令从 YAML 文件创建</li>
 </ul>
-<h2 id="Namespaces"><a href="#Namespaces" class="headerlink" title="Namespaces"></a>Namespaces</h2><p>NameSpaces：名称空间，用来对集群中的资源进行隔离划分。默认只隔离资源，不隔离网络。同一名称空间内的资源名称要唯一，但跨名称空间时没有这个要求。 </p>
-<h3 id="查看-namespaces"><a href="#查看-namespaces" class="headerlink" title="查看 namespaces"></a>查看 namespaces</h3><ul>
-<li><p>列出集群中现有的名称空间</p>
+<h2 id="namespaces"><a class="markdownIt-Anchor" href="#namespaces"></a> Namespaces</h2>
+<p>NameSpaces：名称空间，用来对集群中的资源进行隔离划分。默认只隔离资源，不隔离网络。同一名称空间内的资源名称要唯一，但跨名称空间时没有这个要求。</p>
+<h3 id="查看-namespaces"><a class="markdownIt-Anchor" href="#查看-namespaces"></a> 查看 namespaces</h3>
+<ul>
+<li>
+<p>列出集群中现有的名称空间</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get ns
 NAME                   STATUS   AGE
 default                Active   20h
 kube-node-lease        Active   20h
 kube-public            Active   20h
 kube-system            Active   20h
-kubernetes-dashboard   Active   46m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li><p>获取某个名称空间的详细信息</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">kubectl describe namespaces default<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+kubernetes-dashboard   Active   46m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li>
+<p>获取某个名称空间的详细信息</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">kubectl describe namespaces default<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
 </ul>
-<h3 id="创建-namespace"><a href="#创建-namespace" class="headerlink" title="创建 namespace"></a>创建 namespace</h3><ul>
+<h3 id="创建-namespace"><a class="markdownIt-Anchor" href="#创建-namespace"></a> 创建 namespace</h3>
+<ul>
 <li>命令行方式</li>
 </ul>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl create namespace mynamespace
 namespace/mynamespace created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <ul>
-<li><p>yaml 文件方式</p>
+<li>
+<p>yaml 文件方式</p>
 <ol>
-<li><p>新建一个名为 <code>my-namespace.yaml</code> 的 YAML 文件，并写入下列内容：</p>
+<li>
+<p>新建一个名为 <code>my-namespace.yaml</code> 的 YAML 文件，并写入下列内容：</p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> Namespace
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> mynamespace<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li><p>然后运行</p>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> mynamespace<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li>
+<p>然后运行</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl create -f ./ns/my-namespace.yaml 
-namespace/mynamespace created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
+namespace/mynamespace created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
 </ol>
 </li>
 </ul>
-<h3 id="删除-namespace"><a href="#删除-namespace" class="headerlink" title="删除 namespace"></a>删除 namespace</h3><ul>
-<li><p>命令行方式</p>
+<h3 id="删除-namespace"><a class="markdownIt-Anchor" href="#删除-namespace"></a> 删除 namespace</h3>
+<ul>
+<li>
+<p>命令行方式</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl delete namespace mynamespace
-namespace "mynamespace" deleted<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
-<li><p>yaml 文件方式</p>
+namespace "mynamespace" deleted<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li>
+<p>yaml 文件方式</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl delete -f ./ns/my-namespace.yaml       
-namespace "mynamespace" deleted<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
+namespace "mynamespace" deleted<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
 </ul>
-<h2 id="Pod"><a href="#Pod" class="headerlink" title="Pod"></a>Pod</h2><p>Pod：运行中的一组（一个或多个）容器；<strong>Pod</strong> 是可以在 Kubernetes 中创建和管理的、最小的可部署的计算单元。</p>
-<h3 id="创建-Pod"><a href="#创建-Pod" class="headerlink" title="创建 Pod"></a>创建 Pod</h3><ul>
-<li><p>命令行方式</p>
+<h2 id="pod"><a class="markdownIt-Anchor" href="#pod"></a> Pod</h2>
+<p>Pod：运行中的一组（一个或多个）容器；<strong>Pod</strong> 是可以在 Kubernetes 中创建和管理的、最小的可部署的计算单元。</p>
+<h3 id="创建-pod"><a class="markdownIt-Anchor" href="#创建-pod"></a> 创建 Pod</h3>
+<ul>
+<li>
+<p>命令行方式</p>
 <p>mynginx 表示给我们创建的Pod起一个名字，–image=nginx 是表示基于哪个镜像来创建一个Pod，Pod本身是对容器的封装，不写 namespace 就默认创建在 default 空间下</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">kubectl run mynginx --image=nginx<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
-<li><p>yaml 文件方式</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">kubectl run mynginx --image=nginx<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li>
+<p>yaml 文件方式</p>
 <ol>
-<li><p>新建一个名为 <code>my-nginx.yaml</code> 的 YAML 文件，并写入下列内容：</p>
+<li>
+<p>新建一个名为 <code>my-nginx.yaml</code> 的 YAML 文件，并写入下列内容：</p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
@@ -585,27 +610,37 @@ namespace "mynamespace" deleted<span aria-hidden="true" class="line-numbers-rows
 <span class="token key atrule">spec</span><span class="token punctuation">:</span>
   <span class="token key atrule">containers</span><span class="token punctuation">:</span>
   <span class="token punctuation">-</span> <span class="token key atrule">image</span><span class="token punctuation">:</span> nginx <span class="token comment">#容器镜像名称</span>
-    <span class="token key atrule">name</span><span class="token punctuation">:</span> mynginx  <span class="token comment">#容器名称</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li><p>然后运行</p>
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> mynginx  <span class="token comment">#容器名称</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li>
+<p>然后运行</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl apply -f pod/my-nginx.yaml 
-pod/mynginx created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
+pod/mynginx created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
 </ol>
 </li>
 </ul>
-<h3 id="查看-Pod"><a href="#查看-Pod" class="headerlink" title="查看 Pod"></a>查看 Pod</h3><ul>
-<li><p>查看某个名称空间的 Pod</p>
+<h3 id="查看-pod"><a class="markdownIt-Anchor" href="#查看-pod"></a> 查看 Pod</h3>
+<ul>
+<li>
+<p>查看某个名称空间的 Pod</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get pod -n default
 NAME      READY   STATUS    RESTARTS   AGE
-mynginx   1/1     Running   0          105s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
-<li><p>获取某个 Pod 的详细信息</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">kubectl describe pod mynginx<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
-<li><p>查看 Pod 运行日志</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">kubectl logs mynginx<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
-<li><p>查看 Pod详细信息，k8s会为每个Pod分配一个ip </p>
+mynginx   1/1     Running   0          105s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li>
+<p>获取某个 Pod 的详细信息</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">kubectl describe pod mynginx<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li>
+<p>查看 Pod 运行日志</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">kubectl logs mynginx<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li>
+<p>查看 Pod详细信息，k8s会为每个Pod分配一个ip</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get pod -owide
 NAME      READY   STATUS    RESTARTS   AGE     IP                NODE        NOMINATED NODE   READINESS GATES
 mynginx   1/1     Running   0          2m33s   192.168.169.132   k8s-node2   &lt;none&gt;           &lt;none&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
 <p>集群中的任意一个机器以及任意的应用都能通过Pod的ip来访问这个Pod</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# curl 192.168.169.132
 &lt;!DOCTYPE html&gt;
@@ -630,21 +665,29 @@ Commercial support is available at
 
 &lt;p&gt;&lt;em&gt;Thank you for using nginx.&lt;/em&gt;&lt;/p&gt;
 &lt;/body&gt;
-&lt;/html&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+&lt;/html&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
 </ul>
-<h3 id="删除-Pod"><a href="#删除-Pod" class="headerlink" title="删除 Pod"></a>删除 Pod</h3><ul>
-<li><p>命令行方式</p>
+<h3 id="删除-pod"><a class="markdownIt-Anchor" href="#删除-pod"></a> 删除 Pod</h3>
+<ul>
+<li>
+<p>命令行方式</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl delete pod mynginx -n default
-pod "mynginx" deleted<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
-<li><p>yaml 文件方式</p>
+pod "mynginx" deleted<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li>
+<p>yaml 文件方式</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl delete -f pod/my-nginx.yaml  
-pod "mynginx" deleted<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
+pod "mynginx" deleted<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
 </ul>
-<h3 id="进入-Pod"><a href="#进入-Pod" class="headerlink" title="进入 Pod"></a>进入 Pod</h3><pre class="line-numbers language-she" data-language="she"><code class="language-she">[root@k8s-master ~]# kubectl exec -it mynginx -- /bin/bash
+<h3 id="进入-pod"><a class="markdownIt-Anchor" href="#进入-pod"></a> 进入 Pod</h3>
+<pre class="line-numbers language-she" data-language="she"><code class="language-she">[root@k8s-master ~]# kubectl exec -it mynginx -- /bin/bash
 root@mynginx:/# <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<h3 id="一个Pod里面有两个容器"><a href="#一个Pod里面有两个容器" class="headerlink" title="一个Pod里面有两个容器"></a>一个Pod里面有两个容器</h3><ol>
-<li><p>新建一个名为 <code>my-nginx-tomact.yaml</code> 的 YAML 文件，并写入下列内容：</p>
+<h3 id="一个pod里面有两个容器"><a class="markdownIt-Anchor" href="#一个pod里面有两个容器"></a> 一个Pod里面有两个容器</h3>
+<ol>
+<li>
+<p>新建一个名为 <code>my-nginx-tomact.yaml</code> 的 YAML 文件，并写入下列内容：</p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
@@ -657,32 +700,40 @@ root@mynginx:/# <span aria-hidden="true" class="line-numbers-rows"><span></span>
   <span class="token punctuation">-</span> <span class="token key atrule">image</span><span class="token punctuation">:</span> nginx  <span class="token comment">#第一个容器的镜像</span>
     <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx <span class="token comment">#第一个容器的名称</span>
   <span class="token punctuation">-</span> <span class="token key atrule">image</span><span class="token punctuation">:</span> tomcat<span class="token punctuation">:</span>8.5.68 <span class="token comment">#第二个容器的镜像</span>
-    <span class="token key atrule">name</span><span class="token punctuation">:</span> tomcat <span class="token comment">#第二个容器的名称</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li><p>然后运行</p>
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> tomcat <span class="token comment">#第二个容器的名称</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li>
+<p>然后运行</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl apply -f pod/my-nginx-tomact.yaml 
-pod/myapp created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
-<li><p>验证创建成功</p>
+pod/myapp created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li>
+<p>验证创建成功</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get pod
 NAME      READY   STATUS    RESTARTS   AGE
 myapp     2/2     Running   0          5m21s
-mynginx   1/1     Running   0          20m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li><p>访问 myapp Pod 中的 nginx 容器</p>
+mynginx   1/1     Running   0          20m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li>
+<p>访问 myapp Pod 中的 nginx 容器</p>
 <p>首先获取 Pod ip</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get pod myapp -owide
 NAME    READY   STATUS    RESTARTS   AGE     IP              NODE        NOMINATED NODE   READINESS GATES
 myapp   2/2     Running   0          8m11s   192.168.36.66   k8s-node1   &lt;none&gt;           &lt;none&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
 <p>访问默认的80端口</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# curl 192.168.36.66<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
-<li><p>访问 myapp Pod 中的 tomcat 容器</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# curl 192.168.36.66<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li>
+<p>访问 myapp Pod 中的 tomcat 容器</p>
 <p>首先获取 Pod ip，然后访问默认的8080端口</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# curl 192.168.36.66:8080<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
-<li><p>同一个 Pod 中的容器相互访问</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# curl 192.168.36.66:8080<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li>
+<p>同一个 Pod 中的容器相互访问</p>
 <p>因为同一个 Pod 中的容器他们<strong>共享存储、共享网络</strong>，所以直接使用 127.0.0.1 就可以访问</p>
 <p>比如 myapp Pod 中 nginx 容器访问 tomcat 容器</p>
 <p>进入某个Pod中的某个容器内</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">kubectl exec -it myapp -c tomcat -- /bin/bash<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">root@myapp:/usr/local/tomcat# curl 127.0.0.1
 &lt;!DOCTYPE html&gt;
 &lt;html&gt;
@@ -706,16 +757,22 @@ Commercial support is available at
 
 &lt;p&gt;&lt;em&gt;Thank you for using nginx.&lt;/em&gt;&lt;/p&gt;
 &lt;/body&gt;
-&lt;/html&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+&lt;/html&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
 </ol>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
-<li><p><a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/_print/">https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/_print/</a></p>
+<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
+<ul>
+<li>
+<p><a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/_print/">https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/_print/</a></p>
 </li>
-<li><p><a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/namespaces/">https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/namespaces/</a></p>
+<li>
+<p><a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/namespaces/">https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/namespaces/</a></p>
 </li>
-<li><p><a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/concepts/workloads/pods/#using-pods">https://kubernetes.io/zh-cn/docs/concepts/workloads/pods/#using-pods</a></p>
+<li>
+<p><a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/concepts/workloads/pods/#using-pods">https://kubernetes.io/zh-cn/docs/concepts/workloads/pods/#using-pods</a></p>
 </li>
-<li><p><a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/tasks/access-application-cluster/communicate-containers-same-pod-shared-volume/">https://kubernetes.io/zh-cn/docs/tasks/access-application-cluster/communicate-containers-same-pod-shared-volume/</a></p>
+<li>
+<p><a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/tasks/access-application-cluster/communicate-containers-same-pod-shared-volume/">https://kubernetes.io/zh-cn/docs/tasks/access-application-cluster/communicate-containers-same-pod-shared-volume/</a></p>
 </li>
 </ul>
 

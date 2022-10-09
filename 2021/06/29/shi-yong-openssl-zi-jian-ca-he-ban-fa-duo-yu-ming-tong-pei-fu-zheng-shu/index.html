@@ -517,22 +517,30 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="使用openssl自建CA和颁发多域名通配符证书"><a href="#使用openssl自建CA和颁发多域名通配符证书" class="headerlink" title="使用openssl自建CA和颁发多域名通配符证书"></a>使用openssl自建CA和颁发多域名通配符证书</h1><hr>
-<h2 id="常见的证书分类"><a href="#常见的证书分类" class="headerlink" title="常见的证书分类"></a>常见的证书分类</h2><ol>
-<li><p>单域名ssl证书</p>
-<p> 只保护一个域名，例如如果想要保护<a target="_blank" rel="noopener" href="http://www.test.com,a.demo.com,b.example.com;每个域名分别需要一个证书./">www.test.com，a.demo.com，b.example.com；每个域名分别需要一个证书。</a></p>
+                <h1 id="使用openssl自建ca和颁发多域名通配符证书"><a class="markdownIt-Anchor" href="#使用openssl自建ca和颁发多域名通配符证书"></a> 使用openssl自建CA和颁发多域名通配符证书</h1>
+<hr>
+<h2 id="常见的证书分类"><a class="markdownIt-Anchor" href="#常见的证书分类"></a> 常见的证书分类</h2>
+<ol>
+<li>
+<p>单域名ssl证书</p>
+<p>只保护一个域名，<a target="_blank" rel="noopener" href="http://xn--www-uc0eso019ba453mnsdm7pd14g.test.com">例如如果想要保护www.test.com</a>，<a target="_blank" rel="noopener" href="http://a.demo.com">a.demo.com</a>，<a target="_blank" rel="noopener" href="http://b.example.com">b.example.com</a>；每个域名分别需要一个证书。</p>
 </li>
-<li><p>多域名ssl证书</p>
-<p> 可以同时保护多个域名，例如同时保护<a target="_blank" rel="noopener" href="http://www.test.com,a.demo.com,b.example.com等,但每一个品牌的多域名证书保护的域名数量不一样./">www.test.com，a.demo.com，b.example.com等，但每一个品牌的多域名证书保护的域名数量不一样。</a></p>
+<li>
+<p>多域名ssl证书</p>
+<p>可以同时保护多个域名，<a target="_blank" rel="noopener" href="http://xn--www-uc0esoi1sutkqmss6g.test.com">例如同时保护www.test.com</a>，<a target="_blank" rel="noopener" href="http://a.demo.com">a.demo.com</a>，b.example.com等，但每一个品牌的多域名证书保护的域名数量不一样。</p>
 </li>
-<li><p>通配符ssl证书</p>
-<p> <strong>可以保护主域名本身及下一级的所有子域名，但不支持无限级子域名。</strong>例如*.test.com证书可以保护a.test.com，b.test.com，c.test.com但无法保护x.y.test.com。</p>
+<li>
+<p>通配符ssl证书</p>
+<p>**可以保护主域名本身及下一级的所有子域名，但不支持无限级子域名。*<em>例如</em>.test.com证书可以保护a.test.com，<a target="_blank" rel="noopener" href="http://b.test.com">b.test.com</a>，<a target="_blank" rel="noopener" href="http://c.test.xn--comx-7k6fh5ao57ghof8pr.y.test.com">c.test.com但无法保护x.y.test.com</a>。</p>
 </li>
-<li><p>多域名通配符ssl证书</p>
-<p> 可以保护多个域名以及每个域名的所有二级域名，相当于将多个通配符证书合并为一个证书，例如一个多域名通配符证书可以保护test.com和demo.com，同时也能保护test.com及demo.com的所有二级域名。</p>
+<li>
+<p>多域名通配符ssl证书</p>
+<p>可以保护多个域名以及每个域名的所有二级域名，相当于将多个通配符证书合并为一个证书，<a target="_blank" rel="noopener" href="http://xn--test-k84fui2oy6au6btxaj16aikax73b89drwbc34fic1giqycfjrppf.xn--comdemo-bs4l.com">例如一个多域名通配符证书可以保护test.com和demo.com</a>，同时也能保护test.com及demo.com的所有二级域名。</p>
 </li>
 </ol>
-<h2 id="制作多域名通配符ssl证书"><a href="#制作多域名通配符ssl证书" class="headerlink" title="制作多域名通配符ssl证书"></a>制作多域名通配符ssl证书</h2><h3 id="1-CA服务器配置"><a href="#1-CA服务器配置" class="headerlink" title="1. CA服务器配置"></a>1. CA服务器配置</h3><p>1.1. 在CA目录下创建两个初始文件：</p>
+<h2 id="制作多域名通配符ssl证书"><a class="markdownIt-Anchor" href="#制作多域名通配符ssl证书"></a> 制作多域名通配符ssl证书</h2>
+<h3 id="1-ca服务器配置"><a class="markdownIt-Anchor" href="#1-ca服务器配置"></a> 1. CA服务器配置</h3>
+<p>1.1. 在CA目录下创建两个初始文件：</p>
 <pre class="line-numbers language-ssh" data-language="ssh"><code class="language-ssh">[root@localhost ~]# cd /etc/pki/CA/
 [root@localhost CA]# touch index.txt serial
 [root@localhost CA]# echo 01 &gt; serial<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
@@ -546,7 +554,6 @@
 <pre class="line-numbers language-ssh" data-language="ssh"><code class="language-ssh">[root@localhost CA]# openssl rsa -in private/ca.key -pubout -out private/pub.key<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>1.4. 利用CA的RSA密钥生成CA证书请求并对CA证书请求进行自签名，得到CA证书(X.509结构)</p>
 <pre class="line-numbers language-ssh" data-language="ssh"><code class="language-ssh">openssl req -new -sha256 -x509 -days 3650 -key private/ca.key -out cacert.crt<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <ul>
 <li>签发机构名示例如下</li>
 </ul>
@@ -557,29 +564,28 @@ Organization Name (eg, company) [Default Company Ltd]:Guanaitong
 Organizational Unit Name (eg, section) []:PHP
 Common Name (eg, your name or your server's hostname) []:Test Root CA
 Email Address []:quan.zhang@guanaitong.com<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <ul>
-<li><p>可以使用<code>-subj</code>在非交互式下来代替请求字段信息</p>
+<li>可以使用<code>-subj</code>在非交互式下来代替请求字段信息</li>
+</ul>
 <pre class="line-numbers language-ssh" data-language="ssh"><code class="language-ssh">openssl req -new \
             -sha256 \
             -x509 \
             -days 3650 \
             -key private/ca.key \
             -subj "/C=CN/ST=ShangHai/L=ShangHai/O=Guanaitong/OU=PHP/CN=Test Root CA/emailAddress=quan.zhang@guanaitong.com" \
-            -out cacert.crt<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li><p><code>cacert.crt</code>就是得到的CA证书</p>
-</li>
+            -out cacert.crt<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li><code>cacert.crt</code>就是得到的CA证书</li>
 </ul>
 <hr>
-<h3 id="2-Web服务器配置-以nginx为例"><a href="#2-Web服务器配置-以nginx为例" class="headerlink" title="2. Web服务器配置(以nginx为例)"></a>2. Web服务器配置(以nginx为例)</h3><p>2.1 建立存放服务器私钥和证书的目录</p>
+<h3 id="2-web服务器配置以nginx为例"><a class="markdownIt-Anchor" href="#2-web服务器配置以nginx为例"></a> 2. Web服务器配置(以nginx为例)</h3>
+<p>2.1 建立存放服务器私钥和证书的目录</p>
 <pre class="line-numbers language-ssh" data-language="ssh"><code class="language-ssh">[root@localhost CA]# cd /usr/local/nginx/conf/
 [root@localhost conf]# mkdir ssl &amp;&amp; cd ssl<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>2.2 生成服务器证书用的RSA私钥</p>
 <pre class="line-numbers language-ssh" data-language="ssh"><code class="language-ssh">[root@localhost ssl]# openssl genrsa -out nginx.key 2048<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>2.3 利用生成好的私钥生成服务器证书签名请求文件</p>
 <pre class="line-numbers language-ssh" data-language="ssh"><code class="language-ssh">[root@localhost ssl]# openssl req -new -sha256 -key nginx.key -out nginx.csr<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <ul>
 <li>签名请求内容示例如下：</li>
 </ul>
@@ -594,14 +600,14 @@ Please enter the following 'extra' attributes
 to be sent with your certificate request
 A challenge password []:
 An optional company name []:<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <ul>
-<li>可以使用<code>-subj</code>在非交互式下来代替请求字段信息<pre class="line-numbers language-ssh" data-language="ssh"><code class="language-ssh">openssl req -new \
+<li>可以使用<code>-subj</code>在非交互式下来代替请求字段信息</li>
+</ul>
+<pre class="line-numbers language-ssh" data-language="ssh"><code class="language-ssh">openssl req -new \
             -sha256 \
             -key nginx.key \
             -subj "/C=CN/ST=ShangHai/L=ShangHai/O=Guanaitong/OU=PHP/CN=Test Internal" \
-            -out nginx.csr<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
+            -out nginx.csr<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>2.4 使用CA根证书对“服务器证书签名请求文件”进行签名，生成带SAN扩展证书</p>
 <pre class="line-numbers language-ssh" data-language="ssh"><code class="language-ssh">openssl x509 -req -sha256 \
              -in nginx.csr \
@@ -612,7 +618,8 @@ An optional company name []:<span aria-hidden="true" class="line-numbers-rows"><
              -extfile v3.ext \
              -out nginx.crt<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <blockquote>
-<p>-extfile：指定当前创建的证书的扩展文件<br>-extensions section：指定当前创建的证书使用配置文件中的哪个section作为扩展属性。</p>
+<p>-extfile：指定当前创建的证书的扩展文件<br>
+-extensions section：指定当前创建的证书使用配置文件中的哪个section作为扩展属性。</p>
 </blockquote>
 <ul>
 <li>v3.ext内容示例如下</li>
@@ -622,11 +629,12 @@ An optional company name []:<span aria-hidden="true" class="line-numbers-rows"><
 [alt_names]
 DNS.1 = www.testvm.dev
 DNS.2 = *.demo.dev<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <ul>
-<li><p>这里使用<code>openssl</code>的<code>SubjectAlternativeName(SAN)</code>实现一个CA证书对多个通配符域名进行签名保护。</p>
+<li>
+<p>这里使用<code>openssl</code>的<code>SubjectAlternativeName(SAN)</code>实现一个CA证书对多个通配符域名进行签名保护。</p>
 </li>
-<li><p>ssl目录内容</p>
+<li>
+<p>ssl目录内容</p>
 </li>
 </ul>
 <pre class="line-numbers language-ssh" data-language="ssh"><code class="language-ssh">ssl
@@ -635,10 +643,12 @@ DNS.2 = *.demo.dev<span aria-hidden="true" class="line-numbers-rows"><span></spa
 ├── nginx.key   #服务器私钥
 └── v3.ext<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
-<li>查看CSR和CRT文件细节<pre class="line-numbers language-ssh" data-language="ssh"><code class="language-ssh">[root@localhost ssl]# openssl req -noout -text -in nginx.csr
-[root@localhost ssl]# openssl x509 -noout -text -in nginx.crt<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
+<li>查看CSR和CRT文件细节</li>
 </ul>
-<h3 id="3-nginx配置ssl加密"><a href="#3-nginx配置ssl加密" class="headerlink" title="3. nginx配置ssl加密"></a>3. nginx配置ssl加密</h3><p>3.1 默认nginx是没有安装ssl模块的，需要编译安装nginx时加入<code>--with-http_ssl_module</code>选项</p>
+<pre class="line-numbers language-ssh" data-language="ssh"><code class="language-ssh">[root@localhost ssl]# openssl req -noout -text -in nginx.csr
+[root@localhost ssl]# openssl x509 -noout -text -in nginx.crt<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="3-nginx配置ssl加密"><a class="markdownIt-Anchor" href="#3-nginx配置ssl加密"></a> 3. nginx配置ssl加密</h3>
+<p>3.1 默认nginx是没有安装ssl模块的，需要编译安装nginx时加入<code>--with-http_ssl_module</code>选项</p>
 <p>3.2 nginx配置文件的server指令添加如下配置</p>
 <pre class="line-numbers language-ssh" data-language="ssh"><code class="language-ssh">server {
 	 listen       80;
@@ -654,18 +664,17 @@ DNS.2 = *.demo.dev<span aria-hidden="true" class="line-numbers-rows"><span></spa
 	     fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
 	     include        fastcgi_params;
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>3.3 重新加载nginx配置</p>
 <pre class="line-numbers language-ssh" data-language="ssh"><code class="language-ssh">[root@localhost ssl]# /usr/local/nginx/sbin/nginx -t
 [root@localhost ssl]# /usr/local/nginx/sbin/nginx -s reload<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<h3 id="4-浏览器导入自己制做的CA证书"><a href="#4-浏览器导入自己制做的CA证书" class="headerlink" title="4. 浏览器导入自己制做的CA证书"></a>4. 浏览器导入自己制做的CA证书</h3><h3 id="5-为linux系统添加根证书"><a href="#5-为linux系统添加根证书" class="headerlink" title="5. 为linux系统添加根证书"></a>5. 为linux系统添加根证书</h3><ul>
+<h3 id="4-浏览器导入自己制做的ca证书"><a class="markdownIt-Anchor" href="#4-浏览器导入自己制做的ca证书"></a> 4. 浏览器导入自己制做的CA证书</h3>
+<h3 id="5-为linux系统添加根证书"><a class="markdownIt-Anchor" href="#5-为linux系统添加根证书"></a> 5. 为linux系统添加根证书</h3>
+<ul>
 <li>我们来看下这种情况假设<code>/data1/www/test/index.php</code>文件内容如下：</li>
 </ul>
 <pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
 
 <span class="token keyword">echo</span> <span class="token string single-quoted-string">'success'</span><span class="token punctuation">;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
 <pre class="line-numbers language-ssh" data-language="ssh"><code class="language-ssh">[root@localhost test]# curl https://www.testvm.dev/index.php
 curl: (60) Peer certificate cannot be authenticated with known CA certificates
 More details here: http://curl.haxx.se/docs/sslcerts.html
@@ -680,20 +689,19 @@ If this HTTPS server uses a certificate signed by a CA represented in
  not match the domain name in the URL).
 If you'd like to turn off curl's verification of the certificate, use
  the -k (or --insecure) option.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <pre class="line-numbers language-ssh" data-language="ssh"><code class="language-ssh">[root@localhost test]# curl https://www.baidu.com
 &lt;!DOCTYPE html&gt;
 &lt;!--STATUS OK--&gt;&lt;html&gt; &lt;head&gt;&lt;meta http-equiv=content-type content=text/html;charset=utf-8&gt;&lt;meta http-equiv=X-UA-Compatible content=IE=Edge&gt;&lt;meta content=always name=referrer&gt;&lt;link rel=stylesheet type=text/css href=https://ss1.bdstatic.com/5eN1bjq8AAUYm2zgoY3K/r/www/cache/bdorz/baidu.min.css&gt;&lt;title&gt;百度一下，你就知道&lt;/title&gt; (剩余内容省略)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
 <ul>
-<li><p>当我们访问我们自己站点时（<code>curl https://www.testvm.dev</code>）提示我们curl在linux的证书信任集里没有找到根证书，你可以使用<code>curl --insecure</code>来不验证证书的可靠性，这只能保证数据是加密传输的但无法保证对方是我们要访问的服务。使用<code>curl --cacert cacert.pem</code>可以手动指定根证书路径。为什么访问百度的<code>https</code>站点时就能正确返回内容？</p>
+<li>
+<p>当我们访问我们自己站点时（<code>curl https://www.testvm.dev</code>）提示我们curl在linux的证书信任集里没有找到根证书，你可以使用<code>curl --insecure</code>来不验证证书的可靠性，这只能保证数据是加密传输的但无法保证对方是我们要访问的服务。使用<code>curl --cacert cacert.pem</code>可以手动指定根证书路径。为什么访问百度的<code>https</code>站点时就能正确返回内容？</p>
 <ul>
 <li>因为为百度站点签署的CA证书已经内置在操作系统中了，curl 访问https站点时会自动去获取操作系统内置的证书，而我们自已签名的CA证书没有导入到操作系统中，所以会获取不到内容。</li>
 </ul>
 </li>
-</ul>
-<ul>
-<li>把自己制作的CA证书导入到操作系统中</li>
+<li>
+<p>把自己制作的CA证书导入到操作系统中</p>
+</li>
 </ul>
 <blockquote>
 <p>Ubuntu, Debian系列</p>
@@ -718,26 +726,33 @@ If you'd like to turn off curl's verification of the certificate, use
 <pre class="line-numbers language-ssh" data-language="ssh"><code class="language-ssh">[root@localhost test]# update-ca-trust extract<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>5.更多的命令行参数及说明， 请查看: <code>man update-ca-trust</code></p>
 <ul>
-<li>最后验证下是否成功<pre class="line-numbers language-ssh" data-language="ssh"><code class="language-ssh">[root@localhost logs]# curl https://www.testvm.dev/index.php
-success<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
+<li>最后验证下是否成功</li>
 </ul>
-<h3 id="一点扩展知识"><a href="#一点扩展知识" class="headerlink" title="一点扩展知识"></a>一点扩展知识</h3><ul>
-<li><p>我们在使用PHP开发程序时会使用到<code>file_get_contents</code>函数、<code>curl</code>库来获取https站点数据时，如果需要对证书做信任，那么就可以把自己制作的CA证书导入到操作系统中，然后就不需要手动指定证书参数或者修改 php.ini <code> openssl.cafile或openssl.capath</code>选项，就能很爽的直接<code>file_get_contents('https://www.testvm.dev/index.php')</code>来使用了。</p>
+<pre class="line-numbers language-ssh" data-language="ssh"><code class="language-ssh">[root@localhost logs]# curl https://www.testvm.dev/index.php
+success<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="一点扩展知识"><a class="markdownIt-Anchor" href="#一点扩展知识"></a> 一点扩展知识</h3>
+<ul>
+<li>
+<p>我们在使用PHP开发程序时会使用到<code>file_get_contents</code>函数、<code>curl</code>库来获取https站点数据时，如果需要对证书做信任，那么就可以把自己制作的CA证书导入到操作系统中，然后就不需要手动指定证书参数或者修改 php.ini <code>openssl.cafile或openssl.capath</code>选项，就能很爽的直接<code>file_get_contents('https://www.testvm.dev/index.php')</code>来使用了。</p>
 </li>
-<li><p>注意导入证书后那些在导入证书前就已经运行的服务需要将相应服务重启后才能使用系统新的证书，例如重启<code>php-fpm</code></p>
+<li>
+<p>注意导入证书后那些在导入证书前就已经运行的服务需要将相应服务重启后才能使用系统新的证书，例如重启<code>php-fpm</code></p>
 </li>
 </ul>
 <hr>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<h2 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h2>
+<ul>
 <li>如果是自己做的CA，浏览器要导入CA证书(导入CA证书，意味着将信任这个CA签署的所有证书)。而商业的ssl证书颁发机构如VeriSign、Wosign、StartSSL签发的证书，浏览器已经内置并信任了这些根证书。</li>
 <li>如果对于一般的应用，管理员只需生成“证书请求”（后缀大多为.csr），它包含你的服务器名称(域名)和公钥，然后把这份请求交给诸如verisign等有CA服务公司，你的证书请求经验证后，CA用它的私钥签名，形成正式的证书发还给你。管理员再在web server上导入这个证书就行了。</li>
 </ul>
-<h2 id="一些坑"><a href="#一些坑" class="headerlink" title="一些坑"></a>一些坑</h2><ul>
+<h2 id="一些坑"><a class="markdownIt-Anchor" href="#一些坑"></a> 一些坑</h2>
+<ul>
 <li>Chrome 58及以上版本要使用OpenSSL创建带有SAN(subjectAlternativeName，主题备用名称)的证书，不然chrome会报 <strong>NET::ERR_CERT_COMMON_NAME_INVALID</strong></li>
 <li>生成证书时要使用<strong>sha256</strong>加密不然chrome会报弱的签名</li>
 <li>注意浏览器缓存，<strong>cookie</strong></li>
 </ul>
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
+<h2 id="参考链接"><a class="markdownIt-Anchor" href="#参考链接"></a> 参考链接</h2>
+<ul>
 <li><a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2011/08/what_is_a_digital_signature.html">http://www.ruanyifeng.com/blog/2011/08/what_is_a_digital_signature.html</a></li>
 <li><a target="_blank" rel="noopener" href="http://apetec.com/support/generatesan-csr.htm">http://apetec.com/support/generatesan-csr.htm</a></li>
 <li><a target="_blank" rel="noopener" href="http://liaoph.com/openssl-san/">http://liaoph.com/openssl-san/</a></li>

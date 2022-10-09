@@ -518,7 +518,8 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <hr>
-<h2 id="一、字符串基础"><a href="#一、字符串基础" class="headerlink" title="一、字符串基础"></a>一、字符串基础</h2><ul>
+<h2 id="一-字符串基础"><a class="markdownIt-Anchor" href="#一-字符串基础"></a> 一、字符串基础</h2>
+<ul>
 <li>字符串可以当作以<strong>空字符</strong>结尾的字符数组。</li>
 </ul>
 <p>空字符：一个所有位都为0的字节，因此用转义序列<code>\0</code>来表示。注意不要混淆空字符<code>'\0'</code>和零字符<code>'0'</code>。空字符的<code>ASCII</code>值为<code>0</code>，而零字符的码值为<code>48</code>。</p>
@@ -527,16 +528,19 @@
 <li>字符串常量是用一对引号括起来的字符序列，在程序执行过程中保持不变的数据</li>
 <li>字符串变量可以在程序运行过程中发生改变</li>
 </ul>
-<h2 id="二、字符串处理函数"><a href="#二、字符串处理函数" class="headerlink" title="二、字符串处理函数"></a>二、字符串处理函数</h2><h3 id="计算字符串长度"><a href="#计算字符串长度" class="headerlink" title="计算字符串长度"></a>计算字符串长度</h3><p>库函数<code>strlen</code>的原型如下：</p>
+<h2 id="二-字符串处理函数"><a class="markdownIt-Anchor" href="#二-字符串处理函数"></a> 二、字符串处理函数</h2>
+<h3 id="计算字符串长度"><a class="markdownIt-Anchor" href="#计算字符串长度"></a> 计算字符串长度</h3>
+<p>库函数<code>strlen</code>的原型如下：</p>
 <p><code>size_t strlen(const char *s);</code></p>
 <p>注意strlen返回一个类型为size_t的值，这个类型是一个无符号整数类型。在表达式中使用无符号数可能导致不可预料的结果。例如，下面两个表达式看上去是相等的：</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">strlen</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span> <span class="token operator">&gt;=</span> <span class="token function">strlen</span><span class="token punctuation">(</span>y<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
 <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">strlen</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token function">strlen</span><span class="token punctuation">(</span>y<span class="token punctuation">)</span> <span class="token operator">&gt;=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>但事实上它们是不相等的。第一条语句将按照预想的那样工作，但第2条语句的结果将永远是真值。strlen的结果是个无符号数，所以操作符<code>&gt;=</code>左边的表达式也将是无符号数，而无符号数绝不可能是负的。</p>
-<h3 id="不受限制的字符串函数"><a href="#不受限制的字符串函数" class="headerlink" title="不受限制的字符串函数"></a>不受限制的字符串函数</h3><ul>
+<h3 id="不受限制的字符串函数"><a class="markdownIt-Anchor" href="#不受限制的字符串函数"></a> 不受限制的字符串函数</h3>
+<ul>
 <li>复制字符串</li>
 </ul>
-<p><code> char *strcpy(char *dest, const char *src);</code></p>
+<p><code>char *strcpy(char *dest, const char *src);</code></p>
 <p>这个函数把参数src字符串复制到dest参数。如果参数src和dest在内在中出现重叠，其结果是未定义的。由于dst参数将进行修改，所以它必须是个字符数组或一个指向动态分配内存的数组的指针，<strong>不能使用字符串常量</strong>。</p>
 <p>例子：</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
@@ -550,17 +554,15 @@
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"message = %s\n"</span><span class="token punctuation">,</span> message<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>运行结果</p>
 <pre class="line-numbers language-none"><code class="language-none">message = Different<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>数组<code>message</code>将包含下面的内容</p>
 <pre class="line-numbers language-none"><code class="language-none">char message[] = {'D', 'i', 'f', 'f', 'e', 'r', 'e', 'n', 't', '\0', 'e', 's', 's', 'a', 'g', 'e', '\0'};<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>第一个<strong>空字符</strong>后面的几个字符再也无法被字符串函数访问，从现实的角度看，它们已经是丢失的了。</p>
 <ul>
 <li>连接字符串</li>
 </ul>
-<p><code> char *strcat(char *dest, const char *src);</code></p>
+<p><code>char *strcat(char *dest, const char *src);</code></p>
 <p>要想把一个字符串添加（连接）到另一个字符串后面，可以使用<code>strcat</code>函数。</p>
 <p>函数<code>strcat</code>要求<code>dest</code>参数原先已经包含一个空字符（可以是空字符串）。它找到这个字符串的未尾，并把<code>src</code>字符串的一份拷贝添加到这个位置。</p>
 <p>例子：</p>
@@ -578,10 +580,8 @@
 
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>运行结果：</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">message <span class="token operator">=</span> hello string<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <ul>
 <li>比较字符串</li>
 </ul>
@@ -590,17 +590,17 @@
 <p>例子：</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">strcmp</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>这种写法是错误的，如果想要比较两个字符串相等，应该把返回值与零进行比较。</p>
-<h3 id="长度受限的字符串函数"><a href="#长度受限的字符串函数" class="headerlink" title="长度受限的字符串函数"></a>长度受限的字符串函数</h3><pre class="line-numbers language-none"><code class="language-none">char *strncpy(char *dest, const char *src, size_t n);
+<h3 id="长度受限的字符串函数"><a class="markdownIt-Anchor" href="#长度受限的字符串函数"></a> 长度受限的字符串函数</h3>
+<pre class="line-numbers language-none"><code class="language-none">char *strncpy(char *dest, const char *src, size_t n);
 char *strncat(char *dest, const char *src, size_t n);
 int strncmp(const char *s1, const char *s2, size_t n);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
 <p>这些函接受一个显式的长度参数，用于限定进行复制或连接或比较的字符数。这些函数提供了一种方便的机制，可以防止难以预料的长字符串从它们的目标数组溢出。</p>
-<h3 id="字符串查找函数"><a href="#字符串查找函数" class="headerlink" title="字符串查找函数"></a>字符串查找函数</h3><ul>
+<h3 id="字符串查找函数"><a class="markdownIt-Anchor" href="#字符串查找函数"></a> 字符串查找函数</h3>
+<ul>
 <li>查找一个字符</li>
 </ul>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">char</span> <span class="token operator">*</span><span class="token function">strchr</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>s<span class="token punctuation">,</span> <span class="token keyword">int</span> c<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">char</span> <span class="token operator">*</span><span class="token function">strrchr</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>s<span class="token punctuation">,</span> <span class="token keyword">int</span> c<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <p>函数<code>strchr</code>在字符串s中查找字符c第1次出现的位置，找到后函数返回一个指向该位置的指针。如果该字符并不存在字符串中，函数就返回一个<code>NULL</code>指针。</p>
 <p>例子：</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
@@ -614,11 +614,8 @@ int strncmp(const char *s1, const char *s2, size_t n);<span aria-hidden="true" c
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"p = %s\n"</span><span class="token punctuation">,</span> p<span class="token punctuation">)</span><span class="token punctuation">;</span> 
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>执行结果：</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">p <span class="token operator">=</span> follows function<span class="token punctuation">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-
 <p>函数<code>strrchr</code>和<code>strchr</code>类似，但它会反向搜索字符。</p>
 <p>例子：</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
@@ -632,15 +629,12 @@ int strncmp(const char *s1, const char *s2, size_t n);<span aria-hidden="true" c
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"p = %s\n"</span><span class="token punctuation">,</span> p<span class="token punctuation">)</span><span class="token punctuation">;</span> 
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>执行结果：</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">p <span class="token operator">=</span> function<span class="token punctuation">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <ul>
-<li>查找任何几个字符 </li>
+<li>查找任何几个字符</li>
 </ul>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">char</span> <span class="token operator">*</span><span class="token function">strpbrk</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>s<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>accept<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>函数<code>strpbrk</code>它并不查找某个特定的字符，而是查找任何一组字符第1次在字符串中出现的位置，它返回一个指向<code>s</code>中第一个匹配<code>accept</code>中任何一个字符的字符位置。</p>
 <p>例子：</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string.h&gt;</span></span>
@@ -653,15 +647,12 @@ int strncmp(const char *s1, const char *s2, size_t n);<span aria-hidden="true" c
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"p = %s\n"</span><span class="token punctuation">,</span> p<span class="token punctuation">)</span><span class="token punctuation">;</span> 
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>执行结果：</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">p <span class="token operator">=</span> m follows function<span class="token punctuation">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <ul>
 <li>查找一个子串</li>
 </ul>
 <pre class="line-numbers language-none"><code class="language-none">char *strstr(const char *haystack, const char *needle);<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>函数<code>strstr</code>在第一个参数中查找第二个参数第1次出现的起始位置，并返回一个指向该位置的指针。如果<code>needle</code>并没有完整地出现在<code>haystack</code>的任何地方，函数将返回<code>NULL</code>，如果第二个参数是一个空字符串，函数就返回<code>haystack</code>。</p>
 <p>例子：</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
@@ -675,16 +666,13 @@ int strncmp(const char *s1, const char *s2, size_t n);<span aria-hidden="true" c
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"p = %s\n"</span><span class="token punctuation">,</span> p<span class="token punctuation">)</span><span class="token punctuation">;</span> 
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>执行结果：</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">p <span class="token operator">=</span> function<span class="token punctuation">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <ul>
 <li>查找一个字符串前缀</li>
 </ul>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token class-name">size_t</span> <span class="token function">strspn</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>s<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>accept<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token class-name">size_t</span> <span class="token function">strcspn</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>s<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>reject<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <p>函数<code>strspn</code>返回字符串中第一个<strong>不属于</strong>该组字符的<strong>字符的下标</strong>。<code>strcspn</code>函数返回第一个<strong>属于</strong>该组字符的<strong>字符的下标</strong>。</p>
 <p>例子：</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token class-name">size_t</span> n<span class="token punctuation">;</span>
@@ -694,12 +682,10 @@ n <span class="token operator">=</span> <span class="token function">strspn</spa
 n <span class="token operator">=</span> <span class="token function">strspn</span><span class="token punctuation">(</span>str<span class="token punctuation">,</span> <span class="token string">" \t\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* n = 0 */</span>
 n <span class="token operator">=</span> <span class="token function">strcspn</span><span class="token punctuation">(</span>str<span class="token punctuation">,</span> <span class="token string">"Form"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* n = 0 */</span>
 n <span class="token operator">=</span> <span class="token function">strcspn</span><span class="token punctuation">(</span>str<span class="token punctuation">,</span> <span class="token string">" \t\t"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">/* n = 4 */</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <ul>
 <li>查找标记</li>
 </ul>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">char</span> <span class="token operator">*</span><span class="token function">strtok</span><span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span>str<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>delim<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>函数<code>strtok</code>目的是在字符串中搜索一个<strong>记号</strong>（就是一系列不包含特定分隔字符的字符）。调用<code>strtok(s1, s2)</code>它会在<code>s1</code>中搜索不包含在<code>s2</code>中的非空字符序列。<code>strtok</code>函数会在记号末尾的字符后面存储一个空字符作为<strong>标记</strong>，然后返回一个指针指向记号的首字符。</p>
 <p>strtok函数最有用的特点是以后可以调用strtok函数在同一字符串中搜索更多的记号。调用<code>strtok(NULL, s2)</code>就可以继续上一次的strtok函数调用。和上一次调用一样，strtok函数会用一个空字符来标记新的记号的末尾，然后返回一个指向新记号的首字符的指针。这个过程可以持续进行，直到strtock函数返回空指针，这表明找不到符合要求的记号。</p>
 <p>一个提取年月日的例子：</p>
@@ -721,13 +707,12 @@ n <span class="token operator">=</span> <span class="token function">strcspn</sp
     
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>执行结果：</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">month <span class="token operator">=</span> April<span class="token punctuation">,</span> day <span class="token operator">=</span> <span class="token number">28</span><span class="token punctuation">,</span> year <span class="token operator">=</span> <span class="token number">1998</span>
 str <span class="token operator">=</span> April<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<h2 id="三、内存操作函数"><a href="#三、内存操作函数" class="headerlink" title="三、内存操作函数"></a>三、内存操作函数</h2><ul>
-<li> <code>void *memcpy(void *dest, const void *src, size_t n);</code></li>
+<h2 id="三-内存操作函数"><a class="markdownIt-Anchor" href="#三-内存操作函数"></a> 三、内存操作函数</h2>
+<ul>
+<li><code>void *memcpy(void *dest, const void *src, size_t n);</code></li>
 </ul>
 <p>函数<code>memcpy</code>从src的起始位置复制n个字节到dest的内存起始位置。可以用该函数复制任何类型的值，如果src和dest内存出现了重叠则结果是未定义的。</p>
 <p>例子：</p>
@@ -749,11 +734,8 @@ str <span class="token operator">=</span> April<span aria-hidden="true" class="l
 
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>执行结果：</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token number">1</span> <span class="token number">2</span> <span class="token number">3</span> <span class="token number">4</span> <span class="token number">5</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-
 <ul>
 <li><code>void *memmove(void *dest, const void *src, size_t n);</code></li>
 </ul>
@@ -777,10 +759,8 @@ str <span class="token operator">=</span> April<span aria-hidden="true" class="l
 
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>执行结果：</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token number">2</span> <span class="token number">3</span> <span class="token number">4</span> <span class="token number">5</span> <span class="token number">5</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <ul>
 <li><code>int memcmp(const void *s1, const void *s2, size_t n);</code></li>
 </ul>
@@ -811,7 +791,6 @@ str <span class="token operator">=</span> April<span aria-hidden="true" class="l
 
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>运行结果：</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
                 
