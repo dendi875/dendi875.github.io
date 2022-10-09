@@ -538,8 +538,7 @@ Error: Package: shadowsocks-libev-3.1.3-1.el7.centos.x86_64 (librehat-shadowsock
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 yum install -y shadowsocks-libev<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<h2 id="验证安装"><a href="#验证安装" class="headerlink" title="验证安装"></a>验证安装</h2><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">在继续后文的配置之前，我们先在命令行中执行一次 ss-local 命令，以确认 shadowsocks 及其依赖已正确安装。<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
+<h2 id="验证安装"><a href="#验证安装" class="headerlink" title="验证安装"></a>验证安装</h2><p>在继续后文的配置之前，我们先在命令行中执行一次 ss-local 命令，以确认 shadowsocks 及其依赖已正确安装。</p>
 <h3 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h3><ul>
 <li><p>执行 <code>ss-local</code> 报错：<code>ss-local: error while loading shared libraries: libmbedcrypto.so.0: cannot open shared object file: No such file or directory</code>:</p>
 <p>使用 root 身份执行以下命令即可：</p>
@@ -580,7 +579,7 @@ ln -s libmbedcrypto.so.1 libmbedcrypto.so.0<span aria-hidden="true" class="line-
 </ul>
 <p>对于配置客户端，完成以上几项配置就足够了。</p>
 <p>如果想要变更默认的配置文件，或者提供其他命令行参数，我们可以修改 <code>/etc/sysconfig/shadowsocks-libev</code>：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># Configuration file
+<pre class="line-numbers language-none"><code class="language-none"># Configuration file
 CONFFILE="/etc/shadowsocks-libev/config.json"
 
 # Extra command line arguments
