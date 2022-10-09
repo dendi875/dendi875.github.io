@@ -183,3 +183,26 @@ baidu_url_submit:
   token: uFa3HTo9aL5EeyeF # 秘钥
   path: baidu_urls.txt # 文本文档的地址， 新链接会保存在此文本文档里
 
+# Markdown config
+markdown_it_plus:
+  render:
+    html: true #支持HTML内嵌            
+    xhtmlOut: false #true 解析器markdown为完全符合XHTML的代码。例如：一个换行符将是<br />，否则会转换为<br>
+    breaks: true #每当.md文件的换行符都会解析器都会生成<br>标签。
+    linkify: true #true 返回文本链接作为与段落内联的适当链接。例如，如果你写的一段文本看起来像一个链接，它将被呈现为<a src="http://example.com">http://example.com</a>，否则会解析为文本，比如<span>http://example.com</span>
+    typographer: true #替换常见的排版元素。
+    quotes: '“”‘’' # typographer为true的时候才好使，用于替换英文单双引号。
+  plugins:
+      - plugin:
+         name: markdown-it-sub
+         enable: true  #false就是不开启这个插件
+      - plugin:
+         name: markdown-it-sup
+         enable: true  #false就是不开启这个插件   
+  anchors:   #锚点的配置
+    level: 2
+    collisionSuffix: 'v'
+    permalink: true
+    permalinkClass: header-anchor  # 定义固定锚点的 class 名.
+    permalinkSide: 'left' # 设定为 right 则会在标题后添加固定链接.
+    permalinkSymbol: '.' # 定义固定链接使用的符号

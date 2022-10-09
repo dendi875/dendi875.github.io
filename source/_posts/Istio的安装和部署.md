@@ -27,7 +27,7 @@ categories: Istio
 
 ## 安装
 
- 安装官方文档说明 https://istio.io/latest/docs/setup/platform-setup/minikube/ 进行安装，但要注意 istio 与 k8s 版本之间的兼容性，兼容性参考：https://istio.io/latest/docs/releases/supported-releases/
+ 按照官方文档说明 https://istio.io/latest/docs/setup/platform-setup/minikube/ 进行安装，但要注意 istio 与 k8s 版本之间的兼容性，兼容性参考：https://istio.io/latest/docs/releases/supported-releases/
 
 * 执行以下命令，启动一个单节点的 k8s 集群
 
