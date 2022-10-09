@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2022-09-25T13:24:45.734Z</updated>
+  <updated>2022-10-09T03:21:11.074Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -17,11 +17,61 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>CentOS/RHEL 7 下安装 Shadowsocks 客户端</title>
+    <link href="https://www.zhangquan.me/2022/10/09/centos-rhel-7-xia-an-zhuang-shadowsocks-ke-hu-duan/"/>
+    <id>https://www.zhangquan.me/2022/10/09/centos-rhel-7-xia-an-zhuang-shadowsocks-ke-hu-duan/</id>
+    <published>2022-10-09T03:16:03.000Z</published>
+    <updated>2022-10-09T03:21:11.074Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;CentOS-RHEL-7-下安装-Shadowsocks-客户端&quot;&gt;&lt;a href=&quot;#CentOS-RHEL-7-下安装-Shadowsocks-客户端&quot; class=&quot;headerlink&quot; title=&quot;CentOS/RHEL 7 下安装</summary>
+        
+      
+    
+    
+    
+    <category term="科学上网" scheme="https://www.zhangquan.me/categories/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/"/>
+    
+    
+    <category term="科学上网" scheme="https://www.zhangquan.me/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CentOS/RHEL 7 下安装 Shadowsocks 服务端</title>
+    <link href="https://www.zhangquan.me/2022/10/09/centos-rhel-7-xia-an-zhuang-shadowsocks-fu-wu-duan/"/>
+    <id>https://www.zhangquan.me/2022/10/09/centos-rhel-7-xia-an-zhuang-shadowsocks-fu-wu-duan/</id>
+    <published>2022-10-09T03:15:52.000Z</published>
+    <updated>2022-10-09T03:20:29.271Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;CentOS-RHEL-7-下安装-Shadowsocks-服务端&quot;&gt;&lt;a href=&quot;#CentOS-RHEL-7-下安装-Shadowsocks-服务端&quot; class=&quot;headerlink&quot; title=&quot;CentOS/RHEL 7 下安装</summary>
+        
+      
+    
+    
+    
+    <category term="科学上网" scheme="https://www.zhangquan.me/categories/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/"/>
+    
+    
+    <category term="科学上网" scheme="https://www.zhangquan.me/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Istio的安装和部署</title>
     <link href="https://www.zhangquan.me/2022/09/25/istio-de-an-zhuang-he-bu-shu/"/>
     <id>https://www.zhangquan.me/2022/09/25/istio-de-an-zhuang-he-bu-shu/</id>
     <published>2022-09-25T13:23:18.000Z</published>
-    <updated>2022-09-25T13:24:45.734Z</updated>
+    <updated>2022-09-29T07:44:23.790Z</updated>
     
     
       
@@ -50,7 +100,7 @@
     <link href="https://www.zhangquan.me/2022/09/25/istio-ru-men-ji-he-xin-gong-neng-jie-shao/"/>
     <id>https://www.zhangquan.me/2022/09/25/istio-ru-men-ji-he-xin-gong-neng-jie-shao/</id>
     <published>2022-09-25T13:23:08.000Z</published>
-    <updated>2022-09-25T13:24:41.324Z</updated>
+    <updated>2022-09-29T07:33:24.869Z</updated>
     
     
       
@@ -482,56 +532,6 @@
         
         
     <summary type="html">&lt;h1 id=&quot;Kubernetes-ServiceAccount&quot;&gt;&lt;a href=&quot;#Kubernetes-ServiceAccount&quot; class=&quot;headerlink&quot; title=&quot;Kubernetes ServiceAccount&quot;&gt;&lt;/a&gt;Kubernetes</summary>
-        
-      
-    
-    
-    
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/categories/Kubernetes/"/>
-    
-    
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Kubernetes Secret 敏感信息配置管理</title>
-    <link href="https://www.zhangquan.me/2022/08/24/kubernetes-secret-min-gan-xin-xi-pei-zhi-guan-li/"/>
-    <id>https://www.zhangquan.me/2022/08/24/kubernetes-secret-min-gan-xin-xi-pei-zhi-guan-li/</id>
-    <published>2022-08-24T10:42:45.000Z</published>
-    <updated>2022-08-25T09:39:45.624Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;Kubernetes-Secret-敏感信息配置管理&quot;&gt;&lt;a href=&quot;#Kubernetes-Secret-敏感信息配置管理&quot; class=&quot;headerlink&quot; title=&quot;Kubernetes Secret</summary>
-        
-      
-    
-    
-    
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/categories/Kubernetes/"/>
-    
-    
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Kubernetes ConfigMap 可变配置管理</title>
-    <link href="https://www.zhangquan.me/2022/08/24/kubernetes-configmap-ke-bian-pei-zhi-guan-li/"/>
-    <id>https://www.zhangquan.me/2022/08/24/kubernetes-configmap-ke-bian-pei-zhi-guan-li/</id>
-    <published>2022-08-24T10:42:41.000Z</published>
-    <updated>2022-08-24T11:35:11.798Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;Kubernetes-ConfigMap-可变配置管理&quot;&gt;&lt;a href=&quot;#Kubernetes-ConfigMap-可变配置管理&quot; class=&quot;headerlink&quot; title=&quot;Kubernetes ConfigMap</summary>
         
       
     

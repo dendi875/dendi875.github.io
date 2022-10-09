@@ -1,3 +1,5 @@
+https://www.zhangquan.me/2022/10/09/centos-rhel-7-xia-an-zhuang-shadowsocks-ke-hu-duan/
+https://www.zhangquan.me/2022/10/09/centos-rhel-7-xia-an-zhuang-shadowsocks-fu-wu-duan/
 https://www.zhangquan.me/2022/09/25/istio-de-an-zhuang-he-bu-shu/
 https://www.zhangquan.me/2022/09/25/istio-ru-men-ji-he-xin-gong-neng-jie-shao/
 https://www.zhangquan.me/2022/09/09/prometheus-operator-de-an-zhuang/
