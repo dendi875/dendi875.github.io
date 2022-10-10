@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="CentOS/RHEL 7 下安装 Shadowsocks 服务端, PHP,Java,Go,MySQL,Linux,Docker等">
+    <meta name="keywords" content="CentOS/RHEL 7 下安装 Shadowsocks 客户端, PHP,Java,Go,MySQL,Linux,Docker等">
     <meta name="description" content="PHP Go MySQL 后端开发">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>CentOS/RHEL 7 下安装 Shadowsocks 服务端 | 一代键客</title>
+    <title>CentOS/RHEL 7 下安装 Shadowsocks 客户端 | 一代键客</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -43,9 +43,9 @@
         s.parentNode.insertBefore(bp, s);
     })();
     </script>
-<meta name="generator" content="Hexo 5.4.2">
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="一代键客" type="application/atom+xml">
+
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="一代键客" type="application/atom+xml">
 </head>
 
 
@@ -327,12 +327,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">CentOS/RHEL 7 下安装 Shadowsocks 服务端</h1>
+                    <h1 class="description center-align post-title">CentOS/RHEL 7 下安装 Shadowsocks 客户端</h1>
                 </div>
             </div>
         </div>
@@ -473,28 +473,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-10-09
+                    2022-10-10
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-10-09
+                    2022-10-10
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.6k
+                    1.1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    6 分
+                    4 分
                 </div>
                 
 
@@ -517,9 +517,9 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="centosrhel-7-下安装-shadowsocks-服务端"><a class="markdownIt-Anchor" href="#centosrhel-7-下安装-shadowsocks-服务端"></a> CentOS/RHEL 7 下安装 Shadowsocks 服务端</h1>
-<p>在 CentOS 7 或 RHEL「Red Hat Enterprise Linux」 7 下安装 Shadowsocks 的服务端非常容易。由于在 <a target="_blank" rel="noopener" href="https://copr.fedorainfracloud.org/coprs/librehat/shadowsocks/">COPR</a> 「Cool Other Package Repo」 中已经有打包好的 <em>shadowsocks-libev</em>，因此我们只需几条命令便能完成安装。</p>
-<p>注：本文介绍的是 Shadowsocks 服务端在 CentOS/RHEL 7 上的配置方法，如需了解 Shadowsocks 客户端在 CentOS/RHEL 7 上的配置，请参阅 <a target="_blank" rel="noopener" href="https://zhangquan.me/2022/10/09/centos-rhel-7-xia-an-zhuang-shadowsocks-ke-hu-duan/">CentOS/RHEL 7 下安装 Shadowsocks 客户端</a>。</p>
+                <h1 id="centosrhel-7-下安装-shadowsocks-客户端"><a class="markdownIt-Anchor" href="#centosrhel-7-下安装-shadowsocks-客户端"></a> CentOS/RHEL 7 下安装 Shadowsocks 客户端</h1>
+<p>在 CentOS 7 或 RHEL「Red Hat Enterprise Linux」 7 下安装 Shadowsocks 的客户端非常容易。由于在 <a target="_blank" rel="noopener" href="https://copr.fedorainfracloud.org/coprs/librehat/shadowsocks/">COPR</a> 「Cool Other Package Repo」 中已经有打包好的 <em>shadowsocks-libev</em>，因此我们只需几条命令便能完成安装。</p>
+<p>注：本文介绍的是 Shadowsocks 客户端在 CentOS/RHEL 7 上的配置方法，如需了解 Shadowsocks 服务端在 CentOS/RHEL 7 上的配置，请参阅 <a target="_blank" rel="noopener" href="https://zhangquan.me/2022/10/09/centos-rhel-7-xia-an-zhuang-shadowsocks-fu-wu-duan/">CentOS/RHEL 7 下安装 Shadowsocks 服务端</a>。</p>
 <h2 id="安装-shadowsocks"><a class="markdownIt-Anchor" href="#安装-shadowsocks"></a> 安装 Shadowsocks</h2>
 <p>执行安装 Shadowsocks 的命令之前，我们需要先切换到 root 用户（直接以 root 身份登入；或是以普通用户登入，通过命令 <code>sudo su -</code> 切换为 root 用户)，或者使用普通用户，但在每条命令前加上 <code>sudo</code>。</p>
 <p>另外，后续的配置也需要以 root 用户的身份进行。</p>
@@ -528,7 +528,7 @@
 curl -O https://copr.fedorainfracloud.org/coprs/librehat/shadowsocks/repo/epel-7/librehat-shadowsocks-epel-7.repo
 yum install -y shadowsocks-libev<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>安装完成后，会有 <code>ss-local</code>, <code>ss-manager</code>, <code>ss-nat</code>, <code>ss-redir</code>, <code>ss-server</code>, <code>ss-tunnel</code> 命令可用。</p>
-<p>其中，作为服务器，我们需要的是 <code>ss-server</code>，不过后文中我们将通过服务文件启动 Shadowsocks，而不会直接与 <code>ss-server</code>命令打交道。</p>
+<p>其中，作为客户端，我们需要的是 <code>ss-local</code>，不过后文中我们将通过服务文件启动 Shadowsocks，而不会直接与 <code>ss-local</code> 命令打交道。</p>
 <p>注，如果安装报类似如下错误：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">Error: Package: shadowsocks-libev-3.1.3-1.el7.centos.x86_64 (librehat-shadowsocks)
            Requires: libsodium &gt;= 1.0.4
@@ -538,98 +538,73 @@ Error: Package: shadowsocks-libev-3.1.3-1.el7.centos.x86_64 (librehat-shadowsock
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 yum install -y shadowsocks-libev<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <h2 id="验证安装"><a class="markdownIt-Anchor" href="#验证安装"></a> 验证安装</h2>
-<p>在继续后文的配置之前，我们先在命令行中执行一次 <code>ss-server</code> 命令，以确认 shadowsocks 及其依赖已正确安装。</p>
+<p>在继续后文的配置之前，我们先在命令行中执行一次 ss-local 命令，以确认 shadowsocks 及其依赖已正确安装。</p>
 <h3 id="常见问题"><a class="markdownIt-Anchor" href="#常见问题"></a> 常见问题</h3>
 <ul>
-<li>执行 <code>ss-server</code> 报错：<code>ss-server: error while loading shared libraries: libmbedcrypto.so.0: cannot open shared object file: No such file or directory</code>:</li>
-</ul>
+<li>
+<p>执行 <code>ss-local</code> 报错：<code>ss-local: error while loading shared libraries: libmbedcrypto.so.0: cannot open shared object file: No such file or directory</code>:</p>
 <p>使用 root 身份执行以下命令即可：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd /usr/lib64
 ln -s libmbedcrypto.so.1 libmbedcrypto.so.0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>参考：<a target="_blank" rel="noopener" href="https://github.com/shadowsocks/shadowsocks-libev/issues/1966">error while loading shared libraries: libmbedcrypto.so.0 · Issue #1966 · shadowsocks/shadowsocks-libev</a></p>
+</li>
+</ul>
 <h2 id="添加配置文件"><a class="markdownIt-Anchor" href="#添加配置文件"></a> 添加配置文件</h2>
 <p>COPR 里的 <em>shadowsocks-libev</em> 默认读取位于 <code>/etc/shadowsocks-libev/config.json</code> 的配置文件，我们可以根据需要参考以下配置文件进行修改：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">{
-	"server": "0.0.0.0",
+	"server": "zhangquan.me",
 	"server_port": 55278,
-	"password": "zhangquan.me",
-	"timeout":60,
+	"local_port": 1080,
+	"password": "55278",
 	"method": "chacha20-ietf-poly1305",
-	"mode": "tcp_and_udp"
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+	"mode": "tcp_and_udp",
+	"timeout": 600
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>
-<p><code>"server"</code>： 选填，默认 <code>"0.0.0.0"</code>。配置客户端时填入服务器的实际 IP。</p>
-<p><code>"0.0.0.0"</code> 表明服务端接受来自任何网络接口的连接。配置服务端时填入 <code>"0.0.0.0"</code> 总是能生效，而不必填入服务器自身的 IP。</p>
+<p><code>"server"</code>： 必填，填入要连接的 shadowsocks 服务器域名或 IP。</p>
 </li>
 <li>
-<p><code>"server_port"</code>： 必填。需要在客户端配置时填入相同的值。</p>
-<p>此处填入服务端要监听的端口。需要选择 1024 或以上的端口号，否则启动 <code>ss-server</code> 时将会需要 root 权限，而默认的服务文件则是以 nobody 用户启动 Shadowsocks 的。</p>
-<p>如需选用低于 1024 的端口，也可执行命令 <code>sudo setcap 'cap_net_bind_service=+ep' /usr/bin/ss-server</code> 赋予相应权限，后续就可以使用 nobody 用户或普通用户启动 Shadowsocks。</p>
-<p>或执行 <code>systemctl edit shadowsocks-libev</code> 命令，并输入以下内容：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[Service]
-AmbientCapabilities=CAP_NET_BIND_SERVICE<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p><code>"server_port"</code>： 必填，填入服务器上 shadowsocks 所监听的端口。</p>
 </li>
 <li>
-<p><code>"password"</code>： 必填。需要在客户端配置时填入相同的值。</p>
-<p>连接服务端所需的密码，建议替换为复杂密码，避免被攻击者暴力破解。</p>
+<p><code>"local_port"</code>： 必填，填入本地 shadowsocks 客户端 SOCKS5 代理要监听的端口。</p>
 </li>
 <li>
-<p><code>"method"</code>： 选填，默认 <code>"rc4-md5"</code>。需要在客户端配置时填入相同的值。</p>
-<p>服务端所用的加密方法，推荐以下几种算法：</p>
-<ol>
-<li><code>"chacha20-ietf-poly1305"</code> 具有优秀的安全性，更佳的性能，属于 AEAD 加密算法，少部分客户端（如 iOS Wingy）不支持此算法；</li>
-<li><code>"aes-256-cfb"</code> 具有足够安全性，且被各服务端及客户端广泛支持；</li>
-<li><code>"rc4-md5"</code> 算法快速，且具有一定的安全性，适合运算能力受限的设备如路由器等。</li>
-</ol>
+<p><code>"password"</code>： 必填，密码，需与 shadowsocks 服务器端配置一致。</p>
+</li>
+<li>
+<p><code>"method"</code>： 必填，加密方法，需与 shadowsocks 服务器端配置一致。</p>
 </li>
 <li>
 <p><code>"mode"</code>： 选填，默认 <code>"tcp_only"</code>。</p>
-<p>服务器所要监听的协议，可填 <code>"tcp_only"</code>, <code>"udp_only"</code> 和 <code>"tcp_and_udp"</code>。<br>
+<p>shadowsocks 所要监听的协议，可填 <code>"tcp_only"</code>, <code>"udp_only"</code> 和 <code>"tcp_and_udp"</code>。<br>
 填入 <code>"tcp_and_udp"</code> 相当于命令行上提供 <code>-u</code> 参数；填入 <code>"udp_only"</code> 相当于命令行上提供 <code>-U</code> 参数。</p>
 </li>
+<li>
+<p><code>"timeout"</code>： 选填，不活动连接的保持时间。</p>
+<p>默认 60 秒，设置较长时间有助于保持 HTTP 长连接等。设置时间过长则会导致不必要地占用过多 shadowsocks 服务器资源。</p>
+</li>
 </ul>
-<p>对于配置服务端，完成以上几项配置就足够了。</p>
+<p>对于配置客户端，完成以上几项配置就足够了。</p>
 <p>如果想要变更默认的配置文件，或者提供其他命令行参数，我们可以修改 <code>/etc/sysconfig/shadowsocks-libev</code>：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># Configuration file
+<pre class="line-numbers language-none"><code class="language-none"># Configuration file
 CONFFILE="/etc/shadowsocks-libev/config.json"
 
 # Extra command line arguments
 DAEMON_ARGS="-u"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>其中 <code>CONFFILE</code> 指定了 <em>shadowsocks-libev</em> 所读取的配置文件；<code>DAEMON_ARGS</code> 则指定了额外的命令行参数，此处的 <code>"-u"</code> 表示启用 UDP 协议。</p>
 <p>需要注意的是，命令行参数 <code>DAEMON_ARGS</code> 比配置文件 <code>CONFFILE</code> 中指定的选项优先级要更高一些。</p>
-<h2 id="配置防火墙"><a class="markdownIt-Anchor" href="#配置防火墙"></a> 配置防火墙</h2>
-<p>CentOS/RHEL 7 系统自带了防火墙，为了使我们的 Shadowsocks 服务器能够正常工作，我们还需要添加相应的防火墙规则。</p>
-<p>假设我们在配置 Shadowsocks 服务器的端口时填入了 <code>"server_port": 55278</code>，那我们可以使用以下命令：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">firewall-cmd --permanent --add-port=55278/tcp
-firewall-cmd --permanent --add-port=55278/udp
-firewall-cmd --reload<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>如果使用的是其他端口，则按实际情况相应地替换命令中的端口即可。</p>
-<p>另外，如果服务器是运行在 VPS 或云服务器上，则往往还需要在云服务商的控制面板中配置相应的防火墙规则。</p>
 <h2 id="启动-shadowsocks-服务"><a class="markdownIt-Anchor" href="#启动-shadowsocks-服务"></a> 启动 Shadowsocks 服务</h2>
-<p>有了 Shadowsocks 服务端的配置文件后，我们通过 systemd 启动 Shadowsocks 的服务端服务：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">systemctl start shadowsocks-libev<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>有了 Shadowsocks 客户端的配置文件后，我们通过 systemd 启动 Shadowsocks 的客户端服务：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">systemctl enable --now shadowsocks-libev-local<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>以上命令同时也会配置 Shadowsocks 客户端服务的开机自动启动。</p>
+<p>至此，客户端所需要的所有配置就都已经完成了。</p>
 <h2 id="检查-shadowsocks-服务状态"><a class="markdownIt-Anchor" href="#检查-shadowsocks-服务状态"></a> 检查 Shadowsocks 服务状态</h2>
 <p>要确认 Shadowsocks 的服务运行状态及最新日志，我们可以执行命令：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">systemctl status shadowsocks-libev<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">systemctl status shadowsocks-libev-local<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>要查看 Shadowsocks 服务的全部日志，我们可以执行命令：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">journalctl -u shadowsocks-libev<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h2 id="配置服务开机自启"><a class="markdownIt-Anchor" href="#配置服务开机自启"></a> 配置服务开机自启</h2>
-<p>上文中，我们通过 <code>systemctl start</code> 启动了服务，但是如果我们想要服务能在开机时自动启动，还需要执行以下命令：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">systemctl enable shadowsocks-libev<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>至此，服务端所需要的所有配置就都已经完成了。</p>
-<h2 id="配置客户端"><a class="markdownIt-Anchor" href="#配置客户端"></a> 配置客户端</h2>
-<p>由于本文着重介绍服务端的安装配置，将不再详述客户端相关的内容。</p>
-<p>关于客户端的配置文件，可以复制使用服务端的配置文件，并将 <code>"server"</code> 中的地址换为服务端的实际 IP 或域名，再加上关于 <code>local_address</code> 和 <code>local_port</code> 的配置即可。如：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">{
-	"server": "zhangquan.me",
-	"server_port": 55278,
-	"local_address": "0.0.0.0",
-	"local_port": 1080,
-	"password": "zhangquan.me",
-	"method": "chacha20-ietf-poly1305",
-	"mode": "tcp_and_udp"
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">journalctl -u shadowsocks-libev-local<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
                 
             </div>
             <hr/>
@@ -655,7 +630,7 @@ firewall-cmd --reload<span aria-hidden="true" class="line-numbers-rows"><span></
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://www.zhangquan.me/2022/10/09/centos-rhel-7-xia-an-zhuang-shadowsocks-fu-wu-duan/">https://www.zhangquan.me/2022/10/09/centos-rhel-7-xia-an-zhuang-shadowsocks-fu-wu-duan/</a>
+                    <a href="https://www.zhangquan.me/2022/10/10/centos-rhel-7-xia-an-zhuang-shadowsocks-ke-hu-duan/">https://www.zhangquan.me/2022/10/10/centos-rhel-7-xia-an-zhuang-shadowsocks-ke-hu-duan/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1189,11 +1164,12 @@ firewall-cmd --reload<span aria-hidden="true" class="line-numbers-rows"><span></
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2022/10/09/centos-rhel-7-xia-an-zhuang-shadowsocks-ke-hu-duan/">
+                <a href="/2022/10/10/centos-rhel-7-xia-an-zhuang-shadowsocks-ke-hu-duan/">
                     <div class="card-image">
                         
                         
@@ -1209,9 +1185,9 @@ firewall-cmd --reload<span aria-hidden="true" class="line-numbers-rows"><span></
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-10-09
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-10
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -1224,6 +1200,7 @@ firewall-cmd --reload<span aria-hidden="true" class="line-numbers-rows"><span></
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -1242,31 +1219,31 @@ firewall-cmd --reload<span aria-hidden="true" class="line-numbers-rows"><span></
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/09/25/istio-de-an-zhuang-he-bu-shu/">
+                <a href="/2022/10/10/centos-rhel-7-xia-an-zhuang-shadowsocks-fu-wu-duan/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="Istio的安装和部署">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="CentOS/RHEL 7 下安装 Shadowsocks 服务端">
                         
-                        <span class="card-title">Istio的安装和部署</span>
+                        <span class="card-title">CentOS/RHEL 7 下安装 Shadowsocks 服务端</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Istio的安装和部署
+                            CentOS/RHEL 7 下安装 Shadowsocks 服务端
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-09-25
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-10
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Istio/" class="post-category">
-                                    Istio
+                            <a href="/categories/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/" class="post-category">
+                                    科学上网
                                 </a>
                             
                             
@@ -1276,16 +1253,8 @@ firewall-cmd --reload<span aria-hidden="true" class="line-numbers-rows"><span></
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Kubernetes/">
-                        <span class="chip bg-color">Kubernetes</span>
-                    </a>
-                    
-                    <a href="/tags/Istio/">
-                        <span class="chip bg-color">Istio</span>
-                    </a>
-                    
-                    <a href="/tags/Service-Mesh/">
-                        <span class="chip bg-color">Service Mesh</span>
+                    <a href="/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/">
+                        <span class="chip bg-color">科学上网</span>
                     </a>
                     
                 </div>
