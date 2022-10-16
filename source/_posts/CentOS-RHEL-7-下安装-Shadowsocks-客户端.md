@@ -5,7 +5,7 @@ top: false
 cover: false
 toc: true
 mathjax: true
-date: 2022-10-09 11:16:03
+date: 2022-10-10 11:16:03
 password:
 summary:  CentOS/RHEL 7 下安装 Shadowsocks 客户端
 tags: 科学上网
