@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2022-10-10T14:18:23.807Z</updated>
+  <updated>2022-10-16T11:24:20.537Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>如何使用 Istio 设置动态路由</title>
+    <link href="https://www.zhangquan.me/2022/10/16/ru-he-shi-yong-istio-she-zhi-dong-tai-lu-you/"/>
+    <id>https://www.zhangquan.me/2022/10/16/ru-he-shi-yong-istio-she-zhi-dong-tai-lu-you/</id>
+    <published>2022-10-16T11:23:05.000Z</published>
+    <updated>2022-10-16T11:24:20.537Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;如何使用-istio-设置动态路由&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#如何使用-istio-设置动态路由&quot;&gt;&lt;/a&gt; 如何使用 Istio 设置动态路由&lt;/h1&gt;
+&lt;p&gt;路由这个功能是 Istio</summary>
+        
+      
+    
+    
+    
+    <category term="Istio" scheme="https://www.zhangquan.me/categories/Istio/"/>
+    
+    
+    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
+    
+    <category term="Istio" scheme="https://www.zhangquan.me/tags/Istio/"/>
+    
+    <category term="Service Mesh" scheme="https://www.zhangquan.me/tags/Service-Mesh/"/>
+    
+  </entry>
   
   <entry>
     <title>CentOS/RHEL 7 下安装 Shadowsocks 客户端</title>
@@ -512,31 +542,6 @@
         
         
     <summary type="html">&lt;h1 id=&quot;kubernetes-rbac-权限控制&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#kubernetes-rbac-权限控制&quot;&gt;&lt;/a&gt; Kubernetes RBAC</summary>
-        
-      
-    
-    
-    
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/categories/Kubernetes/"/>
-    
-    
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Kubernetes ServiceAccount</title>
-    <link href="https://www.zhangquan.me/2022/08/25/kubernetes-serviceaccount/"/>
-    <id>https://www.zhangquan.me/2022/08/25/kubernetes-serviceaccount/</id>
-    <published>2022-08-25T09:39:10.000Z</published>
-    <updated>2022-08-31T12:32:12.711Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;kubernetes-serviceaccount&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#kubernetes-serviceaccount&quot;&gt;&lt;/a&gt; Kubernetes</summary>
         
       
     
