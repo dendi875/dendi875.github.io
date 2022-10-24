@@ -2,14 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://www.zhangquan.me/2022/10/24/istio-serviceentry-fu-wu-ru-kou/</loc>
+    <loc>https://www.zhangquan.me/2022/10/24/istio-gateway-wang-guan/</loc>
     
     <lastmod>2022-10-24</lastmod>
     
   </url>
   
   <url>
-    <loc>https://www.zhangquan.me/2022/10/24/istio-gateway-wang-guan/</loc>
+    <loc>https://www.zhangquan.me/2022/10/24/istio-serviceentry-fu-wu-ru-kou/</loc>
     
     <lastmod>2022-10-24</lastmod>
     
@@ -896,13 +896,6 @@
   
   <url>
     <loc>https://www.zhangquan.me/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/</loc>
-    <lastmod>2022-10-24</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.zhangquan.me/categories/Istio/</loc>
     <lastmod>2022-10-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
