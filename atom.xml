@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2022-10-16T11:24:20.537Z</updated>
+  <updated>2022-10-24T08:17:56.276Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,66 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Istio ServiceEntry（服务入口）</title>
+    <link href="https://www.zhangquan.me/2022/10/24/istio-serviceentry-fu-wu-ru-kou/"/>
+    <id>https://www.zhangquan.me/2022/10/24/istio-serviceentry-fu-wu-ru-kou/</id>
+    <published>2022-10-24T08:15:33.000Z</published>
+    <updated>2022-10-24T08:17:56.276Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;istio-serviceentry服务入口&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#istio-serviceentry服务入口&quot;&gt;&lt;/a&gt; Istio ServiceEntry（服务入口）&lt;/h1&gt;
+&lt;h2</summary>
+        
+      
+    
+    
+    
+    <category term="Istio" scheme="https://www.zhangquan.me/categories/Istio/"/>
+    
+    
+    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
+    
+    <category term="Istio" scheme="https://www.zhangquan.me/tags/Istio/"/>
+    
+    <category term="Service Mesh" scheme="https://www.zhangquan.me/tags/Service-Mesh/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Istio Gateway（网关）</title>
+    <link href="https://www.zhangquan.me/2022/10/24/istio-gateway-wang-guan/"/>
+    <id>https://www.zhangquan.me/2022/10/24/istio-gateway-wang-guan/</id>
+    <published>2022-10-24T08:15:25.000Z</published>
+    <updated>2022-10-24T08:16:52.060Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;istio-gateway网关&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#istio-gateway网关&quot;&gt;&lt;/a&gt; Istio Gateway（网关）&lt;/h1&gt;
+&lt;h2 id=&quot;什么是网关&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Istio+++++++" scheme="https://www.zhangquan.me/categories/Istio/"/>
+    
+    
+    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
+    
+    <category term="Istio" scheme="https://www.zhangquan.me/tags/Istio/"/>
+    
+    <category term="Service Mesh" scheme="https://www.zhangquan.me/tags/Service-Mesh/"/>
+    
+  </entry>
   
   <entry>
     <title>如何使用 Istio 设置动态路由</title>
@@ -492,56 +552,6 @@
         
     <summary type="html">&lt;h1 id=&quot;kubernetes-hpa&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#kubernetes-hpa&quot;&gt;&lt;/a&gt; Kubernetes HPA&lt;/h1&gt;
 &lt;p&gt;在  k8s 中我们可以使用 &lt;code&gt;kubectl</summary>
-        
-      
-    
-    
-    
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/categories/Kubernetes/"/>
-    
-    
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Kubernetes Security Context</title>
-    <link href="https://www.zhangquan.me/2022/08/28/kubernetes-security-context/"/>
-    <id>https://www.zhangquan.me/2022/08/28/kubernetes-security-context/</id>
-    <published>2022-08-28T03:06:57.000Z</published>
-    <updated>2022-08-28T03:08:58.842Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;kubernetes-security-context&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#kubernetes-security-context&quot;&gt;&lt;/a&gt; Kubernetes Security</summary>
-        
-      
-    
-    
-    
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/categories/Kubernetes/"/>
-    
-    
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Kubernetes RBAC 权限控制</title>
-    <link href="https://www.zhangquan.me/2022/08/25/kubernetes-rbac-quan-xian-kong-zhi/"/>
-    <id>https://www.zhangquan.me/2022/08/25/kubernetes-rbac-quan-xian-kong-zhi/</id>
-    <published>2022-08-25T09:39:14.000Z</published>
-    <updated>2022-08-25T09:40:10.781Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;kubernetes-rbac-权限控制&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#kubernetes-rbac-权限控制&quot;&gt;&lt;/a&gt; Kubernetes RBAC</summary>
         
       
     

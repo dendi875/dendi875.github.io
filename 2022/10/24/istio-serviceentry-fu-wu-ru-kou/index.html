@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Kubernetes HPA, PHP,Java,Go,MySQL,Linux,Docker等">
+    <meta name="keywords" content="Istio ServiceEntry（服务入口）, PHP,Java,Go,MySQL,Linux,Docker等">
     <meta name="description" content="PHP Go MySQL 后端开发">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Kubernetes HPA | 一代键客</title>
+    <title>Istio ServiceEntry（服务入口） | 一代键客</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -327,12 +327,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Kubernetes HPA</h1>
+                    <h1 class="description center-align post-title">Istio ServiceEntry（服务入口）</h1>
                 </div>
             </div>
         </div>
@@ -452,6 +452,14 @@
                                 <span class="chip bg-color">Kubernetes</span>
                             </a>
                         
+                            <a href="/tags/Istio/">
+                                <span class="chip bg-color">Istio</span>
+                            </a>
+                        
+                            <a href="/tags/Service-Mesh/">
+                                <span class="chip bg-color">Service Mesh</span>
+                            </a>
+                        
                     </div>
                     
                 </div>
@@ -460,8 +468,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Kubernetes/" class="post-category">
-                                Kubernetes
+                            <a href="/categories/Istio/" class="post-category">
+                                Istio
                             </a>
                         
                     </div>
@@ -473,28 +481,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-08-28
+                    2022-10-24
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-08-28
+                    2022-10-24
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    4.2k
+                    2.7k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    21 分
+                    10 分
                 </div>
                 
 
@@ -517,391 +525,203 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="kubernetes-hpa"><a class="markdownIt-Anchor" href="#kubernetes-hpa"></a> Kubernetes HPA</h1>
-<p>在  k8s 中我们可以使用 <code>kubectl scale</code> 命令可以来实现 Pod 的扩缩容功能，但是这个毕竟是完全手动操作的，要应对线上的各种复杂情况，我们需要能够做到自动化去感知业务，来自动进行扩缩容。为此，Kubernetes 也为我们提供了这样的一个资源对象：<code>Horizontal Pod Autoscaling（Pod 水平自动伸缩）</code>，简称<code>HPA</code>，HPA 通过监控分析一些控制器控制的所有 Pod 的负载变化情况来确定是否需要调整 Pod 的副本数量，这是 HPA 最基本的原理：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/k8s-hpa-1.jpeg" alt=""></p>
-<p>我们可以简单的通过 <code>kubectl autoscale</code> 命令来创建一个 HPA 资源对象，<code>HPA Controller</code>默认<code>30s</code>轮询一次（可通过 <code>kube-controller-manager</code> 的<code>--horizontal-pod-autoscaler-sync-period</code> 参数进行设置），查询指定的资源中的 Pod 资源使用率，并且与创建时设定的值和指标做对比，从而实现自动伸缩的功能。</p>
-<h2 id="metrics-server"><a class="markdownIt-Anchor" href="#metrics-server"></a> Metrics Server</h2>
-<p><code>Metrics Server</code> 可以通过标准的 Kubernetes API 把监控数据暴露出来，有了 <code>Metrics Server</code> 之后，我们就完全可以通过标准的 Kubernetes API 来访问我们想要获取的监控数据了</p>
-<p>参考说明：<a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/">https://kubernetes.io/zh-cn/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/</a></p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">kubectl get --raw "/apis/metrics.k8s.io/v1beta1/namespaces/&lt;namespace-name&gt;/pods/&lt;pod-name&gt;" | jq '.'<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>这是使用 <code>curl</code> 来完成的相同 API 调用：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">curl https://localhost:8080/apis/metrics.k8s.io/v1beta1/namespaces/&lt;namespace-name&gt;/pods/&lt;pod-name&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>比如当我们访问上面的 API 的时候，我们就可以获取到该 Pod 的资源数据，这些数据其实是来自于 kubelet 的 <code>Summary API</code> 采集而来的。不过需要说明的是我们这里可以通过标准的 API 来获取资源监控数据，并不是因为 <code>Metrics Server</code> 就是 APIServer 的一部分，而是通过 Kubernetes 提供的 <code>Aggregator</code> 汇聚插件来实现的，是独立于 APIServer 之外运行的。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220828161732.png" alt=""></p>
-<h3 id="聚合-api"><a class="markdownIt-Anchor" href="#聚合-api"></a> 聚合 API</h3>
-<p><code>Aggregator</code> 允许开发人员编写一个自己的服务，把这个服务注册到 Kubernetes 的 APIServer 里面去，这样我们就可以像原生的 APIServer 提供的 API 使用自己的 API 了，我们把自己的服务运行在 Kubernetes 集群里面，然后 Kubernetes 的 <code>Aggregator</code> 通过 Service 名称就可以转发到我们自己写的 Service 里面去了。这样这个聚合层就带来了很多好处：</p>
+                <h1 id="istio-serviceentry服务入口"><a class="markdownIt-Anchor" href="#istio-serviceentry服务入口"></a> Istio ServiceEntry（服务入口）</h1>
+<h2 id="什么是服务入口"><a class="markdownIt-Anchor" href="#什么是服务入口"></a> 什么是服务入口？</h2>
+<p>在 istio 中提供了 ServiceEntry 的配置，将网格外的服务加入网格中，像网格内的服务一样进行管理。在实现上就是把外部服务加入 istio 的服务发现，这些外部服务因为各种原因不能直接注册到网格中。</p>
+<p>服务入口和网关有一点相反的概念，网关可以认为是把我们内部服务暴露给外部访问，而 ServiceEnry 正好相反，是把外部的服务纳入到我们网格内部进行管理。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20221024143913.png" alt=""></p>
+<p>如上图所示，服务入口相当于抽象了一个外部服务，然后内部服务就像访问网格内部的服务一样去访问外部服务，你如果需要对流量或路由进行控制，也是需要定义一个虚拟服务来协助它。</p>
+<h2 id="服务入口有什么用"><a class="markdownIt-Anchor" href="#服务入口有什么用"></a> 服务入口有什么用？</h2>
+<p>服务入口主要的一个功能就是我们希望能够管理外部服务的请求，比如说你需要对访问外部服务的请求做一些流量控制，那么就需要用到服务入口，还有一个功能它能帮助扩展我们的网格（Mesh），例如当我们要给多个集群共享同一个 Mesh 的时候，就需要使用服务入口 。</p>
 <ul>
-<li>增加了 API 的扩展性，开发人员可以编写自己的 API 服务来暴露他们想要的 API。</li>
-<li>丰富了 API，核心 kubernetes 团队阻止了很多新的 API 提案，通过允许开发人员将他们的 API 作为单独的服务公开，这样就无须社区繁杂的审查了。</li>
-<li>开发分阶段实验性 API，新的 API 可以在单独的聚合服务中开发，当它稳定之后，在合并会 APIServer 就很容易了。</li>
-<li>确保新 API 遵循 Kubernetes 约定，如果没有这里提出的机制，社区成员可能会被迫推出自己的东西，这样很可能造成社区成员和社区约定不一致。</li>
+<li>添加外部服务到网格内</li>
+<li>管理到外部服务的请求</li>
+<li>扩展网格</li>
 </ul>
-<h3 id="安装"><a class="markdownIt-Anchor" href="#安装"></a> 安装</h3>
-<p>我们要使用 HPA，就需要在集群中安装 <code>Metrics Server</code> 服务，要安装 <code>Metrics Server</code> 就需要开启 <code>Aggregator</code>，因为 <code>Metrics Server</code> 就是通过该代理进行扩展的，不过我们集群是通过 Kubeadm 搭建的，默认已经开启了。</p>
-<p><code>Aggregator</code> 聚合层启动完成后，就可以来安装 <code>Metrics Server</code> 了，我们可以获取该仓库的官方安装资源清单：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 官方仓库地址：https://github.com/kubernetes-sigs/metrics-server
-
-$ wget https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.3.6/components.yaml -O ~/download/metrics-server.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>在部署之前，修改 <code>components.yaml</code> 的镜像地址为：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">containers:
-- name: metrics-server
-  image: registry.aliyuncs.com/google_containers/metrics-server-amd64:v0.3.6<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>等部署完成后，可以查看 Pod 日志是否正常：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl apply -f download/metrics-server.yaml 
- 
-[root@k8s-master ~]# kubectl get pods -n kube-system -l k8s-app=metrics-server
-NAME                             READY   STATUS    RESTARTS   AGE
-metrics-server-75665d756-jdpw5   1/1     Running   0          2m22s
-
-[root@k8s-master ~]# kubectl logs -f metrics-server-75665d756-jdpw5 -n kube-system
-......
-E0828 08:29:03.977217       1 manager.go:111] unable to fully collect metrics: [unable to fully scrape metrics from source kubelet_summary:k8s-node2: unable to fetch metrics from Kubelet k8s-node2 (k8s-node2): Get https://k8s-node2:10250/stats/summary?only_cpu_and_memory=true: dial tcp: lookup k8s-node2 on 10.96.0.10:53: no such host, unable to fully scrape metrics from source kubelet_summary:k8s-node1: unable to fetch metrics from Kubelet k8s-node1 (k8s-node1): Get https://k8s-node1:10250/stats/summary?only_cpu_and_memory=true: dial tcp: lookup k8s-node1 on 10.96.0.10:53: no such host, unable to fully scrape metrics from source kubelet_summary:k8s-master: unable to fetch metrics from Kubelet k8s-master (k8s-master): Get https://k8s-master:10250/stats/summary?only_cpu_and_memory=true: dial tcp: lookup k8s-master on 10.96.0.10:53: no such host]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>我们可以发现 Pod 中出现了一些错误信息：<code>xxx: no such host</code>，我们看到这个错误信息一般就可以确定是 DNS 解析不了造成的，我们可以看到 Metrics Server 会通过 kubelet 的 10250 端口获取信息，使用的是 hostname，我们部署集群的时候在节点的 <code>/etc/hosts</code> 里面添加了节点的 hostname 和 ip 的映射，但是是我们的 Metrics Server 的 Pod 内部并没有这个 hosts 信息，当然也就不识别 hostname 了，要解决这个问题，有两种方法：</p>
-<p>第一种方法就是在集群内部的 DNS 服务里面添加上 hostname 的解析，比如我们这里集群中使用的是 <code>CoreDNS</code>，我们就可以去修改下 CoreDNS 的 Configmap 信息，添加上 hosts 信息：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ kubectl edit configmap coredns -n kube-system
-apiVersion: v1
-data:
-  Corefile: |
-    .:53 {
-        errors
-        health
-        hosts {  # 添加集群节点hosts隐射信息
-          172.31.0.2 k8s-master
-          172.31.0.3 k8s-node1
-          172.31.0.4 k8s-node2
-          fallthrough
-        }
-        kubernetes cluster.local in-addr.arpa ip6.arpa {
-           pods insecure
-           upstream
-           fallthrough in-addr.arpa ip6.arpa
-        }
-        prometheus :9153
-        proxy . /etc/resolv.conf
-        cache 30
-        reload
-    }
-kind: ConfigMap
-metadata:
-  creationTimestamp: 2019-05-18T11:07:46Z
-  name: coredns
-  namespace: kube-system<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>这样当在集群内部的 Pod 访问集群节点的 hostname 的时候就可以解析到对应的 ip 了，另外一种方法（<a target="_blank" rel="noopener" href="https://github.com/kubernetes-sigs/metrics-server%EF%BC%89%E5%B0%B1%E6%98%AF%E5%9C%A8">https://github.com/kubernetes-sigs/metrics-server）就是在</a> metrics-server 的启动参数中修改 <code>kubelet-preferred-address-types</code> 参数，如下：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">args:
-- --cert-dir=/tmp
-- --secure-port=4443
-- --kubelet-preferred-address-types=InternalIP<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>我们这里使用第二种方式，然后重新安装：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl delete -f download/metrics-server.yaml
-[root@k8s-master ~]# kubectl apply -f download/metrics-server.yaml 
-
-[root@k8s-master ~]# kubectl get pods -n kube-system -l k8s-app=metrics-server
+<h2 id="serviceentry-配置示例"><a class="markdownIt-Anchor" href="#serviceentry-配置示例"></a> ServiceEntry 配置示例</h2>
+<h3 id="任务说明"><a class="markdownIt-Anchor" href="#任务说明"></a> 任务说明</h3>
+<p>将 httpbin 注册为网格内部的服务，并配置流控策略</p>
+<h3 id="任务目标"><a class="markdownIt-Anchor" href="#任务目标"></a> 任务目标</h3>
+<ul>
+<li>学会通过 ServiceEntry 扩展网格</li>
+<li>掌握 ServiceEntry 的配置方法</li>
+</ul>
+<h3 id="演示"><a class="markdownIt-Anchor" href="#演示"></a> 演示</h3>
+<p>因为我们之前部署的 Bookinfo 应用它所有的服务里面没有 <code>curl</code>这个命令，因此我们想要模拟内部服务去请求外部服务需要再添加另一个服务，官方也为我们提供了一个叫 <code>sleep</code>这样的服务，查看 <code>samples/sleep/sleep.yaml</code> 文件内容：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ServiceAccount
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> sleep
+<span class="token punctuation">---</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Service
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> sleep
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token key atrule">app</span><span class="token punctuation">:</span> sleep
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">80</span>
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> http
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">app</span><span class="token punctuation">:</span> sleep
+<span class="token punctuation">---</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> sleep
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">replicas</span><span class="token punctuation">:</span> <span class="token number">1</span>
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+      <span class="token key atrule">app</span><span class="token punctuation">:</span> sleep
+  <span class="token key atrule">template</span><span class="token punctuation">:</span>
+    <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+        <span class="token key atrule">app</span><span class="token punctuation">:</span> sleep
+    <span class="token key atrule">spec</span><span class="token punctuation">:</span>
+      <span class="token key atrule">serviceAccountName</span><span class="token punctuation">:</span> sleep
+      <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> sleep
+        <span class="token key atrule">image</span><span class="token punctuation">:</span> governmentpaas/curl<span class="token punctuation">-</span>ssl
+        <span class="token key atrule">command</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"/bin/sleep"</span><span class="token punctuation">,</span> <span class="token string">"3650d"</span><span class="token punctuation">]</span>
+        <span class="token key atrule">imagePullPolicy</span><span class="token punctuation">:</span> IfNotPresent
+        <span class="token key atrule">volumeMounts</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">mountPath</span><span class="token punctuation">:</span> /etc/sleep/tls
+          <span class="token key atrule">name</span><span class="token punctuation">:</span> secret<span class="token punctuation">-</span>volume
+      <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> secret<span class="token punctuation">-</span>volume
+        <span class="token key atrule">secret</span><span class="token punctuation">:</span>
+          <span class="token key atrule">secretName</span><span class="token punctuation">:</span> sleep<span class="token punctuation">-</span>secret
+          <span class="token key atrule">optional</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+<span class="token punctuation">---</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这其实就是一个简单的应用，通过 Deployment 进行控制，通过 Service 暴露服务，现在我们来部署该应用：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># zhangquan @ MacBook-Pro-2 in ~/Downloads/devops/istio-1.5.1 [15:13:04] 
+$ kubectl apply -f samples/sleep/sleep.yaml 
+serviceaccount/sleep created
+service/sleep created
+deployment.apps/sleep created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>为了模拟外部服务，我们使用 <a target="_blank" rel="noopener" href="https://httpbin.org/">httpbin</a> 这个网站。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20221024152025.png" alt=""></p>
+<p>如上图，它是一个非常精简的用来测试 HTTP 请求的一个网站，它提供了很多方法，比如说我们要用 headers 这个 get 方法来测试我们的外部服务请求，可以在浏览器中输入 headers ，它就会响应给你请求的 headers 信息：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20221024152558.png" alt=""></p>
+<p>查看下 Pod 的启动情况：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># zhangquan @ MacBook-Pro-2 in ~/Downloads/devops/istio-1.5.1 [15:15:32] 
+$ kubectl get pod
 NAME                              READY   STATUS    RESTARTS   AGE
-metrics-server-78f654ccdd-wcf8t   1/1     Running   0          91s
-
-[root@k8s-master ~]# kubectl logs -f metrics-server-78f654ccdd-wcf8t -n kube-system
 ......
-E0828 08:47:12.412582       1 manager.go:111] unable to fully collect metrics: [unable to fully scrape metrics from source kubelet_summary:k8s-node1: unable to fetch metrics from Kubelet k8s-node1 (172.31.0.3): Get https://172.31.0.3:10250/stats/summary?only_cpu_and_memory=true: x509: cannot validate certificate for 172.31.0.3 because it doesn't contain any IP SANs, unable to fully scrape metrics from source kubelet_summary:k8s-master: unable to fetch metrics from Kubelet k8s-master (172.31.0.2): Get https://172.31.0.2:10250/stats/summary?only_cpu_and_memory=true: x509: cannot validate certificate for 172.31.0.2 because it doesn't contain any IP SANs, unable to fully scrape metrics from source kubelet_summary:k8s-node2: unable to fetch metrics from Kubelet k8s-node2 (172.31.0.4): Get https://172.31.0.4:10250/stats/summary?only_cpu_and_memory=true: x509: cannot validate certificate for 172.31.0.4 because it doesn't contain any IP SANs]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>因为部署集群的时候，CA 证书并没有把各个节点的 IP 签上去，所以这里 <code>Metrics Server</code> 通过 IP 去请求时，提示签的证书没有对应的 IP（错误：<code>x509: cannot validate certificate for 172.31.0.3 because it doesn’t contain any IP SANs</code>），我们可以添加一个<code>--kubelet-insecure-tls</code>参数跳过证书校验：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">args:
-- --cert-dir=/tmp
-- --secure-port=4443
-- --kubelet-insecure-tls
-- --kubelet-preferred-address-types=InternalIP<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>然后再重新安装即可成功！可以通过如下命令来验证：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl delete -f download/metrics-server.yaml
-[root@k8s-master ~]# kubectl apply -f download/metrics-server.yaml 
-
-[root@k8s-master ~]# kubectl get pods -n kube-system -l k8s-app=metrics-server
-NAME                             READY   STATUS    RESTARTS   AGE
-metrics-server-9b4dc89d7-jnmr7   1/1     Running   0          14s
-
-[root@k8s-master ~]# kubectl logs -f metrics-server-9b4dc89d7-jnmr7 -n kube-system
-I0828 08:51:12.584555       1 serving.go:312] Generated self-signed cert (/tmp/apiserver.crt, /tmp/apiserver.key)
-I0828 08:51:13.012958       1 secure_serving.go:116] Serving securely on [::]:4443
-......
-
-[root@k8s-master ~]#  kubectl get apiservice | grep metrics
-v1beta1.metrics.k8s.io                 kube-system/metrics-server   True        67s
-
-
-[root@k8s-master ~]# kubectl get --raw "/apis/metrics.k8s.io/v1beta1/nodes"
-{"kind":"NodeMetricsList","apiVersion":"metrics.k8s.io/v1beta1","metadata":{"selfLink":"/apis/metrics.k8s.io/v1beta1/nodes"},"items":[{"metadata":{"name":"k8s-master","selfLink":"/apis/metrics.k8s.io/v1beta1/nodes/k8s-master","creationTimestamp":"2022-08-28T08:53:06Z"},"timestamp":"2022-08-28T08:52:05Z","window":"30s","usage":{"cpu":"135321453n","memory":"1509068Ki"}},{"metadata":{"name":"k8s-node1","selfLink":"/apis/metrics.k8s.io/v1beta1/nodes/k8s-node1","creationTimestamp":"2022-08-28T08:53:06Z"},"timestamp":"2022-08-28T08:52:11Z","window":"30s","usage":{"cpu":"64140701n","memory":"708528Ki"}},{"metadata":{"name":"k8s-node2","selfLink":"/apis/metrics.k8s.io/v1beta1/nodes/k8s-node2","creationTimestamp":"2022-08-28T08:53:06Z"},"timestamp":"2022-08-28T08:52:04Z","window":"30s","usage":{"cpu":"63743191n","memory":"830800Ki"}}]}
-
-
-[root@k8s-master ~]# kubectl top nodes
-NAME         CPU(cores)   CPU%   MEMORY(bytes)   MEMORY%   
-k8s-master   151m         7%     1456Mi          37%       
-k8s-node1    72m          3%     689Mi           17%       
-k8s-node2    65m          3%     811Mi           21% <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>现在我们可以通过 <code>kubectl top</code> 命令来获取到资源数据了，证明 <code>Metrics Server</code> 已经安装成功了。</p>
-<h2 id="hap"><a class="markdownIt-Anchor" href="#hap"></a> HAP</h2>
-<p>现在我们用 Deployment 来创建一个 Nginx Pod，然后利用 <code>HPA</code> 来进行自动扩缩容。资源清单如下所示：（hpa-demo.yaml）</p>
-<p>把 hap 相关资源文件统一放在 hap 目录下</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# mkdir ~/hap<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> hpa<span class="token punctuation">-</span>demo
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
-    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
-      <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
-  <span class="token key atrule">template</span><span class="token punctuation">:</span>
-    <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
-        <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
-    <span class="token key atrule">spec</span><span class="token punctuation">:</span>
-      <span class="token key atrule">containers</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
-        <span class="token key atrule">image</span><span class="token punctuation">:</span> nginx
-        <span class="token key atrule">ports</span><span class="token punctuation">:</span>
-        <span class="token punctuation">-</span> <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">80</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>然后直接创建 Deployment：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl apply -f hpa/hpa-demo.yaml 
-deployment.apps/hpa-demo created
-
-[root@k8s-master ~]# kubectl get pods -l app=nginx
-NAME                        READY   STATUS    RESTARTS   AGE
-hpa-demo-7848d4b86f-9sw8b   1/1     Running   0          18s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>现在我们来创建一个 <code>HPA</code> 资源对象，可以使用<code>kubectl autoscale</code>命令来创建：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl autoscale deployment hpa-demo --cpu-percent=10 --min=1 --max=10  
-horizontalpodautoscaler.autoscaling/hpa-demo autoscaled
-
-[root@k8s-master ~]# kubectl get hpa
-NAME       REFERENCE             TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
-hpa-demo   Deployment/hpa-demo   &lt;unknown&gt;/10%   1         10        0          11s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>此命令创建了一个关联资源 hpa-demo 的 HPA，最小的 Pod 副本数为1，最大为10。HPA 会根据设定的 cpu 使用率（10%）动态的增加或者减少 Pod 数量。</p>
-<p>当然我们依然还是可以通过创建 YAML 文件的形式来创建 HPA 资源对象。如果我们不知道怎么编写的话，可以查看上面命令行创建的HPA的YAML文件：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get hpa hpa-demo -o yaml
-apiVersion: autoscaling/v1
-kind: HorizontalPodAutoscaler
+sleep-f8cbf5b76-kgfxk             2/2     Running   0          2m9s
+......<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>我们先来访问一下 httpbin 这个外部的服务：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># zhangquan @ MacBook-Pro-2 in ~/Downloads/devops/istio-1.5.1 [15:30:02] C:1</span>
+$ kubectl exec sleep<span class="token punctuation">-</span>f8cbf5b76<span class="token punctuation">-</span>kgfxk <span class="token punctuation">-</span>c sleep curl http<span class="token punctuation">:</span>//httpbin.org/headers   
+kubectl exec <span class="token punctuation">[</span>POD<span class="token punctuation">]</span> <span class="token punctuation">[</span>COMMAND<span class="token punctuation">]</span> is DEPRECATED and will be removed in a future version. Use kubectl kubectl exec <span class="token punctuation">[</span>POD<span class="token punctuation">]</span> <span class="token punctuation">-</span><span class="token punctuation">-</span> <span class="token punctuation">[</span>COMMAND<span class="token punctuation">]</span> instead.
+  <span class="token directive important">% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current</span>
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  1062  100  1062    0     0   1661      0 <span class="token punctuation">-</span><span class="token punctuation">-</span><span class="token punctuation">:</span><span class="token punctuation">-</span><span class="token punctuation">-</span><span class="token punctuation">:</span><span class="token punctuation">-</span><span class="token punctuation">-</span> <span class="token punctuation">-</span><span class="token punctuation">-</span><span class="token punctuation">:</span><span class="token punctuation">-</span><span class="token punctuation">-</span><span class="token punctuation">:</span><span class="token punctuation">-</span><span class="token punctuation">-</span> <span class="token punctuation">-</span><span class="token punctuation">-</span><span class="token punctuation">:</span><span class="token punctuation">-</span><span class="token punctuation">-</span><span class="token punctuation">:</span><span class="token punctuation">-</span><span class="token punctuation">-</span>  <span class="token number">1661</span>
+<span class="token punctuation">{</span>
+  <span class="token key atrule">"headers"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token key atrule">"Accept"</span><span class="token punctuation">:</span> <span class="token string">"*/*"</span><span class="token punctuation">,</span> 
+    <span class="token key atrule">"Content-Length"</span><span class="token punctuation">:</span> <span class="token string">"0"</span><span class="token punctuation">,</span> 
+    <span class="token key atrule">"Host"</span><span class="token punctuation">:</span> <span class="token string">"httpbin.org"</span><span class="token punctuation">,</span> 
+    <span class="token key atrule">"User-Agent"</span><span class="token punctuation">:</span> <span class="token string">"curl/7.83.1"</span><span class="token punctuation">,</span> 
+    <span class="token key atrule">"X-Amzn-Trace-Id"</span><span class="token punctuation">:</span> <span class="token string">"Root=1-63563f00-7e9a66b6539a4d801ed0fe31"</span><span class="token punctuation">,</span> 
+    <span class="token key atrule">"X-B3-Sampled"</span><span class="token punctuation">:</span> <span class="token string">"1"</span><span class="token punctuation">,</span> 
+    <span class="token key atrule">"X-B3-Spanid"</span><span class="token punctuation">:</span> <span class="token string">"20d182b550bf7ede"</span><span class="token punctuation">,</span> 
+    <span class="token key atrule">"X-B3-Traceid"</span><span class="token punctuation">:</span> <span class="token string">"7919c11829074d3120d182b550bf7ede"</span><span class="token punctuation">,</span> 
+    <span class="token key atrule">"X-Envoy-Peer-Metadata"</span><span class="token punctuation">:</span> <span class="token string">"Ch0KDElOU1RBTkNFX0lQUxINGgsxNzIuMTcuMC4xNgrDAQoGTEFCRUxTErgBKrUBCg4KA2FwcBIHGgVzbGVlcAogChFwb2QtdGVtcGxhdGUtaGFzaBILGglmOGNiZjViNzYKJAoZc2VjdXJpdHkuaXN0aW8uaW8vdGxzTW9kZRIHGgVpc3RpbwoqCh9zZXJ2aWNlLmlzdGlvLmlvL2Nhbm9uaWNhbC1uYW1lEgcaBXNsZWVwCi8KI3NlcnZpY2UuaXN0aW8uaW8vY2Fub25pY2FsLXJldmlzaW9uEggaBmxhdGVzdAoaCgdNRVNIX0lEEg8aDWNsdXN0ZXIubG9jYWwKHwoETkFNRRIXGhVzbGVlcC1mOGNiZjViNzYta2dmeGsKFgoJTkFNRVNQQUNFEgkaB2RlZmF1bHQKSQoFT1dORVISQBo+a3ViZXJuZXRlczovL2FwaXMvYXBwcy92MS9uYW1lc3BhY2VzL2RlZmF1bHQvZGVwbG95bWVudHMvc2xlZXAKGgoPU0VSVklDRV9BQ0NPVU5UEgcaBXNsZWVwChgKDVdPUktMT0FEX05BTUUSBxoFc2xlZXA="</span><span class="token punctuation">,</span> 
+    <span class="token key atrule">"X-Envoy-Peer-Metadata-Id"</span><span class="token punctuation">:</span> <span class="token string">"sidecar~172.17.0.16~sleep-f8cbf5b76-kgfxk.default~default.svc.cluster.local"</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>通过上面的访问可以看到，我们可以直接从 sleep 服务内部来访问到外部的 httpbin 服务，原因是因为在 Istio 里面默认所有的网格内的服务是允许直接地访问外部服务的。所以为了测试服务入口这个功能，我们需要先把允许访问外部服务的方式给它关闭掉，关闭成只有注册过的服务才能访问外部服务。</p>
+<p>这里为了测试 ServiceEntry 功能，我们将其更改为 <code>REGISTRY_ONLY</code> 模式：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># zhangquan @ MacBook-Pro-2 in ~/Downloads/devops/istio-1.5.1 [15:36:15] 
+$ kubectl get configmap istio -n istio-system -o yaml | sed 's/mode: ALLOW_ANY/mode: REGISTRY_ONLY/g' | kubectl replace -n istio-system -f -
+configmap/istio replaced<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>当配置生效后，我们再次通过 sleep 服务来 curl 一下 httpbin 这个外部服务：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># zhangquan @ MacBook-Pro-2 in ~/Downloads/devops/istio-1.5.1 [15:37:11] 
+$ kubectl exec sleep-f8cbf5b76-kgfxk -c sleep curl http://httpbin.org/headers                                                                <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>可以看到没有任何输出，说明外部服务已经被我们屏蔽掉了。</p>
+<p>现在我们定义一个 ServiceEntry，让 sleep 服务可以通过服务入口来访问外部服务。</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">kubectl apply -f - &lt;&lt;EOF
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
 metadata:
-  annotations:
-    autoscaling.alpha.kubernetes.io/conditions: '[{"type":"AbleToScale","status":"True","lastTransitionTime":"2022-08-28T09:04:49Z","reason":"SucceededGetScale","message":"the
-      HPA controller was able to get the target''s current scale"},{"type":"ScalingActive","status":"False","lastTransitionTime":"2022-08-28T09:04:49Z","reason":"FailedGetResourceMetric","message":"the
-      HPA was unable to compute the replica count: failed to get cpu utilization:
-      missing request for cpu"}]'
-  creationTimestamp: "2022-08-28T09:04:34Z"
-  managedFields:
-  - apiVersion: autoscaling/v1
-    fieldsType: FieldsV1
-    fieldsV1:
-      f:spec:
-        f:maxReplicas: {}
-        f:minReplicas: {}
-        f:scaleTargetRef:
-          f:apiVersion: {}
-          f:kind: {}
-          f:name: {}
-        f:targetCPUUtilizationPercentage: {}
-    manager: kubectl-autoscale
-    operation: Update
-    time: "2022-08-28T09:04:34Z"
-  - apiVersion: autoscaling/v1
-    fieldsType: FieldsV1
-    fieldsV1:
-      f:metadata:
-        f:annotations:
-          .: {}
-          f:autoscaling.alpha.kubernetes.io/conditions: {}
-      f:status:
-        f:currentReplicas: {}
-    manager: kube-controller-manager
-    operation: Update
-    time: "2022-08-28T09:04:49Z"
-  name: hpa-demo
-  namespace: default
-  resourceVersion: "126191"
-  uid: c9a2ee21-cced-4518-863f-61fcf4f76c8e
+  name: httpbin-ext #服务入口名称
 spec:
-  maxReplicas: 10
-  minReplicas: 1
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: hpa-demo
-  targetCPUUtilizationPercentage: 10
-status:
-  currentReplicas: 1
-  desiredReplicas: 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>然后我们可以根据上面的 YAML 文件就可以自己来创建一个基于 YAML 的 HPA 描述文件了。但是我们发现上面信息里面出现了一些 Fail 信息，我们来查看下这个 HPA 对象的信息：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl describe hpa hpa-demo
-Name:                                                  hpa-demo
-Namespace:                                             default
-Labels:                                                &lt;none&gt;
-Annotations:                                           &lt;none&gt;
-CreationTimestamp:                                     Sun, 28 Aug 2022 17:04:34 +0800
-Reference:                                             Deployment/hpa-demo
-Metrics:                                               ( current / target )
-  resource cpu on pods  (as a percentage of request):  &lt;unknown&gt; / 10%
-Min replicas:                                          1
-Max replicas:                                          10
-Deployment pods:                                       1 current / 0 desired
-Conditions:
-  Type           Status  Reason                   Message
-  ----           ------  ------                   -------
-  AbleToScale    True    SucceededGetScale        the HPA controller was able to get the target's current scale
-  ScalingActive  False   FailedGetResourceMetric  the HPA was unable to compute the replica count: failed to get cpu utilization: missing request for cpu
-Events:
-  Type     Reason                        Age               From                       Message
-  ----     ------                        ----              ----                       -------
-  Warning  FailedGetResourceMetric       4s (x5 over 66s)  horizontal-pod-autoscaler  failed to get cpu utilization: missing request for cpu
-  Warning  FailedComputeMetricsReplicas  4s (x5 over 66s)  horizontal-pod-autoscaler  invalid metrics (1 invalid out of 1), first error is: failed to get cpu utilization: missing request for cpu<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>我们可以看到上面的事件信息里面出现了 <code>failed to get cpu utilization: missing request for cpu</code> 这样的错误信息。这是因为我们上面创建的 Pod 对象没有添加 request 资源声明，这样导致 HPA 读取不到 CPU 指标信息，所以如果要想让 HPA 生效，对应的 Pod 资源必须添加 requests 资源声明，更新我们的资源清单文件（hpa-demo.yaml）：</p>
-<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> hpa<span class="token punctuation">-</span>demo
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
-    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
-      <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
-  <span class="token key atrule">template</span><span class="token punctuation">:</span>
-    <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
-        <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
-    <span class="token key atrule">spec</span><span class="token punctuation">:</span>
-      <span class="token key atrule">containers</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
-        <span class="token key atrule">image</span><span class="token punctuation">:</span> nginx
-        <span class="token key atrule">ports</span><span class="token punctuation">:</span>
-        <span class="token punctuation">-</span> <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">80</span>
-        <span class="token key atrule">resources</span><span class="token punctuation">:</span>
-          <span class="token key atrule">requests</span><span class="token punctuation">:</span>
-            <span class="token key atrule">memory</span><span class="token punctuation">:</span> 50Mi
-            <span class="token key atrule">cpu</span><span class="token punctuation">:</span> 50m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>然后重新更新 Deployment，重新创建 HPA 对象：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl delete -f hpa/hpa-demo.yaml 
-deployment.apps "hpa-demo" deleted
-
-[root@k8s-master ~]# kubectl apply -f hpa/hpa-demo.yaml 
-deployment.apps/hpa-demo created
-
-[root@k8s-master ~]# kubectl get pods -o wide -l app=nginx
-NAME                        READY   STATUS    RESTARTS   AGE   IP              NODE        NOMINATED NODE   READINESS GATES
-hpa-demo-6b4467b546-lndbp   1/1     Running   0          59s   192.168.36.72   k8s-node1   &lt;none&gt;           &lt;none&gt;
-
-[root@k8s-master ~]# kubectl get hpa 
-NAME       REFERENCE             TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
-hpa-demo   Deployment/hpa-demo   &lt;unknown&gt;/10%   1         10        1          5m46s
-
-[root@k8s-master ~]# kubectl delete hpa hpa-demo
-horizontalpodautoscaler.autoscaling "hpa-demo" deleted
-
-[root@k8s-master ~]# kubectl autoscale deployment hpa-demo --cpu-percent=10 --min=1 --max=10  
-horizontalpodautoscaler.autoscaling/hpa-demo autoscaled
-
-
-[root@k8s-master ~]# kubectl describe hpa hpa-demo
-Name:                                                  hpa-demo
-Namespace:                                             default
-Labels:                                                &lt;none&gt;
-Annotations:                                           &lt;none&gt;
-CreationTimestamp:                                     Sun, 28 Aug 2022 17:11:37 +0800
-Reference:                                             Deployment/hpa-demo
-Metrics:                                               ( current / target )
-  resource cpu on pods  (as a percentage of request):  0% (0) / 10%
-Min replicas:                                          1
-Max replicas:                                          10
-Deployment pods:                                       1 current / 1 desired
-Conditions:
-  Type            Status  Reason               Message
-  ----            ------  ------               -------
-  AbleToScale     True    ScaleDownStabilized  recent recommendations were higher than current one, applying the highest recent recommendation
-  ScalingActive   True    ValidMetricFound     the HPA was able to successfully calculate a replica count from cpu resource utilization (percentage of request)
-  ScalingLimited  False   DesiredWithinRange   the desired count is within the acceptable range
-Events:           &lt;none&gt;
-
-
-[root@k8s-master ~]# kubectl get hpa
-NAME       REFERENCE             TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
-hpa-demo   Deployment/hpa-demo   0%/10%    1         10        1          68s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>现在可以看到 HPA 资源对象已经正常了，现在我们来增大负载进行测试：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 开启另一个终端查看 hap-demo Pod 的 ip
-[root@k8s-master ~]# kubectl get pods 
-NAME                        READY   STATUS    RESTARTS   AGE
-hpa-demo-6b4467b546-lndbp   1/1     Running   0          10m
-
-[root@k8s-master ~]# kubectl get pod hpa-demo-6b4467b546-lndbp -o wide
-NAME                        READY   STATUS    RESTARTS   AGE   IP              NODE        NOMINATED NODE   READINESS GATES
-hpa-demo-6b4467b546-lndbp   1/1     Running   0          11m   192.168.36.72   k8s-node1   &lt;none&gt;           &lt;none&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>我们来创建一个 busybox 的 Pod，并且循环访问上面创建的 Pod：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]#  kubectl run -it --image busybox test-hpa --restart=Never --rm /bin/sh
-If you don't see a command prompt, try pressing enter.
-/ # while true; do wget -q -O- http://192.168.36.72; done<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>下图可以看到，HPA 已经开始工作：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get hpa
-NAME       REFERENCE             TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
-hpa-demo   Deployment/hpa-demo   0%/10%    1         10        10         17m
-
-
-[root@k8s-master ~]#  kubectl get pods -l app=nginx --watch
-NAME                        READY   STATUS    RESTARTS   AGE
-hpa-demo-6b4467b546-dlgk5   0/1     ContainerCreating   0          1s
-hpa-demo-6b4467b546-5plpg   0/1     ContainerCreating   0          1s
-hpa-demo-6b4467b546-wprxt   1/1     Running             0          17s
-hpa-demo-6b4467b546-dlgk5   1/1     Running             0          2s
-hpa-demo-6b4467b546-nd5rh   1/1     Running             0          18s
-hpa-demo-6b4467b546-rbv2x   0/1     Pending             0          0s
-hpa-demo-6b4467b546-rbv2x   0/1     Pending             0          0s
-hpa-demo-6b4467b546-6bcg2   0/1     Pending             0          0s
-hpa-demo-6b4467b546-6bcg2   0/1     Pending             0          0s
-hpa-demo-6b4467b546-6bcg2   0/1     ContainerCreating   0          0s
-hpa-demo-6b4467b546-rbv2x   0/1     ContainerCreating   0          0s
-hpa-demo-6b4467b546-6bcg2   0/1     ContainerCreating   0          0s
-hpa-demo-6b4467b546-rbv2x   0/1     ContainerCreating   0          0s
-hpa-demo-6b4467b546-nphlm   1/1     Running             0          33s
-hpa-demo-6b4467b546-5plpg   1/1     Running             0          17s
-hpa-demo-6b4467b546-rbv2x   1/1     Running             0          2s
-hpa-demo-6b4467b546-rpwpf   1/1     Running             0          32s
-hpa-demo-6b4467b546-6bcg2   1/1     Running             0          32s
-hpa-demo-6b4467b546-rxp2d   1/1     Running             0          47s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>我们可以看到已经自动拉起了很多新的 Pod，最后定格在了我们上面设置的 10 个 Pod，同时查看资源 hpa-demo 的副本数量，副本数量已经从原来的1变成了10个：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get deployment hpa-demo
-NAME       READY   UP-TO-DATE   AVAILABLE   AGE
-hpa-demo   10/10   10           10          15m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>查看 HPA 资源的对象了解工作过程：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl describe hpa hpa-demo
-Name:                                                  hpa-demo
-Namespace:                                             default
-Labels:                                                &lt;none&gt;
-Annotations:                                           &lt;none&gt;
-CreationTimestamp:                                     Sun, 28 Aug 2022 17:11:37 +0800
-Reference:                                             Deployment/hpa-demo
-Metrics:                                               ( current / target )
-  resource cpu on pods  (as a percentage of request):  0% (0) / 10%
-Min replicas:                                          1
-Max replicas:                                          10
-Deployment pods:                                       10 current / 10 desired
-Conditions:
-  Type            Status  Reason               Message
-  ----            ------  ------               -------
-  AbleToScale     True    ScaleDownStabilized  recent recommendations were higher than current one, applying the highest recent recommendation
-  ScalingActive   True    ValidMetricFound     the HPA was able to successfully calculate a replica count from cpu resource utilization (percentage of request)
-  ScalingLimited  True    TooManyReplicas      the desired replica count is more than the maximum replica count
-Events:
-  Type    Reason             Age    From                       Message
-  ----    ------             ----   ----                       -------
-  Normal  SuccessfulRescale  7m     horizontal-pod-autoscaler  New size: 4; reason: cpu resource utilization (percentage of request) above target
-  Normal  SuccessfulRescale  6m44s  horizontal-pod-autoscaler  New size: 8; reason: cpu resource utilization (percentage of request) above target
-  Normal  SuccessfulRescale  6m29s  horizontal-pod-autoscaler  New size: 10; reason: cpu resource utilization (percentage of request) above target<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>同样的这个时候我们来关掉 busybox 来减少负载，然后等待一段时间观察下 HPA 和 Deployment 对象：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@k8s-master ~]# kubectl get hpa
-NAME       REFERENCE             TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
-hpa-demo   Deployment/hpa-demo   0%/10%    1         10        1          19m
-
-[root@k8s-master ~]# kubectl get deployment hpa-demo
-NAME       READY   UP-TO-DATE   AVAILABLE   AGE
-hpa-demo   1/1     1            1           21m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>可以看到副本数量已经由 10 变为 1，当前我们只是演示了 CPU 使用率这一个指标，我们还可以根据自定义的监控指标来自动对 Pod 进行扩缩容。</p>
+  hosts:
+  - httpbin.org
+  ports:
+  - number: 80
+    name: http
+    protocol: HTTP
+  resolution: DNS
+  location: MESH_EXTERNAL
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>查看我们定义的服务入口：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># zhangquan @ MacBook-Pro-2 in ~/Downloads/devops/istio-1.5.1 [15:45:16] 
+$ kubectl get se
+NAME          HOSTS           LOCATION        RESOLUTION   AGE
+httpbin-ext   [httpbin.org]   MESH_EXTERNAL   DNS          40s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>服务入口定义好之后，我们再次尝试从 sleep 服务内部去访问外部服务：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># zhangquan @ MacBook-Pro-2 in ~/Downloads/devops/istio-1.5.1 [15:48:04] 
+$ kubectl exec -it  sleep-f8cbf5b76-kgfxk -c sleep -- curl http://httpbin.org/headers     
+{
+  "headers": {
+    "Accept": "*/*", 
+    "Content-Length": "0", 
+    "Host": "httpbin.org", 
+    "User-Agent": "curl/7.83.1", 
+    "X-Amzn-Trace-Id": "Root=1-63564341-39a74de31de2c0321aada0d4", 
+    "X-B3-Sampled": "1", 
+    "X-B3-Spanid": "cb05732aeacfd04b", 
+    "X-B3-Traceid": "fae9d1262b8a55becb05732aeacfd04b", 
+    "X-Envoy-Decorator-Operation": "httpbin.org:80/*", 
+    "X-Envoy-Peer-Metadata": "Ch0KDElOU1RBTkNFX0lQUxINGgsxNzIuMTcuMC4xNgrDAQoGTEFCRUxTErgBKrUBCg4KA2FwcBIHGgVzbGVlcAogChFwb2QtdGVtcGxhdGUtaGFzaBILGglmOGNiZjViNzYKJAoZc2VjdXJpdHkuaXN0aW8uaW8vdGxzTW9kZRIHGgVpc3RpbwoqCh9zZXJ2aWNlLmlzdGlvLmlvL2Nhbm9uaWNhbC1uYW1lEgcaBXNsZWVwCi8KI3NlcnZpY2UuaXN0aW8uaW8vY2Fub25pY2FsLXJldmlzaW9uEggaBmxhdGVzdAoaCgdNRVNIX0lEEg8aDWNsdXN0ZXIubG9jYWwKHwoETkFNRRIXGhVzbGVlcC1mOGNiZjViNzYta2dmeGsKFgoJTkFNRVNQQUNFEgkaB2RlZmF1bHQKSQoFT1dORVISQBo+a3ViZXJuZXRlczovL2FwaXMvYXBwcy92MS9uYW1lc3BhY2VzL2RlZmF1bHQvZGVwbG95bWVudHMvc2xlZXAKGgoPU0VSVklDRV9BQ0NPVU5UEgcaBXNsZWVwChgKDVdPUktMT0FEX05BTUUSBxoFc2xlZXA=", 
+    "X-Envoy-Peer-Metadata-Id": "sidecar~172.17.0.16~sleep-f8cbf5b76-kgfxk.default~default.svc.cluster.local"
+  }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>可以看到现有有了 headers 的具体输出。</p>
+<h2 id="服务入口的配置选项"><a class="markdownIt-Anchor" href="#服务入口的配置选项"></a> 服务入口的配置选项</h2>
+<p>参考官方文档的 <a target="_blank" rel="noopener" href="https://istio.io/latest/docs/reference/config/networking/service-entry/">ServiceEntry配置 </a>说明</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20221024155109.png" alt=""></p>
+<p>Service 主要包含如下几个字段。</p>
+<p>（1）hosts：是一个必选字段，表示与 ServiceEntry 相关的主机名，可以是一个 DNS 域名，还可以使用前缀模糊匹配。在使用上有以下几个说明：</p>
+<ul>
+<li>HTTP 的流量，在这个字段匹配 HTTP Header 的 Host 或 Authority。</li>
+<li>HTTPS 或 TLS 流量，这个字段匹配 SNI。</li>
+<li>其他协议的流量，这个字段不生效，使用下面的 addresses 和 port 字段。</li>
+<li>当 resolution 被设置为 DNS 类型并且没有指定 endpoints 时，这个字段将作为后端的域名来进行路由。</li>
+</ul>
+<p>（2）addresses：表示与服务关联的虚拟 IP 地址，可以是 CIDR 这种前缀表达式 。对于 HTTP 的流量，该字段被忽略，而是使用 Header 中的 Host 或 Authority。如果 addresses 为空，则只能根据目标端口来识别，在这种情况下这个端口不能被网格里的其他服务使用。即 Sidecar 只是作为一个 TCP 代理，把某个特定端口的流量转发到配置的目标后端。</p>
+<p>（3）ports：表示外部服务关联的端口，是一个必选字段。</p>
+<p>（4）location：用于设置服务是在网格内部还是在网格内部。可以取一下两种模式：</p>
+<ul>
+<li><strong>MESH_EXTERNAL</strong>：表示在网格外部，通过 API 访问的外部服务。实例中的 “<a target="_blank" rel="noopener" href="http://httpbin.org">httpbin.org</a>” 是一个外部服务。</li>
+<li><strong>MESH_INTERNAL</strong>：表示在网格内部，一些不能直接注册到网格服务注册中心的服务，例如一些虚拟机上的服务不能通过 Kubernetes 机制自动在 istio 中进行服务注册，通过这种方式可以扩展网格管理的服务。</li>
+</ul>
+<p>location 字段会影响 mTLS 双向认证、策略执行等特性。当和网络外部服务通信时，mTLS 双向认证将被禁用，并且策略只能在客户端执行，不能再服务端执行。因为对于外部服务，远端不可能注入一个 Sidecar 来进行双向认证等操作。</p>
+<p>（5）resolution：是一个内容较多的字段，表示服务发现的模式，用来设置代码解析服务的方式，将一个服务名解析到一个后端 IP 地址上，可以设置 NONE、STATIC、DNS 三种模式。另外，这里配置的解析模式不影响应用的服务名解析，应用仍然使用 DNS 将服务解析到 IP 上，这样 Outbound 流量会被 Envoy 拦截。</p>
+<ul>
+<li><strong>NONE</strong>：用于当连接的目标地址以及是一个明确 IP 的场景。当访问外部服务且应用要被解析到一个特点的 IP 上时，要将模式设为 NONE。</li>
+<li><strong>STATIC</strong>：用在以及用 endpoints 设置了服务实例的地址场景中，即不用解析。</li>
+<li><strong>DNS</strong>：表示用查询环境中的 DNS 进行解析。如果没有设置 endpoints，代理就会使用在 hosts 中指定的 DNS 地址进行解析，前提是在 hosts 中未使用通配符；如果设置了 endpoints，则使用 endpoints 中的 DNS 地址解析出目标 IP。</li>
+</ul>
+<p>（6）subjectAltNames：表示这个服务负载的 SAN 列表。在 istio 安全相关配置的多个地方被用到，被设置时，代理将严重服务证书的 SAN 是否配置。</p>
+<p>（7）endpoints：表示与网络服务相关的网络地址，可以是一个 IP，也可以是一个主机名。这个字段是一个 Endpoint 的复杂结构。</p>
+<ul>
+<li><strong>address</strong>：必选字段，表示网络后端的地址。在前面 ServiceEntry 的解析方式中 resolution 被设置为 DNS 时，address 可以使用域名，但是要求是明确的地址，不可以使用模糊匹配。</li>
+<li><strong>ports</strong>：端口列表。</li>
+<li><strong>labels</strong>：后端的标签。</li>
+<li><strong>network</strong>：这个高级配置主要用在 istio 多集群中。所有属于相同 network 的后端都可以直接互访，不在同一个 network 的后端不能直接访问。在使用 istio Gateway 时可以对不同 network 的后端建立连接。</li>
+<li><strong>locality</strong>：后端的 locality，主要用于亲和性路由。即 Envoy 可以基于这个标识做本地化路由，优先路由到本地的后端上。locality 表示一个故障域，常见的如国家、地区、区域、也可以分隔每个故障域来表示任意层次的结构。</li>
+<li><strong>weight</strong>：表示负载均衡的权重，权重越高，接收的流量占比越大。</li>
+</ul>
+<p>此外，istio 1.1 在 ServiceEntry 上添加了一个重要字段 exportTo，用于控制 ServiceEntry 跨命名空间的可见性，这样就可以控制在一个命名空间下定义的资源对象是否可以被其他命名空间下的 Sidecar、Gateway 和 VirtualService 使用。如果未赋值，则默认全局可见。"." 表示仅应用到当前命名空间，"*" 表示应用到所有命名空间。</p>
 <h2 id="参考"><a class="markdownIt-Anchor" href="#参考"></a> 参考</h2>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://v1-21.docs.kubernetes.io/zh/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/">https://v1-21.docs.kubernetes.io/zh/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/</a></li>
-<li><a target="_blank" rel="noopener" href="https://v1-21.docs.kubernetes.io/zh/docs/tasks/run-application/horizontal-pod-autoscale/">https://v1-21.docs.kubernetes.io/zh/docs/tasks/run-application/horizontal-pod-autoscale/</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/kubernetes-sigs/metrics-server">https://github.com/kubernetes-sigs/metrics-server</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.qikqiak.com/k8strain/controller/hpa/">https://www.qikqiak.com/k8strain/controller/hpa/</a></li>
+<li><a target="_blank" rel="noopener" href="https://istio.io/latest/docs/concepts/traffic-management/#service-entries">https://istio.io/latest/docs/concepts/traffic-management/#service-entries</a></li>
+<li><a target="_blank" rel="noopener" href="https://istio.io/latest/docs/reference/config/networking/service-entry/">https://istio.io/latest/docs/reference/config/networking/service-entry/</a></li>
 </ul>
 
                 
@@ -929,7 +749,7 @@ hpa-demo   1/1     1            1           21m<span aria-hidden="true" class="l
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://www.zhangquan.me/2022/08/28/kubernetes-hpa/">https://www.zhangquan.me/2022/08/28/kubernetes-hpa/</a>
+                    <a href="https://www.zhangquan.me/2022/10/24/istio-serviceentry-fu-wu-ru-kou/">https://www.zhangquan.me/2022/10/24/istio-serviceentry-fu-wu-ru-kou/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -969,6 +789,14 @@ hpa-demo   1/1     1            1           21m<span aria-hidden="true" class="l
                             
                                 <a href="/tags/Kubernetes/">
                                     <span class="chip bg-color">Kubernetes</span>
+                                </a>
+                            
+                                <a href="/tags/Istio/">
+                                    <span class="chip bg-color">Istio</span>
+                                </a>
+                            
+                                <a href="/tags/Service-Mesh/">
+                                    <span class="chip bg-color">Service Mesh</span>
                                 </a>
                             
                         </div>
@@ -1463,46 +1291,56 @@ hpa-demo   1/1     1            1           21m<span aria-hidden="true" class="l
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2022/08/28/kubernetes-ingress-traefik-de-an-zhuang-ji-jian-dan-shi-yong/">
+                <a href="/2022/10/24/istio-serviceentry-fu-wu-ru-kou/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="Kubernetes Ingress Traefik 的安装及简单使用">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="Istio ServiceEntry（服务入口）">
                         
-                        <span class="card-title">Kubernetes Ingress Traefik 的安装及简单使用</span>
+                        <span class="card-title">Istio ServiceEntry（服务入口）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Kubernetes Ingress Traefik 的安装及简单使用
+                            Istio ServiceEntry（服务入口）
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-08-28
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-24
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Kubernetes/" class="post-category">
-                                    Kubernetes
+                            <a href="/categories/Istio/" class="post-category">
+                                    Istio
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
                     <a href="/tags/Kubernetes/">
                         <span class="chip bg-color">Kubernetes</span>
+                    </a>
+                    
+                    <a href="/tags/Istio/">
+                        <span class="chip bg-color">Istio</span>
+                    </a>
+                    
+                    <a href="/tags/Service-Mesh/">
+                        <span class="chip bg-color">Service Mesh</span>
                     </a>
                     
                 </div>
@@ -1516,31 +1354,31 @@ hpa-demo   1/1     1            1           21m<span aria-hidden="true" class="l
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/08/28/kubernetes-security-context/">
+                <a href="/2022/10/24/istio-gateway-wang-guan/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="Kubernetes Security Context">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="Istio Gateway（网关）">
                         
-                        <span class="card-title">Kubernetes Security Context</span>
+                        <span class="card-title">Istio Gateway（网关）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Kubernetes Security Context Pod/容器的安全管控
+                            Istio Gateway（网关）
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-28
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-24
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Kubernetes/" class="post-category">
-                                    Kubernetes
+                            <a href="/categories/Istio/" class="post-category">
+                                    Istio+++++++
                                 </a>
                             
                             
@@ -1552,6 +1390,14 @@ hpa-demo   1/1     1            1           21m<span aria-hidden="true" class="l
                     
                     <a href="/tags/Kubernetes/">
                         <span class="chip bg-color">Kubernetes</span>
+                    </a>
+                    
+                    <a href="/tags/Istio/">
+                        <span class="chip bg-color">Istio</span>
+                    </a>
+                    
+                    <a href="/tags/Service-Mesh/">
+                        <span class="chip bg-color">Service Mesh</span>
                     </a>
                     
                 </div>
