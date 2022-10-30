@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2022-10-24T08:17:56.276Z</updated>
+  <updated>2022-10-30T09:22:00.218Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,37 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Istio 流量转移—灰度发布是如何实现的？</title>
+    <link href="https://www.zhangquan.me/2022/10/30/istio-liu-liang-zhuan-yi-hui-du-fa-bu-shi-ru-he-shi-xian-de/"/>
+    <id>https://www.zhangquan.me/2022/10/30/istio-liu-liang-zhuan-yi-hui-du-fa-bu-shi-ru-he-shi-xian-de/</id>
+    <published>2022-10-30T09:21:34.000Z</published>
+    <updated>2022-10-30T09:22:00.218Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;istio-流量转移灰度发布是如何实现的&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#istio-流量转移灰度发布是如何实现的&quot;&gt;&lt;/a&gt; Istio 流量转移—灰度发布是如何实现的？&lt;/h1&gt;
+&lt;p&gt;[toc]&lt;/p&gt;
+&lt;h2</summary>
+        
+      
+    
+    
+    
+    <category term="Istio" scheme="https://www.zhangquan.me/categories/Istio/"/>
+    
+    
+    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
+    
+    <category term="Istio" scheme="https://www.zhangquan.me/tags/Istio/"/>
+    
+    <category term="Service Mesh" scheme="https://www.zhangquan.me/tags/Service-Mesh/"/>
+    
+  </entry>
   
   <entry>
     <title>Istio ServiceEntry（服务入口）</title>
@@ -78,10 +109,10 @@
   
   <entry>
     <title>如何使用 Istio 设置动态路由</title>
-    <link href="https://www.zhangquan.me/2022/10/16/ru-he-shi-yong-istio-she-zhi-dong-tai-lu-you/"/>
-    <id>https://www.zhangquan.me/2022/10/16/ru-he-shi-yong-istio-she-zhi-dong-tai-lu-you/</id>
+    <link href="https://www.zhangquan.me/2022/10/16/istio-she-zhi-dong-tai-lu-you/"/>
+    <id>https://www.zhangquan.me/2022/10/16/istio-she-zhi-dong-tai-lu-you/</id>
     <published>2022-10-16T11:23:05.000Z</published>
-    <updated>2022-10-16T11:24:20.537Z</updated>
+    <updated>2022-10-30T08:53:03.143Z</updated>
     
     
       
@@ -526,32 +557,6 @@
         
         
     <summary type="html">&lt;h1 id=&quot;kubernetes-ingress-traefik-的安装及简单使用&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#kubernetes-ingress-traefik-的安装及简单使用&quot;&gt;&lt;/a&gt; Kubernetes</summary>
-        
-      
-    
-    
-    
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/categories/Kubernetes/"/>
-    
-    
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Kubernetes HPA</title>
-    <link href="https://www.zhangquan.me/2022/08/28/kubernetes-hpa/"/>
-    <id>https://www.zhangquan.me/2022/08/28/kubernetes-hpa/</id>
-    <published>2022-08-28T09:40:27.000Z</published>
-    <updated>2022-08-28T09:41:18.976Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;kubernetes-hpa&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#kubernetes-hpa&quot;&gt;&lt;/a&gt; Kubernetes HPA&lt;/h1&gt;
-&lt;p&gt;在  k8s 中我们可以使用 &lt;code&gt;kubectl</summary>
         
       
     
