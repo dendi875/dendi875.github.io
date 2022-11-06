@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.zhangquan.me/2022/11/06/istio-ingress-kong-zhi-jin-ru-wang-ge-de-liu-liang-ba-wang-ge-zhong-de-fu-wu-bao-lu-chu-qu/</loc>
+    <lastmod>2022-11-06</lastmod>
+  </url>
+  <url>
     <loc>https://www.zhangquan.me/2022/10/30/istio-liu-liang-zhuan-yi-hui-du-fa-bu-shi-ru-he-shi-xian-de/</loc>
     <lastmod>2022-10-30</lastmod>
   </url>

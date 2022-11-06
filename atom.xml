@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2022-10-30T09:22:00.218Z</updated>
+  <updated>2022-11-06T11:01:33.067Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Istio Ingress—控制进入网格的流量（把网格中的服务暴露出去）</title>
+    <link href="https://www.zhangquan.me/2022/11/06/istio-ingress-kong-zhi-jin-ru-wang-ge-de-liu-liang-ba-wang-ge-zhong-de-fu-wu-bao-lu-chu-qu/"/>
+    <id>https://www.zhangquan.me/2022/11/06/istio-ingress-kong-zhi-jin-ru-wang-ge-de-liu-liang-ba-wang-ge-zhong-de-fu-wu-bao-lu-chu-qu/</id>
+    <published>2022-11-06T11:00:32.000Z</published>
+    <updated>2022-11-06T11:01:33.067Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;istio-ingress控制进入网格的流量把网格中的服务暴露出去&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#istio-ingress控制进入网格的流量把网格中的服务暴露出去&quot;&gt;&lt;/a&gt; Istio</summary>
+        
+      
+    
+    
+    
+    <category term="Istio" scheme="https://www.zhangquan.me/categories/Istio/"/>
+    
+    
+    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
+    
+    <category term="Istio" scheme="https://www.zhangquan.me/tags/Istio/"/>
+    
+    <category term="Service Mesh" scheme="https://www.zhangquan.me/tags/Service-Mesh/"/>
+    
+  </entry>
   
   <entry>
     <title>Istio 流量转移—灰度发布是如何实现的？</title>
@@ -532,31 +561,6 @@
         
         
     <summary type="html">&lt;h1 id=&quot;kubernetes-storageclass-的使用&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#kubernetes-storageclass-的使用&quot;&gt;&lt;/a&gt; Kubernetes StorageClass</summary>
-        
-      
-    
-    
-    
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/categories/Kubernetes/"/>
-    
-    
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Kubernetes Ingress Traefik 的安装及简单使用</title>
-    <link href="https://www.zhangquan.me/2022/08/28/kubernetes-ingress-traefik-de-an-zhuang-ji-jian-dan-shi-yong/"/>
-    <id>https://www.zhangquan.me/2022/08/28/kubernetes-ingress-traefik-de-an-zhuang-ji-jian-dan-shi-yong/</id>
-    <published>2022-08-28T13:07:06.000Z</published>
-    <updated>2022-08-28T13:08:23.784Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;kubernetes-ingress-traefik-的安装及简单使用&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#kubernetes-ingress-traefik-的安装及简单使用&quot;&gt;&lt;/a&gt; Kubernetes</summary>
         
       
     
