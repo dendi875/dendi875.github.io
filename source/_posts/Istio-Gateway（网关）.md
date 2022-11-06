@@ -12,7 +12,7 @@ tags:
 	- Istio
 	- Kubernetes
 	- Service Mesh
-categories: Istio+++++++
+categories: Istio
 ---
 
 # Istio Gateway（网关）
