@@ -1,3 +1,4 @@
+https://www.zhangquan.me/2022/11/13/istio-engress-shi-xian-fang-wen-wai-bu-fu-wu/
 https://www.zhangquan.me/2022/11/06/istio-ingress-kong-zhi-jin-ru-wang-ge-de-liu-liang-ba-wang-ge-zhong-de-fu-wu-bao-lu-chu-qu/
 https://www.zhangquan.me/2022/10/30/istio-liu-liang-zhuan-yi-hui-du-fa-bu-shi-ru-he-shi-xian-de/
 https://www.zhangquan.me/2022/10/24/istio-serviceentry-fu-wu-ru-kou/
