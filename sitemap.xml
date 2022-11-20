@@ -2,14 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://www.zhangquan.me/2022/11/20/istio-chao-shi-chong-shi-ti-sheng-xi-tong-de-jian-zhuang-xing-he-ke-yong-xing/</loc>
+    <loc>https://www.zhangquan.me/2022/09/25/istio-de-an-zhuang-he-bu-shu/</loc>
     
     <lastmod>2022-11-20</lastmod>
     
   </url>
   
   <url>
-    <loc>https://www.zhangquan.me/2022/09/26/istio-de-an-zhuang-he-bu-shu/</loc>
+    <loc>https://www.zhangquan.me/2022/11/20/istio-chao-shi-chong-shi-ti-sheng-xi-tong-de-jian-zhuang-xing-he-ke-yong-xing/</loc>
     
     <lastmod>2022-11-20</lastmod>
     
@@ -662,6 +662,27 @@
   </url>
   
   <url>
+    <loc>https://www.zhangquan.me/tags/Istio/</loc>
+    <lastmod>2022-11-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zhangquan.me/tags/Kubernetes/</loc>
+    <lastmod>2022-11-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zhangquan.me/tags/Service-Mesh/</loc>
+    <lastmod>2022-11-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.zhangquan.me/tags/Java8/</loc>
     <lastmod>2022-11-20</lastmod>
     <changefreq>daily</changefreq>
@@ -684,13 +705,6 @@
   
   <url>
     <loc>https://www.zhangquan.me/tags/Lambda/</loc>
-    <lastmod>2022-11-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.zhangquan.me/tags/Kubernetes/</loc>
     <lastmod>2022-11-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -767,20 +781,6 @@
   </url>
   
   <url>
-    <loc>https://www.zhangquan.me/tags/Istio/</loc>
-    <lastmod>2022-11-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.zhangquan.me/tags/Service-Mesh/</loc>
-    <lastmod>2022-11-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.zhangquan.me/tags/Streams/</loc>
     <lastmod>2022-11-20</lastmod>
     <changefreq>daily</changefreq>
@@ -840,6 +840,13 @@
   
   <url>
     <loc>https://www.zhangquan.me/categories/Git/</loc>
+    <lastmod>2022-11-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zhangquan.me/categories/Istio/</loc>
     <lastmod>2022-11-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -910,13 +917,6 @@
   
   <url>
     <loc>https://www.zhangquan.me/categories/Apollo/</loc>
-    <lastmod>2022-11-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.zhangquan.me/categories/Istio/</loc>
     <lastmod>2022-11-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

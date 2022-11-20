@@ -37,9 +37,9 @@
     <category term="Istio" scheme="https://www.zhangquan.me/categories/Istio/"/>
     
     
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
-    
     <category term="Istio" scheme="https://www.zhangquan.me/tags/Istio/"/>
+    
+    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
     
     <category term="Service Mesh" scheme="https://www.zhangquan.me/tags/Service-Mesh/"/>
     
@@ -67,9 +67,9 @@
     <category term="Istio" scheme="https://www.zhangquan.me/categories/Istio/"/>
     
     
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
-    
     <category term="Istio" scheme="https://www.zhangquan.me/tags/Istio/"/>
+    
+    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
     
     <category term="Service Mesh" scheme="https://www.zhangquan.me/tags/Service-Mesh/"/>
     
@@ -96,9 +96,9 @@
     <category term="Istio" scheme="https://www.zhangquan.me/categories/Istio/"/>
     
     
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
-    
     <category term="Istio" scheme="https://www.zhangquan.me/tags/Istio/"/>
+    
+    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
     
     <category term="Service Mesh" scheme="https://www.zhangquan.me/tags/Service-Mesh/"/>
     
@@ -127,9 +127,9 @@
     <category term="Istio" scheme="https://www.zhangquan.me/categories/Istio/"/>
     
     
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
-    
     <category term="Istio" scheme="https://www.zhangquan.me/tags/Istio/"/>
+    
+    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
     
     <category term="Service Mesh" scheme="https://www.zhangquan.me/tags/Service-Mesh/"/>
     
@@ -157,9 +157,9 @@
     <category term="Istio" scheme="https://www.zhangquan.me/categories/Istio/"/>
     
     
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
-    
     <category term="Istio" scheme="https://www.zhangquan.me/tags/Istio/"/>
+    
+    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
     
     <category term="Service Mesh" scheme="https://www.zhangquan.me/tags/Service-Mesh/"/>
     
@@ -170,7 +170,7 @@
     <link href="https://www.zhangquan.me/2022/10/24/istio-gateway-wang-guan/"/>
     <id>https://www.zhangquan.me/2022/10/24/istio-gateway-wang-guan/</id>
     <published>2022-10-24T08:15:25.000Z</published>
-    <updated>2022-10-24T08:22:05.558Z</updated>
+    <updated>2022-10-24T08:22:26.482Z</updated>
     
     
       
@@ -187,9 +187,9 @@
     <category term="Istio" scheme="https://www.zhangquan.me/categories/Istio/"/>
     
     
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
-    
     <category term="Istio" scheme="https://www.zhangquan.me/tags/Istio/"/>
+    
+    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
     
     <category term="Service Mesh" scheme="https://www.zhangquan.me/tags/Service-Mesh/"/>
     
@@ -217,9 +217,9 @@
     <category term="Istio" scheme="https://www.zhangquan.me/categories/Istio/"/>
     
     
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
-    
     <category term="Istio" scheme="https://www.zhangquan.me/tags/Istio/"/>
+    
+    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
     
     <category term="Service Mesh" scheme="https://www.zhangquan.me/tags/Service-Mesh/"/>
     
@@ -277,10 +277,10 @@
   
   <entry>
     <title>Istio的安装和部署</title>
-    <link href="https://www.zhangquan.me/2022/09/26/istio-de-an-zhuang-he-bu-shu/"/>
-    <id>https://www.zhangquan.me/2022/09/26/istio-de-an-zhuang-he-bu-shu/</id>
-    <published>2022-09-26T13:23:18.000Z</published>
-    <updated>2022-11-20T08:42:03.070Z</updated>
+    <link href="https://www.zhangquan.me/2022/09/25/istio-de-an-zhuang-he-bu-shu/"/>
+    <id>https://www.zhangquan.me/2022/09/25/istio-de-an-zhuang-he-bu-shu/</id>
+    <published>2022-09-25T13:23:18.000Z</published>
+    <updated>2022-11-20T10:23:40.723Z</updated>
     
     
       
@@ -297,9 +297,9 @@
     <category term="Istio" scheme="https://www.zhangquan.me/categories/Istio/"/>
     
     
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
-    
     <category term="Istio" scheme="https://www.zhangquan.me/tags/Istio/"/>
+    
+    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
     
     <category term="Service Mesh" scheme="https://www.zhangquan.me/tags/Service-Mesh/"/>
     
@@ -327,9 +327,9 @@
     <category term="Istio" scheme="https://www.zhangquan.me/categories/Istio/"/>
     
     
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
-    
     <category term="Istio" scheme="https://www.zhangquan.me/tags/Istio/"/>
+    
+    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
     
     <category term="Service Mesh" scheme="https://www.zhangquan.me/tags/Service-Mesh/"/>
     
