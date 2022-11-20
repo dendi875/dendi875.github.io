@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2022-11-13T10:16:53.401Z</updated>
+  <updated>2022-11-20T10:20:35.909Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Istio 超时重试—提升系统的健壮性和可用性</title>
+    <link href="https://www.zhangquan.me/2022/11/20/istio-chao-shi-chong-shi-ti-sheng-xi-tong-de-jian-zhuang-xing-he-ke-yong-xing/"/>
+    <id>https://www.zhangquan.me/2022/11/20/istio-chao-shi-chong-shi-ti-sheng-xi-tong-de-jian-zhuang-xing-he-ke-yong-xing/</id>
+    <published>2022-11-20T10:19:38.000Z</published>
+    <updated>2022-11-20T10:20:35.909Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;为什么需要超时和重试&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#为什么需要超时和重试&quot;&gt;&lt;/a&gt;</summary>
+        
+      
+    
+    
+    
+    <category term="Istio" scheme="https://www.zhangquan.me/categories/Istio/"/>
+    
+    
+    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
+    
+    <category term="Istio" scheme="https://www.zhangquan.me/tags/Istio/"/>
+    
+    <category term="Service Mesh" scheme="https://www.zhangquan.me/tags/Service-Mesh/"/>
+    
+  </entry>
   
   <entry>
     <title>Istio Engress—实现访问外部服务</title>
@@ -248,10 +277,10 @@
   
   <entry>
     <title>Istio的安装和部署</title>
-    <link href="https://www.zhangquan.me/2022/09/25/istio-de-an-zhuang-he-bu-shu/"/>
-    <id>https://www.zhangquan.me/2022/09/25/istio-de-an-zhuang-he-bu-shu/</id>
-    <published>2022-09-25T13:23:18.000Z</published>
-    <updated>2022-09-29T07:44:23.790Z</updated>
+    <link href="https://www.zhangquan.me/2022/09/26/istio-de-an-zhuang-he-bu-shu/"/>
+    <id>https://www.zhangquan.me/2022/09/26/istio-de-an-zhuang-he-bu-shu/</id>
+    <published>2022-09-26T13:23:18.000Z</published>
+    <updated>2022-11-20T08:42:03.070Z</updated>
     
     
       
@@ -540,32 +569,6 @@
         
         
     <summary type="html">&lt;h1 id=&quot;kubernetes-helm-模板之内置函数和values&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#kubernetes-helm-模板之内置函数和values&quot;&gt;&lt;/a&gt; Kubernetes Helm</summary>
-        
-      
-    
-    
-    
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/categories/Kubernetes/"/>
-    
-    
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Kubernetes 包管理工具 Helm</title>
-    <link href="https://www.zhangquan.me/2022/08/31/kubernetes-bao-guan-li-gong-ju-helm/"/>
-    <id>https://www.zhangquan.me/2022/08/31/kubernetes-bao-guan-li-gong-ju-helm/</id>
-    <published>2022-08-31T12:33:42.000Z</published>
-    <updated>2022-09-04T13:23:27.850Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;kubernetes-包管理工具-helm&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#kubernetes-包管理工具-helm&quot;&gt;&lt;/a&gt; Kubernetes 包管理工具 Helm&lt;/h1&gt;
-&lt;h2</summary>
         
       
     

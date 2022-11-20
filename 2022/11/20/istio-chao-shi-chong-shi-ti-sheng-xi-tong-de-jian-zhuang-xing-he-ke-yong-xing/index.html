@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Istio的安装和部署, PHP,Java,Go,MySQL,Linux,Docker等">
+    <meta name="keywords" content="Istio 超时重试—提升系统的健壮性和可用性, PHP,Java,Go,MySQL,Linux,Docker等">
     <meta name="description" content="PHP Go MySQL 后端开发">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Istio的安装和部署 | 一代键客</title>
+    <title>Istio 超时重试—提升系统的健壮性和可用性 | 一代键客</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -327,12 +327,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/6.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/10.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Istio的安装和部署</h1>
+                    <h1 class="description center-align post-title">Istio 超时重试—提升系统的健壮性和可用性</h1>
                 </div>
             </div>
         </div>
@@ -481,28 +481,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-09-25
+                    2022-11-20
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-09-29
+                    2022-11-20
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.7k
+                    1.5k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    13 分
+                    6 分
                 </div>
                 
 
@@ -525,298 +525,177 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="istio的安装和部署"><a class="markdownIt-Anchor" href="#istio的安装和部署"></a> Istio的安装和部署</h1>
-<h2 id="环境"><a class="markdownIt-Anchor" href="#环境"></a> 环境</h2>
+                <h2 id="为什么需要超时和重试"><a class="markdownIt-Anchor" href="#为什么需要超时和重试"></a> 为什么需要超时和重试？</h2>
+<p>对一个分布式系统来说出现网络故障是在所难免的，因此如何提升系统的弹性，也就是提升系统在面对故障时它的处理能力是非常重要的，我们先了解一下提升系统弹性的两个功能：超时和重试。</p>
+<h3 id="超时"><a class="markdownIt-Anchor" href="#超时"></a> 超时</h3>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20221120170034.png" alt=""></p>
 <ul>
 <li>
-<p>macOS Catalina 版本 10.15.6</p>
+<p>概念：是一种最常见的容错模式。常见的有设置网络连接超时时间，一次RPC的响应超时时间等。在分布式服务调用的场景中，它主要解决了当依赖服务出现建立网络连接或响应延迟，不用无限等待的问题，调用方可以根据事先设计的超时时间中断调用，及时释放关键资源，如Web容器的连接数，数据库连接数等，避免整个系统资源耗尽出现拒绝对外提供服务这种情况。</p>
 </li>
 <li>
-<p>minikube version: v1.12.0</p>
-</li>
-<li>
-<p>kubernetes-version: v1.16.0</p>
-</li>
-<li>
-<p>istioctl version: 1.5.1</p>
+<p>目的：控制故障范围，避免故障扩散。</p>
 </li>
 </ul>
-<h2 id="安装"><a class="markdownIt-Anchor" href="#安装"></a> 安装</h2>
-<p>按照官方文档说明 <a target="_blank" rel="noopener" href="https://istio.io/latest/docs/setup/platform-setup/minikube/">https://istio.io/latest/docs/setup/platform-setup/minikube/</a> 进行安装，但要注意 istio 与 k8s 版本之间的兼容性，兼容性参考：<a target="_blank" rel="noopener" href="https://istio.io/latest/docs/releases/supported-releases/">https://istio.io/latest/docs/releases/supported-releases/</a></p>
-<ul>
-<li>执行以下命令，启动一个单节点的 k8s 集群</li>
-</ul>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># zhangquan @ MacBook-Pro in ~/Downloads/devops [23:42:20] 
-$ minikube start --memory=16384 --cpus=4 --image-mirror-country='cn' --image-repository='registry.cn-hangzhou.aliyuncs.com/google_containers' --kubernetes-version=v1.16.0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<ul>
-<li>在 <a target="_blank" rel="noopener" href="https://github.com/istio/istio/releases">GitHub Release 页面 </a>获取对应系统版本下载地址</li>
-</ul>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># zhangquan @ MacBook-Pro in ~/Downloads/devops [16:35:30] 
-$ wget https://storage.googleapis.com/istio-release/releases/1.5.1/istio-1.5.1-osx.tar.gz 
-
-# zhangquan @ MacBook-Pro in ~/Downloads/devops [16:51:41] 
-$ tar -zxvf istio-1.5.1-osx.tar.gz
-
-# 把 istioctl 命令添加到环境变量中
-export ISTIO_HOME=/Users/zhangquan/Downloads/devops/istio-1.5.1/bin
-export PATH=$PATH:$ISTIO_HOME
-
-# zhangquan @ MacBook-Pro in ~/Downloads/devops [16:52:54] 
-$ ll istio-1.5.1
-total 48
--rw-r--r--   1 zhangquan  staff    11K  3 24  2020 LICENSE
--rw-r--r--   1 zhangquan  staff   5.7K  3 24  2020 README.md
-drwxr-x---   3 zhangquan  staff    96B  3 24  2020 bin
-drwxr-xr-x   7 zhangquan  staff   224B  3 24  2020 install
--rw-r-----   1 zhangquan  staff   595B  3 24  2020 manifest.yaml
-drwxr-xr-x  20 zhangquan  staff   640B  3 24  2020 samples
-drwxr-x---   6 zhangquan  staff   192B  3 24  2020 tools<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>可以看到 istio 中包含以下几部分内容</p>
-<ul>
-<li>bin: 有我们要使用的 <code>istioctl</code> 命令行工具</li>
-<li>install: 包含了几个平台的安装清单</li>
-<li>samples: 官方提供一些示例程序</li>
-</ul>
-<p>istio 提供了一些配置档案，也就是<code>Profile</code>，它的目的就是让你在不同应用场景去安装不同的版本</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220912170726.png" alt=""></p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220912170843.png" alt="">安装 istio 的工具和文件准备好过后，直接执行如下所示的安装命令即可：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># zhangquan @ MacBook-Pro in ~/Downloads/devops/istio-1.5.1 [17:10:27] 
-$ istioctl manifest apply --set profile=demo
-Detected that your cluster does not support third party JWT authentication. Falling back to less secure first party JWT. See https://istio.io/docs/ops/best-practices/security/#configure-third-party-service-account-tokens for details.
-- Applying manifest for component Base...
-✔ Finished applying manifest for component Base.
-- Applying manifest for component Pilot...
-✔ Finished applying manifest for component Pilot.
-  Waiting for resources to become ready...
-	......
-  Waiting for resources to become ready...
-- Applying manifest for component EgressGateways...
-- Applying manifest for component IngressGateways...
-- Applying manifest for component AddonComponents...
-✔ Finished applying manifest for component EgressGateways.
-✔ Finished applying manifest for component IngressGateways.
-✔ Finished applying manifest for component AddonComponents.
-
-
-✔ Installation complete<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>安装完成后我们可以查看 istio-system 命名空间下面的 Pod 运行状态：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$  kubectl get pods -n istio-system
-NAME                                    READY   STATUS    RESTARTS   AGE
-grafana-5cc7f86765-89z9l                1/1     Running   0          5m18s
-istio-egressgateway-598d7ffc49-x4rtw    1/1     Running   0          5m19s
-istio-ingressgateway-7bd5586b79-z78rw   1/1     Running   0          5m19s
-istio-tracing-8584b4d7f9-26czf          1/1     Running   0          5m18s
-istiod-646b6fcc6-rjlcm                  1/1     Running   0          6m53s
-kiali-696bb665-cr8f9                    1/1     Running   0          5m18s
-prometheus-6c88c4cb8-2dt5k              2/2     Running   0          5m18s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>如果都是 Running 状态证明 istio 就已经安装成功了。</p>
-<p>安装完成后还可以检测一下<code>istio</code>的<code>CRD</code>和<code>API资源</code>:</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ kubectl get crd | grep istio
-adapters.config.istio.io                   2022-09-09T21:58:30Z
-attributemanifests.config.istio.io         2022-09-09T21:58:30Z
-authorizationpolicies.security.istio.io    2022-09-09T21:58:30Z
-clusterrbacconfigs.rbac.istio.io           2022-09-09T21:58:30Z
-destinationrules.networking.istio.io       2022-09-09T21:58:30Z
-envoyfilters.networking.istio.io           2022-09-09T21:58:30Z
-gateways.networking.istio.io               2022-09-09T21:58:30Z
-handlers.config.istio.io                   2022-09-09T21:58:30Z
-httpapispecbindings.config.istio.io        2022-09-09T21:58:30Z
-httpapispecs.config.istio.io               2022-09-09T21:58:30Z
-instances.config.istio.io                  2022-09-09T21:58:30Z
-meshpolicies.authentication.istio.io       2022-09-09T21:58:30Z
-peerauthentications.security.istio.io      2022-09-09T21:58:30Z
-policies.authentication.istio.io           2022-09-09T21:58:30Z
-quotaspecbindings.config.istio.io          2022-09-09T21:58:30Z
-quotaspecs.config.istio.io                 2022-09-09T21:58:30Z
-rbacconfigs.rbac.istio.io                  2022-09-09T21:58:30Z
-requestauthentications.security.istio.io   2022-09-09T21:58:30Z
-rules.config.istio.io                      2022-09-09T21:58:30Z
-serviceentries.networking.istio.io         2022-09-09T21:58:30Z
-servicerolebindings.rbac.istio.io          2022-09-09T21:58:30Z
-serviceroles.rbac.istio.io                 2022-09-09T21:58:30Z
-sidecars.networking.istio.io               2022-09-09T21:58:30Z
-templates.config.istio.io                  2022-09-09T21:58:30Z
-virtualservices.networking.istio.io        2022-09-09T21:58:30Z<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>查看一下 <code>API资源</code>：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ kubectl api-resources | grep istio 
-meshpolicies                                   authentication.istio.io        false        MeshPolicy
-policies                                       authentication.istio.io        true         Policy
-adapters                                       config.istio.io                true         adapter
-attributemanifests                             config.istio.io                true         attributemanifest
-handlers                                       config.istio.io                true         handler
-httpapispecbindings                            config.istio.io                true         HTTPAPISpecBinding
-httpapispecs                                   config.istio.io                true         HTTPAPISpec
-instances                                      config.istio.io                true         instance
-quotaspecbindings                              config.istio.io                true         QuotaSpecBinding
-quotaspecs                                     config.istio.io                true         QuotaSpec
-rules                                          config.istio.io                true         rule
-templates                                      config.istio.io                true         template
-destinationrules                  dr           networking.istio.io            true         DestinationRule
-envoyfilters                                   networking.istio.io            true         EnvoyFilter
-gateways                          gw           networking.istio.io            true         Gateway
-serviceentries                    se           networking.istio.io            true         ServiceEntry
-sidecars                                       networking.istio.io            true         Sidecar
-virtualservices                   vs           networking.istio.io            true         VirtualService
-clusterrbacconfigs                             rbac.istio.io                  false        ClusterRbacConfig
-rbacconfigs                                    rbac.istio.io                  true         RbacConfig
-servicerolebindings                            rbac.istio.io                  true         ServiceRoleBinding
-serviceroles                                   rbac.istio.io                  true         ServiceRole
-authorizationpolicies                          security.istio.io              true         AuthorizationPolicy
-peerauthentications                            security.istio.io              true         PeerAuthentication
-requestauthentications                         security.istio.io              true         RequestAuthentication<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="验证安装"><a class="markdownIt-Anchor" href="#验证安装"></a> 验证安装</h2>
-<p>istio 官方提供了一些 Dashboard，可以以可视化的方式直接去查看你的系统运行情况。</p>
-<p>我们直接启动 <code>Kiali</code>这个 Dashboard：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># zhangquan @ MacBook-Pro in ~/Downloads/devops/istio-1.5.1 [17:24:02] 
-$ istioctl dashboard kiali<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>运行以上命令它会帮我们打开浏览器，使用 admin/admin登录：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220914185033.png" alt=""></p>
-<p>如下图所示，可以看到 istio 相关组件都已安装成功，并且成功启动：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220914185942.png" alt=""></p>
-<h2 id="示例安装"><a class="markdownIt-Anchor" href="#示例安装"></a> 示例安装</h2>
-<p>然后我们可以来安装官方提供的一个非常经典的 <a target="_blank" rel="noopener" href="https://github.com/istio/istio/tree/master/samples/bookinfo/">Bookinfo 应用示例</a>，这个示例部署了一个用于演示多种 Istio 特性的应用，该应用由四个单独的微服务构成。 这个应用模仿在线书店的一个分类，显示一本书的信息。页面上会显示一本书的描述，书籍的细节（ISBN、页数等），以及关于这本书的一些评论。</p>
-<p>Bookinfo 应用分为四个单独的微服务：</p>
-<ul>
-<li>productpage：这个微服务会调用 details 和 reviews 两个微服务，用来生成页面。</li>
-<li>details：这个微服务中包含了书籍的信息。</li>
-<li>reviews：这个微服务中包含了书籍相关的评论，它还会调用 ratings 微服务。</li>
-<li>ratings：这个微服务中包含了由书籍评价组成的评级信息。</li>
-</ul>
-<p>reviews 微服务有 3 个版本：</p>
-<ul>
-<li>v1 版本不会调用 ratings 服务。</li>
-<li>v2 版本会调用 ratings 服务，并使用 1 到 5 个黑色星形图标来显示评分信息。</li>
-<li>v3 版本会调用 ratings 服务，并使用 1 到 5 个红色星形图标来显示评分信息。</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220914193030.png" alt=""></p>
-<p>上图展示了使用 istio 后，整个应用实际的结构。所有的微服务都和一个 <code>Envoy sidecar</code> 封装到一起，sidecar 拦截所有到达和离开服务的请求。</p>
-<h3 id="注入-sidecar"><a class="markdownIt-Anchor" href="#注入-sidecar"></a> 注入 Sidecar</h3>
-<p>在部署 Bookinfo 之前我们需要注入 Sidecar，有两种注入方式</p>
+<h3 id="重试"><a class="markdownIt-Anchor" href="#重试"></a> 重试</h3>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/istio-retry.png" alt=""></p>
 <ul>
 <li>
-<p>自动注入</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># zhangquan @ MacBook-Pro in ~/Downloads/devops/istio-1.5.1 [19:43:36]
-$ kubectl label namespace default istio-injection=enabled
-namespace/default labeled<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>给 default 这个命令空间（booknifo应用所在空间）添加一个 label，名称为：istio-injection，值为：enabled。</p>
+<p>概念：一般和超时模式结合使用，适用于对于下游服务的数据强依赖的场景（不强依赖的场景不建议使用！），通过重试来保证数据的可靠性或一致性，常用于因网络抖动等导致服务调用出现超时的场景。与超时时间设置结合使用后，需要考虑接口的响应时间分布情况，超时时间可以设置为依赖服务接口99.5%响应时间的值，重试次数一般1-2次为宜，否则会导致请求响应时间延长，拖累到整个系统。</p>
 </li>
 <li>
-<p>手动注入</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">kubectl apply -f &lt;(istioctl kube-inject -f samples/bookinfo/platform/kube/bookinfo.yaml)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>目的：解决网络抖动时通信失败的问题。</p>
 </li>
 </ul>
-<h3 id="部署应用"><a class="markdownIt-Anchor" href="#部署应用"></a> 部署应用</h3>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># zhangquan @ MacBook-Pro in ~/Downloads/devops/istio-1.5.1 [19:43:39] 
-$ kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml 
-service/details created
-serviceaccount/bookinfo-details created
-deployment.apps/details-v1 created
-service/ratings created
-serviceaccount/bookinfo-ratings created
-deployment.apps/ratings-v1 created
-service/reviews created
-serviceaccount/bookinfo-reviews created
-deployment.apps/reviews-v1 created
-deployment.apps/reviews-v2 created
-deployment.apps/reviews-v3 created
-service/productpage created
-serviceaccount/bookinfo-productpage created
-deployment.apps/productpage-v1 created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>这里我们部署的 <code>bookinfo.yaml</code> 资源清单文件就是普通的 Kubernetes 的 Deployment 和 Service 的 yaml 文件，而 <code>istioctl kube-inject</code> 会在这个文件的基础上向其中的 Deployment 追加一个镜像为 <code>docker.io/istio/proxyv2:1.5.1</code> 的 sidecar 容器。</p>
-<p>过一会儿就可以看到如下 service 和 pod 启动:</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># zhangquan @ MacBook-Pro in ~/Downloads/devops/istio-1.5.1 [19:46:55] 
-$ kubectl get po 
+<h2 id="istio-中的超时和重试功能"><a class="markdownIt-Anchor" href="#istio-中的超时和重试功能"></a> Istio 中的超时和重试功能</h2>
+<p>在 Istio 中原生就支持超时和重试功能，我们下面就演示一下如何在网格中添加一个超时和重试策略，学会如何在 VirtualService 中添加超时和重试的配置项。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20221120172335.png" alt=""></p>
+<p>如上图所示，我们还是通过 <a target="_blank" rel="noopener" href="https://istio.io/latest/docs/examples/bookinfo/">Bookinfo</a> 应用来测试超时和重试功能，首先我们会把请求打向 Reviews 服务的 v2 版本，然后在 Rattings 服务中添加一个延迟来模拟一个故障出现的情况，最后再来验证一下我们设置的超时重试策略是否生效。</p>
+<h3 id="演示"><a class="markdownIt-Anchor" href="#演示"></a> 演示</h3>
+<h4 id="超时演示"><a class="markdownIt-Anchor" href="#超时演示"></a> 超时演示</h4>
+<ol>
+<li>
+<p>将请求路由到 <code>reviews</code> 服务的 v2 版本，它会发起对 <code>ratings</code> 服务的调用</p>
+<p>我们首先把 BookInfo 应用指向<code>reviews</code> 服务的 v2 版本，因为只有 v2和v3 两个版本会发起对 <code>ratings</code> 服务的调用：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">kubectl apply -f - &lt;&lt;EOF
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: reviews
+spec:
+  hosts:
+    - reviews
+  http:
+  - route:
+    - destination:
+        host: reviews
+        subset: v2
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>查看虚拟服务：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$  kubectl get virtualservices
+NAME       GATEWAYS             HOSTS       AGE
+bookinfo   [bookinfo-gateway]   [*]         69m
+reviews                         [reviews]   5m59s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>运行以下命令为 Bookinfo 服务创建默认目标规则：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">kubectl apply -f  samples/bookinfo/networking/destination-rule-all.yaml  <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>查看目标规则：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ kubectl get destinationrule
+NAME          HOST          AGE
+details       details       8m28s
+productpage   productpage   8m28s
+ratings       ratings       8m28s		
+reviews       reviews       8m28s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>我们在浏览器多次刷新查看，请求已经被打向了带有黑色星标的 v2 版本：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20221120174834.png" alt=""></p>
+</li>
+<li>
+<p>给对 <code>ratings</code> 服务的调用添加 2 秒的延迟：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">kubectl apply -f - &lt;&lt;EOF
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: ratings
+spec:
+  hosts:
+  - ratings
+  http:
+  - fault:
+      delay:
+        percent: 100
+        fixedDelay: 2s
+    route:
+    - destination:
+        host: ratings
+        subset: v1
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这时我们刷新页面，通过页面的响应时长应该可以感觉到差不多有2秒的延迟 ratings 服务才返回。</p>
+</li>
+<li>
+<p>现在给对 <code>reviews</code> 服务的调用增加一个1秒的请求超时：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">kubectl apply -f - &lt;&lt;EOF
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: reviews
+spec:
+  hosts:
+  - reviews
+  http:
+  - route:
+    - destination:
+        host: reviews
+        subset: v2
+    timeout: 1s
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这时我们再刷新 Bookinfo 页面，这个时间页面应该会快速失败，因为我们只给 reviews 服务设置了一个 1 秒的超时，实际时它的延时是2秒。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20221120175945.png" alt=""></p>
+</li>
+</ol>
+<h4 id="重试演示"><a class="markdownIt-Anchor" href="#重试演示"></a> 重试演示</h4>
+<p>在演示重试之前，我们要把刚才的 timeout 设置取消掉，所以我们重新地执行一个 Reviews 的虚拟服务配置项：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">kubectl apply -f - &lt;&lt;EOF
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: reviews
+spec:
+  hosts:
+    - reviews
+  http:
+  - route:
+    - destination:
+        host: reviews
+        subset: v2
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>接着就是最重要的一步，我们给 Ratings 服务的 VirtualService 配置一个 5秒的延迟并且配置一个重试选项：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">kubectl apply -f - &lt;&lt;EOF
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: ratings
+spec:
+  hosts:
+  - ratings
+  http:
+  - fault:
+      delay:
+        percent: 100
+        fixedDelay: 5s
+    route:
+    - destination:
+        host: ratings
+        subset: v1
+    retries:
+      attempts: 2 # 重试次数
+      perTryTimeout: 1s # 每次重试超时时间
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>最后我们来验证一下配置是否成功，我们打开 Ratings 服务的 Sidecar log 来看看是不是有两次的重试。</p>
+<p>首先获取 ratings  pod：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># zhangquan @ MacBook-Pro-2 in ~/Downloads/devops/istio-1.5.1 [18:08:10] C:127
+$ kubectl get pod 
 NAME                              READY   STATUS    RESTARTS   AGE
-details-v1-78d78fbddf-5srj5       2/2     Running   0          3m3s
-productpage-v1-85b9bf9cd7-sbwd8   2/2     Running   0          3m1s
-ratings-v1-6c9dbf6b45-9fpck       2/2     Running   0          3m2s
-reviews-v1-564b97f875-f8zkw       2/2     Running   0          3m1s
-reviews-v2-568c7c9d8f-r5c76       2/2     Running   0          3m2s
-reviews-v3-67b4988599-qlv5j       2/2     Running   0          3m2s
-
-# zhangquan @ MacBook-Pro in ~/Downloads/devops/istio-1.5.1 [19:46:57] 
-$ kubectl get svc
-NAME          TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
-details       ClusterIP   10.99.216.225    &lt;none&gt;        9080/TCP   3m6s
-kubernetes    ClusterIP   10.96.0.1        &lt;none&gt;        443/TCP    4d20h
-productpage   ClusterIP   10.100.219.221   &lt;none&gt;        9080/TCP   3m5s
-ratings       ClusterIP   10.96.89.71      &lt;none&gt;        9080/TCP   3m6s
-reviews       ClusterIP   10.110.207.93    &lt;none&gt;        9080/TCP   3m6s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>可以看到每个 pod 中有两个 container，一个是应用本身的，另一个是我们自动注入的 Sidecar。</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ kubectl describe pod details-v1-78d78fbddf-5srj5        
-Name:         details-v1-78d78fbddf-5srj5
-Namespace:    default
-Priority:     0
-Node:         minikube/192.168.64.5
-Start Time:   Wed, 14 Sep 2022 19:43:55 +0800
-Labels:       app=details
-              pod-template-hash=78d78fbddf
-              security.istio.io/tlsMode=istio
-              service.istio.io/canonical-name=details
-              service.istio.io/canonical-revision=v1
-              version=v1
-Annotations:  sidecar.istio.io/status:
-                {"version":"64f53c7f7e9dca50ddb9767390392872119f042c4a541dbbb6a973d5638bd264","initContainers":["istio-init"],"containers":["istio-proxy"]...
-Status:       Running
 ......
-Containers:
-  details:
-    Container ID:   docker://ff6f87fcad1aab7888a87bfb515806a48c78f744fa045b078529cc3090b43bea
-    Image:          docker.io/istio/examples-bookinfo-details-v1:1.15.0
-    Image ID:       docker-pullable://istio/examples-bookinfo-details-v1@sha256:fce0bcbff0bed09116dacffca15695cd345e0c3788c15b0114a05f654ddecc17
-    Port:           9080/TCP
-    Host Port:      0/TCP
-    State:          Running
-      Started:      Wed, 14 Sep 2022 19:46:16 +0800
-    Ready:          True
-    Restart Count:  0
-    Environment:    &lt;none&gt;
-    Mounts:
-      /var/run/secrets/kubernetes.io/serviceaccount from bookinfo-details-token-qr8rw (ro)
-  istio-proxy:
-    Container ID:  docker://ed3a32d4ba85b35406a2e62287e72cffcda417f9003b69bbc3e1984d35e79a1d
-    Image:         docker.io/istio/proxyv2:1.5.1
-    Image ID:      docker-pullable://istio/proxyv2@sha256:3ad9ee2b43b299e5e6d97aaea5ed47dbf3da9293733607d9b52f358313e852ae
-    Port:          15090/TCP
-    Host Port:     0/TCP
-......<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="创建-ingress-网关"><a class="markdownIt-Anchor" href="#创建-ingress-网关"></a> 创建 Ingress 网关</h3>
-<p>现在应用的服务都部署成功并启动了，如果我们需要在集群外部访问，就需要添加一个 istio gateway。gateway 相当于 k8s 的 ingress controller 和 ingress。它为 HTTP/TCP 流量配置负载均衡，通常在服务网格边缘作为应用的 ingress 流量管理。</p>
-<p>创建一个 gateway:</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># zhangquan @ MacBook-Pro in ~/Downloads/devops/istio-1.5.1 [19:56:37] 
-$ kubectl apply -f samples/bookinfo/networking/bookinfo-gateway.yaml
-gateway.networking.istio.io/bookinfo-gateway created
-virtualservice.networking.istio.io/bookinfo created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>验证 gateway 是否启动成功:</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ kubectl get gateway
-NAME               AGE
-bookinfo-gateway   40s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>要想取访问这个应用，这里我们需要更改下 istio 提供的 istio-ingressgateway 这个 Service 对象，默认是 LoadBalancer 类型的服务：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ kubectl get svc -n istio-system
-NAME                        TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)                                                                                                                                      AGE
-......
-istio-ingressgateway        LoadBalancer   10.102.174.244   &lt;pending&gt;     15020:30839/TCP,80:30693/TCP,443:32317/TCP,15029:30570/TCP,15030:31955/TCP,15031:31823/TCP,15032:31296/TCP,31400:32294/TCP,15443:32067/TCP   4d14h
-......<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>LoadBalancer 类型的服务，实际上是用来对接云服务厂商的，如果我们没有对接云服务厂商的话，可以将这里类型改成 <code>NodePort</code>，但是这样当访问我们的服务的时候就需要加上 nodePort 端口了：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">kubectl edit svc istio-ingressgateway -n istio-system<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># zhangquan @ MacBook-Pro in ~/Downloads/devops/istio-1.5.1 [20:07:44] 
-$ kubectl get svc -n istio-system
-NAME                        TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                                                                                                                                      AGE
-......
-istio-ingressgateway        NodePort    10.102.174.244   &lt;none&gt;        15020:30839/TCP,80:30693/TCP,443:32317/TCP,15029:30570/TCP,15030:31955/TCP,15031:31823/TCP,15032:31296/TCP,31400:32294/TCP,15443:32067/TCP   4d14h 
+ratings-v1-6c9dbf6b45-6dpbg       2/2     Running   0          95m
 ......<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>这样我们就可以通过 <code>http://&lt;NodeIP&gt;:&lt;nodePort&gt;/productpage</code> 访问应用了：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220914201313.png" alt=""></p>
-<p>刷新页面可以看到 Book Reviews 发生了改变，因为每次请求会被路由到到了不同的 Reviews 服务版本去：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220914201535.png" alt=""></p>
-<p>至此，整个 istio 就安装并验证成功了。</p>
+<p>打印 Ratings 服务的log：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ kubectl logs -f ratings-v1-6c9dbf6b45-6dpbg -c istio-proxy
+......<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>这时我们再刷新 Bookinfo 页面，观察 Ratings 服务的 Envoy 的 log 中已经把两次请求全都打印出来了：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ kubectl logs -f ratings-v1-6c9dbf6b45-6dpbg -c istio-proxy
+......
+[2022-11-20T10:14:19.232Z] "GET /ratings/0 HTTP/1.1" 200 - "-" "-" 0 48 1 0 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.80 Safari/537.36" "e1ee923b-ded2-9586-91d4-4a83af4728c2" "ratings:9080" "127.0.0.1:9080" inbound|9080|http|ratings.default.svc.cluster.local 127.0.0.1:33822 172.17.0.12:9080 172.17.0.14:35782 outbound_.9080_.v1_.ratings.default.svc.cluster.local default
+[2022-11-20T10:14:22.240Z] "GET /ratings/0 HTTP/1.1" 200 - "-" "-" 0 48 1 0 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.80 Safari/537.36" "e1ee923b-ded2-9586-91d4-4a83af4728c2" "ratings:9080" "127.0.0.1:9080" inbound|9080|http|ratings.default.svc.cluster.local 127.0.0.1:33822 172.17.0.12:9080 172.17.0.14:36372 outbound_.9080_.v1_.ratings.default.svc.cluster.local default<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="参考"><a class="markdownIt-Anchor" href="#参考"></a> 参考</h2>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://istio.io/latest/docs/setup/platform-setup/minikube/">https://istio.io/latest/docs/setup/platform-setup/minikube/</a></li>
-<li><a target="_blank" rel="noopener" href="https://istio.io/latest/docs/releases/supported-releases/">https://istio.io/latest/docs/releases/supported-releases/</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/istio/istio/tree/master/samples/bookinfo/">https://github.com/istio/istio/tree/master/samples/bookinfo/</a></li>
-<li><a target="_blank" rel="noopener" href="https://istio.io/latest/docs/examples/bookinfo/">https://istio.io/latest/docs/examples/bookinfo/</a></li>
-<li><a target="_blank" rel="noopener" href="https://istio.io/latest/docs/setup/additional-setup/sidecar-injection/#automatic-sidecar-injection">https://istio.io/latest/docs/setup/additional-setup/sidecar-injection/#automatic-sidecar-injection</a></li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://istio.io/latest/docs/concepts/traffic-management/#network-resilience-and-testing">https://istio.io/latest/docs/concepts/traffic-management/#network-resilience-and-testing</a></p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://istio.io/latest/docs/tasks/traffic-management/request-timeouts/">https://istio.io/latest/docs/tasks/traffic-management/request-timeouts/</a></p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://tech.meituan.com/2016/11/11/service-fault-tolerant-pattern.html">https://tech.meituan.com/2016/11/11/service-fault-tolerant-pattern.html</a></p>
+</li>
 </ul>
 
                 
@@ -844,7 +723,7 @@ istio-ingressgateway        NodePort    10.102.174.244   &lt;none&gt;        150
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://www.zhangquan.me/2022/09/25/istio-de-an-zhuang-he-bu-shu/">https://www.zhangquan.me/2022/09/25/istio-de-an-zhuang-he-bu-shu/</a>
+                    <a href="https://www.zhangquan.me/2022/11/20/istio-chao-shi-chong-shi-ti-sheng-xi-tong-de-jian-zhuang-xing-he-ke-yong-xing/">https://www.zhangquan.me/2022/11/20/istio-chao-shi-chong-shi-ti-sheng-xi-tong-de-jian-zhuang-xing-he-ke-yong-xing/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1386,46 +1265,56 @@ istio-ingressgateway        NodePort    10.102.174.244   &lt;none&gt;        150
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2022/10/10/centos-rhel-7-xia-an-zhuang-shadowsocks-fu-wu-duan/">
+                <a href="/2022/11/20/istio-chao-shi-chong-shi-ti-sheng-xi-tong-de-jian-zhuang-xing-he-ke-yong-xing/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="CentOS/RHEL 7 下安装 Shadowsocks 服务端">
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="Istio 超时重试—提升系统的健壮性和可用性">
                         
-                        <span class="card-title">CentOS/RHEL 7 下安装 Shadowsocks 服务端</span>
+                        <span class="card-title">Istio 超时重试—提升系统的健壮性和可用性</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            CentOS/RHEL 7 下安装 Shadowsocks 服务端
+                            Istio 超时重试—提升系统的健壮性和可用性
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-10-10
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-11-20
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/" class="post-category">
-                                    科学上网
+                            <a href="/categories/Istio/" class="post-category">
+                                    Istio
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/">
-                        <span class="chip bg-color">科学上网</span>
+                    <a href="/tags/Kubernetes/">
+                        <span class="chip bg-color">Kubernetes</span>
+                    </a>
+                    
+                    <a href="/tags/Istio/">
+                        <span class="chip bg-color">Istio</span>
+                    </a>
+                    
+                    <a href="/tags/Service-Mesh/">
+                        <span class="chip bg-color">Service Mesh</span>
                     </a>
                     
                 </div>
@@ -1439,24 +1328,24 @@ istio-ingressgateway        NodePort    10.102.174.244   &lt;none&gt;        150
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/09/25/istio-ru-men-ji-he-xin-gong-neng-jie-shao/">
+                <a href="/2022/11/13/istio-engress-shi-xian-fang-wen-wai-bu-fu-wu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="Istio 入门及核心功能介绍">
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="Istio Engress—实现访问外部服务">
                         
-                        <span class="card-title">Istio 入门及核心功能介绍</span>
+                        <span class="card-title">Istio Engress—实现访问外部服务</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Istio 入门及核心功能介绍
+                            Istio Engress—实现访问外部服务
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-09-25
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-11-13
                             </span>
                         <span class="publish-author">
                             
@@ -1691,7 +1580,7 @@ istio-ingressgateway        NodePort    10.102.174.244   &lt;none&gt;        150
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">177.4k</span>
+                        class="white-color">178.8k</span>
             
             
             
