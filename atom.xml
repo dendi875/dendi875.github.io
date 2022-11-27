@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2022-11-20T10:20:35.909Z</updated>
+  <updated>2022-11-27T10:56:54.016Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Istio 熔断</title>
+    <link href="https://www.zhangquan.me/2022/11/27/istio-rong-duan/"/>
+    <id>https://www.zhangquan.me/2022/11/27/istio-rong-duan/</id>
+    <published>2022-11-27T10:55:57.000Z</published>
+    <updated>2022-11-27T10:56:54.016Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;熔断失败也是一种选择&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#熔断失败也是一种选择&quot;&gt;&lt;/a&gt;</summary>
+        
+      
+    
+    
+    
+    <category term="Istio" scheme="https://www.zhangquan.me/categories/Istio/"/>
+    
+    
+    <category term="Istio 中的熔断功能 - Istio - Kubernetes - Service Mesh" scheme="https://www.zhangquan.me/tags/Istio-%E4%B8%AD%E7%9A%84%E7%86%94%E6%96%AD%E5%8A%9F%E8%83%BD-Istio-Kubernetes-Service-Mesh/"/>
+    
+  </entry>
   
   <entry>
     <title>Istio 超时重试—提升系统的健壮性和可用性</title>
@@ -553,31 +578,6 @@
     <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
     
     <category term="Prometheus" scheme="https://www.zhangquan.me/tags/Prometheus/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Kubernetes Helm 模板之内置函数和Values</title>
-    <link href="https://www.zhangquan.me/2022/09/01/kubernetes-helm-mo-ban-zhi-nei-zhi-han-shu-he-values/"/>
-    <id>https://www.zhangquan.me/2022/09/01/kubernetes-helm-mo-ban-zhi-nei-zhi-han-shu-he-values/</id>
-    <published>2022-09-01T07:55:12.000Z</published>
-    <updated>2022-09-01T08:29:51.506Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;kubernetes-helm-模板之内置函数和values&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#kubernetes-helm-模板之内置函数和values&quot;&gt;&lt;/a&gt; Kubernetes Helm</summary>
-        
-      
-    
-    
-    
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/categories/Kubernetes/"/>
-    
-    
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
     
   </entry>
   

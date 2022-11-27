@@ -1,3 +1,4 @@
+https://www.zhangquan.me/2022/11/27/istio-rong-duan/
 https://www.zhangquan.me/2022/11/20/istio-chao-shi-chong-shi-ti-sheng-xi-tong-de-jian-zhuang-xing-he-ke-yong-xing/
 https://www.zhangquan.me/2022/11/13/istio-engress-shi-xian-fang-wen-wai-bu-fu-wu/
 https://www.zhangquan.me/2022/11/06/istio-ingress-kong-zhi-jin-ru-wang-ge-de-liu-liang-ba-wang-ge-zhong-de-fu-wu-bao-lu-chu-qu/
