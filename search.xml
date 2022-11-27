@@ -20,7 +20,11 @@
       
         <tags>
             
-            <tag> Istio 中的熔断功能 - Istio - Kubernetes - Service Mesh </tag>
+            <tag> Istio </tag>
+            
+            <tag> Kubernetes </tag>
+            
+            <tag> Service Mesh </tag>
             
         </tags>
       
