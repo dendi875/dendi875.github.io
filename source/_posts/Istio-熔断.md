@@ -7,7 +7,8 @@ toc: true
 mathjax: true
 date: 2022-11-27 18:55:57
 password:
-tags: Istio 中的熔断功能
+summary: Istio 中的熔断功能
+tags: 
 	- Istio
 	- Kubernetes
 	- Service Mesh
