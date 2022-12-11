@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2022-11-27T12:00:59.958Z</updated>
+  <updated>2022-12-11T09:54:53.374Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Istio 故障注入</title>
+    <link href="https://www.zhangquan.me/2022/12/11/istio-gu-zhang-zhu-ru/"/>
+    <id>https://www.zhangquan.me/2022/12/11/istio-gu-zhang-zhu-ru/</id>
+    <published>2022-12-11T09:53:46.000Z</published>
+    <updated>2022-12-11T09:54:53.374Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;引言&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#引言&quot;&gt;&lt;/a&gt; 引言&lt;/h2&gt;
+&lt;p&gt;采用微服务通常意味着更多的依赖关系，以及更多您可能无法控制的服务。 它还意味着网络上有更多请求，增加了出错的可能性。</summary>
+        
+      
+    
+    
+    
+    <category term="Istio" scheme="https://www.zhangquan.me/categories/Istio/"/>
+    
+    
+    <category term="Istio" scheme="https://www.zhangquan.me/tags/Istio/"/>
+    
+    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
+    
+    <category term="Service Mesh" scheme="https://www.zhangquan.me/tags/Service-Mesh/"/>
+    
+  </entry>
   
   <entry>
     <title>Istio 熔断</title>
@@ -544,33 +574,6 @@
         
         
     <summary type="html">&lt;h1 id=&quot;使用-prometheus-监控-kubernetes-集群中的应用&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#使用-prometheus-监控-kubernetes-集群中的应用&quot;&gt;&lt;/a&gt; 使用 Prometheus  监控</summary>
-        
-      
-    
-    
-    
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/categories/Kubernetes/"/>
-    
-    
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
-    
-    <category term="Prometheus" scheme="https://www.zhangquan.me/tags/Prometheus/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Kubernetes 中手动安装 Prometheus</title>
-    <link href="https://www.zhangquan.me/2022/09/04/kubernetes-zhong-shou-dong-an-zhuang-prometheus/"/>
-    <id>https://www.zhangquan.me/2022/09/04/kubernetes-zhong-shou-dong-an-zhuang-prometheus/</id>
-    <published>2022-09-04T12:27:39.000Z</published>
-    <updated>2022-09-04T12:30:18.889Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;kubernetes-中手动安装-prometheus&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#kubernetes-中手动安装-prometheus&quot;&gt;&lt;/a&gt; Kubernetes 中手动安装</summary>
         
       
     
