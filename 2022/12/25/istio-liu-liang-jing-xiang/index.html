@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Istio 故障注入, PHP,Java,Go,MySQL,Linux,Docker等">
+    <meta name="keywords" content="Istio 流量镜像, PHP,Java,Go,MySQL,Linux,Docker等">
     <meta name="description" content="PHP Go MySQL 后端开发">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Istio 故障注入 | 一代键客</title>
+    <title>Istio 流量镜像 | 一代键客</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -327,12 +327,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Istio 故障注入</h1>
+                    <h1 class="description center-align post-title">Istio 流量镜像</h1>
                 </div>
             </div>
         </div>
@@ -481,21 +481,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-12-11
+                    2022-12-25
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-12-11
+                    2022-12-25
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2k
+                    1.8k
                 </div>
                 
 
@@ -525,222 +525,266 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="引言"><a class="markdownIt-Anchor" href="#引言"></a> 引言</h2>
-<p>采用微服务通常意味着更多的依赖关系，以及更多您可能无法控制的服务。 它还意味着网络上有更多请求，增加了出错的可能性。 由于这些原因，在上游依赖项失败时测试服务的行为非常重要。</p>
-<p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Chaos_engineering">混沌测试</a>是故意破坏您的服务以暴露弱点和提高容错能力。 混沌测试可以揭示客户端错误，或识别用户面对的失败情况，在这种情况下，您可能希望显示缓存结果，而不是返回错误。</p>
-<p>在 Kubernetes 环境中，您可以在不同层进行混沌测试——例如，<a target="_blank" rel="noopener" href="https://github.com/asobti/kube-monkey#kube-monkey--">随机删除 pod</a>，或关闭整个节点。</p>
-<p>但是故障也会发生在应用层。 无限循环、损坏的客户端库 - 应用程序代码可能以无数种方式失败！ 这就是 Istio 故障注入的用武之地。您可以使用 Istio VirtualServices 在应用程序层进行混沌测试，方法是通过在服务中注入超时或 HTTP 错误，而不必实际更新应用程序代码。</p>
-<h2 id="istio-中的故障注入"><a class="markdownIt-Anchor" href="#istio-中的故障注入"></a> Istio 中的故障注入</h2>
-<p>使用 Istio，可以在应用层注入故障来测试服务的弹性。 您可以将故障配置为注入到与特定条件匹配的请求中，以模拟服务失败和服务之间更高的延迟。 故障注入是 Istio 路由配置的一部分，可以在 <code>VirtualService</code> Istio 自定义资源的 HTTP 路由下的 <code>fault</code> 字段中设置。 故障包括中止来自下游服务的 HTTP 请求，或延迟请求代理。 故障规则必须具有延迟或中止（或两者）。</p>
-<p><strong>延迟</strong>：可以在转发之前延迟请求，模拟各种故障，例如网络问题、上游服务过载等。</p>
-<p><strong>中止</strong>：可以中止 HTTP 请求尝试并将错误代码返回给下游服务，给人一种上游服务出现故障的印象。</p>
-<h3 id="演示"><a class="markdownIt-Anchor" href="#演示"></a> 演示</h3>
-<p>现在，了解了基础知识后，让我们演示下在 Istio 中如何制造故障。</p>
-<h4 id="开始之前"><a class="markdownIt-Anchor" href="#开始之前"></a> 开始之前</h4>
+                <h2 id="背景"><a class="markdownIt-Anchor" href="#背景"></a> 背景</h2>
+<p>流量镜像，也叫影子流量(Traffic shadowing)，是一种通过复制生产环境的流量到非生产环境（一般是预发布环境）进行测试开发的工作模式。</p>
+<p>影子流量常用场景：</p>
+<ul>
+<li>线上流量模拟和测试，比如要用新系统替换掉老旧系统或者系统经历了大规模改造的时候，可以将线上流量导入新系统试运行；一些实验性的架构调整，也可以通过线上流量进行模拟测试。</li>
+</ul>
+<ul>
+<li>由于是全样本的模拟，影子流量可以应用于新服务的预上线演练，由于传统的手工测试本身是一种样本化的行为，通过导入真实流量形态，可以完整的模拟线上的所有情况，比如异常的特殊字符，带恶意攻击的token，可以探测预发布服务最真实的处理能力和对异常的处理能力。</li>
+<li>用于线上问题排查和临时的数据采集，比如对于一些线上突发性问题，在线下流量总是无法复现，这时候可以临时开启一个分支服务，导入影子流量进行调试和排查，而不影响线上服务。</li>
+<li>用于日志行为采集，对于推荐系统和算法来说，样本和数据是非常核心的，传统的自动化测试在算法类的应用所面对的最大的挑战就是无法构建真实环境的用户行为数据，通过影子流量可以将用户行为以日志的形式保存起来，既可以为推荐系统和算法模型构建模拟测试样本数据，也可以作为后续大数据分析用户画像的数据来源再应用到推荐服务中。</li>
+</ul>
+<h2 id="istio-中的流量镜像"><a class="markdownIt-Anchor" href="#istio-中的流量镜像"></a> Istio 中的流量镜像</h2>
+<p>这里我们先把流量全部路由到 v1 版本的测试服务中，然后添加路由规则将一部分流量镜像到 v2 版本中去，来测试流量镜像功能。</p>
+<h3 id="开始之前"><a class="markdownIt-Anchor" href="#开始之前"></a> 开始之前</h3>
 <ul>
 <li>
-<p>按照<a target="_blank" rel="noopener" href="https://istio.io/latest/zh/docs/setup/">安装指南</a>中的说明设置 Istio 。</p>
+<p>按照<a target="_blank" rel="noopener" href="https://istio.io/latest/zh/docs/setup/">安装指南</a>中的说明设置 Istio。</p>
 </li>
 <li>
-<p>部署示例应用程序 <a target="_blank" rel="noopener" href="https://istio.io/latest/zh/docs/examples/bookinfo/">Bookinfo</a>，并应用 <a target="_blank" rel="noopener" href="https://istio.io/latest/zh/docs/examples/bookinfo/#apply-default-destination-rules">默认目标规则</a>。</p>
+<p>首先部署两个版本的 <a target="_blank" rel="noopener" href="https://github.com/istio/istio/tree/release-1.16/samples/httpbin">Httpbin</a> 服务，并开启访问日志功能：</p>
+<p><strong>首先部署 <code>v1</code> 版本的 httpbin 服务：</strong></p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">kubectl create -f - &lt;&lt;EOF
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: httpbin-v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: httpbin
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: httpbin
+        version: v1
+    spec:
+      containers:
+      - image: docker.io/kennethreitz/httpbin
+        imagePullPolicy: IfNotPresent
+        name: httpbin
+        command: ["gunicorn", "--access-logfile", "-", "-b", "0.0.0.0:80", "httpbin:app"]
+        ports:
+        - containerPort: 80
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>然后部署 <code>v2</code> 版本的 httpbin 服务：</strong></p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">kubectl create -f - &lt;&lt;EOF
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: httpbin-v2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: httpbin
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: httpbin
+        version: v2
+    spec:
+      containers:
+      - image: docker.io/kennethreitz/httpbin
+        imagePullPolicy: IfNotPresent
+        name: httpbin
+        command: ["gunicorn", "--access-logfile", "-", "-b", "0.0.0.0:80", "httpbin:app"]
+        ports:
+        - containerPort: 80
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>可以看到 v1 和 v2 两个版本的 httpbin 服务已经部署好了：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># zhangquan @ MacBook-Pro-2 in ~/Downloads/devops/istio-1.5.1 [16:42:18] 
+$ kubectl get pod
+NAME                              READY   STATUS            RESTARTS   AGE
+......
+httpbin-v1-6b4c749d6-fhvb2        2/2     Running   0          2m22s
+httpbin-v2-5748c488bc-k2m9h       2/2     Running   0          100s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>然后创建一个 httpbin 的 Service 对象，关联上面的两个版本服务：</strong></p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">kubectl create -f - &lt;&lt;EOF
+apiVersion: v1
+kind: Service
+metadata:
+  name: httpbin
+  labels:
+    app: httpbin
+spec:
+  ports:
+  - name: http
+    port: 8000
+    targetPort: 80
+  selector:
+    app: httpbin
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>验证服务部署成功：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ kubectl get svc
+NAME          TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
+......
+httpbin       ClusterIP   10.106.141.152   &lt;none&gt;        8000/TCP   31s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
-<li>
-<p>通过执行<a target="_blank" rel="noopener" href="https://istio.io/latest/zh/docs/tasks/traffic-management/request-routing/">配置请求路由</a>任务或运行以下命令来初始化应用程序版本路由：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 把所有的路由都路由到各个服务的 v1 版本
-$ kubectl apply -f samples/bookinfo/networking/virtual-service-all-v1.yaml
-# 把 Reviews 服务给它指向 v2 版本，因为只有 v2和v3 这两个版本才会调用 Ratings 服务
-$ kubectl apply -f samples/bookinfo/networking/virtual-service-reviews-test-v2.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</ul>
 <ul>
 <li>
-<p>查看虚拟服务：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ kubectl get virtualservices
-NAME          GATEWAYS             HOSTS           AGE
-bookinfo      [bookinfo-gateway]   [*]             4d23h
-details                            [details]       4m49s
-productpage                        [productpage]   4m49s
-ratings                            [ratings]       4m49s
-reviews                            [reviews]       4m49s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li>
-<p>运行以下命令为 Bookinfo 服务创建默认目标规则：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ kubectl apply -f  samples/bookinfo/networking/destination-rule-all.yaml  <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-</li>
-<li>
-<p>查看目标规则：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$  kubectl get destinationrule
-NAME          HOST          AGE
-details       details       11s
-productpage   productpage   11s
-ratings       ratings       11s
-reviews       reviews       11s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-</ul>
-</li>
-<li>
-<p>经过上面的配置，下面是请求的流程：</p>
-<ul>
-<li>
-<p><code>productpage</code> → <code>reviews:v2</code> → <code>ratings</code> (针对登录的<code>jason</code> 用户)</p>
-</li>
-<li>
-<p><code>productpage</code> → <code>reviews:v1</code> (其他没有登录的用户)</p>
+<p>启动 <code>sleep</code> 服务，这样就可以使用 <code>curl</code> 来提供负载：</p>
+<p><strong>sleep service：</strong></p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">kubectl create -f - &lt;&lt;EOF
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sleep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sleep
+  template:
+    metadata:
+      labels:
+        app: sleep
+    spec:
+      containers:
+      - name: sleep
+        image: curlimages/curl
+        command: ["/bin/sleep","3650d"]
+        imagePullPolicy: IfNotPresent
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ul>
-</li>
-</ul>
-<p>打开浏览器验证，在没有登录情况下再怎么刷新浏览器都是显示 reviews v1 版本：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20221211172900.png" alt=""></p>
-<p>在使用（jason/123456）登录情况下再怎么刷新浏览器都是显示 reviews v2 版本：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20221211173217.png" alt=""></p>
-<h4 id="注入-http-延迟故障"><a class="markdownIt-Anchor" href="#注入-http-延迟故障"></a> 注入 HTTP 延迟故障</h4>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20221211172032.png" alt=""></p>
-<p>为了测试微服务应用程序 Bookinfo 的弹性，我们将为用户 <code>jason</code> 在 <code>reviews:v2</code> 和 <code>ratings</code> 服务之间注入一个 7 秒的延迟。 这个测试将会发现一个故意引入 Bookinfo 应用程序中的 bug。</p>
-<p>注意 <code>reviews:v2</code> 服务对 <code>ratings</code> 服务的调用具有 10 秒的硬编码连接超时。 因此，尽管引入了 7 秒的延迟，我们仍然期望端到端的流程是没有任何错误的。</p>
+<h3 id="创建一个默认路由策略"><a class="markdownIt-Anchor" href="#创建一个默认路由策略"></a> 创建一个默认路由策略</h3>
+<p>默认情况下，Kubernetes 在 httpbin 服务的两个版本之间进行负载均衡。这里我们首先创建一个默认路由规则，将所有流量路由到服务的 <code>v1</code> 版本中去：</p>
 <ol>
 <li>
-<p>创建故障注入规则以延迟来自测试用户 <code>jason</code> 的流量：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ kubectl apply -f samples/bookinfo/networking/virtual-service-ratings-test-delay.yaml
-virtualservice.networking.istio.io/ratings configured<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-</li>
-<li>
-<p>确认规则已经创建：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ kubectl get virtualservice ratings -o yaml
-apiVersion: networking.istio.io/v1beta1
+<p>创建一个默认路由规则，将所有流量路由到服务的 <code>v1</code> 版本：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">kubectl apply -f - &lt;&lt;EOF
+apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
-......
+metadata:
+  name: httpbin
 spec:
   hosts:
-  - ratings
+    - httpbin
   http:
-  - fault:
-      delay:
-        fixedDelay: 7s
-        percentage:
-          value: 100
-    match:
-    - headers:
-        end-user:
-          exact: jason
-    route:
-    - destination:
-        host: ratings
-        subset: v1
   - route:
     - destination:
-        host: ratings
-        subset: v1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        host: httpbin
+        subset: v1
+      weight: 100
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: httpbin
+spec:
+  host: httpbin
+  subsets:
+  - name: v1
+    labels:
+      version: v1
+  - name: v2
+    labels:
+      version: v2
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>上面对象创建完成后，所有流量都会转到 <code>httpbin:v1</code> 服务下面去</p>
+</li>
+<li>
+<p>向服务发送一部分流量：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ export SLEEP_POD=$(kubectl get pod -l app=sleep -o jsonpath={.items..metadata.name})
+$ kubectl exec "${SLEEP_POD}" -c sleep -- curl -sS http://httpbin:8000/headers
+{
+  "headers": {
+    "Accept": "*/*", 
+    "Content-Length": "0", 
+    "Host": "httpbin:8000", 
+    "User-Agent": "curl/7.87.0-DEV", 
+    "X-B3-Parentspanid": "4f6666ce18b44948", 
+    "X-B3-Sampled": "1", 
+    "X-B3-Spanid": "ff89fcc6b18d80e6", 
+    "X-B3-Traceid": "01ef2cccea3c5fee4f6666ce18b44948", 
+    "X-Forwarded-Client-Cert": "By=spiffe://cluster.local/ns/default/sa/default;Hash=0f2d91b13b84a0e07bf814f242b1868ec55957cf39d479378446214c6c30a1f6;Subject=\"\";URI=spiffe://cluster.local/ns/default/sa/default"
+  }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li>
+<p>分别查看 <code>httpbin</code> Pod的 <code>v1</code> 和 <code>v2</code> 两个版本的日志。您可以看到 <code>v1</code> 版本的访问日志条目，而 <code>v2</code> 版本没有日志：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ export V1_POD=$(kubectl get pod -l app=httpbin,version=v1 -o jsonpath={.items..metadata.name})
+$ kubectl logs -f $V1_POD -c httpbin
+127.0.0.1 - - [22/Dec/2022:08:49:17 +0000] "GET /headers HTTP/1.1" 200 522 "-" "curl/7.87.0-DEV"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ export V2_POD=$(kubectl get pod -l app=httpbin,version=v2 -o jsonpath={.items..metadata.name})
+$  kubectl logs -f $V2_POD -c httpbin<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>这是因为上面我们创建的路由规则是将所有的请求都路由到了 <code>v1</code> 这个版本的服务中去。接下来我们更改下流量规则，将流量镜像到 <code>v2</code> 版本的服务中去。</p>
 </li>
 </ol>
-<p>​		新的规则可能需要几秒钟才能传播到所有的 pod 。</p>
-<h4 id="测试延迟配置"><a class="markdownIt-Anchor" href="#测试延迟配置"></a> 测试延迟配置</h4>
+<h3 id="镜像流量到-v2"><a class="markdownIt-Anchor" href="#镜像流量到-v2"></a> 镜像流量到 v2</h3>
 <ol>
 <li>
-<p>通过浏览器打开 <a target="_blank" rel="noopener" href="https://istio.io/latest/zh/docs/examples/bookinfo">Bookinfo</a> 应用。</p>
-</li>
-<li>
-<p>以用户 <code>jason</code> 登录到 <code>/productpage</code> 页面。</p>
-<p>您期望 Bookinfo 主页在大约 7 秒钟加载完成并且没有错误。 但是，出现了一个问题：Reviews 部分显示了错误消息：</p>
-<pre class="line-numbers language-plain" data-language="plain"><code class="language-plain">Sorry, product reviews are currently unavailable for this book.<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20221211173910.png" alt=""></p>
-</li>
-<li>
-<p>查看页面的响应时间：</p>
-<ol>
-<li>
-<p>打开浏览器的 <em>开发工具</em> 菜单</p>
-</li>
-<li>
-<p>打开 <em>网络</em> 标签</p>
-</li>
-<li>
-<p>重新加载 <code>productpage</code> 页面。您会看到页面加载实际上用了大约 6 秒。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20221211174122.png" alt=""></p>
-</li>
-</ol>
-</li>
-</ol>
-<h4 id="理解原理"><a class="markdownIt-Anchor" href="#理解原理"></a> 理解原理</h4>
-<p>您发现了一个 bug。微服务中有硬编码超时，导致 <code>reviews</code> 服务失败。</p>
-<p>按照预期，我们引入的 7 秒延迟不会影响到 <code>reviews</code> 服务，因为 <code>reviews</code> 和 <code>ratings</code> 服务间的超时被硬编码为 10 秒。 但是，在 <code>productpage</code> 和 <code>reviews</code> 服务之间也有一个 3 秒的硬编码的超时，再加 1 次重试，一共 6 秒。 结果，<code>productpage</code> 对 <code>reviews</code> 的调用在 6 秒后提前超时并抛出错误了。</p>
-<p>这种类型的错误可能发生在典型的由不同的团队独立开发不同的微服务的企业应用程序中。 Istio 的故障注入规则可以帮助您识别此类异常，而不会影响最终用户。</p>
-<p>请注意，此次故障注入限制为仅影响用户 <code>jason</code>。如果您以任何其他用户身份登录，则不会遇到任何延迟。</p>
-<h4 id="错误修复"><a class="markdownIt-Anchor" href="#错误修复"></a> 错误修复</h4>
-<p>这种问题通常会这么解决：</p>
-<ol>
-<li>增加 <code>productpage</code> 与 <code>reviews</code> 服务之间的超时或降低 <code>reviews</code> 与 <code>ratings</code> 的超时</li>
-<li>终止并重启修复后的微服务</li>
-<li>确认 <code>/productpage</code> 页面正常响应且没有任何错误</li>
-</ol>
-<p>但是，<code>reviews</code> 服务的 v3 版本已经修复了这个问题。 <code>reviews:v3</code> 服务已将 <code>reviews</code> 与 <code>ratings</code> 的超时时间从 10 秒降低为 2.5 秒，因此它可以兼容（小于）下游 <code>productpage</code> 请求的超时时间。</p>
-<p>如果您按照<a target="_blank" rel="noopener" href="https://istio.io/latest/zh/docs/tasks/traffic-management/traffic-shifting/">流量转移</a>任务所述将所有流量转移到 <code>reviews:v3</code>， 您可以尝试修改延迟规则为任何低于 2.5 秒的数值，例如 2 秒，然后确认端到端的流程没有任何错误。</p>
-<h4 id="注入-http-abort-故障"><a class="markdownIt-Anchor" href="#注入-http-abort-故障"></a> 注入 HTTP abort 故障</h4>
-<p>测试微服务弹性的另一种方法是引入 HTTP abort 故障。 在这个任务中，针对测试用户 <code>jason</code> ，将给 <code>ratings</code> 微服务引入一个 HTTP abort。</p>
-<p>在这种情况下，我们希望页面能够立即加载，同时显示 <code>Ratings service is currently unavailable</code> 这样的消息。</p>
-<ol>
-<li>
-<p>为用户 <code>jason</code> 创建一个发送 HTTP abort 的故障注入规则：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ kubectl apply -f samples/bookinfo/networking/virtual-service-ratings-test-abort.yaml
-virtualservice.networking.istio.io/ratings configured<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-</li>
-<li>
-<p>确认规则已经创建：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ kubectl get virtualservice ratings -o yaml
-apiVersion: networking.istio.io/v1beta1
+<p>改变流量规则将流量镜像到 v2：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">kubectl apply -f - &lt;&lt;EOF
+apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
-......
+metadata:
+  name: httpbin
 spec:
   hosts:
-  - ratings
+    - httpbin
   http:
-  - fault:
-      abort:
-        httpStatus: 500
-        percentage:
-          value: 100
-    match:
-    - headers:
-        end-user:
-          exact: jason
-    route:
-    - destination:
-        host: ratings
-        subset: v1
   - route:
     - destination:
-        host: ratings
-        subset: v1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-</ol>
-<h4 id="测试中止配置"><a class="markdownIt-Anchor" href="#测试中止配置"></a> 测试中止配置</h4>
-<ol>
-<li>
-<p>用浏览器打开 <a target="_blank" rel="noopener" href="https://istio.io/latest/zh/docs/examples/bookinfo">Bookinfo</a> 应用。</p>
-</li>
-<li>
-<p>以用户 <code>jason</code> 登录到 <code>/productpage</code> 页面。</p>
-<p>如果规则成功传播到所有的 pod，您应该能立即看到页面加载并看到 <code>Ratings service is currently unavailable</code> 消息。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20221211175035.png" alt=""></p>
+        host: httpbin
+        subset: v1
+      weight: 100
+    mirror:
+      host: httpbin
+      subset: v2
+    mirrorPercentage:
+      value: 100.0
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这个路由规则会发送 100% 流量到 <code>v1</code> 这个子集服务，然后通过 <code>mirror</code> 属性配置了将流量也 100% 镜像到了 <code>httpbin:v2</code> 服务。当流量被镜像时，请求将发送到镜像服务中，并在 headers 中的 <code>Host/Authority</code> 属性值上追加 <code>-shadow</code>。</p>
+<p>您可以使用 <code>mirrorPercentage</code> 属性下的 <code>value</code> 字段来设置镜像流量的百分比，而不是镜像所有请求。如果没有这个属性，将镜像所有流量。</p>
 </li>
 <li>
-<p>如果您注销用户 <code>jason</code> 或在匿名窗口（或其他浏览器）中打开 Bookinfo 应用程序， 您将看到 <code>/productpage</code> 为除 <code>jason</code> 以外的其他用户调用了 <code>reviews:v1</code>（完全不调用 <code>ratings</code>）。 因此，您不会看到任何错误消息。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20221211175128.png" alt=""></p>
+<p>发送流量：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ kubectl exec -it $SLEEP_POD -c sleep -- sh -c 'curl  http://httpbin:8000/headers' | python -m json.tool  
+{
+    "headers": {
+        "Accept": "*/*",
+        "Content-Length": "0",
+        "Host": "httpbin:8000",
+        "User-Agent": "curl/7.87.0-DEV",
+        "X-B3-Parentspanid": "b106b127a11a6e0f",
+        "X-B3-Sampled": "1",
+        "X-B3-Spanid": "568ba017bfdd0c66",
+        "X-B3-Traceid": "e39250f90655f59db106b127a11a6e0f",
+        "X-Forwarded-Client-Cert": "By=spiffe://cluster.local/ns/default/sa/default;Hash=0f2d91b13b84a0e07bf814f242b1868ec55957cf39d479378446214c6c30a1f6;Subject=\"\";URI=spiffe://cluster.local/ns/default/sa/default"
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>现在就可以看到 <code>v1</code> 和 <code>v2</code> 版本中都有了访问日志。v2 版本中的访问日志就是由镜像流量产生的，这些请求的实际目标是 <code>v1</code> 版本。</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ kubectl logs -f $V1_POD -c httpbin
+127.0.0.1 - - [22/Dec/2022:08:49:17 +0000] "GET /headers HTTP/1.1" 200 522 "-" "curl/7.87.0-DEV"
+127.0.0.1 - - [22/Dec/2022:08:58:07 +0000] "GET /headers HTTP/1.1" 200 522 "-" "curl/7.87.0-DEV"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$  kubectl logs -f $V2_POD -c httpbin
+127.0.0.1 - - [22/Dec/2022:08:58:07 +0000] "GET /headers HTTP/1.1" 200 562 "-" "curl/7.87.0-DEV"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 </li>
 </ol>
 <h2 id="清理"><a class="markdownIt-Anchor" href="#清理"></a> 清理</h2>
 <ol>
 <li>
-<p>删除应用程序路由规则：</p>
-<pre class="line-numbers language-none"><code class="language-none">$ kubectl delete -f samples/bookinfo/networking/virtual-service-all-v1.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>删除规则：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ kubectl delete virtualservice httpbin
+$ kubectl delete destinationrule httpbin<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 </li>
 <li>
-<p>如果您不打算探索任何后续任务，请参阅 <a target="_blank" rel="noopener" href="https://istio.io/latest/zh/docs/examples/bookinfo/#cleanup">Bookinfo 清理</a>说明以关闭应用程序。</p>
+<p>关闭 <a target="_blank" rel="noopener" href="https://github.com/istio/istio/tree/release-1.16/samples/httpbin">Httpbin</a> 服务和客户端：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ kubectl delete deploy httpbin-v1 httpbin-v2 sleep
+$ kubectl delete svc httpbin<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 </li>
 </ol>
 <h2 id="参考"><a class="markdownIt-Anchor" href="#参考"></a> 参考</h2>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://istio.io/latest/zh/docs/concepts/traffic-management/#fault-injection">https://istio.io/latest/zh/docs/concepts/traffic-management/#fault-injection</a></li>
-<li><a target="_blank" rel="noopener" href="https://istio.io/latest/zh/docs/tasks/traffic-management/fault-injection/">https://istio.io/latest/zh/docs/tasks/traffic-management/fault-injection/</a></li>
-<li><a target="_blank" rel="noopener" href="https://medium.com/google-cloud/gremlin-chaos-engineering-on-google-cloud-2568f9fc70c9">https://medium.com/google-cloud/gremlin-chaos-engineering-on-google-cloud-2568f9fc70c9</a></li>
+<li><a target="_blank" rel="noopener" href="https://istio.io/latest/zh/docs/tasks/traffic-management/mirroring/">https://istio.io/latest/zh/docs/tasks/traffic-management/mirroring/</a></li>
 </ul>
 
                 
@@ -768,7 +812,7 @@ spec:
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://www.zhangquan.me/2022/12/11/istio-gu-zhang-zhu-ru/">https://www.zhangquan.me/2022/12/11/istio-gu-zhang-zhu-ru/</a>
+                    <a href="https://www.zhangquan.me/2022/12/25/istio-liu-liang-jing-xiang/">https://www.zhangquan.me/2022/12/25/istio-liu-liang-jing-xiang/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1310,9 +1354,10 @@ spec:
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2022/12/25/istio-liu-liang-jing-xiang/">
                     <div class="card-image">
@@ -1330,9 +1375,9 @@ spec:
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-12-25
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-12-25
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -1345,6 +1390,7 @@ spec:
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -1371,24 +1417,24 @@ spec:
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/11/27/istio-rong-duan/">
+                <a href="/2022/12/11/istio-gu-zhang-zhu-ru/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Istio 熔断">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="Istio 故障注入">
                         
-                        <span class="card-title">Istio 熔断</span>
+                        <span class="card-title">Istio 故障注入</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Istio 中的熔断功能
+                            Istio 故障注入
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-11-27
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-12-11
                             </span>
                         <span class="publish-author">
                             
