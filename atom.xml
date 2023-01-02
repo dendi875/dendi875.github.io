@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2022-12-25T09:40:11.619Z</updated>
+  <updated>2023-01-02T08:19:22.795Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,38 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>MongoDB 入门与基本操作</title>
+    <link href="https://www.zhangquan.me/2023/01/02/mongodb-ru-men-yu-ji-ben-cao-zuo/"/>
+    <id>https://www.zhangquan.me/2023/01/02/mongodb-ru-men-yu-ji-ben-cao-zuo/</id>
+    <published>2023-01-02T08:17:15.000Z</published>
+    <updated>2023-01-02T08:19:22.795Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;关于-mongodb&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#关于-mongodb&quot;&gt;&lt;/a&gt; 关于 MongoDB&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;什么是 MongoDB&lt;/th&gt;
+&lt;th&gt;一个以</summary>
+        
+      
+    
+    
+    
+    <category term="MongoDB" scheme="https://www.zhangquan.me/categories/MongoDB/"/>
+    
+    
+    <category term="MongoDB" scheme="https://www.zhangquan.me/tags/MongoDB/"/>
+    
+    <category term="NoSQL" scheme="https://www.zhangquan.me/tags/NoSQL/"/>
+    
+  </entry>
   
   <entry>
     <title>Istio 流量镜像</title>
@@ -550,33 +582,6 @@
         
         
     <summary type="html">&lt;h1 id=&quot;使用-prometheus-监控-kubernetes-中常用的资源对象&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#使用-prometheus-监控-kubernetes-中常用的资源对象&quot;&gt;&lt;/a&gt; 使用 Prometheus </summary>
-        
-      
-    
-    
-    
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/categories/Kubernetes/"/>
-    
-    
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
-    
-    <category term="Prometheus" scheme="https://www.zhangquan.me/tags/Prometheus/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用 Prometheus  监控 Kubernetes 集群节点</title>
-    <link href="https://www.zhangquan.me/2022/09/04/shi-yong-prometheus-jian-kong-kubernetes-ji-qun-jie-dian/"/>
-    <id>https://www.zhangquan.me/2022/09/04/shi-yong-prometheus-jian-kong-kubernetes-ji-qun-jie-dian/</id>
-    <published>2022-09-04T12:27:45.000Z</published>
-    <updated>2022-09-04T12:31:15.928Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;使用-prometheus-监控-kubernetes-集群节点&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#使用-prometheus-监控-kubernetes-集群节点&quot;&gt;&lt;/a&gt; 使用 Prometheus  监控</summary>
         
       
     
