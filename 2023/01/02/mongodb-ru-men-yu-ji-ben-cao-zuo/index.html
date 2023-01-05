@@ -43,9 +43,9 @@
         s.parentNode.insertBefore(bp, s);
     })();
     </script>
-<meta name="generator" content="Hexo 5.4.2">
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="一代键客" type="application/atom+xml">
+
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="一代键客" type="application/atom+xml">
 </head>
 
 
@@ -484,7 +484,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-01-02
+                    2023-01-05
                 </div>
                 
 
@@ -628,31 +628,15 @@
 <h2 id="mongodb-基本操作"><a class="markdownIt-Anchor" href="#mongodb-基本操作"></a> MongoDB 基本操作</h2>
 <h3 id="使用-insert-完成插入操作"><a class="markdownIt-Anchor" href="#使用-insert-完成插入操作"></a> 使用 <code>insert</code> 完成插入操作</h3>
 <p>操作格式：</p>
-<ul>
-<li>
-<pre class="highlight"><code class="shell">db.&lt;集合&gt;.insertOne(&lt;JSON对象&gt;)
-<pre class="line-numbers language-none"><code class="language-none">
-* ```shell
-  db.&lt;集合&gt;.insertMany([&lt;JSON 1&gt;, &lt;JSON 2&gt;, ...&lt;JSON N&gt; ])<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-</code></pre>
-</li>
-</ul>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">db<span class="token punctuation">.</span><span class="token operator">&lt;</span>集合<span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token function">insertOne</span><span class="token punctuation">(</span><span class="token operator">&lt;</span><span class="token constant">JSON</span>对象<span class="token operator">&gt;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">db<span class="token punctuation">.</span><span class="token operator">&lt;</span>集合<span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token function">insertMany</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token operator">&lt;</span><span class="token constant">JSON</span> <span class="token number">1</span><span class="token operator">&gt;</span><span class="token punctuation">,</span> <span class="token operator">&lt;</span><span class="token constant">JSON</span> <span class="token number">2</span><span class="token operator">&gt;</span><span class="token punctuation">,</span> <span class="token operator">...</span><span class="token operator">&lt;</span><span class="token constant">JSON</span> <span class="token constant">N</span><span class="token operator">&gt;</span> <span class="token punctuation">]</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>示例：</p>
-<ul>
-<li>
-<pre class="highlight"><code class="shell">db.fruit.insertOne({name: "apple"})
-<pre class="line-numbers language-none"><code class="language-none">
-* ```shell
-  db.fruit.insertMany([
-  		{name: "apple"},
-  		{name: "pear"},
-  		{name: "orange"}
-  ])<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-</code></pre>
-</li>
-</ul>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">db<span class="token punctuation">.</span>fruit<span class="token punctuation">.</span><span class="token function">insertOne</span><span class="token punctuation">(</span><span class="token punctuation">{</span>name<span class="token operator">:</span> <span class="token string">"apple"</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">db<span class="token punctuation">.</span>fruit<span class="token punctuation">.</span><span class="token function">insertMany</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+		<span class="token punctuation">{</span>name<span class="token operator">:</span> <span class="token string">"apple"</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+		<span class="token punctuation">{</span>name<span class="token operator">:</span> <span class="token string">"pear"</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+		<span class="token punctuation">{</span>name<span class="token operator">:</span> <span class="token string">"orange"</span><span class="token punctuation">}</span>
+<span class="token punctuation">]</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>查看插入的数据：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">db.fruit.find()<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h3 id="使用-find-查询文档"><a class="markdownIt-Anchor" href="#使用-find-查询文档"></a> 使用 <code>find</code> 查询文档</h3>
