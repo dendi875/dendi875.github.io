@@ -484,7 +484,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-01-05
+                    2023-02-06
                 </div>
                 
 
@@ -744,10 +744,9 @@ db.movies.find({"title": /^B/}) // 按正则表达式查询<span aria-hidden="tr
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">db.fruit.find({color: "red"}) 
 { "_id" : ObjectId("6370d5984835f42d80eba3bc"), "name" : "Apple", "color" : [ "red", "green" ] }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>该查询表示：找的文档有 color 这个字段，且值有 red</p>
-<pre><code>    <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">db.fruit.find({$or: [{color: "red"}, {color: "yello"}]})
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">db.fruit.find({$or: [{color: "red"}, {color: "yello"}]})
 { "_id" : ObjectId("6370d5984835f42d80eba3bc"), "name" : "Apple", "color" : [ "red", "green" ] }
 { "_id" : ObjectId("6370d5984835f42d80eba3bd"), "name" : "Mango", "color" : [ "yello", "green" ] }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-</code></pre>
 <p>该查询表示：找的文档有 color 这个字段，值要么是 red，要么是 yello</p>
 <p>我们再看一个查询：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">db.movies.insertOne({
@@ -1779,7 +1778,7 @@ test
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">189.1k</span>
+                        class="white-color">188.9k</span>
             
             
             
