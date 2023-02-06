@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2023-02-06T02:07:08.866Z</updated>
+  <updated>2023-02-06T08:55:25.077Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>MongoDB 复制集</title>
+    <link href="https://www.zhangquan.me/2023/02/06/mongodb-fu-zhi-ji/"/>
+    <id>https://www.zhangquan.me/2023/02/06/mongodb-fu-zhi-ji/</id>
+    <published>2023-02-06T08:54:07.000Z</published>
+    <updated>2023-02-06T08:55:25.077Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;复制集机制及原理&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#复制集机制及原理&quot;&gt;&lt;/a&gt; 复制集机制及原理&lt;/h2&gt;
+&lt;h3 id=&quot;复制集的作用&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="MongoDB" scheme="https://www.zhangquan.me/categories/MongoDB/"/>
+    
+    
+    <category term="MongoDB" scheme="https://www.zhangquan.me/tags/MongoDB/"/>
+    
+    <category term="NoSQL" scheme="https://www.zhangquan.me/tags/NoSQL/"/>
+    
+  </entry>
   
   <entry>
     <title>MongoDB 聚合</title>
@@ -566,34 +594,6 @@
     <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
     
     <category term="Prometheus" scheme="https://www.zhangquan.me/tags/Prometheus/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Kubernetes 安装Grafana及使用</title>
-    <link href="https://www.zhangquan.me/2022/09/07/kubernetes-an-zhuang-grafana-ji-shi-yong/"/>
-    <id>https://www.zhangquan.me/2022/09/07/kubernetes-an-zhuang-grafana-ji-shi-yong/</id>
-    <published>2022-09-07T11:45:30.000Z</published>
-    <updated>2022-09-09T03:51:18.781Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;kubernetes-安装grafana及使用&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#kubernetes-安装grafana及使用&quot;&gt;&lt;/a&gt; Kubernetes 安装Grafana及使用&lt;/h1&gt;
-&lt;p&gt;我们可以使用</summary>
-        
-      
-    
-    
-    
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/categories/Kubernetes/"/>
-    
-    
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
-    
-    <category term="Grafana" scheme="https://www.zhangquan.me/tags/Grafana/"/>
     
   </entry>
   
