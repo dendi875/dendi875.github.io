@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2023-01-05T06:25:45.371Z</updated>
+  <updated>2023-02-06T01:44:17.065Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>MongoDB 聚合</title>
+    <link href="https://www.zhangquan.me/2023/02/06/mongodb-ju-he/"/>
+    <id>https://www.zhangquan.me/2023/02/06/mongodb-ju-he/</id>
+    <published>2023-02-06T01:42:37.000Z</published>
+    <updated>2023-02-06T01:44:17.065Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;聚合操作是 MongoDB 中非常实用的一个功能，它类似于 SQL 中的 &lt;code&gt;where&lt;/code&gt;、&lt;code&gt;group by&lt;/code&gt;等，是可以用来做一些分析、统计、复杂数据的计算和处理。&lt;/p&gt;
+&lt;h2</summary>
+        
+      
+    
+    
+    
+    <category term="MongoDB" scheme="https://www.zhangquan.me/categories/MongoDB/"/>
+    
+    
+    <category term="MongoDB" scheme="https://www.zhangquan.me/tags/MongoDB/"/>
+    
+    <category term="NoSQL" scheme="https://www.zhangquan.me/tags/NoSQL/"/>
+    
+  </entry>
   
   <entry>
     <title>MongoDB 入门与基本操作</title>
@@ -566,33 +594,6 @@
     <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
     
     <category term="Grafana" scheme="https://www.zhangquan.me/tags/Grafana/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用 Prometheus  监控 Kubernetes 中常用的资源对象</title>
-    <link href="https://www.zhangquan.me/2022/09/04/shi-yong-prometheus-jian-kong-kubernetes-zhong-chang-yong-de-zi-yuan-dui-xiang/"/>
-    <id>https://www.zhangquan.me/2022/09/04/shi-yong-prometheus-jian-kong-kubernetes-zhong-chang-yong-de-zi-yuan-dui-xiang/</id>
-    <published>2022-09-04T12:27:48.000Z</published>
-    <updated>2022-09-04T12:32:13.596Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;使用-prometheus-监控-kubernetes-中常用的资源对象&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#使用-prometheus-监控-kubernetes-中常用的资源对象&quot;&gt;&lt;/a&gt; 使用 Prometheus </summary>
-        
-      
-    
-    
-    
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/categories/Kubernetes/"/>
-    
-    
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
-    
-    <category term="Prometheus" scheme="https://www.zhangquan.me/tags/Prometheus/"/>
     
   </entry>
   
