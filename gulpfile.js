@@ -3,7 +3,7 @@ var minifycss = require("gulp-minify-css");
 var uglify = require("gulp-uglify");
 var htmlmin = require("gulp-htmlmin");
 var htmlclean = require("gulp-htmlclean");
-var imagemin = require("gulp-imagemin");
+//var imagemin = require("gulp-imagemin");
 
 // 压缩css文件
 gulp.task("minify-css", function () {
@@ -44,30 +44,30 @@ gulp.task("minify-js", function () {
 });
 
 // 压缩图片
-gulp.task("minify-images", function () {
-  return gulp
-    .src([
-      "./public/**/*.png",
-      "./public/**/*.jpg",
-      "./public/**/*.gif",
-      "./public/**/*.svg",
-    ])
-    .pipe(
-      imagemin([
-        imagemin.gifsicle({ interlaced: true }),
-        imagemin.mozjpeg({ quality: 75, progressive: true }),
-        imagemin.optipng({ optimizationLevel: 5 }),
-        imagemin.svgo({
-          plugins: [{ removeViewBox: true }, { cleanupIDs: false }],
-        }),
-      ])
-    )
-    .pipe(gulp.dest("./public"));
-});
+// gulp.task("minify-images", function () {
+//   return gulp
+//     .src([
+//       "./public/**/*.png",
+//       "./public/**/*.jpg",
+//       "./public/**/*.gif",
+//       "./public/**/*.svg",
+//     ])
+//     .pipe(
+//       imagemin([
+//         imagemin.gifsicle({ interlaced: true }),
+//         imagemin.mozjpeg({ quality: 75, progressive: true }),
+//         imagemin.optipng({ optimizationLevel: 5 }),
+//         imagemin.svgo({
+//           plugins: [{ removeViewBox: true }, { cleanupIDs: false }],
+//         }),
+//       ])
+//     )
+//     .pipe(gulp.dest("./public"));
+// });
 
 gulp.task(
   "default",
   gulp.series(
-    gulp.parallel("minify-html", "minify-css", "minify-js", "minify-images")
+    gulp.parallel("minify-html", "minify-css", "minify-js")
   )
 );

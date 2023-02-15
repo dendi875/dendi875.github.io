@@ -50,7 +50,7 @@ Alertmanager 主要用于接收 Prometheus 发送的告警信息，它支持丰�
 
 从官方文档 https://prometheus.io/docs/alerting/configuration/ 中我们可以看到下载 AlertManager 二进制文件后，可以通过下面的命令运行：
 
-```shell
+```bash
 $ ./alertmanager --config.file=simple.yml
 ```
 
@@ -62,7 +62,7 @@ $ ./alertmanager --config.file=simple.yml
 
 把用到的资源文件统一放到 `alertmanager` 目录下
 
-```shell
+```bash
 [root@k8s-master ~]# mkdir ~/alertmanager && cd alertmanager
 ```
 
@@ -125,7 +125,7 @@ data:
 
 这是 AlertManager 的配置文件，我们先直接创建这个 ConfigMap 资源对象：
 
-```shell
+```bash
 [root@k8s-master alertmanager]# kubectl apply -f alertmanager-config.yaml 
 configmap/alert-config created
 ```
@@ -176,7 +176,7 @@ spec:
 
 这里我们将上面创建的 `alert-config` 这个 ConfigMap 资源对象以 Volume 的形式挂载到 `/etc/alertmanager` 目录下去，然后在启动参数中指定了配置文件 `--config.file=/etc/alertmanager/config.yml`，然后我们可以来创建这个资源对象：
 
-```shell
+```bash
 [root@k8s-master alertmanager]# kubectl apply -f alertmanager-deploy.yaml 
 deployment.apps/alertmanager created
 ```
@@ -203,7 +203,7 @@ spec:
 
 使用 NodePort 类型也是为了方便测试，创建上面的 Service 这个资源对象：
 
-```shell
+```bash
 [root@k8s-master alertmanager]# kubectl apply -f alertmanager-svc.yaml 
 service/alertmanager created
 ```
@@ -221,7 +221,7 @@ alerting:
 
 更新这个资源对象后，稍等一小会儿，执行 reload 操作即可。
 
-```shell
+```bash
 [root@k8s-master prometheus]# kubectl apply -f prometheus-cm.yaml 
 configmap/prometheus-config configured
 
@@ -231,7 +231,7 @@ configmap/prometheus-config configured
 
 更新完成后，我们查看 Pod 已经是 Running 状态了：
 
-```shell
+```bash
 [root@k8s-master prometheus]# kubectl get pods -n kube-mon
 NAME                            READY   STATUS      RESTARTS   AGE
 alertmanager-7c96c8fc4b-v4wjf   1/1     Running     0          8m54s
@@ -309,7 +309,7 @@ data:
 
 更新 Prometheus 并 reload：
 
-```shell
+```bash
 [root@k8s-master prometheus]# kubectl apply -f prometheus-cm.yaml 
 configmap/prometheus-config configured
 
@@ -319,7 +319,7 @@ configmap/prometheus-config configured
 
 确认`/etc/prometheus`目录下面有 rules.yml 文件
 
-```shell
+```bash
 [root@k8s-master prometheus]# kubectl get pod -n kube-mon -l app=prometheus            
 NAME                          READY   STATUS    RESTARTS   AGE
 prometheus-75d4666dcd-vlth8   1/1     Running   3          2d18h
@@ -359,7 +359,7 @@ routes:
 
 我们可以通过 NodePort 的形式去访问到 AlertManager 的 Dashboard 页面：
 
-```shell
+```bash
 [root@k8s-master alertmanager]# kubectl get svc -n kube-mon
 NAME           TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)             AGE
 alertmanager   NodePort    10.96.242.35    <none>        9093:30265/TCP      73m
@@ -384,7 +384,7 @@ alertmanager   NodePort    10.96.242.35    <none>        9093:30265/TCP      73m
 
 alertmanager-config.yaml 文件中邮箱账号和密码要替换成自己的，并且 AlertManager 和 Prometheus 一样也支持 `reload`操作，修改了 AlertManager 配置文件之后也要执行 reload
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl get svc -n kube-mon
 NAME           TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)             AGE
 alertmanager   NodePort    10.96.242.35    <none>        9093:30265/TCP      4h20m

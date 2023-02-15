@@ -18,7 +18,7 @@ categories: Kubernetes
 
 要启用 RBAC，需要在 kube-apiserver 中添加参数`--authorization-mode=RBAC`，如果使用的kubeadm 安装的集群那么是默认开启了 `RBAC` 的，可以通过查看 Master 节点上 apiserver 的静态 Pod 定义文件：
 
-```shell
+```bash
 [root@k8s-master ~]# cat /etc/kubernetes/manifests/kube-apiserver.yaml 
 ......
     - --authorization-mode=Node,RBAC
@@ -41,7 +41,7 @@ categories: Kubernetes
 
 从上图中我们也可以看出 Kubernetes 的 API 对象的组织方式，在顶层，我们可以看到有一个核心组`/api/v1` 和命名组（路径 `/apis/$NAME/$VERSION`）和系统范围内的实体，比如 `/metrics`。我们也可以用下面的命令来查看集群中的 API 组织形式：
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl get --raw /
 {
   "paths": [
@@ -190,7 +190,7 @@ categories: Kubernetes
 
 比如我们来查看批处理这个操作，在我们当前这个版本中存在两个版本的操作：`/apis/batch/v1` 和 `/apis/batch/v1beta1`，分别暴露了可以查询和操作的不同实体集合，同样我们还是可以通过 kubectl 来查询对应对象下面的数据：
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl get --raw /apis/batch/v1 | python -m json.tool
 {
     "apiVersion": "v1",
@@ -278,14 +278,14 @@ categories: Kubernetes
 
 但是这个操作和我们平时操作 HTTP 服务的方式不太一样，这里我们可以通过 `kubectl proxy` 命令来开启对 apiserver 的访问：
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl proxy
 Starting to serve on 127.0.0.1:8001
 ```
 
 然后重新开启一个新的终端，我们可以通过如下方式来访问批处理的 API 服务：
 
-```shell
+```bash
 [root@k8s-master ~]# curl http://127.0.0.1:8001/apis/batch/v1
 {
   "kind": "APIResourceList",
@@ -329,7 +329,7 @@ Starting to serve on 127.0.0.1:8001
 
 同样也可以去访问另外一个版本的对象数据：
 
-```shell
+```bash
 [root@k8s-master ~]# curl http://127.0.0.1:8001/apis/batch/v1beta1
 ......
 ```
@@ -400,13 +400,13 @@ group: zqgroup
 
 首先创建一个文件夹存放私钥和证书：
 
-```shell
+```bash
 [root@k8s-master ~]# mkdir ~/certs 
 ```
 
 给用户 zq 创建一个私钥，命名成 `zq.key`：
 
-```shell
+```bash
 [root@k8s-master certs]# openssl genrsa -out zq.key 2048
 Generating RSA private key, 2048 bit long modulus
 .....................................+++
@@ -416,7 +416,7 @@ e is 65537 (0x10001)
 
 使用我们刚刚创建的私钥创建一个证书签名请求文件：`cnych.csr`，要注意需要确保在`-subj`参数中指定用户名和组(CN表示用户名，O表示组)：
 
-```shell
+```bash
 [root@k8s-master certs]#  openssl req -new -key zq.key -out zq.csr -subj "/CN=zq/O=zqgroup"
 
 [root@k8s-master certs]# ls
@@ -425,7 +425,7 @@ zq.csr  zq.key
 
 然后找到我们的 Kubernetes 集群的 `CA` 证书，我们使用的是 kubeadm 安装的集群，CA 相关证书位于 `/etc/kubernetes/pki/` 目录下面，如果你是二进制方式搭建的，你应该在最开始搭建集群的时候就已经指定好了 CA 的目录，我们会利用该目录下面的 `ca.crt` 和 `ca.key`两个文件来批准上面的证书请求。生成最终的证书文件，我们这里设置证书的有效期为 10 年：
 
-```shell
+```bash
 [root@k8s-master certs]# ls /etc/kubernetes/pki/
 apiserver.crt              apiserver-etcd-client.key  apiserver-kubelet-client.crt  ca.crt  etcd                front-proxy-ca.key      front-proxy-client.key  sa.pub
 apiserver-etcd-client.crt  apiserver.key              apiserver-kubelet-client.key  ca.key  front-proxy-ca.crt  front-proxy-client.crt  sa.key
@@ -438,28 +438,28 @@ Getting CA Private Key
 
 现在查看我们当前文件夹下面是否生成了一个证书文件：
 
-```shell
+```bash
 [root@k8s-master certs]# ls
 zq.crt  zq.csr  zq.key
 ```
 
 现在我们可以使用刚刚创建的证书文件和私钥文件在集群中创建新的**凭证**和**上下文(Context)**:
 
-```shell
+```bash
 [root@k8s-master certs]# kubectl config set-credentials zq --client-certificate=zq.crt --client-key=zq.key
 User "zq" set.
 ```
 
 我们可以看到一个用户 `zq` 创建了，然后为这个用户设置新的 Context，我们这里指定特定的一个 namespace：
 
-```shell
+```bash
 [root@k8s-master certs]# kubectl config set-context zq-context --cluster=kubernetes --namespace=kube-system --user=zq
 Context "zq-context" created.
 ```
 
 到这里，我们的用户 `zq` 就已经创建成功了，现在我们使用当前的这个配置文件来操作 kubectl 命令的时候，应该会出现错误，因为我们还没有为该用户定义任何操作的权限呢：
 
-```shell
+```bash
 # 使用默认认的 context
 [root@k8s-master certs]# kubectl get pods
 NAME          READY   STATUS             RESTARTS   AGE
@@ -480,7 +480,7 @@ Error from server (Forbidden): pods is forbidden: User "zq" cannot list resource
 
 首先创建一个文件夹来存放我们资源文件：
 
-```shell
+```bash
 [root@k8s-master certs]# mkdir ~/rbactest
 ```
 
@@ -500,14 +500,14 @@ rules:
 
 其中 Pod 属于 `core` 这个 API Group，在 YAML 中用空字符就可以，而 Deployment 和 ReplicaSet 现在都属于 `apps` 这个 API Group（如果不知道则可以用 `kubectl explain` 命令查看），所以 `rules` 下面的 `apiGroups` 就综合了这几个资源的 API Group：["", "apps"]，其中`verbs`就是我们上面提到的可以对这些资源对象执行的操作，我们这里需要所有的操作方法，所以我们也可以使用['*']来代替。然后直接创建这个 Role：
 
-```shell
+```bash
 [root@k8s-master rbactest]# kubectl create -f zq-role.yaml
 role.rbac.authorization.k8s.io/zq-role created
 ```
 
 查看我们创建的 Role：
 
-```shell
+```bash
 # 查看 kube-system 命名空间下的所有 Role
 [root@k8s-master rbactest]# kubectl get role -n kube-system
 NAME                                             CREATED AT
@@ -582,14 +582,14 @@ roleRef: # 这用户分配角色
 
 上面的 YAML 文件中我们看到了 `subjects` 字段，这里就是我们上面提到的用来尝试操作集群的对象，这里对应上面的 `User` 帐号 `zq`，使用kubectl 创建上面的资源对象：
 
-```shell
+```bash
 [root@k8s-master rbactest]#  kubectl create -f zq-rolebinding.yaml
 rolebinding.rbac.authorization.k8s.io/zq-rolebinding created
 ```
 
 查看我们创建的 RoleBinding：
 
-```shell
+```bash
 [root@k8s-master rbactest]# kubectl get rolebinding
 No resources found in default namespace.
 
@@ -693,14 +693,14 @@ kube-scheduler-k8s-master                  1/1     Running   9          11d
 
 我们可以看到我们使用 kubectl 的使用并没有指定 namespace，这是因为我们我们上面创建`zq-context`这个 Context 的时候就绑定在了 kube-system 这个命名空间下面，所以上面输出结果是一样的，如果我们在后面加上一个`-n default`试看看呢？
 
-```shell
+```bash
 [root@k8s-master rbactest]# kubectl --context=zq-context get pods --namespace=default
 Error from server (Forbidden): pods is forbidden: User "zq" cannot list resource "pods" in API group "" in the namespace "default"
 ```
 
 如果去获取其他的资源对象呢：
 
-```shell
+```bash
 [root@k8s-master rbactest]#  kubectl --context=zq-context get svc
 Error from server (Forbidden): services is forbidden: User "zq" cannot list resource "services" in API group "" in the namespace "kube-system"
 ```
@@ -727,14 +727,14 @@ Error from server (Forbidden): services is forbidden: User "zq" cannot list reso
 
 * 创建
 
-  ```shell
+  ```bash
   [root@k8s-master rbactest]# kubectl create -f zq-sa.yaml 
   serviceaccount/zq-sa created
   ```
 
 * 查看
 
-  ```shell
+  ```bash
   [root@k8s-master rbactest]# kubectl get sa -n kube-system | grep zq-sa
   zq-sa                                1         53s
   
@@ -810,14 +810,14 @@ Error from server (Forbidden): services is forbidden: User "zq" cannot list reso
 
 * 创建Role对象
 
-  ```shell
+  ```bash
   [root@k8s-master rbactest]# kubectl create -f zq-sa-role.yaml 
   role.rbac.authorization.k8s.io/zq-sa-role created
   ```
 
 * 查看
 
-  ```shell
+  ```bash
   [root@k8s-master rbactest]# kubectl get role -n kube-system | grep zq-sa-role
   zq-sa-role                                       2022-08-25T08:08:24Z
   ```
@@ -852,7 +852,7 @@ Error from server (Forbidden): services is forbidden: User "zq" cannot list reso
 
 *  查看
 
-  ```shell
+  ```bash
   [root@k8s-master rbactest]# kubectl get rolebinding -n kube-system
   NAME                                                ROLE                                                  AGE
   kube-proxy                                          Role/kube-proxy                                       11d
@@ -872,7 +872,7 @@ Error from server (Forbidden): services is forbidden: User "zq" cannot list reso
 
 ServiceAccount 会生成一个 Secret 对象和它进行映射，这个 Secret 里面包含一个 token，我们可以利用这个 token 去登录 Dashboard，然后我们就可以在 Dashboard 中来验证我们的功能是否符合预期了：
 
-```shell
+```bash
 # 获取 kube-system 这个命令空间下 zq-sa 这个 ServiceAccount 的详细信息
 [root@k8s-master rbactest]# kubectl get sa zq-sa -n kube-system -o yaml
 apiVersion: v1
@@ -962,7 +962,7 @@ eyJhbGciOiJSUzI1NiIsImtpZCI6IjFJX0tmbFozQWQ1R2tyN3dMZkNBZDZ0RGpfY2hSUmNoaFI3UTNw
 
 * 创建
 
-  ```shell
+  ```bash
   [root@k8s-master rbactest]# kubectl create -f zq-sa-cluster.yaml 
   serviceaccount/zq-sa-cluster created
   ```
@@ -994,14 +994,14 @@ eyJhbGciOiJSUzI1NiIsImtpZCI6IjFJX0tmbFozQWQ1R2tyN3dMZkNBZDZ0RGpfY2hSUmNoaFI3UTNw
 
 * 创建
 
-  ```shell
+  ```bash
   [root@k8s-master rbactest]# kubectl create -f zq-sa-clusterolebinding.yaml 
   clusterrolebinding.rbac.authorization.k8s.io/zq-sa-clusterolebinding created
   ```
 
 * 查看
 
-  ```shell
+  ```bash
   [root@k8s-master rbactest]# kubectl get clusterrole cluster-admin
   NAME            CREATED AT
   cluster-admin   2022-08-13T11:17:28Z
@@ -1013,7 +1013,7 @@ eyJhbGciOiJSUzI1NiIsImtpZCI6IjFJX0tmbFozQWQ1R2tyN3dMZkNBZDZ0RGpfY2hSUmNoaFI3UTNw
 
 #### 测试验证
 
-```shell
+```bash
 [root@k8s-master rbactest]# kubectl get sa -n kube-system
 NAME                                 SECRETS   AGE
 ......

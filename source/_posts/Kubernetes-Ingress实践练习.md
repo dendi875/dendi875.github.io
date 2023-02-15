@@ -38,7 +38,7 @@ NGINX Ingress Controller 是使用 Kubernetes Ingress 资源对象构建的，�
 * https://github.com/kubernetes/ingress-nginx/blob/main/docs/deploy/index.md
 * https://github.com/kubernetes/ingress-nginx/blob/main/docs/deploy/baremetal.md
 
-```shell
+```bash
 # 下载资源清单文件
 wget https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.47.0/deploy/static/provider/baremetal/deploy.yaml -O ingress.yaml
 
@@ -166,7 +166,7 @@ spec:
 
 直接创建上面的资源对象：
 
-```shell
+```bash
 [root@k8s-master ingress]# kubectl apply -f ingress-demo.yaml 
 deployment.apps/hello-server created
 deployment.apps/nginx-demo created
@@ -176,7 +176,7 @@ service/hello-server created
 
 查看创建的 deploy 和 servcie
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl get deploy
 NAME           READY   UP-TO-DATE   AVAILABLE   AGE
 hello-server   2/2     2            2           5m11s
@@ -234,7 +234,7 @@ spec:
 
 修改 hosts 文件让hello.zhangquan.me,demo.zhangquan.me这两个域名能够解析到我们的master节点
 
-```shell
+```bash
 # hosts 文件中加入这二行
 k8s-master-ip hello.zhangquan.me
 k8s-master-ip demo.zhangquan.me
@@ -242,14 +242,14 @@ k8s-master-ip demo.zhangquan.me
 
 创建上面的资源对象：
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl apply -f ingress/ingress-domain-access.yaml 
 ingress.networking.k8s.io/ingress-host-bar created
 ```
 
 查看创建结果：
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl get ingress
 NAME               CLASS   HOSTS                                  ADDRESS   PORTS   AGE
 ingress-host-bar   nginx   hello.zhangquan.me,demo.zhangquan.me             80      5s
@@ -305,7 +305,7 @@ spec:
 
 修改 hosts 文件让hello.zhangquan.io,demo.zhangquan.io这两个域名能够解析到我们的master节点
 
-```shell
+```bash
 # hosts 文件中加入这二行
 k8s-master-ip hello.zhangquan.me.hello.zhangquan.io
 k8s-master-ip demo.zhangquan.me,demo.zhangquan.io
@@ -313,14 +313,14 @@ k8s-master-ip demo.zhangquan.me,demo.zhangquan.io
 
 创建资源对象：
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl apply -f ingress/ingress-url-rewrite.yaml 
 ingress.networking.k8s.io/ingress-url-rewrite created
 ```
 
 查看 ingress：
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl get ing
 NAME                  CLASS   HOSTS                                  ADDRESS      PORTS   AGE
 ingress-host-bar      nginx   hello.zhangquan.me,demo.zhangquan.me   172.31.0.4   80      47m
@@ -361,20 +361,20 @@ spec:
 
 修改 hosts 文件让 haha.zhangquan.io 这个域名能够解析到我们的master节点
 
-```shell
+```bash
 k8s-master-ip demo.zhangquan.limitrate
 ```
 
 创建资源对象：
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl apply -f ingress/ingress-limit-rate.yaml
 ingress.networking.k8s.io/ingress-limit-rate created
 ```
 
 查看ingress：
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl get ing
 NAME                  CLASS   HOSTS                                  ADDRESS      PORTS   AGE
 ingress-host-bar      nginx   hello.zhangquan.me,demo.zhangquan.me   172.31.0.4   80      100m

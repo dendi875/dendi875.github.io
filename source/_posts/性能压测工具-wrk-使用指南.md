@@ -41,7 +41,7 @@ wrk 目前仅支持单机压测，后续也不太可能支持多机器对目标�
 
 #### 3.1.1 Ubuntu/Debian
 
-```shell
+```bash
 $ sudo apt-get install build-essential libssl-dev git -y
 $ git clone https://github.com/wg/wrk.git wrk
 $ cd wrk
@@ -52,7 +52,7 @@ $ sudo cp wrk /usr/local/bin
 
 #### 3.1.2 CentOS/RedHat/Fedora
 
-```shell
+```bash
 $ sudo yum groupinstall 'Development Tools'
 $ sudo yum install -y openssl-devel git 
 $ git clone https://github.com/wg/wrk.git wrk
@@ -64,7 +64,7 @@ $ sudo cp wrk /usr/local/bin
 
 ### 3.2 MacOS 安装
 
-```shell
+```bash
 brew install wrk
 ```
 
@@ -72,7 +72,7 @@ brew install wrk
 
 ### 4.1 基础使用
 
-```shell
+```bash
 $ wrk -t12 -c400 -d30s http://www.zhangquan.me
 ```
 

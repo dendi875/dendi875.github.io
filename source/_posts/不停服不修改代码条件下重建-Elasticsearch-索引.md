@@ -54,7 +54,7 @@ cerebro 和 kinaba 都有控制台来输入执行命令，十分方便
 
 1. 最终要使用重建的索引，原始的索引将被删除。如果你的代码中正在直接使用索引名，在重建前创建别名，更新代码。如果已经使用的是别名那可以跳过这一步。
 
-```shell
+```bash
 POST /_aliases
 {
   "actions": [
@@ -76,7 +76,7 @@ POST /_aliases
 
 和创建普通索引一样创建新索引。这里值得一提的时，当数据量很大的时候，需要设置刷新时间间隔，在此期间写入的数据不能搜到，从而提高重建速度：```refresh_intervals = -1, number_of_replicas = 0```
 
-```shell
+```bash
 PUT /new_index
 {
     "settings": {
@@ -93,7 +93,7 @@ PUT /new_index
 
 
 ### 关闭自动刷新
-```shell
+```bash
 PUT new_index/_settings
 {
     "index" : {
@@ -125,7 +125,7 @@ ES 中刷新索引和写入磁盘是两个不同的过程。
 调用 reindex 接口，接口将会在 reindex 结束后返回，而接口返回超时只有30秒，如果 reindex 时间过长，建议加上wait_for_completion=false的参数条件，这样 reindex 将直接返回taskId
 
 
-```shell
+```bash
 POST _reindex?wait_for_completion=false
 {
   "source": {
@@ -143,7 +143,7 @@ POST _reindex?wait_for_completion=false
 
 重建索引非常耗时，可以使用 ```task API``` 以看到重建进程，其中包含耗时，剩余doc数量等信息。
 
-```shell
+```bash
 GET _tasks/{taskID}
 ```
 
@@ -154,7 +154,7 @@ GET _tasks/{taskID}
 
 ### 恢复自动刷新，恢复副本数
 
-```shell
+```bash
 PUT new_index/_settings
 {
     "index" : {
@@ -167,7 +167,7 @@ PUT new_index/_settings
 
 ### 给新索引设置别名，它的名称为程序中使用的，解除老索引与别名的绑定
 
-```shell
+```bash
 POST /_aliases
 {
     "actions": [
@@ -190,7 +190,7 @@ POST /_aliases
 
 ### 删除旧索引
 
-```shell
+```bash
 DELETE current_index
 ```
 

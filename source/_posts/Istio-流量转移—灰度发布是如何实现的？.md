@@ -102,7 +102,7 @@ spec:
 
 这个规则定义了 50% 的对 Reviews 的流量会落入 v1 这个 subset，就是没有 Ratings 的这个服务，50% 会落入 v3 带红色 Ratings 的这个服务，然后我们创建这个资源对象：
 
-```shell
+```bash
 # zhangquan @ MacBook-Pro-2 in ~/Downloads/devops/istio-1.5.1 [16:56:25] 
 $ kubectl apply -f samples/bookinfo/networking/virtual-service-reviews-50-v3.yaml
 virtualservice.networking.istio.io/reviews created
@@ -110,7 +110,7 @@ virtualservice.networking.istio.io/reviews created
 
 查看当前网格中的 VirtualService 对象，可以看到已经有 reviews 了，证明已经创建成功了：
 
-```shell
+```bash
 # zhangquan @ MacBook-Pro-2 in ~/Downloads/devops/istio-1.5.1 [16:58:00] 
 $  kubectl get virtualservice
 NAME           GATEWAYS             HOSTS       AGE
@@ -121,7 +121,7 @@ reviews                             [reviews]   12s
 
 我们查看目前我们网格中的 DestinationRules:
 
-```shell
+```bash
 # zhangquan @ MacBook-Pro-2 in ~/Downloads/devops/istio-1.5.1 [17:01:55] 
 $ kubectl get destinationrule
 No resources found in default namespace.
@@ -129,7 +129,7 @@ No resources found in default namespace.
 
 还没有 DestinationRules，我们需要通过 DestinationRule 将 VirtualService 与 Service 不同的版本关联起来。现在我们直接创建 DestinationRule 资源：
 
-```shell
+```bash
 # zhangquan @ MacBook-Pro-2 in ~/Downloads/devops/istio-1.5.1 [17:04:52] 
 $ kubectl apply -f  samples/bookinfo/networking/destination-rule-all.yaml  
 destinationrule.networking.istio.io/productpage created
@@ -140,7 +140,7 @@ destinationrule.networking.istio.io/details created
 
 创建完成后，我们就可以查看目前我们网格中的 DestinationRules:
 
-```shell
+```bash
 # zhangquan @ MacBook-Pro-2 in ~/Downloads/devops/istio-1.5.1 [17:05:50] 
 $ kubectl get destinationrule
 NAME          HOST          AGE

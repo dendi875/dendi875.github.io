@@ -31,14 +31,14 @@ categories: Istio
 
 * 执行以下命令，启动一个单节点的 k8s 集群
 
-```shell
+```bash
 # zhangquan @ MacBook-Pro in ~/Downloads/devops [23:42:20] 
 $ minikube start --memory=16384 --cpus=4 --image-mirror-country='cn' --image-repository='registry.cn-hangzhou.aliyuncs.com/google_containers' --kubernetes-version=v1.16.0
 ```
 
 * 在 [GitHub Release 页面 ](https://github.com/istio/istio/releases)获取对应系统版本下载地址
 
-```shell
+```bash
 # zhangquan @ MacBook-Pro in ~/Downloads/devops [16:35:30] 
 $ wget https://storage.googleapis.com/istio-release/releases/1.5.1/istio-1.5.1-osx.tar.gz 
 
@@ -73,7 +73,7 @@ istio 提供了一些配置档案，也就是`Profile`，它的目的就是让�
 
 ![](https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20220912170843.png)安装 istio 的工具和文件准备好过后，直接执行如下所示的安装命令即可：
 
-```shell
+```bash
 # zhangquan @ MacBook-Pro in ~/Downloads/devops/istio-1.5.1 [17:10:27] 
 $ istioctl manifest apply --set profile=demo
 Detected that your cluster does not support third party JWT authentication. Falling back to less secure first party JWT. See https://istio.io/docs/ops/best-practices/security/#configure-third-party-service-account-tokens for details.
@@ -97,7 +97,7 @@ Detected that your cluster does not support third party JWT authentication. Fall
 
 安装完成后我们可以查看 istio-system 命名空间下面的 Pod 运行状态：
 
-```shell
+```bash
 $  kubectl get pods -n istio-system
 NAME                                    READY   STATUS    RESTARTS   AGE
 grafana-5cc7f86765-89z9l                1/1     Running   0          5m18s
@@ -113,7 +113,7 @@ prometheus-6c88c4cb8-2dt5k              2/2     Running   0          5m18s
 
 安装完成后还可以检测一下`istio`的`CRD`和`API资源`:
 
-```shell
+```bash
 $ kubectl get crd | grep istio
 adapters.config.istio.io                   2022-09-09T21:58:30Z
 attributemanifests.config.istio.io         2022-09-09T21:58:30Z
@@ -144,7 +144,7 @@ virtualservices.networking.istio.io        2022-09-09T21:58:30Z
 
 查看一下 `API资源`：
 
-```shell
+```bash
 $ kubectl api-resources | grep istio 
 meshpolicies                                   authentication.istio.io        false        MeshPolicy
 policies                                       authentication.istio.io        true         Policy
@@ -179,7 +179,7 @@ istio 官方提供了一些 Dashboard，可以以可视化的方式直接去查�
 
 我们直接启动 `Kiali`这个 Dashboard：
 
-```shell
+```bash
 # zhangquan @ MacBook-Pro in ~/Downloads/devops/istio-1.5.1 [17:24:02] 
 $ istioctl dashboard kiali
 ```
@@ -221,7 +221,7 @@ reviews 微服务有 3 个版本：
 
 * 自动注入
 
-  ```shell
+  ```bash
   # zhangquan @ MacBook-Pro in ~/Downloads/devops/istio-1.5.1 [19:43:36]
   $ kubectl label namespace default istio-injection=enabled
   namespace/default labeled
@@ -231,13 +231,13 @@ reviews 微服务有 3 个版本：
 
 * 手动注入
 
-  ```shell
+  ```bash
   kubectl apply -f <(istioctl kube-inject -f samples/bookinfo/platform/kube/bookinfo.yaml)
   ```
 
 ### 部署应用
 
-```shell
+```bash
 # zhangquan @ MacBook-Pro in ~/Downloads/devops/istio-1.5.1 [19:43:39] 
 $ kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml 
 service/details created
@@ -260,7 +260,7 @@ deployment.apps/productpage-v1 created
 
 过一会儿就可以看到如下 service 和 pod 启动:
 
-```shell
+```bash
 # zhangquan @ MacBook-Pro in ~/Downloads/devops/istio-1.5.1 [19:46:55] 
 $ kubectl get po 
 NAME                              READY   STATUS    RESTARTS   AGE
@@ -283,7 +283,7 @@ reviews       ClusterIP   10.110.207.93    <none>        9080/TCP   3m6s
 
 可以看到每个 pod 中有两个 container，一个是应用本身的，另一个是我们自动注入的 Sidecar。
 
-```shell
+```bash
 $ kubectl describe pod details-v1-78d78fbddf-5srj5        
 Name:         details-v1-78d78fbddf-5srj5
 Namespace:    default
@@ -329,7 +329,7 @@ Containers:
 
 创建一个 gateway:
 
-```shell
+```bash
 # zhangquan @ MacBook-Pro in ~/Downloads/devops/istio-1.5.1 [19:56:37] 
 $ kubectl apply -f samples/bookinfo/networking/bookinfo-gateway.yaml
 gateway.networking.istio.io/bookinfo-gateway created
@@ -338,7 +338,7 @@ virtualservice.networking.istio.io/bookinfo created
 
 验证 gateway 是否启动成功:
 
-```shell
+```bash
 $ kubectl get gateway
 NAME               AGE
 bookinfo-gateway   40s
@@ -346,7 +346,7 @@ bookinfo-gateway   40s
 
 要想取访问这个应用，这里我们需要更改下 istio 提供的 istio-ingressgateway 这个 Service 对象，默认是 LoadBalancer 类型的服务：
 
-```shell
+```bash
 $ kubectl get svc -n istio-system
 NAME                        TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)                                                                                                                                      AGE
 ......
@@ -356,11 +356,11 @@ istio-ingressgateway        LoadBalancer   10.102.174.244   <pending>     15020:
 
 LoadBalancer 类型的服务，实际上是用来对接云服务厂商的，如果我们没有对接云服务厂商的话，可以将这里类型改成 `NodePort`，但是这样当访问我们的服务的时候就需要加上 nodePort 端口了：
 
-```shell
+```bash
 kubectl edit svc istio-ingressgateway -n istio-system
 ```
 
-```shell
+```bash
 # zhangquan @ MacBook-Pro in ~/Downloads/devops/istio-1.5.1 [20:07:44] 
 $ kubectl get svc -n istio-system
 NAME                        TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                                                                                                                                      AGE

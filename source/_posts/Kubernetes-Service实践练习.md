@@ -75,13 +75,13 @@ Service是将请求进行负载分发到后端的各个容器应用上的控制�
 
 2. 创建实例
 
-   ```shell
+   ```bash
    kubectl apply -f deployment/my-nginx-deployment.yaml 
    ```
 
 3. 查看我们部署 3 个 Nginx Pod
 
-   ```shell
+   ```bash
    [root@k8s-master ~]# kubectl get pods 
    NAME                                   READY   STATUS    RESTARTS   AGE
    my-nginx-deployment-69dfcd645b-2mjjt   1/1     Running   1          21h
@@ -101,7 +101,7 @@ Service是将请求进行负载分发到后端的各个容器应用上的控制�
 
 4. 分别进入这3个Pod的Nginx容器中，并分别修改Nginx默认首页
 
-   ```shell
+   ```bash
    [root@k8s-master ~]# kubectl exec -it my-nginx-deployment-69dfcd645b-2mjjt -c nginx -- /bin/bash
    x.htmly-nginx-deployment-69dfcd645b-2mjjt:/# echo 111 > /usr/share/nginx/html/index.html
    
@@ -114,7 +114,7 @@ Service是将请求进行负载分发到后端的各个容器应用上的控制�
 
 5.  在 Master 节点上验证都能正常访问
 
-   ```shell
+   ```bash
    # 验证能正常访问到
    [root@k8s-master ~]# kubectl get pod -owide
    NAME                                   READY   STATUS    RESTARTS   AGE   IP                NODE        NOMINATED NODE   READINESS GATES
@@ -134,7 +134,7 @@ Service是将请求进行负载分发到后端的各个容器应用上的控制�
 
 6. 打印下 Pod 的标签
 
-   ```shell
+   ```bash
    [root@k8s-master ~]# kubectl get pod --show-labels
    NAME                                   READY   STATUS    RESTARTS   AGE   LABELS
    my-nginx-deployment-69dfcd645b-2mjjt   1/1     Running   1          21h   app=my-nginx-deployment,pod-template-hash=69dfcd645b
@@ -174,14 +174,14 @@ Service是将请求进行负载分发到后端的各个容器应用上的控制�
 
 * 创建svc
 
-  ```shell
+  ```bash
   [root@k8s-master ~]# kubectl apply -f service/my-nginx-service-clusterip.yaml 
   service/my-nginx-service created
   ```
 
 * 查看svc
 
-  ```shell
+  ```bash
   [root@k8s-master ~]# kubectl get svc,pod
   NAME                       TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
   service/kubernetes         ClusterIP   10.96.0.1       <none>        443/TCP    46h
@@ -195,7 +195,7 @@ Service是将请求进行负载分发到后端的各个容器应用上的控制�
 
 * 访问测试
 
-  ```shell
+  ```bash
   # 使用内部ip访问测试
   [root@k8s-master ~]# curl 10.96.111.244:8080
   333
@@ -216,7 +216,7 @@ Service是将请求进行负载分发到后端的各个容器应用上的控制�
 
 * 在Pod内通过service域名（服务名.所在名称空间.svc）访问
 
-  ```shell
+  ```bash
   # 首先部署一个 tomcat
   [root@k8s-master ~]# kubectl create deploy my-tomcat --image=tomcat
   deployment.apps/my-tomcat created
@@ -282,14 +282,14 @@ NodePort 也叫节点端口访问方式。
 
 * 创建 svc
 
-  ```shell
+  ```bash
   [root@k8s-master ~]# kubectl apply -f service/my-nginx-service-nodeport.yaml
   service/my-nginx-service configured
   ```
 
 * 查看svc
 
-  ```shell
+  ```bash
   [root@k8s-master ~]# kubectl get svc,pod
   NAME                       TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
   service/kubernetes         ClusterIP   10.96.0.1       <none>        443/TCP          46h
@@ -307,7 +307,7 @@ NodePort 也叫节点端口访问方式。
 
   * 可以通过 `<ClusterIP>:<service.Port>` 来访问
 
-    ```shell
+    ```bash
     [root@k8s-master ~]# curl 10.96.111.244:8080
     333
     [root@k8s-master ~]# curl 10.96.111.244:8080
@@ -318,7 +318,7 @@ NodePort 也叫节点端口访问方式。
 
   * 通过`<NodeIP>:<NodePort>`方式来访问，访问任意一台机器都可以，如果使用云服务器，要在安全组里放行 30000-32767端口
 
-    ```shell
+    ```bash
     # zhangquan @ MacBook-Pro in ~ [17:48:35] C:7
     $ curl 139.198.183.73:31039
     222
@@ -390,14 +390,14 @@ ExternalName Service 是 Service 的一个特例，它没有选择器，也没�
 
 * 创建svc
 
-  ```shell
+  ```bash
   [root@k8s-master ~]# kubectl apply -f service/my-nginx-service-externalname.yaml
   service/my-service-externalname created
   ```
 
 * 查看svc
 
-  ```shell
+  ```bash
   [root@k8s-master ~]# kubectl get svc,pod
   NAME                              TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)          AGE
   service/kubernetes                ClusterIP      10.96.0.1       <none>          443/TCP          46h
@@ -412,7 +412,7 @@ ExternalName Service 是 Service 的一个特例，它没有选择器，也没�
 
 * 访问测试
 
-  ```shell
+  ```bash
   [root@k8s-master ~]# kubectl get pods
   NAME                                   READY   STATUS    RESTARTS   AGE
   my-nginx-deployment-69dfcd645b-2mjjt   1/1     Running   1          22h

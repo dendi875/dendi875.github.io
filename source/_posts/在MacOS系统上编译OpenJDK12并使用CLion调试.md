@@ -37,13 +37,13 @@ macOS Catalina 版本 10.15.6
 1）[下载 JDK 11](https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_osx-x64_bin.tar.gz)
 
 2）解压安装包
-```shell
+```bash
 $ sudo tar -zxf /Users/zhangquan/Downloads/openjdk-11.0.2_osx-x64_bin.tar.gz -C /Library/Java/JavaVirtualMachines/ 
 ```
 
 3）使用 jenv add 命令将 JDK 11 加入  jenv 中
 
-```shell
+```bash
 $ jenv add /Library/Java/JavaVirtualMachines/jdk-11.0.2.jdk/Contents/Home/
 ```
 
@@ -60,12 +60,12 @@ OpenJDK 64-Bit Server VM 18.9 (build 11.0.2+9, mixed mode)
 ## 3. 安装依赖
 
 用于生成shell脚本的工具,可以使软件包在不同的系统下都可以编译
-```shell
+```bash
 $ brew install autoconf
 ```
 
 字体引擎
-```shell
+```bash
 $ brew install freetype
 ```
 
@@ -147,7 +147,7 @@ $ make images
 
 在 configure 命令以及 make images 命令的执行过程 中，会在 "build/macosx-x86_64-server-slowdebug"目录 下产生如下目录结构
 
-```shell
+```bash
 ├── Makefile
 ├── bootcycle-spec.gmk
 ├── build.log
@@ -167,7 +167,7 @@ $ make images
 编译完成之后，进入 OpenJDK 源码的 "build/配置名称/jdk" 目录下就可以看到 OpenJDK 的完整编译结果了
 
 验证编译成功
-```shell
+```bash
 $ /Users/zhangquan/jvm/jdk12-06222165c35f/jdk12-06222165c35f/build/macosx-x86_64-server-slowdebug/jdk/bin/java -version
 openjdk version "12-internal" 2019-03-19
 OpenJDK Runtime Environment (slowdebug build 12-internal+0-adhoc.zhangquan.jdk12-06222165c35f)
@@ -179,7 +179,7 @@ OpenJDK 64-Bit Server VM (slowdebug build 12-internal+0-adhoc.zhangquan.jdk12-06
 在配置CLion的时候,直接import编译好之后的jdk源码,你会发现头文件都是红色的,无法找到提示,是因为CLion生产的CMakeLists.txt有问题,如果想要解决这个问题就需要修改这个文件,很明显我不会修。
 最后通过JetBrains说的利用Compilation Database (blog.jetbrains.com/clion/2020/…) 在CLion中构建OpenJDK解决了这个问题。
 
-```shell
+```bash
 $ make CONF=macosx-x86_64-server-slowdebug compile-commands
 Building target 'compile-commands' in configuration 'macosx-x86_64-server-slowdebug'
 Updating compile_commands.json
@@ -240,7 +240,7 @@ Before luanch：这个下面新增的时候有一个 bug, 去掉就不会每次�
 
 由于我们使用的 LLDB 进行 debug 的，所以在进入第一个断点的时候在 LLDB 下执行以下命令可以避免此类问题
 
-```shell
+```bash
 pro hand -p true -s false SIGSEGV SIGBUS
 ```
 
@@ -252,7 +252,7 @@ pro hand -p true -s false SIGSEGV SIGBUS
 
 不过每次 debug 的时候都要输入这么一句就很麻烦，所以我们可以在 **~/.lldbinit** 文件中，使用如下命令，实现每次 Debug 时自动打个断点，然后输入 pro hand -p true -s false SIGSEGV SIGBUS, 最后继续执行后续流程，文件内容如下 (其中 main.c 文件的路径自行替换)
 
-```shell
+```bash
 breakpoint set --file /Users/zhangquan/jvm/jdk12-06222165c35f/jdk12-06222165c35f/src/java.base/share/native/launcher/main.c --line 98 -C "pro hand -p true -s false SIGSEGV SIGBUS" --auto-continue true
 ```
 

@@ -76,7 +76,7 @@ Helm 是 Deis 发起的一个 Kubernetes 包管理器，类似于 Linux 中的 a
 
 
 
-```shell
+```bash
 # zhangquan @ MacBook-Pro in ~ [17:29:54] 
 $ kubectl get nodes
 NAME             STATUS   ROLES    AGE   VERSION
@@ -85,7 +85,7 @@ docker-desktop   Ready    master   20d   v1.15.5
 
 下载到本地解压后，将 helm 二进制包文件移动到任意的 PATH 路径下即可：
 
-```shell
+```bash
 # zhangquan @ MacBook-Pro in ~/Downloads/darwin-amd64 [13:21:28] 
 $ ll
 total 99104
@@ -104,7 +104,7 @@ version.BuildInfo{Version:"v3.7.1", GitCommit:"1d11fcb5d3f3bf00dbe6fe31b8412839a
 
 一旦 Helm 客户端准备成功后，我们就可以添加一个 chart 仓库，当然最常用的就是官方的 Helm stable charts 仓库，但是由于官方的 charts 仓库地址需要科学上网，我们可以使用微软的 charts 仓库代替：
 
-```shell
+```bash
 $ helm repo add stable http://mirror.azure.cn/kubernetes/charts/
 "stable" has been added to your repositories
 
@@ -115,7 +115,7 @@ stable  http://mirror.azure.cn/kubernetes/charts/
 
 安装完成后可以用 search 命令来搜索可以安装的 chart 包：
 
-```shell
+```bash
 $ helm search repo stable
 NAME                                    CHART VERSION   APP VERSION             DESCRIPTION                                       
 stable/acs-engine-autoscaler            2.2.2           2.1.1                   DEPRECATED Scales worker nodes within agent pools 
@@ -143,7 +143,7 @@ Update Complete. ⎈Happy Helming!⎈
 
 比如我们现在安装一个 `mysql` 应用：
 
-```shell
+```bash
 $ helm install stable/mysql --generate-name
 WARNING: This chart is deprecated
 NAME: mysql-1661839473
@@ -159,7 +159,7 @@ mysql-1661839473.default.svc.cluster.local
 
 我们可以看到 `stable/mysql` 这个 chart 已经安装成功了，我们将安装成功的这个应用叫做一个 `release`，由于我们在安装的时候指定了`--generate-name` 参数，所以生成的 release 名称是随机生成的，名为 `mysql-1661839473`。我们可以用下面的命令来查看 release 安装以后对应的 Kubernetes 资源的状态：
 
-```shell
+```bash
 $ kubectl get all -l release=mysql-1661839473
 NAME                                    READY   STATUS    RESTARTS   AGE
 pod/mysql-1661839473-7597b94bc5-2lt9c   1/1     Running   0          118s
@@ -176,7 +176,7 @@ replicaset.apps/mysql-1661839473-7597b94bc5   1         1         1       118s
 
 我们也可以 `helm show chart` 命令来了解 MySQL 这个 chart 包的一些特性：
 
-```shell
+```bash
 $ helm show chart stable/mysql
 apiVersion: v1
 appVersion: 5.7.30
@@ -207,7 +207,7 @@ $ helm show all stable/mysql
 
 同样我们也可以用 Helm 很容易查看到已经安装的 release：
 
-```shell
+```bash
 $ helm ls                        
 NAME                    NAMESPACE       REVISION        UPDATED                                 STATUS          CHART           APP VERSION
 mysql-1661839473        default         1               2022-08-30 14:04:36.833439 +0800 CST    deployed        mysql-1.6.9     5.7.30 
@@ -215,7 +215,7 @@ mysql-1661839473        default         1               2022-08-30 14:04:36.8334
 
 如果需要删除这个 release，也很简单，只需要使用 `helm uninstall` 命令即可：
 
-```shell
+```bash
 $ helm uninstall mysql-1661839473  
 release "mysql-1661839473" uninstalled
 
@@ -228,7 +228,7 @@ Error: release: not found
 
 `uninstall` 命令会从 Kubernetes 中删除 release，也会删除与 release 相关的所有 Kubernetes 资源以及 release 历史记录。也可以在删除的时候使用 `--keep-history` 参数，则会保留 release 的历史记录，可以获取该 release 的状态就是 `UNINSTALLED`，而不是找不到 release了：
 
-```shell
+```bash
 $ helm uninstall mysql-1661839949 --keep-history
 release "mysql-1661839949" uninstalled
 
@@ -254,7 +254,7 @@ mysql-1661839949        default         1               2022-08-30 14:12:32.7642
 
 我们可以使用 `helm show values` 命令来查看一个 chart 包的所有可配置的参数选项：
 
-```shell
+```bash
 $ helm show values stable/mysql
 ## mysql image version
 ## ref: https://hub.docker.com/r/library/mysql/tags/
@@ -318,7 +318,7 @@ persistence:
 
 传递配置数据方式安装：
 
-```shell
+```bash
 $ helm install -f config.yaml stable/mysql  --generate-name
 WARNING: This chart is deprecated
 NAME: mysql-1661840339
@@ -334,7 +334,7 @@ mysql-1661840339.default.svc.cluster.local
 
 release 安装成功后，可以查看对应的 Pod 信息：
 
-```shell
+```bash
 $ kubectl get pod -l release=mysql-1661840339
 NAME                               READY   STATUS    RESTARTS   AGE
 mysql-1661840339-655bdc759-4d94f   1/1     Running   0          2m25s
@@ -365,7 +365,7 @@ name: value
 
 多个值之间用字符串“,”隔开，用法就是 `--set a=b,c=d`，相当于 YAML 文件中的：
 
-```shell
+```bash
 a: b
 c: d
 ```
@@ -429,7 +429,7 @@ nodeSelector:
 
 当新版本的 chart 包发布的时候，或者当你要更改 release 的配置的时候，你可以使用 `helm upgrade` 命令来操作。升级需要一个现有的 release，并根据提供的信息对其进行升级。因为 Kubernetes charts 可能很大而且很复杂，Helm 会尝试以最小的侵入性进行升级，它只会更新自上一版本以来发生的变化：
 
-```shell
+```bash
 $ cat panda.yaml 
 mysqlUser:
   user0
@@ -442,7 +442,7 @@ mysqlRootPassword: passw0rd
 
 升级：
 
-```shell
+```bash
 $ helm ls
 NAME                    NAMESPACE       REVISION        UPDATED                                 STATUS          CHART           APP VERSION
 mysql-1661840339        default         1               2022-08-30 14:19:03.821832 +0800 CST    deployed        mysql-1.6.9     5.7.30   
@@ -470,7 +470,7 @@ mysqlRootPassword: passw0rd
 
 我们可以使用 `helm get values` 来查看新设置是否生效：
 
-```shell
+```bash
 # zhangquan @ MacBook-Pro in ~/code/github.com/k8s-app/helm [14:32:10] 
 $ helm get values mysql-1661840339
 USER-SUPPLIED VALUES:
@@ -484,7 +484,7 @@ persistence:
 
 `helm get` 命令是查看集群中 release 的非常有用的命令，正如我们在上面看到的，它显示了 `panda.yaml` 中的新配置值被部署到了集群中，现在如果某个版本在发布期间没有按计划进行，那么可以使用 `helm rollback [RELEASE] [REVISION]` 命令很容易回滚到之前的版本：
 
-```shell
+```bash
 # zhangquan @ MacBook-Pro in ~/code/github.com/k8s-app/helm [14:32:59] 
 $ helm ls
 NAME                    NAMESPACE       REVISION        UPDATED                                 STATUS          CHART           APP VERSION

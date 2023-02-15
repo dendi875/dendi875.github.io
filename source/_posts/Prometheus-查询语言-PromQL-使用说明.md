@@ -24,7 +24,7 @@ Prometheus 通过指标名称（metrics name）以及对应的一组标签（lab
 
 通过 node-exporter 暴露的 metrics 服务，Prometheus 可以采集到当前主机所有监控指标的样本数据。例如：
 
-```shell
+```bash
 # HELP node_cpu_seconds_total Seconds the cpus spent in each mode.
 # TYPE node_cpu_seconds_total counter
 node_cpu_seconds_total{cpu="0",mode="idle"} 6.62885731e+06
@@ -37,7 +37,7 @@ node_load1 2.29
 
 Prometheus 会将所有采集到的样本数据以时间序列的方式保存在**内存数据库**中，并且定时保存到硬盘上。时间序列是按照时间戳和值的序列顺序存放的，我们称之为向量(vector)，每条时间序列通过指标名称(metrics name)和一组标签集(labelset)命名。如下所示，可以将时间序列理解为一个以时间为 X 轴的数字矩阵：
 
-```shell
+```bash
   ^
   │   . . . . . . . . . . . . . . . . .   . .   node_cpu_seconds_total{cpu="cpu0",mode="idle"}
   │     . . . . . . . . . . . . . . . . . . .   node_cpu_seconds_total{cpu="cpu0",mode="system"}
@@ -55,7 +55,7 @@ Prometheus 会将所有采集到的样本数据以时间序列的方式保存在
 
 如下所示：
 
-```shell
+```bash
 <--------------- metric ---------------------><-timestamp -><-value->
 http_request_total{status="200", method="GET"}@1434417560938 => 94355
 http_request_total{status="200", method="GET"}@1434417561287 => 94334
@@ -69,7 +69,7 @@ http_request_total{status="200", method="POST"}@1434417561287 => 4785
 
 在形式上，所有的指标(Metric)都通过如下格式表示：
 
-```shell
+```bash
 <metric name>{<label name> = <label value>, ...}
 ```
 
@@ -93,7 +93,7 @@ http_request_total{status="200", method="POST"}@1434417561287 => 4785
 
 在 node-exporter 返回的样本数据中，其注释中也包含了该样本的类型。例如：
 
-```shell
+```bash
 # HELP node_cpu_seconds_total Seconds the cpus spent in each mode.
 # TYPE node_cpu_seconds_total counter
 node_cpu_seconds_total{cpu="cpu0",mode="idle"} 362812.7890625
@@ -105,13 +105,13 @@ node_cpu_seconds_total{cpu="cpu0",mode="idle"} 362812.7890625
 
 `Counter` 是一个简单但又强大的工具，例如我们可以在应用程序中记录某些事件发生的次数，通过以时间序列的形式存储这些数据，我们可以轻松的了解该事件产生的速率变化。`PromQL` 内置的聚合操作和函数可以让用户对这些数据进行进一步的分析，例如，通过 `rate()` 函数获取 HTTP 请求量的增长率：
 
-```shell
+```bash
 rate(http_requests_total[5m])
 ```
 
 查询当前系统中，访问量前 10 的 HTTP 请求：
 
-```shell
+```bash
 topk(10, http_requests_total)
 ```
 
@@ -119,19 +119,19 @@ topk(10, http_requests_total)
 
 与 `Counter` 不同，`Gauge`（可增可减的仪表盘）类型的指标侧重于反应系统的当前状态。因此这类指标的样本数据可增可减。常见指标如：`node_memory_MemFree_bytes`（主机当前空闲的内存大小）、`node_memory_MemAvailable_bytes`（可用内存大小）都是 `Gauge` 类型的监控指标。通过 `Gauge`指标，用户可以直接查看系统的当前状态：
 
-```shell
+```bash
 node_memory_MemFree_bytes
 ```
 
 对于 `Gauge` 类型的监控指标，通过 `PromQL` 内置函数 `delta()` 可以获取样本在一段时间范围内的变化情况。例如，计算 CPU 温度在两个小时内的差异：
 
-```shell
+```bash
 delta(cpu_temp_celsius{host="zeus"}[2h])
 ```
 
 还可以直接使用 `predict_linear()` 对数据的变化趋势进行预测。例如，预测系统磁盘空间在4个小时之后的剩余情况：
 
-```shell
+```bash
 predict_linear(node_filesystem_free_bytes[1h], 4 * 3600)
 ```
 
@@ -145,7 +145,7 @@ predict_linear(node_filesystem_free_bytes[1h], 4 * 3600)
 
 例如，指标 `prometheus_tsdb_wal_fsync_duration_seconds` 的指标类型为 Summary。它记录了 Prometheus Server 中 `wal_fsync` 的处理时间，通过访问 Prometheus Server 的 `/metrics` 地址，可以获取到以下监控样本数据：
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl get svc -n kube-mon
 NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)             AGE
 grafana      NodePort    10.96.179.102   <none>        3000:30907/TCP      20h
@@ -155,7 +155,7 @@ redis        ClusterIP   10.96.143.235   <none>        6379/TCP,9121/TCP   2d15h
 
 
 
-```shell
+```bash
 [root@k8s-master ~]# curl http://localhost:32640/metrics
 ......
 # HELP prometheus_tsdb_wal_fsync_duration_seconds Duration of WAL fsync.
@@ -174,7 +174,7 @@ prometheus_tsdb_wal_fsync_duration_seconds_count 216
 
 在 Prometheus Server 自身返回的样本数据中，我们还能找到类型为 Histogram 的监控指标`prometheus_tsdb_compaction_chunk_range_seconds_bucket`：
 
-```shell
+```bash
 # HELP prometheus_tsdb_compaction_chunk_range_seconds Final time range of chunks on their first compaction
 # TYPE prometheus_tsdb_compaction_chunk_range_seconds histogram
 prometheus_tsdb_compaction_chunk_range_seconds_bucket{le="100"} 71
@@ -213,7 +213,7 @@ prometheus_tsdb_compaction_chunk_range_seconds_count 2.5687896e+07
 
 标签过滤器都位于指标名称后面的`{}`内，比如过滤 master 节点的 CPU 使用数据可用如下查询语句：
 
-```shell
+```bash
 node_cpu_seconds_total{instance="k8s-master"}
 ```
 
@@ -225,7 +225,7 @@ node_cpu_seconds_total{instance="k8s-master"}
 
 例如如下查询语句将返回所有以 `ydzs-`为前缀的节点的并且是 `idle` 模式下面的节点 CPU 使用时长指标：
 
-```shell
+```bash
 node_cpu_seconds_total{instance=~"k8s-.*", mode="idle"}
 ```
 
@@ -266,7 +266,7 @@ node_cpu_seconds_total{instance=~"k8s-.*", mode="idle"}
 
 有的时候可能想要查看5分钟前或者昨天一天的区间内的样本数据，这个时候我们就需要用到位移操作了，位移操作的关键字是 `offset`，比如我们可以查询30分钟之前的 master 节点 CPU 的空闲指标数据：
 
-```shell
+```bash
 node_cpu_seconds_total{instance="k8s-master", mode="idle"} offset 30m
 ```
 
@@ -284,13 +284,13 @@ Prometheus 没有提供类似与 SQL 语句的关联查询的概念，但是我�
 
 比如如下的两个瞬时向量：
 
-```shell
+```bash
 node_cpu_seconds_total{instance="k8s-master", cpu="0", mode="idle"}
 ```
 
 和
 
-```shell
+```bash
 node_cpu_seconds_total{instance="k8s-node1", cpu="0", mode="idle"}
 ```
 
@@ -306,7 +306,7 @@ node_cpu_seconds_total{instance="k8s-node1", cpu="0", mode="idle"}
 
 不过在 Prometheus 中还有很多 [聚合操作](https://prometheus.io/docs/prometheus/latest/querying/operators/#aggregation-operators)，所以，如果我们真的想要获取节点的 CPU 总时长，我们完全不用这么操作，使用 `sum` 操作要简单得多：
 
-```shell
+```bash
 sum(node_cpu_seconds_total{mode="idle"}) by (instance)
 ```
 

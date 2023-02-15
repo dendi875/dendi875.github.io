@@ -32,13 +32,13 @@ categories: Kubernetes
 
 * 安装 NFS 服务器软件
 
-  ```shell
+  ```bash
   yum install -y  nfs-utils rpcbind
   ```
 
 * 创建挂载目录并设置权限
 
-  ```shell
+  ```bash
   # 创建挂载目录
   mkdir -p /nfs/data
   
@@ -48,7 +48,7 @@ categories: Kubernetes
 
 * 配置 nfs，nfs 的默认配置文件在 /etc/exports 文件下，在该文件中添加下面的配置信息：
 
-  ```shell
+  ```bash
   $ vi /etc/exports
   /nfs/data/ *(insecure,rw,sync,no_root_squash)
   ```
@@ -71,7 +71,7 @@ categories: Kubernetes
 
 * 先启动 rpcbind
 
-  ```shell
+  ```bash
   [root@k8s-master ~]# systemctl start rpcbind.service
   [root@k8s-master ~]# systemctl enable rpcbind
   [root@k8s-master ~]# systemctl status rpcbind
@@ -88,7 +88,7 @@ categories: Kubernetes
 
 * 然后启动 nfs 服务器
 
-  ```shell
+  ```bash
   [root@k8s-master ~]# systemctl start nfs.service
   [root@k8s-master ~]# systemctl enable nfs
   Created symlink from /etc/systemd/system/multi-user.target.wants/nfs-server.service to /usr/lib/systemd/system/nfs-server.service.
@@ -107,13 +107,13 @@ categories: Kubernetes
 
 * 使配置生效
 
-  ```shell
+  ```bash
    exportfs -r
   ```
 
 * 确认配置
 
-  ```shell
+  ```bash
   [root@k8s-master ~]# exportfs
   /nfs/data       <world>
   ```
@@ -124,7 +124,7 @@ categories: Kubernetes
 
 * 安装 NFS客户端 软件
 
-  ```shell
+  ```bash
   yum install -y  nfs-utils rpcbind
   ```
 
@@ -132,7 +132,7 @@ categories: Kubernetes
 
   * 查看下 NFS 服务器有哪些目录供我们挂载
 
-    ```shell
+    ```bash
     # 使用内网 ip 查看就行
     [root@k8s-node1 ~]# showmount -e 172.31.0.2
     Export list for 172.31.0.2:
@@ -141,19 +141,19 @@ categories: Kubernetes
 
   * 然后我们在客户端上新建目录
 
-    ```shell
+    ```bash
     mkdir -p /root/nfsmount
     ```
 
   * 将 nfs 共享目录挂载到上面的目录
 
-    ```shell
+    ```bash
     mount -t nfs 172.31.0.2:/nfs/data /root/nfsmount
     ```
 
 * 挂载成功后，在客户端上面的目录中新建一个文件，然后我们观察下 nfs 服务端的共享目录下面是否也会出现该文件
 
-  ```shell
+  ```bash
   # 在 nfs server 上写一个测试文件
   [root@k8s-master ~]# echo "hello nfs server" > /nfs/data/test.txt 
   
@@ -203,20 +203,20 @@ spec:
 
 * 创建目录
 
-  ```shell
+  ```bash
   mkdir /nfs/data/nginx-pv
   ```
 
 * 执行资源清单
 
-  ```shell
+  ```bash
   [root@k8s-master ~]# kubectl apply -f storage/nginx-pv-demo.yaml 
   deployment.apps/nginx-pv-demo created
   ```
 
 * 查看部署
 
-  ```shell
+  ```bash
   [root@k8s-master ~]# kubectl get deploy
   NAME            READY   UP-TO-DATE   AVAILABLE   AGE
   nginx-pv-demo   2/2     2            2           8m43s
@@ -231,20 +231,20 @@ spec:
 
   * 查看挂载目录 
 
-    ```shell
+    ```bash
     [root@k8s-master ~]# ll /nfs/data/nginx-pv/
     total 0
     ```
 
   * 修改 nginx 默认首页
 
-    ```shell
+    ```bash
     [root@k8s-master ~]# echo "success" > /nfs/data/nginx-pv/index.html   
     ```
 
   * 进入 Pod 中查看
 
-    ```shell
+    ```bash
     # 第一个 pod
     [root@k8s-master ~]# kubectl exec -it nginx-pv-demo-6ff58db964-c7vqw -- /bin/bash
     root@nginx-pv-demo-6ff58db964-c7vqw:/# curl localhost
@@ -268,7 +268,7 @@ spec:
 
 2. 我们把部署的Pod删除之后，我们挂载的文件还存在，不会跟着Pod一起删除，下面我们来验证这一点
 
-   ```shell
+   ```bash
    # 删除上面原生方式数据挂载产生的 Pod
    [root@k8s-master ~]# kubectl delete -f storage/nginx-pv-demo.yaml 
    deployment.apps "nginx-pv-demo" deleted
@@ -298,7 +298,7 @@ spec:
 
 * nfs 服务器上（master节点上）执行
 
-  ```shell
+  ```bash
   mkdir -p /nfs/data/01
   mkdir -p /nfs/data/02
   mkdir -p /nfs/data/03
@@ -352,7 +352,7 @@ spec:
 
 * 执行上面的资源文件
 
-  ```shell
+  ```bash
   [root@k8s-master ~]# kubectl apply -f storage/nfs-pv.yaml 
   persistentvolume/pv01-10m created
   persistentvolume/pv02-1gi created
@@ -361,7 +361,7 @@ spec:
 
 * 查看PV
 
-  ```shell
+  ```bash
   [root@k8s-master ~]# kubectl get pv
   NAME       CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS      CLAIM   STORAGECLASS   REASON   AGE
   pv01-10m   10M        RWX            Retain           Available           nfs                     22s
@@ -393,14 +393,14 @@ pvc 相当于我们的申请书，可以类比学校里在操场上搞活动，�
 
 * 执行创建
 
-  ```shell
+  ```bash
   [root@k8s-master ~]# kubectl apply -f storage/nfs-pvc.yaml 
   persistentvolumeclaim/nginx-pvc created
   ```
 
 * 查看pvc，pv情况
 
-  ```shell
+  ```bash
   [root@k8s-master ~]# kubectl get pvc
   NAME        STATUS   VOLUME     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
   nginx-pvc   Bound    pv02-1gi   1Gi        RWX            nfs            2m11s
@@ -451,14 +451,14 @@ pvc 相当于我们的申请书，可以类比学校里在操场上搞活动，�
 
 * 执行
 
-  ```shell
+  ```bash
   [root@k8s-master ~]# kubectl apply -f storage/nginx-deploy-pvc.yaml 
   deployment.apps/nginx-deploy-pvc created
   ```
 
 * 查看
 
-  ```shell
+  ```bash
   [root@k8s-master ~]# kubectl get pods
   NAME                                READY   STATUS    RESTARTS   AGE
   nginx-deploy-pvc-79fc8558c7-9vswp   1/1     Running   0          18s
@@ -476,7 +476,7 @@ pvc 相当于我们的申请书，可以类比学校里在操场上搞活动，�
 
 * 修改内容，可以看到分配给 pv02-1gi ，所以修改 /nfs/data/02
 
-  ```shell
+  ```bash
   [root@k8s-master ~]# ll /nfs/data/02/
   total 0
   
@@ -485,7 +485,7 @@ pvc 相当于我们的申请书，可以类比学校里在操场上搞活动，�
 
 * 进入 Pod 中验证有效
 
-  ```shell
+  ```bash
   [root@k8s-master ~]# kubectl exec -it nginx-deploy-pvc-79fc8558c7-9vswp -- /bin/bash
   root@nginx-deploy-pvc-79fc8558c7-9vswp:/# curl localhost
   hello,pv,pvc

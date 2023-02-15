@@ -45,7 +45,7 @@ categories: Istio
 
 - 通过执行[配置请求路由](https://istio.io/latest/zh/docs/tasks/traffic-management/request-routing/)任务或运行以下命令来初始化应用程序版本路由：
 
-  ```shell
+  ```bash
   # 把所有的路由都路由到各个服务的 v1 版本
   $ kubectl apply -f samples/bookinfo/networking/virtual-service-all-v1.yaml
   # 把 Reviews 服务给它指向 v2 版本，因为只有 v2和v3 这两个版本才会调用 Ratings 服务
@@ -54,7 +54,7 @@ categories: Istio
 
   * 查看虚拟服务：
 
-    ```shell
+    ```bash
     $ kubectl get virtualservices
     NAME          GATEWAYS             HOSTS           AGE
     bookinfo      [bookinfo-gateway]   [*]             4d23h
@@ -66,13 +66,13 @@ categories: Istio
 
   * 运行以下命令为 Bookinfo 服务创建默认目标规则：
 
-    ```shell
+    ```bash
     $ kubectl apply -f  samples/bookinfo/networking/destination-rule-all.yaml  
     ```
 
   * 查看目标规则：
 
-    ```shell
+    ```bash
     $  kubectl get destinationrule
     NAME          HOST          AGE
     details       details       11s
@@ -108,14 +108,14 @@ categories: Istio
 
 1. 创建故障注入规则以延迟来自测试用户 `jason` 的流量：
 
-   ```shell
+   ```bash
    $ kubectl apply -f samples/bookinfo/networking/virtual-service-ratings-test-delay.yaml
    virtualservice.networking.istio.io/ratings configured
    ```
 
 2. 确认规则已经创建：
 
-   ```shell
+   ```bash
    $ kubectl get virtualservice ratings -o yaml
    apiVersion: networking.istio.io/v1beta1
    kind: VirtualService
@@ -199,14 +199,14 @@ categories: Istio
 
 1. 为用户 `jason` 创建一个发送 HTTP abort 的故障注入规则：
 
-   ```shell
+   ```bash
    $ kubectl apply -f samples/bookinfo/networking/virtual-service-ratings-test-abort.yaml
    virtualservice.networking.istio.io/ratings configured
    ```
 
 2. 确认规则已经创建：
 
-   ```shell
+   ```bash
    $ kubectl get virtualservice ratings -o yaml
    apiVersion: networking.istio.io/v1beta1
    kind: VirtualService

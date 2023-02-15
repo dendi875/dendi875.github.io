@@ -25,7 +25,7 @@ categories:
 
 你可以在 `MySQL` 配置文件 `my.cnf` 的 `[mysqld]`节中设置如下选项来为所有连接设置默认的隔离级别
 
-```shell
+```bash
 [mysqld]
 transaction-isolation = {READ-UNCOMMITTED | READ-COMMITTED | REPEATABLE-READ | SERIALIZABLE}
 ```

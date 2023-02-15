@@ -53,13 +53,13 @@ Istio 中的 [熔断 ](https://istio.io/latest/docs/tasks/traffic-management/cir
 
   如果您启用了 [Sidecar 自动注入](https://istio.io/latest/zh/docs/setup/additional-setup/sidecar-injection/#automatic-sidecar-injection)，通过以下命令部署 `httpbin` 服务：
 
-  ```shell
+  ```bash
   $ kubectl apply -f samples/httpbin/httpbin.yaml
   ```
 
   否则，您必须在部署 `httpbin` 应用程序前进行手动注入，部署命令如下：
 
-  ```shell
+  ```bash
   $ kubectl apply -f <(istioctl kube-inject -f samples/httpbin/httpbin.yaml)
   ```
 
@@ -69,7 +69,7 @@ Istio 中的 [熔断 ](https://istio.io/latest/docs/tasks/traffic-management/cir
 
 1. 创建一个[目标规则](https://istio.io/latest/zh/docs/reference/config/networking/destination-rule/)，在调用 `httpbin` 服务时应用熔断设置：
 
-   ```shell
+   ```bash
    kubectl apply -f - <<EOF
    apiVersion: networking.istio.io/v1alpha3
    kind: DestinationRule
@@ -94,7 +94,7 @@ Istio 中的 [熔断 ](https://istio.io/latest/docs/tasks/traffic-management/cir
 
 2. 验证目标规则是否已创建：
 
-   ```shell
+   ```bash
    # zhangquan @ MacBook-Pro-2 in ~/Downloads/devops/istio-1.5.1 [18:36:52] 
    $  kubectl describe dr httpbin
    Name:         httpbin
@@ -133,19 +133,19 @@ Istio 中的 [熔断 ](https://istio.io/latest/docs/tasks/traffic-management/cir
 
    如果你启用了[自动注入 Sidecar](https://istio.io/latest/zh/docs/setup/additional-setup/sidecar-injection/#automatic-sidecar-injection)，可以直接部署 `fortio` 应用：
 
-   ```shell
+   ```bash
    $ kubectl apply -f samples/httpbin/sample-client/fortio-deploy.yaml
    ```
 
    否则，你需要在部署 `fortio` 应用前手动注入 Sidecar：
 
-   ```shell
+   ```bash
    $ kubectl apply -f <(istioctl kube-inject -f samples/httpbin/sample-client/fortio-deploy.yaml)
    ```
 
    验证部署成功：
 
-   ```shell
+   ```bash
    $ kubectl get pods -l app=fortio 
    NAME                             READY   STATUS    RESTARTS   AGE
    fortio-deploy-7cb865f87f-lk6jx   2/2     Running   0          71s
@@ -153,7 +153,7 @@ Istio 中的 [熔断 ](https://istio.io/latest/docs/tasks/traffic-management/cir
 
 2. 登入客户端 Pod 并使用 Fortio 工具调用 `httpbin` 服务。`-curl` 参数表明发送一次调用：
 
-   ```shell
+   ```bash
    $ FORTIO_POD=$(kubectl get pod | grep fortio | awk '{ print $1 }')
    
    $ kubectl exec -it $FORTIO_POD  -c fortio -- /usr/bin/fortio load -curl  http://httpbin:8000/get
@@ -191,7 +191,7 @@ Istio 中的 [熔断 ](https://istio.io/latest/docs/tasks/traffic-management/cir
 
 1. 发送并发数为 2 的连接（`-c 2`），请求 20 次（`-n 20`）：
 
-   ```shell
+   ```bash
    $ kubectl exec "$FORTIO_POD" -c fortio -- /usr/bin/fortio load -c 2 -qps 0 -n 20 -loglevel Warning http://httpbin:8000/get
    10:42:13 I logger.go:134> Log level is now 3 Warning (was 2 Info)
    Fortio 1.38.4 running at 0 queries per second, 4->4 procs, for 20 calls: http://httpbin:8000/get
@@ -248,14 +248,14 @@ Istio 中的 [熔断 ](https://istio.io/latest/docs/tasks/traffic-management/cir
 
    有可以看到大部分请求还是都完成了，但是并不是一半的请求失败，这是因为 `istio-proxy` 并不是100%准确的：
 
-   ```shell
+   ```bash
    Code 200 : 11 (55.0 %)
    Code 503 : 9 (45.0 %)
    ```
 
 2. 将并发连接数提高到 3 个（3个并发执行30次）：
 
-   ```shell
+   ```bash
    $ kubectl exec "$FORTIO_POD" -c fortio -- /usr/bin/fortio load -c 3 -qps 0 -n 30 -loglevel Warning http://httpbin:8000/get
    10:42:34 I logger.go:134> Log level is now 3 Warning (was 2 Info)
    Fortio 1.38.4 running at 0 queries per second, 4->4 procs, for 30 calls: http://httpbin:8000/get
@@ -333,7 +333,7 @@ Istio 中的 [熔断 ](https://istio.io/latest/docs/tasks/traffic-management/cir
 
 3. 查询 `istio-proxy` 状态以了解更多熔断详情:
 
-   ```shell
+   ```bash
    $ kubectl exec "$FORTIO_POD" -c istio-proxy -- pilot-agent request GET stats | grep httpbin | grep pending
    cluster.outbound|8000||httpbin.default.svc.cluster.local.circuit_breakers.default.rq_pending_open: 0
    cluster.outbound|8000||httpbin.default.svc.cluster.local.circuit_breakers.high.rq_pending_open: 0
@@ -349,13 +349,13 @@ Istio 中的 [熔断 ](https://istio.io/latest/docs/tasks/traffic-management/cir
 
 1. 清理规则:
 
-   ```shell
+   ```bash
    kubectl delete destinationrule httpbin
    ```
 
 2. 下线 [httpbin](https://github.com/istio/istio/tree/release-1.16/samples/httpbin) 服务和客户端：
 
-   ```shell
+   ```bash
    kubectl delete -f samples/httpbin/sample-client/fortio-deploy.yaml
    kubectl delete -f samples/httpbin/httpbin.yaml
    ```

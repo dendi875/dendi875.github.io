@@ -44,7 +44,7 @@ categories: Istio
 
 ![](https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20221016180413.png)目前搭建 Bookinfo 应用我们只用到了下面两个资源文件：
 
-```shell
+```bash
 samples/bookinfo/platform/kube/bookinfo.yaml
 samples/bookinfo/networking/bookinfo-gateway.yaml
 ```
@@ -80,7 +80,7 @@ spec:
 
 这样，所有访问 reviews 服务的流量就会被引导到 reviews 服务对应的 subset 为 v1 的 Pod 中。启用这条规则：
 
-```shell
+```bash
 # zhangquan @ MacBook-Pro-2 in ~/Downloads/devops/istio-1.5.1 [18:07:42] 
 $ kubectl apply -f  samples/bookinfo/networking/virtual-service-all-v1.yaml  
 virtualservice.networking.istio.io/productpage created
@@ -91,7 +91,7 @@ virtualservice.networking.istio.io/details created
 
 然后查看所有的路由规则：
 
-```shell
+```bash
 # zhangquan @ MacBook-Pro-2 in ~/Downloads/devops/istio-1.5.1 [18:09:30] 
 $ kubectl get virtualservices
 NAME          GATEWAYS             HOSTS           AGE
@@ -175,7 +175,7 @@ spec:
 
 这样我们就通过 DestinationRule 将 VirtualService 与 Service 不同的版本关联起来了。现在我们直接创建 DestinationRule 资源：
 
-```shell
+```bash
 # zhangquan @ MacBook-Pro-2 in ~/Downloads/devops/istio-1.5.1 [18:18:37] 
 $ kubectl apply -f  samples/bookinfo/networking/destination-rule-all.yaml  
 destinationrule.networking.istio.io/productpage created
@@ -186,7 +186,7 @@ destinationrule.networking.istio.io/details created
 
 创建完成后，我们就可以查看目前我们网格中的 DestinationRules:
 
-```shell
+```bash
 # zhangquan @ MacBook-Pro-2 in ~/Downloads/devops/istio-1.5.1 [18:19:15] 
 $ kubectl get destinationrule
 NAME          HOST          AGE
@@ -216,7 +216,7 @@ reviews       reviews       27s
 
 首先移除刚刚创建的 VirtualService 对象，排除对环境的影响：
 
-```shell
+```bash
 # zhangquan @ MacBook-Pro-2 in ~/Downloads/devops/istio-1.5.1 [19:08:17] 
 $ kubectl delete virtualservice reviews
 virtualservice.networking.istio.io "reviews" deleted
@@ -254,7 +254,7 @@ spec:
 
 这个规则定义了 80% 的对 Reviews 的流量会落入 v1 这个 subset，就是没有 Ratings 的这个服务，20% 会落入 v2 带黑色 Ratings 的这个服务，然后我们创建这个资源对象：
 
-```shell
+```bash
 # zhangquan @ MacBook-Pro-2 in ~/Downloads/devops/istio-1.5.1 [19:09:53] 
 $ kubectl apply -f samples/bookinfo/networking/virtual-service-reviews-80-20.yaml
 virtualservice.networking.istio.io/reviews created
@@ -279,7 +279,7 @@ reviews                            [reviews]       5s
 
 同样，将上面创建的 VirtualService 对象删除：
 
-```shell
+```bash
 # zhangquan @ MacBook-Pro-2 in ~/Downloads/devops/istio-1.5.1 [19:10:58] C:1
 $  kubectl delete virtualservice reviews
 virtualservice.networking.istio.io "reviews" deleted
@@ -332,7 +332,7 @@ spec:
 
 现在我们来创建上面的 VirtualService 这个对象:
 
-```shell
+```bash
 # zhangquan @ MacBook-Pro-2 in ~/Downloads/devops/istio-1.5.1 [19:11:25] 
 $ kubectl apply -f samples/bookinfo/networking/virtual-service-reviews-jason-v2-v3.yaml
 virtualservice.networking.istio.io/reviews created
@@ -353,7 +353,7 @@ reviews                            [reviews]       10s
 
 这里要说明一下 match 的匹配规则：
 
-```shell
+```bash
 All conditions inside a single match block have AND semantics, while the list of match blocks have OR semantics. The rule is matched if any one of the match blocks succeed.
 ```
 

@@ -102,7 +102,7 @@ spec:
 
 这其实就是一个简单的应用，通过 Deployment 进行控制，通过 Service 暴露服务，现在我们来部署该应用：
 
-```shell
+```bash
 # zhangquan @ MacBook-Pro-2 in ~/Downloads/devops/istio-1.5.1 [15:13:04] 
 $ kubectl apply -f samples/sleep/sleep.yaml 
 serviceaccount/sleep created
@@ -120,7 +120,7 @@ deployment.apps/sleep created
 
 查看下 Pod 的启动情况：
 
-```shell
+```bash
 # zhangquan @ MacBook-Pro-2 in ~/Downloads/devops/istio-1.5.1 [15:15:32] 
 $ kubectl get pod
 NAME                              READY   STATUS    RESTARTS   AGE
@@ -158,7 +158,7 @@ kubectl exec [POD] [COMMAND] is DEPRECATED and will be removed in a future versi
 
 这里为了测试 ServiceEntry 功能，我们将其更改为 `REGISTRY_ONLY` 模式：
 
-```shell
+```bash
 # zhangquan @ MacBook-Pro-2 in ~/Downloads/devops/istio-1.5.1 [15:36:15] 
 $ kubectl get configmap istio -n istio-system -o yaml | sed 's/mode: ALLOW_ANY/mode: REGISTRY_ONLY/g' | kubectl replace -n istio-system -f -
 configmap/istio replaced
@@ -166,7 +166,7 @@ configmap/istio replaced
 
 当配置生效后，我们再次通过 sleep 服务来 curl 一下 httpbin 这个外部服务：
 
-```shell
+```bash
 # zhangquan @ MacBook-Pro-2 in ~/Downloads/devops/istio-1.5.1 [15:37:11] 
 $ kubectl exec sleep-f8cbf5b76-kgfxk -c sleep curl http://httpbin.org/headers                                                                
 ```
@@ -175,7 +175,7 @@ $ kubectl exec sleep-f8cbf5b76-kgfxk -c sleep curl http://httpbin.org/headers
 
 现在我们定义一个 ServiceEntry，让 sleep 服务可以通过服务入口来访问外部服务。
 
-```shell
+```bash
 kubectl apply -f - <<EOF
 apiVersion: networking.istio.io/v1alpha3
 kind: ServiceEntry
@@ -195,7 +195,7 @@ EOF
 
 查看我们定义的服务入口：
 
-```shell
+```bash
 # zhangquan @ MacBook-Pro-2 in ~/Downloads/devops/istio-1.5.1 [15:45:16] 
 $ kubectl get se
 NAME          HOSTS           LOCATION        RESOLUTION   AGE
@@ -204,7 +204,7 @@ httpbin-ext   [httpbin.org]   MESH_EXTERNAL   DNS          40s
 
 服务入口定义好之后，我们再次尝试从 sleep 服务内部去访问外部服务：
 
-```shell
+```bash
 # zhangquan @ MacBook-Pro-2 in ~/Downloads/devops/istio-1.5.1 [15:48:04] 
 $ kubectl exec -it  sleep-f8cbf5b76-kgfxk -c sleep -- curl http://httpbin.org/headers     
 {

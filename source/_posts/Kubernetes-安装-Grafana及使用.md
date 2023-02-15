@@ -26,7 +26,7 @@ Grafana 是一个可视化面板，有着非常漂亮的图表和布局展示，
 
 我们将 grafana 安装到 Kubernetes 集群中，第一步去查看 grafana 的 docker 镜像的介绍，我们可以在 dockerhub 上去搜索，也可以在官网去查看相关资料，镜像地址如下：https://hub.docker.com/r/grafana/grafana/，我们可以看到介绍中运行 grafana 容器的命令非常简单：
 
-```shell
+```bash
 $ docker run -d --name=grafana -p 3000:3000 grafana/grafana
 ```
 
@@ -177,7 +177,7 @@ spec:
 
 现在我们直接创建上面的这些资源对象：
 
-```shell
+```bash
 [root@k8s-master grafana]# kubectl create -f grafana-volume.yaml 
 persistentvolume/grafana created
 persistentvolumeclaim/grafana created
@@ -189,7 +189,7 @@ service/grafana created
 
 创建完成后，我们可以查看 grafana 对应的 Pod 是否正常：
 
-```shell
+```bash
 [root@k8s-master grafana]# kubectl get pods -n kube-mon -l app=grafana         
 NAME                       READY   STATUS             RESTARTS   AGE
 grafana-869db94654-m2qpj   0/1     CrashLoopBackOff   1          104s
@@ -197,7 +197,7 @@ grafana-869db94654-m2qpj   0/1     CrashLoopBackOff   1          104s
 
 我们可以看到这里的状态是`CrashLoopBackOff`，并没有正常启动，我们查看下这个 Pod 的日志：
 
-```shell
+```bash
 [root@k8s-master grafana]# kubectl logs -f grafana-869db94654-m2qpj -n kube-mon
 GF_PATHS_DATA='/var/lib/grafana' is not writable.
 You may have issues with file permissions, more information here: http://docs.grafana.org/installation/docker/#migration-from-a-previous-version-of-the-docker-container-to-5-1-or-later
@@ -237,7 +237,7 @@ spec:
 
 现在我们删除之前创建的 Deployment 对象，重新创建：
 
-```shell
+```bash
 [root@k8s-master grafana]# kubectl delete -f grafana-deploy.yaml 
 deployment.apps "grafana" deleted
 
@@ -250,7 +250,7 @@ job.batch/grafana-chown created
 
 重新执行完成后，可以查看下上面的创建的资源对象是否正确了：
 
-```shell
+```bash
 [root@k8s-master grafana]# kubectl get pod -n kube-mon
 NAME                          READY   STATUS      RESTARTS   AGE
 grafana-869db94654-gxgjk      1/1     Running     2          102s
@@ -259,7 +259,7 @@ grafana-chown-jwkhb           0/1     Completed   0          86s
 
 我们可以看到有一个状态为`Completed`的 Pod，这就是上面我们用来更改 grafana 目录权限的 Pod，是一个 Job 任务，所以执行成功后就退出了，状态变成了`Completed`，而上面的 grafana 的 Pod 也已经是`Running`状态了，可以查看下该 Pod 的日志确认下：
 
-```shell
+```bash
 [root@k8s-master grafana]# kubectl logs -f grafana-869db94654-gxgjk -n kube-mon
 t=2022-09-04T09:34:26+0000 lvl=info msg="Starting Grafana" logger=server version=5.3.4 commit=69630b9 compiled=2018-11-13T12:19:12+0000
 t=2022-09-04T09:34:26+0000 lvl=info msg="Config loaded from" logger=settings file=/usr/share/grafana/conf/defaults.ini
@@ -269,7 +269,7 @@ t=2022-09-04T09:34:26+0000 lvl=info msg="Config loaded from" logger=settings fil
 
 看到上面的日志信息就证明我们的 grafana 的 Pod 已经正常启动起来了。这个时候我们可以查看 Service 对象：
 
-```shell
+```bash
 [root@k8s-master grafana]# kubectl get svc -n kube-mon -l app=grafana
 NAME      TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
 grafana   NodePort   10.96.179.102   <none>        3000:30907/TCP   8m50s
@@ -300,7 +300,7 @@ grafana   NodePort   10.96.179.102   <none>        3000:30907/TCP   8m50s
 
 由于我们这个地方 Prometheus 通过 NodePort 的方式的对外暴露的服务，所以我们这个地方是不是可以使用浏览器访问模式直接访问 Prometheus 的外网地址，但是这种方式显然不是最好的，相当于走的是外网，而我们这里 Prometheus 和 Grafana 都处于 kube-mon 这同一个 namespace 下面，是不是在集群内部直接通过 DNS 的形式就可以访问了，而且还都是走的内网流量，所以我们这里用服务器访问模式显然更好，数据源地址：`http://prometheus:9090`（因为在同一个 namespace 下面所以直接用 Service 名也可以），然后其他的配置信息就根据实际情况了，比如 Auth 认证，我们这里没有，所以跳过即可，点击最下方的`Save & Test`提示成功证明我们的数据源配置正确：
 
-```shell
+```bash
 [root@k8s-master grafana]# kubectl get svc -n kube-mon
 NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)             AGE
 grafana      NodePort    10.96.179.102   <none>        3000:30907/TCP      30m
@@ -372,7 +372,7 @@ redis        ClusterIP   10.96.143.235   <none>        6379/TCP,9121/TCP   43h
 
 同样下面的`Pod CPU Usage`用来展示 Pod CPU 的使用情况，对应的`promQL`语句如下，根据 pod_name 来进行统计：
 
-```shell
+```bash
 sum by (pod)( rate(container_cpu_usage_seconds_total{image!=""}[1m] ) )
 ```
 
@@ -392,7 +392,7 @@ sum by (pod)( rate(container_cpu_usage_seconds_total{image!=""}[1m] ) )
 
 要安装这个插件，需要到 grafana 的 Pod 里面去执行安装命令：
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl get pods -n kube-mon -l app=grafana
 NAME                       READY   STATUS    RESTARTS   AGE
 grafana-869db94654-gxgjk   1/1     Running   3          4h4m
@@ -422,7 +422,7 @@ Restart grafana after installing plugins . <service grafana-server restart>
 
 安装完成后需要重启 grafana 才会生效，我们这里直接删除 Pod，重建即可。
 
-```shell
+```bash
 [root@k8s-master grafana]# kubectl delete -f grafana-deploy.yaml 
 deployment.apps "grafana" deleted
 
@@ -446,7 +446,7 @@ deployment.apps/grafana created
 - 勾选 Auth 下面的 `TLS Client Auth` 和 `With CA Cert` 两个选项
 - 其中 `TLS Auth Details` 下面的值就对应 `kubeconfig` 里面的证书信息。比如我们这里的 `kubeconfig` 文件格式如下所示：
 
-```shell
+```bash
 [root@k8s-master grafana]# more ~/.kube/config 
 apiVersion: v1
 clusters:
@@ -501,7 +501,7 @@ users:
 
 然后在 `Metrics` 区域输入我们要查询的监控 PromQL 语句，比如我们这里想要查询集群节点 CPU 的使用率：
 
-```shell
+```bash
 (1 - sum(increase(node_cpu_seconds_total{mode="idle", instance=~"$node"}[1m])) by (instance) / sum(increase(node_cpu_seconds_total{instance=~"$node"}[1m])) by (instance)) * 100
 ```
 

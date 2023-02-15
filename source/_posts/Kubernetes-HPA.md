@@ -26,13 +26,13 @@ categories: Kubernetes
 
 参考说明：https://kubernetes.io/zh-cn/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/
 
-```shell
+```bash
 kubectl get --raw "/apis/metrics.k8s.io/v1beta1/namespaces/<namespace-name>/pods/<pod-name>" | jq '.'
 ```
 
 这是使用 `curl` 来完成的相同 API 调用：
 
-```shell
+```bash
 curl https://localhost:8080/apis/metrics.k8s.io/v1beta1/namespaces/<namespace-name>/pods/<pod-name>
 ```
 
@@ -55,7 +55,7 @@ curl https://localhost:8080/apis/metrics.k8s.io/v1beta1/namespaces/<namespace-na
 
 `Aggregator` 聚合层启动完成后，就可以来安装 `Metrics Server` 了，我们可以获取该仓库的官方安装资源清单：
 
-```shell
+```bash
 # 官方仓库地址：https://github.com/kubernetes-sigs/metrics-server
 
 $ wget https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.3.6/components.yaml -O ~/download/metrics-server.yaml
@@ -63,7 +63,7 @@ $ wget https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.3.
 
 在部署之前，修改 `components.yaml` 的镜像地址为：
 
-```shell
+```bash
 containers:
 - name: metrics-server
   image: registry.aliyuncs.com/google_containers/metrics-server-amd64:v0.3.6
@@ -71,7 +71,7 @@ containers:
 
 等部署完成后，可以查看 Pod 日志是否正常：
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl apply -f download/metrics-server.yaml 
  
 [root@k8s-master ~]# kubectl get pods -n kube-system -l k8s-app=metrics-server
@@ -87,7 +87,7 @@ E0828 08:29:03.977217       1 manager.go:111] unable to fully collect metrics: [
 
 第一种方法就是在集群内部的 DNS 服务里面添加上 hostname 的解析，比如我们这里集群中使用的是 `CoreDNS`，我们就可以去修改下 CoreDNS 的 Configmap 信息，添加上 hosts 信息：
 
-```shell
+```bash
 $ kubectl edit configmap coredns -n kube-system
 apiVersion: v1
 data:
@@ -120,7 +120,7 @@ metadata:
 
 这样当在集群内部的 Pod 访问集群节点的 hostname 的时候就可以解析到对应的 ip 了，另外一种方法（https://github.com/kubernetes-sigs/metrics-server）就是在 metrics-server 的启动参数中修改 `kubelet-preferred-address-types` 参数，如下：
 
-```shell
+```bash
 args:
 - --cert-dir=/tmp
 - --secure-port=4443
@@ -129,7 +129,7 @@ args:
 
 我们这里使用第二种方式，然后重新安装：
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl delete -f download/metrics-server.yaml
 [root@k8s-master ~]# kubectl apply -f download/metrics-server.yaml 
 
@@ -144,7 +144,7 @@ E0828 08:47:12.412582       1 manager.go:111] unable to fully collect metrics: [
 
 因为部署集群的时候，CA 证书并没有把各个节点的 IP 签上去，所以这里 `Metrics Server` 通过 IP 去请求时，提示签的证书没有对应的 IP（错误：`x509: cannot validate certificate for 172.31.0.3 because it doesn’t contain any IP SANs`），我们可以添加一个`--kubelet-insecure-tls`参数跳过证书校验：
 
-```shell
+```bash
 args:
 - --cert-dir=/tmp
 - --secure-port=4443
@@ -154,7 +154,7 @@ args:
 
 然后再重新安装即可成功！可以通过如下命令来验证：
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl delete -f download/metrics-server.yaml
 [root@k8s-master ~]# kubectl apply -f download/metrics-server.yaml 
 
@@ -190,7 +190,7 @@ k8s-node2    65m          3%     811Mi           21%
 
 把 hap 相关资源文件统一放在 hap 目录下
 
-```shell
+```bash
 [root@k8s-master ~]# mkdir ~/hap
 ```
 
@@ -217,7 +217,7 @@ spec:
 
 然后直接创建 Deployment：
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl apply -f hpa/hpa-demo.yaml 
 deployment.apps/hpa-demo created
 
@@ -228,7 +228,7 @@ hpa-demo-7848d4b86f-9sw8b   1/1     Running   0          18s
 
 现在我们来创建一个 `HPA` 资源对象，可以使用`kubectl autoscale`命令来创建：
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl autoscale deployment hpa-demo --cpu-percent=10 --min=1 --max=10  
 horizontalpodautoscaler.autoscaling/hpa-demo autoscaled
 
@@ -241,7 +241,7 @@ hpa-demo   Deployment/hpa-demo   <unknown>/10%   1         10        0          
 
 当然我们依然还是可以通过创建 YAML 文件的形式来创建 HPA 资源对象。如果我们不知道怎么编写的话，可以查看上面命令行创建的HPA的YAML文件：
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl get hpa hpa-demo -o yaml
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
@@ -298,7 +298,7 @@ status:
 
 然后我们可以根据上面的 YAML 文件就可以自己来创建一个基于 YAML 的 HPA 描述文件了。但是我们发现上面信息里面出现了一些 Fail 信息，我们来查看下这个 HPA 对象的信息：
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl describe hpa hpa-demo
 Name:                                                  hpa-demo
 Namespace:                                             default
@@ -352,7 +352,7 @@ spec:
 
 然后重新更新 Deployment，重新创建 HPA 对象：
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl delete -f hpa/hpa-demo.yaml 
 deployment.apps "hpa-demo" deleted
 
@@ -402,7 +402,7 @@ hpa-demo   Deployment/hpa-demo   0%/10%    1         10        1          68s
 
 现在可以看到 HPA 资源对象已经正常了，现在我们来增大负载进行测试：
 
-```shell
+```bash
 # 开启另一个终端查看 hap-demo Pod 的 ip
 [root@k8s-master ~]# kubectl get pods 
 NAME                        READY   STATUS    RESTARTS   AGE
@@ -415,7 +415,7 @@ hpa-demo-6b4467b546-lndbp   1/1     Running   0          11m   192.168.36.72   k
 
 我们来创建一个 busybox 的 Pod，并且循环访问上面创建的 Pod：
 
-```shell
+```bash
 [root@k8s-master ~]#  kubectl run -it --image busybox test-hpa --restart=Never --rm /bin/sh
 If you don't see a command prompt, try pressing enter.
 / # while true; do wget -q -O- http://192.168.36.72; done
@@ -423,7 +423,7 @@ If you don't see a command prompt, try pressing enter.
 
 下图可以看到，HPA 已经开始工作：
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl get hpa
 NAME       REFERENCE             TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
 hpa-demo   Deployment/hpa-demo   0%/10%    1         10        10         17m
@@ -454,7 +454,7 @@ hpa-demo-6b4467b546-rxp2d   1/1     Running             0          47s
 
 我们可以看到已经自动拉起了很多新的 Pod，最后定格在了我们上面设置的 10 个 Pod，同时查看资源 hpa-demo 的副本数量，副本数量已经从原来的1变成了10个：
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl get deployment hpa-demo
 NAME       READY   UP-TO-DATE   AVAILABLE   AGE
 hpa-demo   10/10   10           10          15m
@@ -462,7 +462,7 @@ hpa-demo   10/10   10           10          15m
 
 查看 HPA 资源的对象了解工作过程：
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl describe hpa hpa-demo
 Name:                                                  hpa-demo
 Namespace:                                             default
@@ -491,7 +491,7 @@ Events:
 
 同样的这个时候我们来关掉 busybox 来减少负载，然后等待一段时间观察下 HPA 和 Deployment 对象：
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl get hpa
 NAME       REFERENCE             TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
 hpa-demo   Deployment/hpa-demo   0%/10%    1         10        1          19m

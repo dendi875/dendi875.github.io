@@ -51,7 +51,7 @@ Prometheus 由多个组件组成，但是其中有些组件是可选的：
 
 Prometheus 是通过一个 YAML 配置文件来进行启动的，如果我们使用二进制的方式来启动的话，可以使用下面的命令：
 
-```shell
+```bash
 $ ./prometheus --config.file=prometheus.yml
 ```
 
@@ -94,7 +94,7 @@ scrape_configs:
 
 创建 `kube-mon` 命令空间
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl create namespace kube-mon
 namespace/kube-mon created
 ```
@@ -126,7 +126,7 @@ data:
 
 我们这里暂时只配置了对 prometheus 本身的监控，直接创建该资源对象：
 
-```shell
+```bash
 [root@k8s-master prometheus]# kubectl apply -f prometheus-cm.yaml
 configmap/prometheus-config created
 ```
@@ -196,7 +196,7 @@ spec:
 
 我们这里将 prometheus.yml 文件对应的 ConfigMap 对象通过 volume 的形式挂载进了 Pod，这样 ConfigMap 更新后，对应的 Pod 里面的文件也会热更新的，然后我们再执行上面的 reload 请求，Prometheus 配置就生效了，除此之外，为了将时间序列数据进行持久化，我们将数据目录和一个 pvc 对象进行了绑定，所以我们需要提前创建好这个 pvc 对象：prometheus-volume.yaml
 
-```shell
+```bash
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -227,7 +227,7 @@ spec:
 
 我们这里简单的通过 NFS 作为存储后端创建一个 pv、pvc 对象：
 
-```shell
+```bash
 [root@k8s-master prometheus]# kubectl create -f prometheus-volume.yaml
 persistentvolume/prometheus created
 persistentvolumeclaim/prometheus created
@@ -287,7 +287,7 @@ subjects:
 
 由于我们要获取的资源信息，在每一个 namespace 下面都有可能存在，所以我们这里使用的是 ClusterRole 的资源对象，值得一提的是我们这里的权限规则声明中有一个`nonResourceURLs`的属性，是用来对非资源型 metrics 进行操作的权限声明，这个在以前我们很少遇到过，然后直接创建上面的资源对象即可：
 
-```shell
+```bash
 [root@k8s-master prometheus]# kubectl create -f prometheus-rbac.yaml
 serviceaccount/prometheus created
 clusterrole.rbac.authorization.k8s.io/prometheus created
@@ -299,7 +299,7 @@ clusterrolebinding.rbac.authorization.k8s.io/prometheus created
 
 现在我们就可以添加 promethues 的资源对象了：
 
-```shell
+```bash
 [root@k8s-master prometheus]# kubectl create -f prometheus-deploy.yaml
 deployment.apps/prometheus created
 
@@ -343,7 +343,7 @@ spec:
 
 为了方便测试，我们这里创建一个`NodePort`类型的服务，当然我们可以创建一个`Ingress`对象，通过域名来进行访问：
 
-```shell
+```bash
 [root@k8s-master prometheus]# kubectl create -f prometheus-svc.yaml
 service/prometheus created
 
@@ -376,7 +376,7 @@ prometheus   NodePort   10.96.146.110   <none>        9090:32640/TCP   7s
 
 所用到的资源文件如下：
 
-```shell
+```bash
 [root@k8s-master prometheus]# tree
 .
 ├── prometheus-cm.yaml

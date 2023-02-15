@@ -26,7 +26,7 @@ categories: Kubernetes
 
 对于普通应用只需要能够提供一个满足 prometheus 格式要求的 `/metrics` 接口就可以让 Prometheus 来接管监控，比如 Kubernetes 集群中非常重要的 CoreDNS 插件，一般默认情况下就开启了 `/metrics` 接口：
 
-```shell
+```bash
 [root@k8s-master prometheus]# kubectl get cm coredns -n kube-system -o yaml
 apiVersion: v1
 data:
@@ -72,7 +72,7 @@ metadata:
 
 上面 ConfigMap 中 `prometheus :9153` 就是开启 prometheus 的插件：
 
-```shell
+```bash
 [root@k8s-master prometheus]# kubectl get pods -n kube-system -l k8s-app=kube-dns -o wide
 NAME                       READY   STATUS    RESTARTS   AGE   IP                NODE         NOMINATED NODE   READINESS GATES
 coredns-5897cd56c4-kqfn2   1/1     Running   14         20d   192.168.235.243   k8s-master   <none>           <none>
@@ -81,7 +81,7 @@ coredns-5897cd56c4-wcgdh   1/1     Running   14         20d   192.168.235.240   
 
 我们可以先尝试手动访问下 `/metrics` 接口，如果能够手动访问到那证明接口是没有任何问题的：
 
-```shell
+```bash
 [root@k8s-master prometheus]# curl http://192.168.235.243:9153/metrics
 # HELP coredns_build_info A metric with a constant '1' value labeled by version, revision, and goversion from which CoreDNS was built.
 # TYPE coredns_build_info gauge
@@ -134,14 +134,14 @@ data:
 
 现在我们重新更新这个 ConfigMap 资源对象：
 
-```shell
+```bash
 [root@k8s-master prometheus]# kubectl apply -f prometheus-cm.yaml 
 configmap/prometheus-config configured
 ```
 
 现在 Prometheus 的配置文件内容已经更改了，隔一会儿被挂载到 Pod 中的 prometheus.yml 文件也会更新，由于我们之前的 Prometheus 启动参数中添加了 `--web.enable-lifecycle` 参数，所以现在我们只需要执行一个 `reload` 命令即可让配置生效：
 
-```shell
+```bash
 [root@k8s-master prometheus]# kubectl get pods -n kube-mon -o wide
 NAME                          READY   STATUS    RESTARTS   AGE   IP                NODE        NOMINATED NODE   READINESS GATES
 prometheus-75d4666dcd-vlth8   1/1     Running   0          28m   192.168.169.155   k8s-node2   <none>           <none>
@@ -228,7 +228,7 @@ spec:
 
 可以看到上面我们在 redis 这个 Pod 中包含了两个容器，一个就是 redis 本身的主应用，另外一个容器就是 redis_exporter。现在直接创建上面的应用：
 
-```shell
+```bash
 [root@k8s-master prometheus]# kubectl apply -f prometheus-redis.yaml 
 deployment.apps/redis created
 service/redis created
@@ -236,7 +236,7 @@ service/redis created
 
 创建完成后，我们可以看到 redis 的 Pod 里面包含有两个容器：
 
-```shell
+```bash
 [root@k8s-master prometheus]# kubectl get pods -n kube-mon
 NAME                          READY   STATUS    RESTARTS   AGE
 prometheus-75d4666dcd-vlth8   1/1     Running   0          39m
@@ -250,7 +250,7 @@ redis        ClusterIP   10.96.143.235   <none>        6379/TCP,9121/TCP   66s
 
 我们可以通过 9121 端口来校验是否能够采集到数据：
 
-```shell
+```bash
 [root@k8s-master prometheus]# curl 10.96.143.235:9121/metrics
 # HELP go_gc_duration_seconds A summary of the pause duration of garbage collection cycles.
 # TYPE go_gc_duration_seconds summary
@@ -300,7 +300,7 @@ data:
 
 由于我们这里是通过 Service 去配置的 redis 服务，当然直接配置 Pod IP 也是可以的，因为和 Prometheus 处于同一个 namespace，所以我们直接使用 servicename 即可。配置文件更新后，重新加载：
 
-```shell
+```bash
 [root@k8s-master prometheus]# kubectl apply -f prometheus-cm.yaml 
 configmap/prometheus-config configured
 

@@ -67,7 +67,7 @@ Ingress 资源由两个 Istio 资源处理：
 
 首先查询下我们集群中有哪些网关：
 
-```shell
+```bash
 # zhangquan @ MacBook-Pro-2 in ~/Downloads/devops/istio-1.5.1 [11:22:19] 
 $ kubectl get gateway
 NAME               AGE
@@ -80,7 +80,7 @@ bookinfo-gateway   7d18h
 
 执行以下命令：
 
-```shell
+```bash
 kubectl create -f - <<EOF
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
@@ -122,7 +122,7 @@ EOF
 
 查询我们创建的资源：
 
-```shell
+```bash
 # zhangquan @ MacBook-Pro-2 in ~/Downloads/devops/istio-1.5.1 [11:41:37] 
 $ kubectl get virtualservice,gateway
 NAME                                              GATEWAYS             HOSTS           AGE

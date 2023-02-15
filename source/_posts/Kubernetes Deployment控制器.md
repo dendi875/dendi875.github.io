@@ -32,14 +32,14 @@ Deployment 是 Kubernetes 编排能力的一种提现，通过 Deployment 我们
 
 通过 kubectl run 来创建一个 mynginx Pod
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl run mynginx --image=nginx
 pod/mynginx created
 ```
 
 通过 kubectl create deployment 来创建一个 mytomcat Pod
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl create deployment mytomcat --image=tomcat:8.5.68
 deployment.apps/mytomcat created
 ```
@@ -48,7 +48,7 @@ deployment.apps/mytomcat created
 
 首先把 kubectl run 修建的 mynginx  Pod 删除了
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl get pod
 NAME                        READY   STATUS    RESTARTS   AGE
 mynginx                     1/1     Running   0          94s
@@ -64,14 +64,14 @@ mytomcat-6f5f895f4f-b5ckr   1/1     Running   0          100s
 
 接着再删除 mytomcat Pod
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl delete pod mytomcat-6f5f895f4f-b5ckr 
 pod "mytomcat-6f5f895f4f-b5ckr" deleted
 ```
 
 再次查看 Pod
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl get pod
 NAME                        READY   STATUS    RESTARTS   AGE
 mytomcat-6f5f895f4f-j7w22   1/1     Running   0          17s
@@ -81,20 +81,20 @@ mytomcat-6f5f895f4f-j7w22   1/1     Running   0          17s
 
 如果想要删除呢？那就是删除本次部署
 
-```shell
+```bash
 # 查看 deployment
 [root@k8s-master ~]# kubectl get deploy
 NAME       READY   UP-TO-DATE   AVAILABLE   AGE
 mytomcat   1/1     1     
 ```
 
-```shell
+```bash
 # 删除 deployment
 [root@k8s-master ~]# kubectl delete deploy mytomcat
 deployment.apps "mytomcat" deleted
 ```
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl get deploy   
 No resources found in default namespace.
 [root@k8s-master ~]# kubectl get pod
@@ -105,20 +105,20 @@ No resources found in default namespace.
 
 * 命令行方式
 
-  ```shell
+  ```bash
   [root@k8s-master ~]# kubectl create deployment my-nginx-deployment --image=nginx --replicas=3
   deployment.apps/my-nginx-deployment created
   ```
 
   使用 `--replicas` 表示本次部署起多少个 Pod
 
-  ```shell
+  ```bash
   [root@k8s-master ~]# kubectl get deploy
   NAME                  READY   UP-TO-DATE   AVAILABLE   AGE
   my-nginx-deployment   3/3     3            3           17s
   ```
 
-  ```shell
+  ```bash
   [root@k8s-master ~]# kubectl get pod -owide
   NAME                                   READY   STATUS    RESTARTS   AGE     IP                NODE        NOMINATED NODE   READINESS GATES
   my-nginx-deployment-799847ccc9-dx59g   1/1     Running   0          2m50s   192.168.36.70     k8s-node1   <none>           <none>
@@ -132,7 +132,7 @@ No resources found in default namespace.
 
   0. 先删除命令行方式创建的
 
-     ```shell
+     ```bash
      [root@k8s-master ~]# kubectl delete deploy my-nginx-deployment
      deployment.apps "my-nginx-deployment" deleted
      ```
@@ -163,14 +163,14 @@ No resources found in default namespace.
 
   2. 创建实例
 
-     ```shell
+     ```bash
      [root@k8s-master ~]# kubectl apply -f deployment/my-nginx-deployment.yaml 
      deployment.apps/my-nginx-deployment created
      ```
 
   3. 查看
 
-     ```shell
+     ```bash
      [root@k8s-master ~]# kubectl get deployment
      NAME                  READY   UP-TO-DATE   AVAILABLE   AGE
      my-nginx-deployment   3/3     3            3           34s
@@ -188,7 +188,7 @@ No resources found in default namespace.
 
 首先我们部署 3 个实例的 Pod
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl get deployment
 NAME                  READY   UP-TO-DATE   AVAILABLE   AGE
 my-nginx-deployment   3/3     3            3           20m
@@ -203,14 +203,14 @@ my-nginx-deployment-799847ccc9-tdtgx   1/1     Running   0          20m
 
   进行扩容， --replicas=5 表示扩容到5个Pod
 
-  ```shell
+  ```bash
   [root@k8s-master ~]# kubectl scale --replicas=5 deployment/my-nginx-deployment
   deployment.apps/my-nginx-deployment scaled
   ```
 
   查看扩容后的Pod
 
-  ```shell
+  ```bash
   [root@k8s-master ~]# kubectl get pod
   NAME                                   READY   STATUS    RESTARTS   AGE
   my-nginx-deployment-799847ccc9-blrss   1/1     Running   0          56s
@@ -222,14 +222,14 @@ my-nginx-deployment-799847ccc9-tdtgx   1/1     Running   0          20m
 
   进行缩容
 
-  ```shell
+  ```bash
   [root@k8s-master ~]# kubectl scale --replicas=3 deployment/my-nginx-deployment
   deployment.apps/my-nginx-deployment scaled
   ```
 
   查看缩容后的Pod
 
-  ```shell
+  ```bash
   [root@k8s-master ~]# kubectl get pod
   NAME                                   READY   STATUS    RESTARTS   AGE
   my-nginx-deployment-799847ccc9-fj85l   1/1     Running   0          24m
@@ -239,7 +239,7 @@ my-nginx-deployment-799847ccc9-tdtgx   1/1     Running   0          20m
 
 * 配置文件方式扩缩容
 
-  ```shell
+  ```bash
   [root@k8s-master ~]# kubectl get deploy
   NAME                  READY   UP-TO-DATE   AVAILABLE   AGE
   my-nginx-deployment   3/3     3            3           27m
@@ -266,7 +266,7 @@ my-nginx-deployment-799847ccc9-tdtgx   1/1     Running   0          20m
 
 查看 pod 
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl get pod -owide
 NAME                                   READY   STATUS    RESTARTS   AGE   IP                NODE        NOMINATED NODE   READINESS GATES
 my-nginx-deployment-799847ccc9-fj85l   1/1     Running   0          40m   192.168.169.134   k8s-node2   <none>           <none>
@@ -277,7 +277,7 @@ my-nginx-deployment-799847ccc9-tdtgx   1/1     Running   0          40m   192.16
 
 监控pod
 
-```shell
+```bash
 [root@k8s-master ~]# watch -n 1 kubectl get pod
 Every 1.0s: kubectl get pod                                                                                                                                               Sun Aug 14 19:13:41 2022
 
@@ -290,7 +290,7 @@ my-nginx-deployment-799847ccc9-tdtgx   1/1     Running   0          41m
 
 在 k8s-node1 节点上停止容器
 
-```shell
+```bash
 [root@k8s-node1 ~]# docker ps | grep my-nginx
 4da287650d27   nginx                                                        "/docker-entrypoint.…"   42 minutes ago   Up 42 minutes             k8s_nginx_my-nginx-deployment-799847ccc9-n2xtn_default_8feb6cd8-1c8e-41ba-8f85-d365fd1cb88c_0
 16e18c7b9c0d   nginx                                                        "/docker-entrypoint.…"   43 minutes ago   Up 43 minutes             k8s_nginx_my-nginx-deployment-799847ccc9-tdtgx_default_79e17be3-4d3c-4534-a1e0-efb03af8c282_0
@@ -304,7 +304,7 @@ efb03af8c282_0
 
 观察 pod 的变化
 
-```shell
+```bash
 [root@k8s-master ~]# watch -n 1 kubectl get pod
 Every 1.0s: kubectl get pod                                                                                                                                               Sun Aug 14 19:16:38 2022
 
@@ -335,7 +335,7 @@ my-nginx-deployment-799847ccc9-tdtgx   1/1     Running   0          44m
 
 下面我们测试滚动更新
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl get deploy
 NAME                  READY   UP-TO-DATE   AVAILABLE   AGE
 my-nginx-deployment   3/3     3            3           56m
@@ -349,7 +349,7 @@ my-nginx-deployment-799847ccc9-nzm8x   1/1     Running   0          28m
 
 * 命令行方式
 
-  ```shell
+  ```bash
   [root@k8s-master ~]# kubectl set image deployment/my-nginx-deployment nginx=nginx:1.16.1 --record
   deployment.apps/my-nginx-deployment image updated
   
@@ -369,7 +369,7 @@ my-nginx-deployment-799847ccc9-nzm8x   1/1     Running   0          28m
 
 * 配置文件方式
 
-  ```shell
+  ```bash
   # 修改 spec.template.spec.containers.image 值为 nginx:1.9.1
   kubectl edit deployment/my-nginx-deployment
   ```
@@ -378,7 +378,7 @@ my-nginx-deployment-799847ccc9-nzm8x   1/1     Running   0          28m
 
 首先，我需要使用 `kubectl rollout history` 命令，查看每次 Deployment 变更对应的版本
 
-```shell
+```bash
 # 查看历史记录
 
 [root@k8s-master ~]#  kubectl rollout history deployment/my-nginx-deployment
@@ -439,7 +439,7 @@ Pod Template:
 
 然后，我们就可以在 `kubectl rollout undo` 命令行最后，加上要回滚到的指定版本的版本号，就可以回滚到指定版本了。
 
-```shell
+```bash
 #回滚(回到上次)
 kubectl rollout undo deployment/my-nginx-deployment
 

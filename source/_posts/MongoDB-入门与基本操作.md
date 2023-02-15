@@ -86,7 +86,7 @@ db.<集合>.insertMany([<JSON 1>, <JSON 2>, ...<JSON N> ])
 
 查看插入的数据：
 
-```shell
+```bash
 db.fruit.find()
 ```
 
@@ -99,7 +99,7 @@ db.fruit.find()
 
 find 示例：
 
-```shell
+```bash
 db.movies.find({"year": 1975}) // 单条查询
 db.movies.find({"year": 1989, "title": "Batman"}) // 多条件 and 查询
 db.movies.find({$and:[{"title": "Batman"}, {"category": "action"}]}) // and 的另一种形式，给一个 and，and 里是数组
@@ -140,13 +140,13 @@ db.movies.find({"title": /^B/}) // 按正则表达式查询
 
 我们先删除 fruit 这个表：
 
-```shell
+```bash
 db.fruit.drop()
 ```
 
 假设有一个文档：
 
-```shell
+```bash
 db.fruit.insertOne({
     "name": "apple",
     "from": {
@@ -158,20 +158,20 @@ db.fruit.insertOne({
 
 先查看插入的数据：
 
-```shell
+```bash
 db.fruit.find()
 { "_id" : ObjectId("6370d4bc4835f42d80eba3bb"), "name" : "apple", "from" : { "country" : "China", "province" : "Guangdon" } }
 ```
 
 以下查询的意义分别为：
 
-```shell
+```bash
 db.fruit.find({"from.country": "China"})
 ```
 
 该查询表示：我要查一个子文档  "from.country" 
 
-```shell
+```bash
 db.fruit.find({"from": {"country": "China"}}) // 找不到文档
 ```
 
@@ -181,7 +181,7 @@ db.fruit.find({"from": {"country": "China"}}) // 找不到文档
 
 假设有一个文档：
 
-```shell
+```bash
 db.fruit.insert([
   {"name": "Apple", color: ["red", "green"]},
   {"name": "Mango", color: ["yello", "green"]}
@@ -190,14 +190,14 @@ db.fruit.insert([
 
 以下查询的意义分别为：
 
-```shell
+```bash
 db.fruit.find({color: "red"}) 
 { "_id" : ObjectId("6370d5984835f42d80eba3bc"), "name" : "Apple", "color" : [ "red", "green" ] }
 ```
 
 该查询表示：找的文档有 color 这个字段，且值有 red
 
-```shell
+```bash
 db.fruit.find({$or: [{color: "red"}, {color: "yello"}]})
 { "_id" : ObjectId("6370d5984835f42d80eba3bc"), "name" : "Apple", "color" : [ "red", "green" ] }
 { "_id" : ObjectId("6370d5984835f42d80eba3bd"), "name" : "Mango", "color" : [ "yello", "green" ] }
@@ -207,7 +207,7 @@ db.fruit.find({$or: [{color: "red"}, {color: "yello"}]})
 
 我们再看一个查询：
 
-```shell
+```bash
 db.movies.insertOne({
 	"title": "Raiders of the Lost Ark",
 	"filming_locations": [
@@ -220,7 +220,7 @@ db.movies.insertOne({
 
 查找城市是 Rome 的记录：
 
-```shell
+```bash
 db.movies.find({"filming_locations.city": "Rome"})  // 使用 字段名.子文档 的方式来查找
 ```
 
@@ -230,7 +230,7 @@ db.movies.find({"filming_locations.city": "Rome"})  // 使用 字段名.子文�
 
 例如下面两个查询：
 
-```shell
+```bash
 db.getCollection('movies').find({
 	"filming_locations.city": "Rome",
 	"filming_locations.country": "USA"
@@ -239,7 +239,7 @@ db.getCollection('movies').find({
 
 该查询表示：子文档有 "city" 这个字段且值为 "Rome"，或者有 "country" 这个字段且值为 "USA"
 
-```shell
+```bash
 db.getCollection('movies').find({
 	"filming_locations.city": {
 		$elemMatch: {"city": "Rome", "country": "USA"}
@@ -254,13 +254,13 @@ db.getCollection('movies').find({
 find 可以指定只返回指定的字段，`_id` 字段必须明确指定不返回，否则默认返回，在 MongoDB 中指定我们想要返回的字段，称为投影（projection）。
 
 如下示例：指定不返回  _id，返回 title：
-```shell
+```bash
 db.movies.find({}, {"_id": 0, title: 1})  // 把条件置为空
 ```
 
 我们可以看到如果要返回的字段的话文档是有多个字段：
 
-```shell
+```bash
 db.movies.find().pretty()
 {
         "_id" : ObjectId("6370d8c34835f42d80eba3be"),
@@ -291,7 +291,7 @@ remove 命令需要配合查询条件使用，匹配查询条件的文档会被�
 
 如下示例：
 
-```shell
+```bash
 db.testcol.remove({a: 1}) // 删除 a等于1 的记录
 db.testcol.remove({a: {$lt: 5}}) // 删除 a小于5 的记录
 db.testcol.remove({}) // 删除所有记录
@@ -302,13 +302,13 @@ db.testcol.remove() // 报错
 
 操作格式：
 
-```shell
+```bash
 db.<集合>.update(<查询条件>, <更新字段>)
 ```
 
 示例：
 
-```shell
+```bash
 db.fruit.insertMany([
 	{name: "apple"},
 	{name: "pear"},
@@ -318,7 +318,7 @@ db.fruit.insertMany([
 
 查询 name 为 apple 的记录，将找到记录的 from 设置为 China（新加一个字段 from）：
 
-```shell
+```bash
 db.fruit.updateOne({name: "apple"}, {$set: {from: "China"}})
 ```
 
@@ -348,7 +348,7 @@ db.fruit.updateOne({name: "apple"}, {$set: {from: "China"}})
 
 以下更新将报错：
 
-```shell
+```bash
 db.fruit.updateOne({name: "apple"}, {from: "China"})
 ```
 
@@ -358,13 +358,13 @@ db.fruit.updateOne({name: "apple"}, {from: "China"})
 
 操作格式：
 
-```shell
+```bash
 db.<集合>.drop()
 ```
 
 示例：
 
-```shell
+```bash
 db.fruit.drop()
 ```
 
@@ -374,13 +374,13 @@ db.fruit.drop()
 
 操作格式：
 
-```shell
+```bash
 db.droopDatabase()
 ```
 
 示例：
 
-```shell
+```bash
 > show dbs
 admin   0.000GB
 config  0.000GB

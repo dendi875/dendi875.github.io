@@ -40,7 +40,7 @@ categories: Kubernetes
 
 新建一个目录来存放相关资源文件：
 
-```shell
+```bash
 mkdir ~/security-context
 ```
 
@@ -84,14 +84,14 @@ spec:
 
 直接创建上面的 Pod 对象：
 
-```shell
+```bash
 [root@k8s-master security-context]# kubectl apply -f security-context-pod-demo-1.yaml
 pod/security-context-pod-demo created
 ```
 
 运行完成后，我们可以验证下容器中的进程运行的 ownership：
 
-```shell
+```bash
 [root@k8s-master security-context]# kubectl exec security-context-pod-demo top
 kubectl exec [POD] [COMMAND] is DEPRECATED and will be removed in a future version. Use kubectl exec [POD] -- [COMMAND] instead.
 Mem: 1805912K used, 2239124K free, 11532K shrd, 2076K buff, 1067660K cached
@@ -104,7 +104,7 @@ Load average: 0.00 0.08 0.08 1/515 13
 
 我们直接运行一个 `top` 进程，查看容器中的所有正在执行的进程，我们可以看到 USER ID 都为 1000（`runAsUser` 指定的），然后查看下挂载的数据卷的 ownership：
 
-```shell
+```bash
 [root@k8s-master security-context]# kubectl exec security-context-pod-demo -- ls -la /pod
 total 0
 drwxr-xr-x    3 root     root            18 Aug 28 02:42 .
@@ -114,7 +114,7 @@ drwxrwsrwx    2 root     2000             6 Aug 28 02:42 demo
 
 因为上面我们指定了 `fsGroup=2000`，所以声明挂载的数据卷 `/pod/demo` 的 GID 也变成了 2000。直接调用容器中的 id 命令：
 
-```shell
+```bash
 [root@k8s-master security-context]# kubectl exec security-context-pod-demo id
 kubectl exec [POD] [COMMAND] is DEPRECATED and will be removed in a future version. Use kubectl exec [POD] -- [COMMAND] instead.
 uid=1000 gid=3000 groups=2000
@@ -124,7 +124,7 @@ uid=1000 gid=3000 groups=2000
 
 比如我们现在想要去删除容器中的 `/tmp` 目录就没有权限了，因为该目录的用户和组都是 root，而我们当前要去删除使用的进程的 ID 号就变成了 1000:3000，所以没有权限操作：
 
-```shell
+```bash
 [root@k8s-master security-context]# kubectl exec security-context-pod-demo -- ls -la /tmp
 total 0
 drwxrwxrwt    2 root     root             6 Dec 29  2021 .
@@ -158,14 +158,14 @@ spec:
 
 直接创建上面的 Pod 对象：
 
-```shell
+```bash
 [root@k8s-master security-context]# kubectl apply -f security-context-pod-demo-2.yaml 
 pod/security-context-container-demo created
 ```
 
 同样我们直接执行容器中的 `top` 命令：
 
-```shell
+```bash
 [root@k8s-master security-context]# kubectl exec security-context-container-demo top
 kubectl exec [POD] [COMMAND] is DEPRECATED and will be removed in a future version. Use kubectl exec [POD] -- [COMMAND] instead.
 Mem: 1711628K used, 2333408K free, 10900K shrd, 2076K buff, 1029436K cached
@@ -203,7 +203,7 @@ Load average: 0.00 0.06 0.05 1/449 19
 
 我们可以通过 `getcap` 和 `setcap` 两条命令来分别查看和设置程序文件的 `capabilities` 属性。比如当前我们是`zhangquan` 这个用户，使用 `getcap` 命令查看 `ping` 命令目前具有的 `capabilities`：
 
-```shell
+```bash
 [zhangquan@10 ~]$ ll /bin/ping
 -rwxr-xr-x. 1 root root 66176 8月   4 2017 /bin/ping
 
@@ -213,7 +213,7 @@ Load average: 0.00 0.06 0.05 1/449 19
 
 我们可以看到具有 `cap_net_admin` 这个属性，所以我们现在可以执行 `ping` 命令：
 
-```shell
+```bash
 [zhangquan@10 ~]$ ping www.zhangquan.me
 PING dendi875.github.io (185.199.111.153) 56(84) bytes of data.
 64 bytes from cdn-185-199-111-153.github.com (185.199.111.153): icmp_seq=1 ttl=63 time=134 ms
@@ -222,7 +222,7 @@ PING dendi875.github.io (185.199.111.153) 56(84) bytes of data.
 
 但是如果我们把命令的 `capabilities` 属性移除掉：
 
-```shell
+```bash
 [zhangquan@10 ~]$ sudo setcap cap_net_admin,cap_net_raw-p /bin/ping
 
 [zhangquan@10 ~]$ getcap /bin/ping
@@ -231,14 +231,14 @@ PING dendi875.github.io (185.199.111.153) 56(84) bytes of data.
 
 这个时候我们执行 `ping` 命令可以发现已经没有权限了：
 
-```shell
+```bash
 [zhangquan@10 ~]$ ping www.zhangquan.me
 ping: socket: 不允许的操作
 ```
 
 因为 ping 命令在执行时需要访问网络，所需的 `capabilities` 为 `cap_net_admin` 和 `cap_net_raw`，所以我们可以通过 `setcap` 命令可来添加它们：
 
-```shell
+```bash
 [zhangquan@10 ~]$ sudo setcap cap_net_admin,cap_net_raw+p /bin/ping  
 
 [zhangquan@10 ~]$ getcap /bin/ping
@@ -262,7 +262,7 @@ PING www.zhangquan.me (185.199.111.153) 56(84) bytes of data.
 
 我们可以通过下面的命名来查看当前进程的 `capabilities` 信息：
 
-```shell
+```bash
 # 获取当前 shell 进程的pid
 [zhangquan@10 ~]$ echo $$
 1581
@@ -300,7 +300,7 @@ CapAmb: 0000000000000000
 
 比如现在我们需要修改网络接口数据，默认情况下是没有权限的，因为需要的 `NET_ADMIN` 这个 `Capabilities` 默认被移除了：
 
-```shell
+```bash
 [root@k8s-master security-context]# docker run -it --rm busybox /bin/sh
 / # ip link add dummy0 type dummy
 ip: RTNETLINK answers: Operation not permitted
@@ -309,7 +309,7 @@ ip: RTNETLINK answers: Operation not permitted
 
 所以在不使用 `--privileged` 的情况下（不建议）我们可以使用 `--cap-add=NET_ADMIN` 将这个 `Capabilities` 添加回来：
 
-```shell
+```bash
 [root@k8s-master security-context]# docker run -it --rm --cap-add=NET_ADMIN busybox /bin/sh
 / #  ip link add dummy0 type dummy
 / # 
@@ -343,7 +343,7 @@ spec:
 
 我们在 `securityContext` 下面添加了 `capabilities` 字段，其中添加了 `NET_ADMIN` 并且删除了 `KILL`这个默认的容器 `Capabilities`，这样我们就可以在 Pod 中修改网络接口数据了：
 
-```shell
+```bash
 [root@k8s-master security-context]#  kubectl apply -f cpb-demo.yaml
 pod/cpb-demo created
 

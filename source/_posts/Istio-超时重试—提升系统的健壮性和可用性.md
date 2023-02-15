@@ -51,7 +51,7 @@ categories: Istio
 
    我们首先把 BookInfo 应用指向`reviews` 服务的 v2 版本，因为只有 v2和v3 两个版本会发起对 `ratings` 服务的调用：
 
-   ```shell
+   ```bash
    kubectl apply -f - <<EOF
    apiVersion: networking.istio.io/v1alpha3
    kind: VirtualService
@@ -70,7 +70,7 @@ categories: Istio
 
    查看虚拟服务：
 
-   ```shell
+   ```bash
    $  kubectl get virtualservices
    NAME       GATEWAYS             HOSTS       AGE
    bookinfo   [bookinfo-gateway]   [*]         69m
@@ -79,13 +79,13 @@ categories: Istio
 
    运行以下命令为 Bookinfo 服务创建默认目标规则：
 
-   ```shell
+   ```bash
    kubectl apply -f  samples/bookinfo/networking/destination-rule-all.yaml  
    ```
 
    查看目标规则：
 
-   ```shell
+   ```bash
    $ kubectl get destinationrule
    NAME          HOST          AGE
    details       details       8m28s
@@ -100,7 +100,7 @@ categories: Istio
 
 2. 给对 `ratings` 服务的调用添加 2 秒的延迟：
 
-   ```shell
+   ```bash
    kubectl apply -f - <<EOF
    apiVersion: networking.istio.io/v1alpha3
    kind: VirtualService
@@ -125,7 +125,7 @@ categories: Istio
 
 3. 现在给对 `reviews` 服务的调用增加一个1秒的请求超时：
 
-   ```shell
+   ```bash
    kubectl apply -f - <<EOF
    apiVersion: networking.istio.io/v1alpha3
    kind: VirtualService
@@ -151,7 +151,7 @@ categories: Istio
 
 在演示重试之前，我们要把刚才的 timeout 设置取消掉，所以我们重新地执行一个 Reviews 的虚拟服务配置项：
 
-```shell
+```bash
 kubectl apply -f - <<EOF
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -170,7 +170,7 @@ EOF
 
 接着就是最重要的一步，我们给 Ratings 服务的 VirtualService 配置一个 5秒的延迟并且配置一个重试选项：
 
-```shell
+```bash
 kubectl apply -f - <<EOF
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -198,7 +198,7 @@ EOF
 
 首先获取 ratings  pod：
 
-```shell
+```bash
 # zhangquan @ MacBook-Pro-2 in ~/Downloads/devops/istio-1.5.1 [18:08:10] C:127
 $ kubectl get pod 
 NAME                              READY   STATUS    RESTARTS   AGE
@@ -209,14 +209,14 @@ ratings-v1-6c9dbf6b45-6dpbg       2/2     Running   0          95m
 
 打印 Ratings 服务的log：
 
-```shell
+```bash
 $ kubectl logs -f ratings-v1-6c9dbf6b45-6dpbg -c istio-proxy
 ......
 ```
 
 这时我们再刷新 Bookinfo 页面，观察 Ratings 服务的 Envoy 的 log 中已经把两次请求全都打印出来了：
 
-```shell
+```bash
 $ kubectl logs -f ratings-v1-6c9dbf6b45-6dpbg -c istio-proxy
 ......
 [2022-11-20T10:14:19.232Z] "GET /ratings/0 HTTP/1.1" 200 - "-" "-" 0 48 1 0 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.80 Safari/537.36" "e1ee923b-ded2-9586-91d4-4a83af4728c2" "ratings:9080" "127.0.0.1:9080" inbound|9080|http|ratings.default.svc.cluster.local 127.0.0.1:33822 172.17.0.12:9080 172.17.0.14:35782 outbound_.9080_.v1_.ratings.default.svc.cluster.local default

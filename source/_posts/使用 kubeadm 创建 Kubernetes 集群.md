@@ -67,7 +67,7 @@ Kubeadm 通过执行必要的操作来启动和运行一个最小可用的集群
 
 * 配置 yum 源
 
-  ```shell
+  ```bash
   # 安装 yum的工具包
   yum install -y yum-utils
   
@@ -79,19 +79,19 @@ Kubeadm 通过执行必要的操作来启动和运行一个最小可用的集群
 
 * 安装 docker
 
-  ```shell
+  ```bash
   yum install -y docker-ce-20.10.7 docker-ce-cli-20.10.7  containerd.io-1.4.6
   ```
 
 * 启动 docker 并设置开机自启动
 
-  ```shell
+  ```bash
   systemctl enable docker --now
   ```
 
 * 验证安装成功
 
-  ```shell
+  ```bash
   docker info
   ```
 
@@ -105,7 +105,7 @@ Kubeadm 通过执行必要的操作来启动和运行一个最小可用的集群
 
   这里我们额外添加了docker的生产环境核心配置cgroup
 
-  ```shell
+  ```bash
   mkdir -p /etc/docker
   
   tee /etc/docker/daemon.json <<-'EOF'
@@ -126,7 +126,7 @@ Kubeadm 通过执行必要的操作来启动和运行一个最小可用的集群
 
 * 验证配置生效
 
-  ```shell
+  ```bash
   docker info
   ```
 
@@ -134,7 +134,7 @@ Kubeadm 通过执行必要的操作来启动和运行一个最小可用的集群
 
 * 设置主机名
 
-  ```shell
+  ```bash
   #各个机器设置自己的域名
   hostnamectl set-hostname <myhostname>
   
@@ -146,7 +146,7 @@ Kubeadm 通过执行必要的操作来启动和运行一个最小可用的集群
 
 * 关闭交换分区
 
-  ```shell
+  ```bash
   # 临时关闭
   swapoff -a  
   # 永久关闭
@@ -157,7 +157,7 @@ Kubeadm 通过执行必要的操作来启动和运行一个最小可用的集群
 
   将 SELinux 设置为 permissive 模式（相当于将其禁用）， 这是允许容器访问主机文件系统所必需的
 
-  ```shell
+  ```bash
   # 临时禁用
   setenforce 0
   # 永久禁用
@@ -166,7 +166,7 @@ Kubeadm 通过执行必要的操作来启动和运行一个最小可用的集群
 
 * 允许 iptables 检查桥接流量
 
-  ```shell
+  ```bash
   cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
   br_netfilter
   EOF
@@ -186,7 +186,7 @@ Kubeadm 通过执行必要的操作来启动和运行一个最小可用的集群
 
   官网提供的 google 源一般用不了，这里直接换成阿里的源
 
-  ```shell
+  ```bash
   cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
   [kubernetes]
   name=Kubernetes
@@ -202,7 +202,7 @@ Kubeadm 通过执行必要的操作来启动和运行一个最小可用的集群
 
 * 执行安装
 
-  ```shell
+  ```bash
   # --disableexcludes 禁掉除了kubernetes之外的别的仓库
   # 由于官网未开放同步方式, 替换成阿里源后可能会有索引 gpg 检查失败的情况, 这时请带上`--nogpgcheck`选项安装
   # 指定安装 1.20.9 版本
@@ -212,7 +212,7 @@ Kubeadm 通过执行必要的操作来启动和运行一个最小可用的集群
 
 * kubelet 设置开机启动
 
-  ```shell
+  ```bash
   sudo systemctl enable kubelet --now 
   ```
 
@@ -222,7 +222,7 @@ Kubeadm 通过执行必要的操作来启动和运行一个最小可用的集群
 
   首先导出 kubeadm 配置文件
 
-  ```shell
+  ```bash
   kubeadm config print init-defaults --kubeconfig ClusterConfiguration > kubeadm.yml
   ```
 
@@ -243,7 +243,7 @@ Kubeadm 通过执行必要的操作来启动和运行一个最小可用的集群
 
   其它两个节点需要 kube-proxy ，我们为了方便就全部都安装，所以其它两个节点也执行下面的命令
 
-  ```shell
+  ```bash
   sudo tee ./images.sh <<-'EOF'
   #!/bin/bash
   images=(
@@ -268,7 +268,7 @@ Kubeadm 通过执行必要的操作来启动和运行一个最小可用的集群
 
   镜像拉取下来后就可以开始安装了，执行以下命令初始化主节点，只在主节点上执行
 
-  ```shell
+  ```bash
   #所有机器添加 master 域名映射，以下需要修改为自己的ip，master节点我们也叫做集群入口节点，让所有节点知道 master节点在哪
   echo "172.31.0.2  cluster-endpoint" >> /etc/hosts
   
@@ -291,7 +291,7 @@ Kubeadm 通过执行必要的操作来启动和运行一个最小可用的集群
 
 ​		输出如下恭喜你安装成功了
 
-       ```shell
+       ```bash
        # 出现这个就说明安装成功了
        Your Kubernetes control-plane has initialized successfully!
        # 执行下面的命令配置 kubeconfig
@@ -324,7 +324,7 @@ Kubeadm 通过执行必要的操作来启动和运行一个最小可用的集群
 
 ​	按照提示配置 kubeconfig
 
-```shell
+```bash
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
@@ -332,7 +332,7 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 配置好后查看一下 node 状态
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl get node
 NAME         STATUS     ROLES                  AGE   VERSION
 k8s-master   NotReady   control-plane,master   10m   v1.20.9
@@ -348,19 +348,19 @@ k8s-master   NotReady   control-plane,master   10m   v1.20.9
 
 * 下载配置文件并拉取镜像，只在 master 节点上执行
 
-  ```shell
+  ```bash
   curl https://docs.projectcalico.org/archive/v3.21/manifests/calico.yaml -O
   ```
 
 * 部署，只在 master 节点上执行
 
-  ```shell
+  ```bash
   kubectl apply -f calico.yaml
   ```
 
   如果不错意外的话等一会 calico 就安装好了，可以通过以下命令查看：
 
-  ```shell
+  ```bash
   [root@k8s-master ~]# kubectl get pods -A
   NAMESPACE     NAME                                       READY   STATUS    RESTARTS   AGE
   kube-system   calico-kube-controllers-5bb48c55fd-ghkdz   1/1     Running   0          8m10s
@@ -374,7 +374,7 @@ k8s-master   NotReady   control-plane,master   10m   v1.20.9
   kube-system   kube-scheduler-k8s-master                  1/1     Running   0          31m
   ```
 
-  ```shell
+  ```bash
   [root@k8s-master ~]# kubectl get node
   NAME         STATUS   ROLES                  AGE   VERSION
   k8s-master   Ready    control-plane,master   32m   v1.20.9
@@ -386,14 +386,14 @@ k8s-master   NotReady   control-plane,master   10m   v1.20.9
 
 先在  k8s-node1 、 k8s-node2节点执行
 
-```shell
+```bash
 kubeadm join cluster-endpoint:6443 --token z9wjde.ewp0hefm2swxupn6 \
     --discovery-token-ca-cert-hash sha256:336a976225818ce72ed9cf1b87bebda2b094f11732a0b622becc5a1b71b733be
 ```
 
 输出如下：
 
-```shell
+```bash
 [root@k8s-node1 ~]# kubeadm join cluster-endpoint:6443 --token z9wjde.ewp0hefm2swxupn6 \
 >     --discovery-token-ca-cert-hash sha256:336a976225818ce72ed9cf1b87bebda2b094f11732a0b622becc5a1b71b733be
 [preflight] Running pre-flight checks
@@ -418,7 +418,7 @@ Run 'kubectl get nodes' on the control-plane to see this node join the cluster.
 
   * 检查各组件运行状态
 
-    ```shell
+    ```bash
     [root@k8s-master ~]#  kubectl get cs
     Warning: v1 ComponentStatus is deprecated in v1.19+
     NAME                 STATUS      MESSAGE                                                                                       ERROR
@@ -432,7 +432,7 @@ Run 'kubectl get nodes' on the control-plane to see this node join the cluster.
     出现这个问题的原因是 /etc/kubernetes/manifests/下的kube-controller-manager.yaml和kube-scheduler.yaml中启动参数设置的默认端口是0。  
     解决方法：将相应的`--port 0`参数注释掉，然后重启kubelet服务即可
 
-    ```shell
+    ```bash
     [root@k8s-master manifests]#  kubectl get cs
     Warning: v1 ComponentStatus is deprecated in v1.19+
     NAME                 STATUS    MESSAGE             ERROR
@@ -443,7 +443,7 @@ Run 'kubectl get nodes' on the control-plane to see this node join the cluster.
 
   * 查看集群信息
 
-    ```shell
+    ```bash
     [root@k8s-master ~]# kubectl cluster-info
     Kubernetes control plane is running at https://cluster-endpoint:6443
     KubeDNS is running at https://cluster-endpoint:6443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
@@ -453,7 +453,7 @@ Run 'kubectl get nodes' on the control-plane to see this node join the cluster.
 
   * 查看节点状态
 
-    ```shell
+    ```bash
     [root@k8s-master ~]# kubectl get nodes
     NAME         STATUS   ROLES                  AGE     VERSION
     k8s-master   Ready    control-plane,master   42m     v1.20.9
@@ -480,19 +480,19 @@ Dashboard 是基于网页的 Kubernetes 用户界面。您可以使用 Dashboard
 
 * 下载配置文件
 
-  ```shell
+  ```bash
   wget https://raw.githubusercontent.com/kubernetes/dashboard/v2.3.1/aio/deploy/recommended.yaml -O  dashboard.yaml
   ```
 
 * 部署
 
-  ```shell
+  ```bash
   kubectl apply -f dashboard.yaml
   ```
 
 * 设置访问端口
 
-  ```shell
+  ```bash
   kubectl edit svc kubernetes-dashboard -n kubernetes-dashboard
   ```
 
@@ -500,7 +500,7 @@ Dashboard 是基于网页的 Kubernetes 用户界面。您可以使用 Dashboard
 
 * 找到端口，在云服务器上的安全组放行
 
-  ```shell
+  ```bash
   kubectl get svc -A |grep kubernetes-dashboard
   ```
 
@@ -531,13 +531,13 @@ Dashboard 是基于网页的 Kubernetes 用户界面。您可以使用 Dashboard
 
   * 部署
 
-    ```shell
+    ```bash
     kubectl apply -f dash-user.yaml
     ```
 
 * 获取访问令牌
 
-  ```shell
+  ```bash
   kubectl -n kubernetes-dashboard get secret $(kubectl -n kubernetes-dashboard get sa/admin-user -o jsonpath="{.secrets[0].name}") -o go-template="{{.data.token | base64decode}}"
   ```
 

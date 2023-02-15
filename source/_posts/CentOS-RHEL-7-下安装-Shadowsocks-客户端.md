@@ -37,7 +37,7 @@ yum install -y shadowsocks-libev
 
 注，如果安装报类似如下错误：
 
-```shell
+```bash
 Error: Package: shadowsocks-libev-3.1.3-1.el7.centos.x86_64 (librehat-shadowsocks)
            Requires: libsodium >= 1.0.4
 Error: Package: shadowsocks-libev-3.1.3-1.el7.centos.x86_64 (librehat-shadowsocks)
@@ -46,7 +46,7 @@ Error: Package: shadowsocks-libev-3.1.3-1.el7.centos.x86_64 (librehat-shadowsock
 
 说明系统没有启用 EPEL (Extra Packages for Entreprise Linux)。那么我们需要首先启用 EPEL，再安装 shadowsocks-libev：
 
-```shell
+```bash
 yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 yum install -y shadowsocks-libev
 ```
@@ -62,7 +62,7 @@ yum install -y shadowsocks-libev
 
   使用 root 身份执行以下命令即可：
 
-  ```shell
+  ```bash
   cd /usr/lib64
   ln -s libmbedcrypto.so.1 libmbedcrypto.so.0
   ```
@@ -73,7 +73,7 @@ yum install -y shadowsocks-libev
 
 COPR 里的 *shadowsocks-libev* 默认读取位于 `/etc/shadowsocks-libev/config.json` 的配置文件，我们可以根据需要参考以下配置文件进行修改：
 
-```shell
+```bash
 {
 	"server": "zhangquan.me",
 	"server_port": 55278,
@@ -124,7 +124,7 @@ DAEMON_ARGS="-u"
 
 有了 Shadowsocks 客户端的配置文件后，我们通过 systemd 启动 Shadowsocks 的客户端服务：
 
-```shell
+```bash
 systemctl enable --now shadowsocks-libev-local
 ```
 
@@ -136,12 +136,12 @@ systemctl enable --now shadowsocks-libev-local
 
 要确认 Shadowsocks 的服务运行状态及最新日志，我们可以执行命令：
 
-```shell
+```bash
 systemctl status shadowsocks-libev-local
 ```
 
 要查看 Shadowsocks 服务的全部日志，我们可以执行命令：
 
-```shell
+```bash
 journalctl -u shadowsocks-libev-local
 ```

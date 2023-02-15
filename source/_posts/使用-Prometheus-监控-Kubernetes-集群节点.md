@@ -118,7 +118,7 @@ spec:
 
 另外由于我们集群使用的是 `kubeadm` 搭建的，所以如果希望 master 节点也一起被监控，则需要添加相应的容忍，然后直接创建上面的资源对象：
 
-```shell
+```bash
 [root@k8s-master prometheus]# kubectl apply -f prometheus-node-exporter.yaml 
 daemonset.apps/node-exporter created
 
@@ -133,7 +133,7 @@ redis-6468bf6c84-qmm2k        2/2     Running   0          27m     192.168.36.93
 
 部署完成后，我们可以看到在3个节点上都运行了一个 Pod，我们这里不需要创建一个 Service 吗？我们应该怎样去获取`/metrics`数据呢？我们上面是不是指定了`hostNetwork=true`，所以在每个节点上就会绑定一个端口 9100，我们可以通过这个端口去获取到监控指标数据：
 
-```shell
+```bash
 [root@k8s-master prometheus]# curl localhost:9100/metrics | more 
 # HELP go_gc_duration_seconds A summary of the GC invocation durations.
 # TYPE go_gc_duration_seconds summary
@@ -152,7 +152,7 @@ promhttp_metric_handler_requests_total{code="503"} 0
 
 当然如果你觉得上面的手动安装方式比较麻烦，我们也可以使用 Helm 的方式来安装：
 
-```shell
+```bash
 $ helm upgrade --install --name node-exporter --namespace kube-mon stable/prometheus-node-exporter
 ```
 
@@ -164,7 +164,7 @@ $ helm upgrade --install --name node-exporter --namespace kube-mon stable/promet
 
 我们通过 kubectl 命令可以很方便的获取到当前集群中的所有节点信息：
 
-```shell
+```bash
 [root@k8s-master prometheus]# kubectl get nodes
 NAME         STATUS   ROLES                  AGE   VERSION
 k8s-master   Ready    control-plane,master   20d   v1.20.9
@@ -184,7 +184,7 @@ k8s-node2    Ready    <none>                 20d   v1.20.9
 
 prometheus 的 ConfigMap 更新完成后，同样的我们执行 reload 操作，让配置生效：
 
-```shell
+```bash
 [root@k8s-master prometheus]# kubectl apply -f prometheus-cm.yaml 
 configmap/prometheus-config configured
 
@@ -203,7 +203,7 @@ redis        ClusterIP   10.96.143.235   <none>        6379/TCP,9121/TCP   36m
 
 我们可以看到上面的`kubernetes-nodes`这个 job 任务已经自动发现了我们3个 node 节点，但是在获取数据的时候失败了，出现了类似于下面的错误信息：
 
-```shell
+```bash
 server returned HTTP status 400 Bad Request
 ```
 
@@ -278,7 +278,7 @@ server returned HTTP status 400 Bad Request
 
 现在我们再去更新下配置文件，执行 reload 操作，让配置生效
 
-```shell
+```bash
 [root@k8s-master prometheus]# kubectl apply -f prometheus-cm.yaml 
 configmap/prometheus-config configured
 
@@ -310,7 +310,7 @@ configmap/prometheus-config configured
 
  prometheus-cm.yaml  内容如下：
 
-```shell
+```bash
 apiVersion: v1
 kind: ConfigMap
 metadata:

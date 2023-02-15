@@ -30,7 +30,7 @@ K8s中 `PV` 的创建一般分为两种，静态创建和动态创建。静态�
 
 查看  NFS server 状态：
 
-```shell
+```bash
 [root@k8s-master ~]# systemctl status nfs.service
 ● nfs-server.service - NFS server and services
    Loaded: loaded (/usr/lib/systemd/system/nfs-server.service; enabled; vendor preset: disabled)
@@ -53,7 +53,7 @@ Aug 29 22:13:42 k8s-master systemd[1]: Started NFS server and services.
 
 开始之前先创建一个文件夹来保存我们的资源文件：
 
-```shell
+```bash
 [root@k8s-master ~]# mkdir ~/nfs-storage-class
 [root@k8s-master ~]# cd ~/nfs-storage-class
 ```
@@ -198,7 +198,7 @@ parameters:
 
 现在我们来创建这些资源对象：
 
-```shell
+```bash
 [root@k8s-master nfs-storage-class]# kubectl create -f deployment.yaml
 deployment.apps/nfs-client-provisioner created
 
@@ -215,7 +215,7 @@ storageclass.storage.k8s.io/nfs-client created
 
 创建完成后查看下资源状态：
 
-```shell
+```bash
 [root@k8s-master nfs-storage-class]# kubectl get deployment
 NAME                     READY   UP-TO-DATE   AVAILABLE   AGE
 ......
@@ -257,7 +257,7 @@ spec:
 
 直接创建即可：
 
-```shell
+```bash
 [root@k8s-master nfs-storage-class]#  kubectl create -f test-claim.yaml
 persistentvolumeclaim/test-claim created
  
@@ -270,7 +270,7 @@ test-claim   Bound    pvc-c3d960df-2561-43cb-add2-357cc2d3ad55   1Mi        RWX 
 
 然后查看下 PV 对象：
 
-```shell
+```bash
 [root@k8s-master nfs-storage-class]# kubectl get pv
 NAME                                       CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                STORAGECLASS   REASON   AGE
 pvc-c3d960df-2561-43cb-add2-357cc2d3ad55   1Mi        RWX            Delete           Bound    default/test-claim   nfs-client              54s
@@ -311,14 +311,14 @@ spec:
 
 上面这个 Pod 非常简单，就是用一个 **busybox** 容器，在 /mnt 目录下面新建一个 SUCCESS 的文件，然后把 /mnt 目录挂载到上面我们新建的 test-claim 这个资源对象上面了，要验证很简单，只需要去查看下我们 nfs 服务器上面的共享数据目录下面是否有 SUCCESS 这个文件即可：
 
-```shell
+```bash
 [root@k8s-master nfs-storage-class]#  kubectl create -f test-pod.yaml
 pod/test-pod created
 ```
 
 然后我们可以在 nfs 服务器的共享数据目录下面查看下数据：
 
-```shell
+```bash
 [root@k8s-master nfs-storage-class]# ls -l /nfs/data/
 total 4
 drwxr-xr-x 2 root root  6 Aug 21 22:19 01
@@ -331,7 +331,7 @@ drwxr-xr-x 2 root root 24 Aug 21 21:26 nginx-pv
 
 我们可以看到下面有名字很长的文件夹，这个文件夹的命名方式是不是和我们上面的规则：**${namespace}-${pvcName}-${pvName}**是一样的，再看下这个文件夹下面是否有其他文件：
 
-```shell
+```bash
 [root@k8s-master nfs-storage-class]# ls /nfs/data/default-test-claim-pvc-c3d960df-2561-43cb-add2-357cc2d3ad55/
 SUCCESS
 ```
@@ -384,7 +384,7 @@ spec:
 
 直接创建上面的对象：
 
-```shell
+```bash
 [root@k8s-master nfs-storage-class]#  kubectl create -f test-statefulset-nfs.yaml
 statefulset.apps/web created
  
@@ -399,7 +399,7 @@ web-2                                     1/1     Running     0          15s
 
 创建完成后可以看到上面的3个 Pod 已经运行成功，然后查看下 PVC 对象：
 
-```shell
+```bash
 [root@k8s-master nfs-storage-class]# kubectl get pvc
 NAME         STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
 test-claim   Bound    pvc-c3d960df-2561-43cb-add2-357cc2d3ad55   1Mi        RWX            nfs-client     25m
@@ -410,7 +410,7 @@ www-web-2    Bound    pvc-e0d2d4ab-a29f-4bc4-8283-17448a1ebff1   1Gi        RWO 
 
 我们可以看到是不是也生成了3个 PVC 对象，名称由模板名称 name 加上 Pod 的名称组合而成，这3个 PVC 对象也都是 绑定状态了，很显然我们查看 PV 也可以看到对应的3个 PV 对象：
 
-```shell
+```bash
 [root@k8s-master nfs-storage-class]# kubectl get pv
 NAME                                       CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                STORAGECLASS   REASON   AGE
 pvc-6e6916f2-275b-4bc8-9097-dd96b0e06d8b   1Gi        RWO            Delete           Bound    default/www-web-0    nfs-client              2m19s
@@ -421,7 +421,7 @@ pvc-fc8f5e03-be8c-422c-81c8-3c3374392791   1Gi        RWO            Delete     
 
 查看 nfs 服务器上面的共享数据目录：
 
-```shell
+```bash
 [root@k8s-master nfs-storage-class]# ls -l /nfs/data/
 total 4
 drwxr-xr-x 2 root root  6 Aug 21 22:19 01

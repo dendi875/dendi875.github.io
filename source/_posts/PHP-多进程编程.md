@@ -55,13 +55,13 @@ categories:
 例如修改bash进程的优先级
 
 * 获取bash进程的进程ID
-```shell
+```bash
 [dendi875@localhost ~]$ echo $$
 3224
 ```
 * top查看进程的优先级
 
-```shell
+```bash
 top -d -2 -p <pid>
 ```
 
@@ -253,7 +253,7 @@ for ($i = 0; $i < 3; $i++) {
 
 ``` cli ```下运行结果为
 
-```shell
+```bash
 [dendi875@localhost process]$ php fork3.php
 I'm 0 parent pid：7776 ppid：2789
 I'm 1 parent pid：7776 ppid：2789
@@ -365,7 +365,7 @@ run();
 ```
 
 以上代码输出：
-```shell
+```bash
 [root@localhost process]# php orphan.php
 child：pid = 29615, ppid = 29614, pgid = 29614, sid = 7937
 parent：pid = 29614, ppid = 21998, pgid = 29614, sid = 7937
@@ -412,7 +412,7 @@ run();
 ```
 
 运行查看
-```shell
+```bash
 root@vultr:/data1/www/test/php/process# php zombie.php
 I am parent process pid：25210  ppid：24032
 I am child process pid：25211   ppid：25210

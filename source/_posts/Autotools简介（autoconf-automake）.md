@@ -35,7 +35,7 @@ categories:
 
 在你的工作目录下新建一个epoch目录，我们用它来存放epoch程序及相关文件。
 
-```shell
+```bash
 $ mkdir epoch
 $ cd epoch
 ```
@@ -79,7 +79,7 @@ int main(int argc, char *argv[])
 
 我们使用autoscan命令来帮助我们根据目录下的源代码生成一个configure.ac的模板文件
 
-```shell
+```bash
 $ autoscan
 $ ls
 autoscan.log  configure.scan  epoch.c
@@ -87,11 +87,11 @@ autoscan.log  configure.scan  epoch.c
 
 执行后在epoch目录下会生成一个文件configure.scan，我们可以拿它作为configure.ac的模板。现在将configure.scan改名为configure.ac，并且编辑它，修改成下面的内容：
 
-```shell
+```bash
 $ mv configure.scan configure.ac
 ```
 
-```shell
+```bash
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 
@@ -119,7 +119,7 @@ AC_OUTPUT(Makefile)
 
 然后执行命令**aclocal**和**autoconf**及**autoheader**，就会分别生成**aclocal.m4**和**configure**及**config.h.in**文件：
 
-```shell
+```bash
 $ aclocal
 $ ls
 aclocal.m4  autom4te.cache  autoscan.log  configure.ac  epoch.c
@@ -137,11 +137,11 @@ aclocal.m4  autom4te.cache  autoscan.log  config.h.in  configure  configure.ac  
 
 Makefile.am文件内容：
 
-```shell
+```bash
 $ vi Makefile.am
 ```
 
-```shell
+```bash
 AUTOMAKE_OPTIONS=foreign
 bin_PROGRAMS=epoch
 epoch_SOURCES=epoch.c
@@ -155,7 +155,7 @@ Makefile.am中定义的宏和目标，会指导automake生成指定的代码。�
 
 5）运行automake
 
-```shell
+```bash
 $ automake --add-missing
 configure.ac:6: installing `./install-sh'
 configure.ac:6: installing `./missing'
@@ -165,7 +165,7 @@ Makefile.am: installing `./depcomp'
 
 6）运行configure生成Makefile和config.h
 
-```shell
+```bash
 $ ./configure
 checking for a BSD-compatible install... /usr/bin/install -c
 checking whether build environment is sane... yes
@@ -206,7 +206,7 @@ config.status: creating config.h
 config.status: executing depfiles commands
 ```
 
-```shell
+```bash
 ls
 aclocal.m4      autoscan.log  config.h.in  config.status  configure.ac  epoch.c     Makefile     Makefile.in  stamp-h1
 autom4te.cache  config.h      config.log   configure      depcomp       install-sh  Makefile.am  missing
@@ -216,7 +216,7 @@ autom4te.cache  config.h      config.log   configure      depcomp       install-
 
 7）使用Makefile编译代码
 
-```shell
+```bash
 $ make
 make  all-am
 make[1]: Entering directory `/home/dendi875/auto/epoch'
@@ -228,7 +228,7 @@ make[1]: Leaving directory `/home/dendi875/auto/epoch'
 
 8）运行epoch
 
-```shell
+```bash
 $ ./epoch
 1561952071.857380
 ```

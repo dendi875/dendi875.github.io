@@ -22,7 +22,7 @@ categories: Kubernetes
 
 `ServiceAccount` 是命名空间级别的，每一个命名空间创建的时候就会自动创建一个名为 `default` 的 `ServiceAccount` 对象:
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl create ns kube-test
 namespace/kube-test created
 
@@ -102,7 +102,7 @@ ca.crt  namespace  token
 
 查看这个 Pod 使用的 `default` 这个 ServiceAccount：
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl get sa 
 NAME      SECRETS   AGE
 default   1         11d
@@ -110,7 +110,7 @@ default   1         11d
 
 查看 default 的ServiceAccount详细信息，可以看到它 Mount 了一个 secret ：
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl describe sa default
 Name:                default
 Namespace:           default
@@ -124,7 +124,7 @@ Events:              <none>
 
 查看 secret
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl get secret
 NAME                  TYPE                                  DATA   AGE
 default-token-pvpv2   kubernetes.io/service-account-token   3      11d

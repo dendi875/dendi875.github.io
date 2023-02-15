@@ -5,7 +5,7 @@
 # Site
 title: 一代键客
 subtitle: '路漫漫其修远兮，吾将上下而求索'
-description: 'PHP Go MySQL 后端开发'
+description: 'PHP Java Go MySQL 后端开发'
 keywords: [PHP, Java, Go, MySQL, Linux, Docker等]
 author: 张权
 language: zh-CN
@@ -206,3 +206,9 @@ markdown_it_plus:
     permalinkClass: header-anchor  # 定义固定锚点的 class 名.
     permalinkSide: 'left' # 设定为 right 则会在标题后添加固定链接.
     permalinkSymbol: '.' # 定义固定链接使用的符号
+
+# 图片懒加载
+lazyload:
+  enable: true 
+  onlypost: false  # 是否只对文章的图片做懒加载
+  loadingImg: https://cdn.jsdelivr.net/gh/dendi875/dendi875.github.io/medias/loading.gif # eg ./images/loading.gif

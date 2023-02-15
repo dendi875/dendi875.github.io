@@ -39,7 +39,7 @@ categories: Istio
 
   **首先部署 `v1` 版本的 httpbin 服务：**
 
-  ```shell
+  ```bash
   kubectl create -f - <<EOF
   apiVersion: apps/v1
   kind: Deployment
@@ -69,7 +69,7 @@ categories: Istio
 
   **然后部署 `v2` 版本的 httpbin 服务：**
 
-  ```shell
+  ```bash
   kubectl create -f - <<EOF
   apiVersion: apps/v1
   kind: Deployment
@@ -99,7 +99,7 @@ categories: Istio
 
   可以看到 v1 和 v2 两个版本的 httpbin 服务已经部署好了： 
 
-  ```shell
+  ```bash
   # zhangquan @ MacBook-Pro-2 in ~/Downloads/devops/istio-1.5.1 [16:42:18] 
   $ kubectl get pod
   NAME                              READY   STATUS            RESTARTS   AGE
@@ -110,7 +110,7 @@ categories: Istio
 
   **然后创建一个 httpbin 的 Service 对象，关联上面的两个版本服务：**
 
-  ```shell
+  ```bash
   kubectl create -f - <<EOF
   apiVersion: v1
   kind: Service
@@ -130,7 +130,7 @@ categories: Istio
 
   验证服务部署成功：
 
-  ```shell
+  ```bash
   $ kubectl get svc
   NAME          TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
   ......
@@ -141,7 +141,7 @@ categories: Istio
 
   **sleep service：**
 
-  ```shell
+  ```bash
   kubectl create -f - <<EOF
   apiVersion: apps/v1
   kind: Deployment
@@ -171,7 +171,7 @@ categories: Istio
 
 1. 创建一个默认路由规则，将所有流量路由到服务的 `v1` 版本：
 
-   ```shell
+   ```bash
    kubectl apply -f - <<EOF
    apiVersion: networking.istio.io/v1alpha3
    kind: VirtualService
@@ -207,7 +207,7 @@ categories: Istio
 
 2. 向服务发送一部分流量：
 
-   ```shell
+   ```bash
    $ export SLEEP_POD=$(kubectl get pod -l app=sleep -o jsonpath={.items..metadata.name})
    $ kubectl exec "${SLEEP_POD}" -c sleep -- curl -sS http://httpbin:8000/headers
    {
@@ -227,13 +227,13 @@ categories: Istio
 
 3. 分别查看 `httpbin` Pod的 `v1` 和 `v2` 两个版本的日志。您可以看到 `v1` 版本的访问日志条目，而 `v2` 版本没有日志：
 
-   ```shell
+   ```bash
    $ export V1_POD=$(kubectl get pod -l app=httpbin,version=v1 -o jsonpath={.items..metadata.name})
    $ kubectl logs -f $V1_POD -c httpbin
    127.0.0.1 - - [22/Dec/2022:08:49:17 +0000] "GET /headers HTTP/1.1" 200 522 "-" "curl/7.87.0-DEV"
    ```
 
-   ```shell
+   ```bash
    $ export V2_POD=$(kubectl get pod -l app=httpbin,version=v2 -o jsonpath={.items..metadata.name})
    $  kubectl logs -f $V2_POD -c httpbin
    ```
@@ -244,7 +244,7 @@ categories: Istio
 
 1. 改变流量规则将流量镜像到 v2：
 
-   ```shell
+   ```bash
    kubectl apply -f - <<EOF
    apiVersion: networking.istio.io/v1alpha3
    kind: VirtualService
@@ -273,7 +273,7 @@ categories: Istio
 
 2. 发送流量：
 
-   ```shell
+   ```bash
    $ kubectl exec -it $SLEEP_POD -c sleep -- sh -c 'curl  http://httpbin:8000/headers' | python -m json.tool  
    {
        "headers": {
@@ -292,13 +292,13 @@ categories: Istio
 
    现在就可以看到 `v1` 和 `v2` 版本中都有了访问日志。v2 版本中的访问日志就是由镜像流量产生的，这些请求的实际目标是 `v1` 版本。
 
-   ```shell
+   ```bash
    $ kubectl logs -f $V1_POD -c httpbin
    127.0.0.1 - - [22/Dec/2022:08:49:17 +0000] "GET /headers HTTP/1.1" 200 522 "-" "curl/7.87.0-DEV"
    127.0.0.1 - - [22/Dec/2022:08:58:07 +0000] "GET /headers HTTP/1.1" 200 522 "-" "curl/7.87.0-DEV"
    ```
 
-   ```shell
+   ```bash
    $  kubectl logs -f $V2_POD -c httpbin
    127.0.0.1 - - [22/Dec/2022:08:58:07 +0000] "GET /headers HTTP/1.1" 200 562 "-" "curl/7.87.0-DEV"
    ```
@@ -307,14 +307,14 @@ categories: Istio
 
 1. 删除规则：
 
-   ```shell
+   ```bash
    $ kubectl delete virtualservice httpbin
    $ kubectl delete destinationrule httpbin
    ```
 
 2. 关闭 [Httpbin](https://github.com/istio/istio/tree/release-1.16/samples/httpbin) 服务和客户端：
 
-   ```shell
+   ```bash
    $ kubectl delete deploy httpbin-v1 httpbin-v2 sleep
    $ kubectl delete svc httpbin
    ```

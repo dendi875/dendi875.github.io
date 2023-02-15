@@ -397,7 +397,7 @@ public class OptionalDemo {
 
 Output: 
 
-```shell
+```bash
  ===== function called ===== 
 value in orElseGetResult default value
 
@@ -434,7 +434,7 @@ public class OptionalDemo {
 
 Output: 
 
-```shell
+```bash
 value in orElseGetResult value found
 
  ===== function called ===== 

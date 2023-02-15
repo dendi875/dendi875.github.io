@@ -26,7 +26,7 @@ ConfigMap 顾名思义，叫配置集。它是用于保存配置数据的键值�
 
 configmap 简写为 cm，常用命令如下： 
 
-```shell
+```bash
 # 创建
 $ kubectl create configmap
 # 删除
@@ -43,7 +43,7 @@ $ kubectl describe configmap ConfigMap名称
 
 我们可以使用`kubectl create configmap -h`来查看关于创建 `ConfigMap` 的帮助信息：
 
-```shell
+```bash
 Examples:
   # Create a new configmap named my-config based on folder bar
   kubectl create configmap my-config --from-file=path/to/bar
@@ -92,7 +92,7 @@ data:
 
 创建 configMap 
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl create -f cm/cm-demo.yaml 
 configmap/cm-demo created
 ```
@@ -101,7 +101,7 @@ configmap/cm-demo created
 
 我们可以从一个给定的目录来创建一个 `ConfigMap` 对象，比如我们有一个 testcm 的目录，该目录下面包含一些配置文件，redis 和 mysql 的连接信息，如下：
 
-```shell
+```bash
 $ ls testcm
 redis.conf
 mysql.conf
@@ -124,7 +124,7 @@ configmap/cm-demo1 created
 
 其中 `from-file` 参数指定在该目录下面的所有文件都会被用在 `ConfigMap` 里面创建一个键值对，**键的名字就是文件名，值就是文件的内容**。创建完成后，同样我们可以使用如下命令来查看 `ConfigMap` 列表：
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl get cm
 NAME               DATA   AGE
 cm-demo            3      101s
@@ -134,7 +134,7 @@ kube-root-ca.crt   1      8d
 
 可以看到已经创建了一个 cm-demo1 的 `ConfigMap` 对象，然后可以使用 `describe` 命令查看详细信息：
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl describe cm cm-demo1
 Name:         cm-demo1
 Namespace:    default
@@ -158,7 +158,7 @@ Events:  <none>
 
 我们可以看到两个 `key` 是 testcm 目录下面的文件名称，对应的 `value` 值就是文件内容，这里值得注意的是如果文件里面的配置信息很大的话，`describe` 的时候可能不会显示对应的值，要查看完整的键值，可以使用如下命令：
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl get cm cm-demo1 -o yaml
 apiVersion: v1
 data:
@@ -192,7 +192,7 @@ metadata:
 
 以上面的配置文件为例，我们为 redis 的配置单独创建一个 `ConfigMap` 对象：
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl create cm cm-demo2 --from-file=testcm/redis.conf 
 configmap/cm-demo2 created
 
@@ -232,7 +232,7 @@ metadata:
 
 通过帮助文档我们可以看到我们还可以直接使用字符串进行创建，通过 `--from-literal` 参数传递配置信息，同样的，这个参数可以使用多次，格式如下：
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl create configmap cm-demo3 --from-literal=db.host=localhost --from-literal=db.port=3306
 configmap/cm-demo3 created
 
@@ -267,14 +267,14 @@ metadata:
 
 > 语法为 key=value
 
-```shell
+```bash
 id=1
 name=zhangquan
 ```
 
 使用`–from-env-file`创建
 
-```shell
+```bash
 [root@k8s-master ~]#  kubectl create cm cm-demo4 --from-env-file=cm/conf.env
 configmap/cm-demo4 created
 
@@ -353,7 +353,7 @@ spec:
 
 根据以上 yaml 文件创建 pod 并查看日志
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl apply -f cm/testcm1.yaml 
 pod/testcm1-pod created
 
@@ -400,7 +400,7 @@ spec:
 
 根据以上 yaml 文件创建 pod 并查看日志：
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl apply -f cm/testcm2.yaml 
 pod/testcm2-pod created
 
@@ -416,13 +416,13 @@ localhost 3306
 
   * redis.conf 文件内容如下
 
-    ```shell
+    ```bash
     appendonly yes
     ```
 
   * 创建 ConfigMap
 
-    ```shell
+    ```bash
     [root@k8s-master ~]# kubectl create cm redis-conf --from-file=cm/redis.conf
     configmap/redis-conf created
     
@@ -486,14 +486,14 @@ localhost 3306
 
 * 根据以上 yaml 文件创建 pod
 
-  ```shell
+  ```bash
   [root@k8s-master ~]# kubectl apply -f cm/testcmredis.yaml 
   pod/redis created
   ```
 
 * 进入 Pod 查看配置
 
-  ```shell
+  ```bash
   [root@k8s-master ~]# kubectl exec -it redis -- redis-cli
   127.0.0.1:6379> CONFIG GET appendonly
   1) "appendonly"
@@ -502,7 +502,7 @@ localhost 3306
 
 * 在外面把修改了，容器里的配置也会跟着修改
 
-  ```shell
+  ```bash
   # 修改配置
   [root@k8s-master ~]# kubectl edit cm redis-conf
   # Please edit the object below. Lines beginning with a '#' will be ignored,

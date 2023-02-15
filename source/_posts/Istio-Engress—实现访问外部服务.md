@@ -55,7 +55,7 @@ categories: Istio
 
 * 部署 [sleep](https://github.com/istio/istio/tree/release-1.15/samples/sleep) 服务（可选的，如果服务已存在就不用部署了）
 
-  ```shell
+  ```bash
   # zhangquan @ MacBook-Pro-2 in ~/Downloads/devops/istio-1.5.1 [17:18:05] 
   $ kubectl apply -f samples/sleep/sleep.yaml 
   serviceaccount/sleep created
@@ -65,7 +65,7 @@ categories: Istio
 
   查看 sleep 服务
 
-  ```shell
+  ```bash
   $ kubectl get pod
   NAME                              READY   STATUS    RESTARTS   AGE
   ......
@@ -75,7 +75,7 @@ categories: Istio
 
 * 查看 egressgateway 组件是否存在
 
-  ```shell
+  ```bash
   $ kubectl get pod -n istio-system
   NAME                                    READY   STATUS    RESTARTS   AGE
   grafana-5cc7f86765-2tzdg                1/1     Running   0          36m
@@ -91,7 +91,7 @@ categories: Istio
 
 * 为外部服务 httpbin 定义 ServiceEntry
 
-  ```shell
+  ```bash
   kubectl apply -f - <<EOF
   apiVersion: networking.istio.io/v1alpha3
   kind: ServiceEntry
@@ -110,7 +110,7 @@ categories: Istio
 
   查看是否配置成功：
 
-  ```shell
+  ```bash
   $ kubectl get se
   NAME      HOSTS           LOCATION   RESOLUTION   AGE
   httpbin   [httpbin.org]              DNS          76s
@@ -120,13 +120,13 @@ categories: Istio
 
   这个时候我们打开 egressgateway 它的 log来看一看是不是请求会通过它来指向外部服务
 
-  ```shell
+  ```bash
    kubectl logs -f  $(kubectl get pod -l istio=egressgateway -n istio-system -o jsonpath='{.items[0].metadata.name}') -n istio-system
   ```
 
   我们再去 sleep 容器中执行下面的请求，去访问外部服务：
 
-  ```shell
+  ```bash
   $ kubectl exec -it sleep-f8cbf5b76-fm6xk  -c sleep -- curl http://httpbin.org/ip
   {
     "origin": "103.206.189.20"
@@ -135,7 +135,7 @@ categories: Istio
 
   可以看到它已经有正常返回了，查看 egressgateway 的 Pod 中的容器日志：
 
-  ```shell
+  ```bash
   $ kubectl logs $(kubectl get pod -l istio=egressgateway -n istio-system -o jsonpath='{.items[0].metadata.name}') -n istio-system | tail
   ......
   2022-11-13T09:39:38.606420Z     info    pickfirstBalancer: HandleSubConnStateChange: 0xc00060d0a0, {CONNECTING <nil>}
@@ -146,7 +146,7 @@ categories: Istio
 
 * 配置 Egress gateway
 
-  ```shell
+  ```bash
   kubectl apply -f - <<EOF
   apiVersion: networking.istio.io/v1alpha3
   kind: Gateway
@@ -167,7 +167,7 @@ categories: Istio
 
   查看 gateway 是否创建成功：
 
-  ```shell
+  ```bash
   $ kubectl get gateway
   NAME                  AGE
   bookinfo-gateway      64m
@@ -178,7 +178,7 @@ categories: Istio
 
   给 egressgateway 设置一下路由规则，我们需要建立一个 VirtualService，将流量从 sidecar 引导至 egress gateway，再从 egress gateway 引导至外部服务：
 
-  ```shell
+  ```bash
   kubectl apply -f - <<EOF
   apiVersion: networking.istio.io/v1alpha3
   kind: VirtualService
@@ -230,7 +230,7 @@ categories: Istio
 
   * sleep 容器执行 curl 请求外部服务
 
-    ```shell
+    ```bash
     $ kubectl exec -it sleep-f8cbf5b76-fm6xk  -c sleep -- curl http://httpbin.org/ip
     {
       "origin": "172.17.0.16, 103.206.189.20"
@@ -239,7 +239,7 @@ categories: Istio
 
   * 查看 egressgateway 的 Pod 中的容器日志
 
-    ```shell
+    ```bash
     $ kubectl logs $(kubectl get pod -l istio=egressgateway -n istio-system -o jsonpath='{.items[0].metadata.name}') -n istio-system | tail
     ......
     [2022-11-13T09:54:53.829Z] "GET /ip HTTP/2" 200 - "-" "-" 0 46 642 641 "172.17.0.16" "curl/7.83.1" "41f8da95-3e03-999d-ad9c-c3f484d9fc09" "httpbin.org" "54.166.148.227:80" outbound|80||httpbin.org 172.17.0.4:37542 172.17.0.4:80 172.17.0.16:56190 - -

@@ -39,7 +39,7 @@ NameSpaces：名称空间，用来对集群中的资源进行隔离划分。默�
 
 * 列出集群中现有的名称空间
 
-  ```shell
+  ```bash
   [root@k8s-master ~]# kubectl get ns
   NAME                   STATUS   AGE
   default                Active   20h
@@ -51,7 +51,7 @@ NameSpaces：名称空间，用来对集群中的资源进行隔离划分。默�
 
 * 获取某个名称空间的详细信息
 
-  ```shell
+  ```bash
   kubectl describe namespaces default
   ```
 
@@ -59,7 +59,7 @@ NameSpaces：名称空间，用来对集群中的资源进行隔离划分。默�
 
 * 命令行方式
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl create namespace mynamespace
 namespace/mynamespace created
 ```
@@ -86,14 +86,14 @@ namespace/mynamespace created
 
 * 命令行方式
 
-  ```shell
+  ```bash
   [root@k8s-master ~]# kubectl delete namespace mynamespace
   namespace "mynamespace" deleted
   ```
 
 * yaml 文件方式
 
-  ```shell
+  ```bash
   [root@k8s-master ~]# kubectl delete -f ./ns/my-namespace.yaml       
   namespace "mynamespace" deleted
   ```
@@ -108,7 +108,7 @@ Pod：运行中的一组（一个或多个）容器；**Pod** 是可以在 Kuber
 
   mynginx 表示给我们创建的Pod起一个名字，--image=nginx 是表示基于哪个镜像来创建一个Pod，Pod本身是对容器的封装，不写 namespace 就默认创建在 default 空间下
 
-  ```shell
+  ```bash
   kubectl run mynginx --image=nginx
   ```
 
@@ -132,7 +132,7 @@ Pod：运行中的一组（一个或多个）容器；**Pod** 是可以在 Kuber
 
   2. 然后运行
 
-     ```shell
+     ```bash
      [root@k8s-master ~]# kubectl apply -f pod/my-nginx.yaml 
      pod/mynginx created
      ```
@@ -141,7 +141,7 @@ Pod：运行中的一组（一个或多个）容器；**Pod** 是可以在 Kuber
 
 * 查看某个名称空间的 Pod
 
-  ```shell
+  ```bash
   [root@k8s-master ~]# kubectl get pod -n default
   NAME      READY   STATUS    RESTARTS   AGE
   mynginx   1/1     Running   0          105s
@@ -149,19 +149,19 @@ Pod：运行中的一组（一个或多个）容器；**Pod** 是可以在 Kuber
 
 * 获取某个 Pod 的详细信息
 
-  ```shell
+  ```bash
   kubectl describe pod mynginx
   ```
 
 * 查看 Pod 运行日志
 
-  ```shell
+  ```bash
   kubectl logs mynginx
   ```
 
 * 查看 Pod详细信息，k8s会为每个Pod分配一个ip 
 
-  ```shell
+  ```bash
   [root@k8s-master ~]# kubectl get pod -owide
   NAME      READY   STATUS    RESTARTS   AGE     IP                NODE        NOMINATED NODE   READINESS GATES
   mynginx   1/1     Running   0          2m33s   192.168.169.132   k8s-node2   <none>           <none>
@@ -169,7 +169,7 @@ Pod：运行中的一组（一个或多个）容器；**Pod** 是可以在 Kuber
 
   集群中的任意一个机器以及任意的应用都能通过Pod的ip来访问这个Pod
 
-  ```shell
+  ```bash
   [root@k8s-master ~]# curl 192.168.169.132
   <!DOCTYPE html>
   <html>
@@ -200,14 +200,14 @@ Pod：运行中的一组（一个或多个）容器；**Pod** 是可以在 Kuber
 
 * 命令行方式
 
-  ```shell
+  ```bash
   [root@k8s-master ~]# kubectl delete pod mynginx -n default
   pod "mynginx" deleted
   ```
 
 * yaml 文件方式
 
-  ```shell
+  ```bash
   [root@k8s-master ~]# kubectl delete -f pod/my-nginx.yaml  
   pod "mynginx" deleted
   ```
@@ -241,14 +241,14 @@ root@mynginx:/#
 
 2. 然后运行
 
-   ```shell
+   ```bash
    [root@k8s-master ~]# kubectl apply -f pod/my-nginx-tomact.yaml 
    pod/myapp created
    ```
 
 3. 验证创建成功
 
-   ```shell
+   ```bash
    [root@k8s-master ~]# kubectl get pod
    NAME      READY   STATUS    RESTARTS   AGE
    myapp     2/2     Running   0          5m21s
@@ -259,7 +259,7 @@ root@mynginx:/#
 
    首先获取 Pod ip
 
-   ```shell
+   ```bash
    [root@k8s-master ~]# kubectl get pod myapp -owide
    NAME    READY   STATUS    RESTARTS   AGE     IP              NODE        NOMINATED NODE   READINESS GATES
    myapp   2/2     Running   0          8m11s   192.168.36.66   k8s-node1   <none>           <none>
@@ -267,7 +267,7 @@ root@mynginx:/#
 
    访问默认的80端口
 
-   ```shell
+   ```bash
    [root@k8s-master ~]# curl 192.168.36.66
    ```
 
@@ -275,7 +275,7 @@ root@mynginx:/#
 
    首先获取 Pod ip，然后访问默认的8080端口
 
-   ```shell
+   ```bash
    [root@k8s-master ~]# curl 192.168.36.66:8080
    ```
 
@@ -287,11 +287,11 @@ root@mynginx:/#
 
    进入某个Pod中的某个容器内
 
-   ```shell
+   ```bash
    kubectl exec -it myapp -c tomcat -- /bin/bash
    ```
 
-   ```shell
+   ```bash
    root@myapp:/usr/local/tomcat# curl 127.0.0.1
    <!DOCTYPE html>
    <html>

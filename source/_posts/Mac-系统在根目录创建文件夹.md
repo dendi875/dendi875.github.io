@@ -36,7 +36,7 @@ Mac 操作系统挺适合开发者进行写代码，最近碰到了一个问题�
 第一步：关闭电脑然后重启，重启时长按 command + R 键，启动内建的 macOS 恢复系统
 
 第二步：从菜单栏找到终端工具，运行下面命令，然后重启：
-```shell
+```bash
 csrutil disable
 ```
 
@@ -44,13 +44,13 @@ csrutil disable
 
 
 第三步：重启完后，先重新挂载根目录，打开终端工具运行下面命令即可：
-```shell
+```bash
 sudo mount -uw /
 ```
 
 第四步：创建对应的 `/Users/zhangquan/data`、`/Users/zhangquan/data0` 文件夹，然后将对应的文件目录软链接到根目录。运行下面命令即可：
 
-```shell
+```bash
 mkdir  /Users/zhangquan/data
 mkdir  /Users/zhangquan/data0
 sudo ln -s /Users/zhangquan/data /data
@@ -61,7 +61,7 @@ sudo ln -s /Users/zhangquan/data0 /data0
 
 最后，重新重启 command + R 键，启动内建的 macOS 恢复系统，重新打开 SIP：
 
-```shell
+```bash
 csrutil enable
 ```
 
@@ -69,12 +69,12 @@ csrutil enable
 
 第一步：启动内建的 macOS 恢复系统，关闭 SIP
 第二步：运行下面命令，修改 synthetic.conf 文件
-```shell
+```bash
 sudo vi /etc/synthetic.conf
 ```
 第三步：编辑该文件，输入下面内容，将对应的文件夹映射到根目录
 
-```shell
+```bash
 data    /Users/zhangquan/data
 data0   /Users/zhangquan/data0
 ```

@@ -64,7 +64,7 @@ int main(int argc, char **argv)
 
 编译并运行：
 
-```shell
+```bash
 [dendi875@localhost Temp]$ gcc -g b.c -o b
 b.c: 在函数‘main’中:
 b.c:6: 错误：与‘a’类型冲突
@@ -110,7 +110,7 @@ int main(int argc, char **argv)
 
 编译并运行
 
-```shell
+```bash
 [dendi875@localhost Temp]$ gcc -g a.c -o a
 [dendi875@localhost Temp]$ ./a
 a
@@ -131,7 +131,7 @@ int main(int argc, char **argv)
 
 编译并运行
 
-```shell
+```bash
 [dendi875@localhost Temp]$ gcc -g p.c -o p
 [dendi875@localhost Temp]$ ./p
 a
@@ -250,7 +250,7 @@ int main(int argc, char **argv)
 
 编译并运行
 
-```shell
+```bash
 [dendi875@localhost Temp]$ gcc -g a.c -o a
 [dendi875@localhost Temp]$ ./a
 s = xbcd

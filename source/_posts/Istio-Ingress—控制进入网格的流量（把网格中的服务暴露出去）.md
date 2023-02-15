@@ -36,7 +36,7 @@ Istio Gateway 资源本身只能配置L4到L6的功能，例如暴露的端口�
 
 * 设置入口端口：
 
-  ```shell
+  ```bash
   export INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="http2")].nodePort}')
   export SECURE_INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="https")].nodePort}')
   export TCP_INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="tcp")].nodePort}')
@@ -44,7 +44,7 @@ Istio Gateway 资源本身只能配置L4到L6的功能，例如暴露的端口�
 
 * 设置入口 IP
 
-  ```shell
+  ```bash
   export INGRESS_HOST=$(kubectl get po -l istio=ingressgateway -n istio-system -o jsonpath='{.items[0].status.hostIP}')
   
   ```
@@ -57,7 +57,7 @@ Istio Gateway 资源本身只能配置L4到L6的功能，例如暴露的端口�
 
 * 部署 httpbin 服务
 
-  ```shell
+  ```bash
   # zhangquan @ MacBook-Pro-2 in ~/Downloads/devops/istio-1.5.1 [18:20:24] 
   $ kubectl apply -f samples/httpbin/httpbin.yaml
   serviceaccount/httpbin created
@@ -74,7 +74,7 @@ Istio Gateway 资源本身只能配置L4到L6的功能，例如暴露的端口�
 
 * 部署针对 httpbin 这个服务的 Ingress
 
-  ```shell
+  ```bash
   kubectl apply -f - <<EOF
   apiVersion: networking.istio.io/v1alpha3
   kind: Gateway
@@ -96,7 +96,7 @@ Istio Gateway 资源本身只能配置L4到L6的功能，例如暴露的端口�
 
 * 给 Gateway 创建一个对应的 Virtual Service，让它来对 httpbin 这个服务做一个简单的路由
 
-  ```shell
+  ```bash
   kubectl apply -f - <<EOF
   apiVersion: networking.istio.io/v1alpha3
   kind: VirtualService
@@ -128,7 +128,7 @@ Istio Gateway 资源本身只能配置L4到L6的功能，例如暴露的端口�
 
 * 查看系统中虚拟服务信息
 
-  ```shell
+  ```bash
   # zhangquan @ MacBook-Pro-2 in ~/Downloads/devops/istio-1.5.1 [18:32:45] C:130
   $ kubectl get vs 
   NAME           GATEWAYS             HOSTS                   AGE
@@ -143,7 +143,7 @@ Istio Gateway 资源本身只能配置L4到L6的功能，例如暴露的端口�
 
   首先我们访问第一个接口就是 status 接口，这个接口会根据你后面的参数，也就是 response code 来给你打印出相应的信息
 
-  ```shell
+  ```bash
   $ curl -s -I -HHost:httpbin.example.com "http://$INGRESS_HOST:$INGRESS_PORT/status/200"
   HTTP/1.1 200 OK
   server: istio-envoy
@@ -159,7 +159,7 @@ Istio Gateway 资源本身只能配置L4到L6的功能，例如暴露的端口�
 
   接口再来测试一下第一个 uri 是 delay，delay 这个接口会根据你后面的入参具体延迟多少秒，比如下面的请求会延迟2秒：
 
-  ```shell
+  ```bash
   $ curl -s -I -HHost:httpbin.example.com "http://$INGRESS_HOST:$INGRESS_PORT/delay/2"   
   HTTP/1.1 200 OK
   server: istio-envoy
@@ -173,7 +173,7 @@ Istio Gateway 资源本身只能配置L4到L6的功能，例如暴露的端口�
 
   访问尚未明确公开的任何其他 URL。 您应该会看到 HTTP 404 错误：
 
-  ```shell
+  ```bash
   $ curl -s -I -HHost:httpbin.example.com "http://$INGRESS_HOST:$INGRESS_PORT/headers"
   HTTP/1.1 404 Not Found
   date: Sun, 06 Nov 2022 10:53:23 GMT
@@ -191,7 +191,7 @@ Istio Gateway 资源本身只能配置L4到L6的功能，例如暴露的端口�
 
 删除Gateway和VirtualService配置，关闭httpbin服务：
 
-```shell
+```bash
 kubectl delete gateway httpbin-gateway
 kubectl delete virtualservice httpbin
 kubectl delete --ignore-not-found=true -f samples/httpbin/httpbin.yaml

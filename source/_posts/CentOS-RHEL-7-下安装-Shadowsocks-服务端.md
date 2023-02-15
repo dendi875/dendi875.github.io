@@ -26,7 +26,7 @@ categories: 科学上网
 
 具体安装 *shadowsocks-libev* 的命令如下：
 
-```shell
+```bash
 cd /etc/yum.repos.d/
 curl -O https://copr.fedorainfracloud.org/coprs/librehat/shadowsocks/repo/epel-7/librehat-shadowsocks-epel-7.repo
 yum install -y shadowsocks-libev
@@ -38,7 +38,7 @@ yum install -y shadowsocks-libev
 
 注，如果安装报类似如下错误：
 
-```shell
+```bash
 Error: Package: shadowsocks-libev-3.1.3-1.el7.centos.x86_64 (librehat-shadowsocks)
            Requires: libsodium >= 1.0.4
 Error: Package: shadowsocks-libev-3.1.3-1.el7.centos.x86_64 (librehat-shadowsocks)
@@ -47,7 +47,7 @@ Error: Package: shadowsocks-libev-3.1.3-1.el7.centos.x86_64 (librehat-shadowsock
 
 说明系统没有启用 EPEL (Extra Packages for Entreprise Linux)。那么我们需要首先启用 EPEL，再安装 shadowsocks-libev：
 
-```shell
+```bash
 yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 yum install -y shadowsocks-libev
 ```
@@ -62,7 +62,7 @@ yum install -y shadowsocks-libev
 
 使用 root 身份执行以下命令即可：
 
-```shell
+```bash
 cd /usr/lib64
 ln -s libmbedcrypto.so.1 libmbedcrypto.so.0
 ```
@@ -73,7 +73,7 @@ ln -s libmbedcrypto.so.1 libmbedcrypto.so.0
 
 COPR 里的 *shadowsocks-libev* 默认读取位于 `/etc/shadowsocks-libev/config.json` 的配置文件，我们可以根据需要参考以下配置文件进行修改：
 
-```shell
+```bash
 {
 	"server": "0.0.0.0",
 	"server_port": 55278,
@@ -96,7 +96,7 @@ COPR 里的 *shadowsocks-libev* 默认读取位于 `/etc/shadowsocks-libev/confi
 
   或执行 `systemctl edit shadowsocks-libev` 命令，并输入以下内容：
 
-  ```shell
+  ```bash
   [Service]
   AmbientCapabilities=CAP_NET_BIND_SERVICE
   ```
@@ -122,7 +122,7 @@ COPR 里的 *shadowsocks-libev* 默认读取位于 `/etc/shadowsocks-libev/confi
 
 如果想要变更默认的配置文件，或者提供其他命令行参数，我们可以修改 `/etc/sysconfig/shadowsocks-libev`：
 
-```shell
+```bash
 # Configuration file
 CONFFILE="/etc/shadowsocks-libev/config.json"
 
@@ -140,7 +140,7 @@ CentOS/RHEL 7 系统自带了防火墙，为了使我们的 Shadowsocks 服务�
 
 假设我们在配置 Shadowsocks 服务器的端口时填入了 `"server_port": 55278`，那我们可以使用以下命令：
 
-```shell
+```bash
 firewall-cmd --permanent --add-port=55278/tcp
 firewall-cmd --permanent --add-port=55278/udp
 firewall-cmd --reload
@@ -154,7 +154,7 @@ firewall-cmd --reload
 
 有了 Shadowsocks 服务端的配置文件后，我们通过 systemd 启动 Shadowsocks 的服务端服务：
 
-```shell
+```bash
 systemctl start shadowsocks-libev
 ```
 
@@ -162,13 +162,13 @@ systemctl start shadowsocks-libev
 
 要确认 Shadowsocks 的服务运行状态及最新日志，我们可以执行命令：
 
-```shell
+```bash
 systemctl status shadowsocks-libev
 ```
 
 要查看 Shadowsocks 服务的全部日志，我们可以执行命令：
 
-```shell
+```bash
 journalctl -u shadowsocks-libev
 ```
 
@@ -176,7 +176,7 @@ journalctl -u shadowsocks-libev
 
 上文中，我们通过 `systemctl start` 启动了服务，但是如果我们想要服务能在开机时自动启动，还需要执行以下命令：
 
-```shell
+```bash
 systemctl enable shadowsocks-libev
 ```
 
@@ -188,7 +188,7 @@ systemctl enable shadowsocks-libev
 
 关于客户端的配置文件，可以复制使用服务端的配置文件，并将 `"server"` 中的地址换为服务端的实际 IP 或域名，再加上关于 `local_address` 和 `local_port` 的配置即可。如：
 
-```shell
+```bash
 {
 	"server": "zhangquan.me",
 	"server_port": 55278,

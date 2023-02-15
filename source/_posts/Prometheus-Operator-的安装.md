@@ -52,14 +52,14 @@ Operator = Controller + CRD。假如你不了解什么是 Controller 和 CRD，�
 
 首先 clone 项目代码：
 
-```shell
+```bash
 $ git clone https://github.com/coreos/kube-prometheus.git
 $ cd manifests
 ```
 
 进入到 `manifests` 目录下面，首先我们需要安装 `setup` 目录下面的 CRD 和 Operator 资源对象：
 
-```shell
+```bash
 [root@k8s-master manifests]# kubectl apply -f setup/
 namespace/monitoring unchanged
 customresourcedefinition.apiextensions.k8s.io/alertmanagerconfigs.monitoring.coreos.com configured
@@ -95,13 +95,13 @@ thanosrulers.monitoring.coreos.com                    2022-09-09T05:57:31Z
 
 没有特殊的定制需求我们可以直接一键安装：
 
-```shell
+```bash
 [root@k8s-master manifests]# kubectl apply -f .
 ```
 
 这会自动安装 node-exporter、kube-state-metrics、grafana、prometheus-adapter 以及 prometheus 和 alertmanager 组件，而且 prometheus 和 alertmanager 还是多副本的。
 
-```shell
+```bash
 [root@k8s-master manifests]#  kubectl get pods -n monitoring
 NAME                                   READY   STATUS    RESTARTS   AGE
 alertmanager-main-0                    2/2     Running   0          5m55s
@@ -136,7 +136,7 @@ prometheus-operator     ClusterIP   None            <none>        8443/TCP      
 
 可以看到上面针对 grafana、alertmanager 和 prometheus 都创建了一个类型为 ClusterIP 的 Service，当然如果我们想要在外网访问这两个服务的话可以通过创建对应的 Ingress 对象或者使用 NodePort 类型的 Service，我们这里为了简单，直接使用 NodePort 类型的服务即可，编辑 grafana、alertmanager-main 和 prometheus-k8s 这3个 Service，将服务类型更改为 NodePort:
 
-```shell
+```bash
 [root@k8s-master manifests]# kubectl get svc -n monitoring
 NAME                    TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE
 alertmanager-main       NodePort    10.96.246.4     <none>        9093:32704/TCP               9m54s

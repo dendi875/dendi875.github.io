@@ -95,7 +95,7 @@ int main(int argc, char **argv)
 ```
 
 运行结果
-```shell
+```bash
 [dendi875@192 list]$ ./node
 10
 5
@@ -161,7 +161,7 @@ static void pr_list(Node *current)
 ```
 
 运行结果
-```shell
+```bash
 [dendi875@192 list]$ ./node2
 15
 10
@@ -263,7 +263,7 @@ static Node *delete(Node *root, int n)
 ```
 
 运行结果
-```shell
+```bash
 [dendi875@192 list]$ ./node3             
 15
 5

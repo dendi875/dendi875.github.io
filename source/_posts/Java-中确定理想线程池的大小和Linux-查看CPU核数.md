@@ -26,7 +26,7 @@ categories: 线程池
 
 下面是cpuinfo的信息
 
-```shell
+```bash
 processor       : 0
 vendor_id       : GenuineIntel
 cpu family      : 6
@@ -98,7 +98,7 @@ power management:
 物理计算机插槽上的CPU数量，也就是物理CPU的数量，可以统计非重复物理ID的数量，
 
 查看方法
-```shell
+```bash
 grep "physical id" /proc/cpuinfo | sort | uniq | wc -l
 ```
 
@@ -107,7 +107,7 @@ grep "physical id" /proc/cpuinfo | sort | uniq | wc -l
 单个CPU可处理数据的芯片组数是CPU核心数，如双核、四核等。
 
 查看方法
-```shell
+```bash
 cat /proc/cpuinfo | grep "cpu cores" | uniq
 ```
 
@@ -121,20 +121,20 @@ cat /proc/cpuinfo | grep "cpu cores" | uniq
 
 CPU不支持超线程：
 
-```shell
+```bash
 逻辑CPU个数 = 物理CPU个数 * 每个物理CPU中核心数
 ```
 
 CPU支持超线程：
 
-```shell
+```bash
 逻辑CPU个数 = 物理CPU个数 * 每个物理CPU中核心数 * 2
 ```
 
 如果多个逻辑CPU具有相同的核心ID（core id）和物理（physical id），则系统支持超线程（HT）技术。
 
 查看方法：
-```shell
+```bash
 cat /proc/cpuinfo | grep "processor" | wc -l
 ```
 

@@ -39,7 +39,7 @@ Apollo（阿波罗）是一款可靠的分布式配置管理中心，诞生于�
 
 GitHub下载： https://github.com/ctripcorp/apollo 源码，这里以 V1.1.0 版本为例
 
-```shell
+```bash
 # 下载源码
 git clone git@github.com:apolloconfig/apollo.git 
 # 找到自己想要的版本
@@ -124,7 +124,7 @@ git checkout -b apollo-1.1.0 v1.1.0
 
 6. 检查安装 Java  JDK 和 Maven，进入源码文件夹 scripts 下 执行 build 脚本，编译打包 apollo
 
-   ```shell
+   ```bash
    # 源码文件夹 scripts 下
    cd /path/to/apollo/scripts
    # 编译打包 apollo
@@ -184,7 +184,7 @@ VALUES
 
 2 . 进入MySql 中导入数据库脚本
 
-```shell
+```bash
 source /sql/apolloportaldb.sql
 source /sql/apolloconfigdb.sql
 source /sql/apolloconfigdb_docker.sql
@@ -270,7 +270,7 @@ source /sql/apolloconfigdb_docker.sql
 
 4. 构建镜像并把镜像推送到远程仓库
 
-   ```shell	
+   ```bash	
    # 构建镜像
    ./build.sh 
    # 给镜像打个标记
@@ -338,7 +338,7 @@ source /sql/apolloconfigdb_docker.sql
 
 3. 使用 mvn deploy 将项目生成的 jar 包上传到远程 nexus 仓库
 
-   ```shell
+   ```bash
    # 进入 apollo-core module 目录下
    cd /path/to/apollo/apollo-core 
    
@@ -435,7 +435,7 @@ source /sql/apolloconfigdb_docker.sql
 
 7. 启动时加上vm options参数：
 
-   ```shell
+   ```bash
    -Denv=docker 
    -Dapp.id=apollo-extended-env 
    -Ddocker_meta=http://apollo:8084 
@@ -452,7 +452,7 @@ source /sql/apolloconfigdb_docker.sql
 
 1. docker-compose.yaml 文件中添加Spring Boot 测试应用
 
-   ```shell
+   ```bash
    version: '3'
    services:
      #测试应用中使用添加自定义环境后的 Apollo 功能
@@ -477,7 +477,7 @@ source /sql/apolloconfigdb_docker.sql
 
 2. 启动服务
 
-   ```shell
+   ```bash
    cd /path/to/docker-apollo
    docker-compose up
    ```

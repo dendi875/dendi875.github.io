@@ -162,7 +162,7 @@ Istio 中的指标主要分为三类：
 
 代理级别指标的例子：
 
-```shell
+```bash
 envoy_cluster_internal_upstream_rq{response_code_class="2xx",cluster_name="xds-grpc"} 7163
 
 envoy_cluster_upstream_rq_completed{cluster_name="xds-grpc"} 7164
@@ -178,7 +178,7 @@ envoy_cluster_ssl_connection_error{cluster_name="xds-grpc"} 0
 
 服务级别指标的例子：
 
-```shell
+```bash
 istio_requests_total{
   connection_security_policy="mutual_tls",  # 连接的安全策略是双向tls
   destination_app="details",
@@ -225,7 +225,7 @@ Istio 里提供的访问日志包括了非常完整的元数据信息，比如�
 
 Envoy 日志查看示例：
 
-```shell
+```bash
 kubectl logs -l app=demo -c istio-proxy
 ```
 

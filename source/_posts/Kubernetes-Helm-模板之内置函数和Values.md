@@ -36,7 +36,7 @@ Charts 是创建在特定目录下面的文件集合，然后可以将它们打�
 
 创建一个 mychart 包，参考：https://helm.sh/zh/docs/chart_template_guide/getting_started/
 
-```shell
+```bash
 # zhangquan @ MacBook-Pro in ~/code/github.com/k8s-app/
 $ mkdir -p helm/charts && cd helm/charts
 
@@ -66,7 +66,7 @@ mychart
 
 我们把 templates 目录下面所有文件全部删除掉，这里我们自己来创建模板文件：
 
-```shell
+```bash
 # zhangquan @ MacBook-Pro in ~/code/github.com/k8s-app/helm/charts [19:25:33] 
 $ rm -rf mychart/templates/*
 ```
@@ -88,7 +88,7 @@ data:
 
 实际上现在我们就有一个可安装的 chart 包了，通过`helm install`命令来进行安装：
 
-```shell
+```bash
 $ helm install ./mychart --generate-name
 NAME: mychart-1662020439
 LAST DEPLOYED: Thu Sep  1 16:20:41 2022
@@ -100,7 +100,7 @@ TEST SUITE: None
 
 在上面的输出中，我们可以看到我们的 ConfigMap 资源对象已经创建了。然后使用如下命令我们可以看到实际的模板被渲染过后的资源文件：
 
-```shell
+```bash
 # zhangquan @ MacBook-Pro in ~/code/github.com/k8s-app/helm/charts [16:20:41] 
 $ helm get  manifest mychart-1662020439 
 ---
@@ -115,7 +115,7 @@ data:
 
 现在我们看到上面的 ConfigMap 文件是不是正是我们前面在模板文件中设计的，现在我们删除当前的`release`:
 
-```shell
+```bash
 $ helm ls
 NAME                    NAMESPACE       REVISION        UPDATED                                 STATUS          CHART           APP VERSION
 clunky-serval           default         1               2022-08-30 19:47:55.604474 +0800 CST    deployed        mychart-0.1.0   1.16.0     
@@ -148,7 +148,7 @@ data:
 
 现在我们来重新安装我们的 Chart 包，注意观察 ConfigMap 资源对象的名称：
 
-```shell
+```bash
 # zhangquan @ MacBook-Pro in ~/code/github.com/k8s-app/helm/charts [16:21:53] 
 $ helm install ./mychart --generate-name
 NAME: mychart-1662020625
@@ -161,7 +161,7 @@ TEST SUITE: None
 
 可以看到现在生成的名称变成了**mychart-1662020625**，证明已经生效了，当然我们也可以使用命令`helm get manifest mychart-1662020625`查看最终生成的清单文件的样子。
 
-```shell
+```bash
 $ helm get manifest  mychart-1662020625
 ---
 # Source: mychart/templates/configmap.yaml
@@ -177,7 +177,7 @@ data:
 
 我们用模板来生成资源文件的清单，但是如果我们想要调试就非常不方便了，不可能我们每次都去部署一个`release`实例来校验模板是否正确，所幸的时 Helm 为我们提供了`--dry-run --debug`这个可选参数，在执行`helm install`的时候带上这两个参数就可以把对应的 values 值和生成的最终的资源清单文件打印出来，而不会真正的去部署一个`release`实例，比如我们来调试上面创建的 chart 包：
 
-```shell
+```bash
 # zhangquan @ MacBook-Pro in ~/code/github.com/k8s-app/helm/charts [16:25:52] 
 $ helm install --dry-run --debug --generate-name ./mychart                 
 install.go:178: [debug] Original chart version: ""

@@ -26,7 +26,7 @@ Secret 主要使用的有以下几种类型：
 
 `Opaque` 类型的数据是一个 map 类型，要求 value 必须是 `base64` 编码格式，比如我们来创建一个用户名为 admin，密码为 admin321 的 `Secret` 对象，首先我们需要先把用户名和密码做 `base64`编码：
 
-```shell
+```bash
 $ echo -n "admin" | base64
 YWRtaW4=
 $ echo -n "admin321" | base64
@@ -55,7 +55,7 @@ secret/mysecret created
 
 利用`get secret`命令查看：
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl get secret
 NAME                  TYPE                                  DATA   AGE
 default-token-pvpv2   kubernetes.io/service-account-token   3      8d
@@ -64,7 +64,7 @@ mysecret              Opaque                                2      11s
 
 其中 default-token-pvpv2为创建集群时默认创建的 Secret，被 `serviceacount/default` 引用。我们可以使用 `describe` 命令查看详情：
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl describe secret mysecret
 Name:         mysecret
 Namespace:    default
@@ -155,7 +155,7 @@ spec:
 
 主要需要注意的是上面环境变量中定义的 `secretKeyRef` 字段，和ConfigMap中的 `configMapKeyRef` 类似，一个是从 `Secret` 对象中获取，一个是从 `ConfigMap` 对象中获取，创建上面的 Pod并查看日志：
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl create -f secret/secret1-pod.yaml 
 pod/secret1-pod created
  
@@ -191,7 +191,7 @@ spec:
 
 创建 Pod，然后查看输出日志：
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl create -f secret/secret2-pod.yaml 
 pod/secret2-pod created
 
@@ -227,7 +227,7 @@ spec:
 
 接着创建 Pod
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl apply -f secret/secret-private-php.yaml 
 pod/private-php created
 ```
@@ -242,7 +242,7 @@ pod/private-php created
 
 我们先删除这个 Pod
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl delete -f secret/secret-private-php.yaml 
 pod "private-php" deleted
 ```
@@ -251,7 +251,7 @@ pod "private-php" deleted
 
 我们可以使用 `kubectl create secret docker-registry ` 来创建一个 secret，如下：
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl create secret docker-registry myregistry \
 --docker-server=<你的镜像仓库服务器> \
 --docker-username=<你的用户名> \
@@ -263,7 +263,7 @@ secret/myregistry created
 
 然后查看 Secret 列表：
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl get secret
 NAME                  TYPE                                  DATA   AGE
 default-token-pvpv2   kubernetes.io/service-account-token   3      8d
@@ -273,7 +273,7 @@ mysecret              Opaque                                2      73m
 
 注意看上面的 TYPE 类型，myregistry 对应的type是 `kubernetes.io/dockerconfigjson`，同样的可以使用 describe 或 get -o yaml 命令来查看详细信息：
 
-```shell
+```bash
 [root@k8s-master ~]#  kubectl describe secret myregistry
 Name:         myregistry
 Namespace:    default
@@ -321,7 +321,7 @@ spec:
 
 重新创建
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl apply -f secret/secret-private-php.yaml 
 pod/private-php created
 ```
@@ -334,7 +334,7 @@ pod/private-php created
 
 去 node2机器上也能看到镜像被成功拉取
 
-```shell
+```bash
 [root@k8s-node2 ~]# docker images | grep dendi875
 dendi875/php-php                                                            7.3        d5a49dc91b8c   2 years ago     183MB
 ```
@@ -367,7 +367,7 @@ imagePullSecrets:
 
 另外一种 `Secret` 类型就是 `kubernetes.io/service-account-token`，用于被 `ServiceAccount` 引用。`ServiceAccout` 创建时 Kubernetes 会默认创建对应的 `Secret`。Pod 如果使用了 `ServiceAccount`，对应的 `Secret` 会自动挂载到 Pod 的 `/var/run/secrets/kubernetes.io/serviceaccount/` 目录中。如下所示我们随意创建一个 Pod：
 
-```shell
+```bash
 [root@k8s-master ~]# kubectl run secret-pod3 --image nginx:1.7.9
 pod/secret-pod3 created
 
@@ -380,7 +380,7 @@ secret-pod3   1/1     Running            0          57s
 
 我们可以直接查看这个 Pod 的详细信息：
 
-```shell
+```bash
 ......
     volumeMounts:
     - mountPath: /var/run/secrets/kubernetes.io/serviceaccount

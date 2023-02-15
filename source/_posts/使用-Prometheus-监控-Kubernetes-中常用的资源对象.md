@@ -45,7 +45,7 @@ categories: Kubernetes
 
 更新配置：
 
-```shell
+```bash
 [root@k8s-master prometheus]# kubectl apply -f prometheus-cm.yaml  
 configmap/prometheus-config configured
 
@@ -89,7 +89,7 @@ configmap/prometheus-config configured
 
 apiserver 作为 Kubernetes 最核心的组件，当然他的监控也是非常有必要的，对于 apiserver 的监控我们可以直接通过 kubernetes 的 Service 来获取：
 
-```shell
+```bash
 [root@k8s-master prometheus]# kubectl get svc
 NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
 kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   21d
@@ -105,7 +105,7 @@ kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   21d
 
 上面这个任务是定义的一个类型为 endpoints 的 kubernetes_sd_configs ，添加到 Prometheus 的 ConfigMap 的配置文件中，然后更新配置：
 
-```shell
+```bash
 [root@k8s-master prometheus]# kubectl apply -f prometheus-cm.yaml  
 configmap/prometheus-config configured
 
@@ -139,7 +139,7 @@ configmap/prometheus-config configured
 
 现在可以看到 `kubernetes-apiserver` 这个任务下面只有 apiserver 这一个实例了，证明我们的 `relabel` 是成功的，现在我们切换到 Graph 路径下面查看下采集到的数据，比如查询 apiserver 的总的请求数：
 
-```shell
+```bash
 sum(rate(apiserver_request_count[1m]))
 ```
 
@@ -193,7 +193,7 @@ sum(rate(apiserver_request_count[1m]))
 
 我们可以看到 `kubernetes-endpoints` 这一个任务下面只发现了两个服务，这是因为我们在 `relabel_configs` 中过滤了 `annotation` 有 `prometheus.io/scrape=true` 的 Service，而现在我们系统中只有这样一个 `kube-dns` 服务符合要求，该 Service 下面有两个实例，所以出现了两个实例：
 
-```shell
+```bash
 [root@k8s-master prometheus]# kubectl get svc kube-dns -n kube-system -o yaml
 apiVersion: v1
 kind: Service
@@ -271,7 +271,7 @@ spec:
 
 由于 redis 服务的 metrics 接口在 9121 这个 redis-exporter 服务上面，所以我们还需要添加一个 `prometheus.io/port=9121` 这样的 annotations，然后更新这个 Service：
 
-```shell
+```bash
 [root@k8s-master prometheus]# kubectl apply -f prometheus-redis.yaml 
 deployment.apps/redis unchanged
 service/redis configured

@@ -38,7 +38,7 @@ categories:
 
 ### 在cat工程执行编译命令
 
-```shell
+```bash
 # zhangquan @ MacBook-Pro in ~/docker-php-dev/www/github/cat on git:master x [20:29:15] C:1
 $ mvn clean compile
 ```

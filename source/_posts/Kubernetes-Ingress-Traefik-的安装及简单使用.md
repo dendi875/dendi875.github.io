@@ -32,7 +32,7 @@ Traefik 是一款开源的反向代理与负载均衡工具。它最大的优点
 
 创建存放 traefik 资源清单目录
 
-```shell
+```bash
 mkdir ~/traefik
 
 cd ~/traefik
@@ -88,7 +88,7 @@ subjects:
 
 直接在集群中创建即可：
 
-```shell
+```bash
 [root@k8s-master traefik]# kubectl create -f rbac.yaml 
 serviceaccount/traefik-ingress-controller created
 clusterrole.rbac.authorization.k8s.io/traefik-ingress-controller created
@@ -97,7 +97,7 @@ clusterrolebinding.rbac.authorization.k8s.io/traefik-ingress-controller created
 
 查看创建的资源：
 
-```shell
+```bash
 [root@k8s-master traefik]# kubectl get sa traefik-ingress-controller -n kube-system
 NAME                         SECRETS   AGE
 traefik-ingress-controller   1         104s
@@ -172,7 +172,7 @@ spec:
 
 直接创建上面的资源对象即可：
 
-```shell
+```bash
 [root@k8s-master traefik]# kubectl create -f traefik.yaml
 deployment.apps/traefik-ingress-controller created
 service/traefik-ingress-service created
@@ -193,7 +193,7 @@ nodeSelector:
 
 可以使用下面的命令查看 master 节点的 labels：
 
-```shell
+```bash
 [root@k8s-master traefik]# kubectl get nodes
 NAME         STATUS   ROLES                  AGE   VERSION
 k8s-master   Ready    control-plane,master   15d   v1.20.9
@@ -209,7 +209,7 @@ k8s-node2    Ready    <none>                 15d   v1.20.9   beta.kubernetes.io/
 
 traefik 还提供了一个 web ui 工具，就是上面的 8080 端口对应的服务，为了能够访问到该服务，我们这里将服务设置成的 NodePort：
 
-```shell
+```bash
 [root@k8s-master traefik]# kubectl get deployment traefik-ingress-controller -n kube-system  
 NAME                         READY   UP-TO-DATE   AVAILABLE   AGE
 traefik-ingress-controller   1/1     1            1           5s
@@ -252,7 +252,7 @@ spec:
 
 然后为 traefik dashboard 创建对应的 ingress 对象：
 
-```shell
+```bash
 [root@k8s-master traefik]# kubectl create -f ingress.yaml 
 Warning: extensions/v1beta1 Ingress is deprecated in v1.14+, unavailable in v1.22+; use networking.k8s.io/v1 Ingress
 ingress.extensions/traefik-web-ui created
@@ -288,7 +288,7 @@ ports:
 
 添加以后`hostPort: 80`，然后更新应用：
 
-```shell
+```bash
 kubectl apply -f traefik.yaml
 ```
 

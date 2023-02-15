@@ -112,7 +112,7 @@ location /other {
 
 Ingress 只是 Kubernetes 的一种资源对象而已，在这个资源中我们可以去配置我们的服务路由规则，但是要真正去实现识别这个 Ingress 并提供代理路由功能，还需要安装一个对应的控制器才能实现。
 
-```shell
+```bash
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.24.1/deploy/mandatory.yaml
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.24.1/deploy/provider/cloud-generic.yaml
 ```

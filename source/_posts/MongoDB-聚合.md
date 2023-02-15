@@ -48,7 +48,7 @@ MongoDB 聚合框架（Aggregation Framework）是一个计算框架，它可以
 
 ### 基本格式
 
-```shell
+```bash
 db.collection.aggregate( [ { <stage> }, ... ] )
 ```
 
