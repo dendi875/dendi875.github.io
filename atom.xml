@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2023-02-15T09:36:27.986Z</updated>
+  <updated>2023-02-16T02:24:15.394Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>MongoDB 写操作事务</title>
+    <link href="https://www.zhangquan.me/2023/02/16/mongodb-xie-cao-zuo-shi-wu/"/>
+    <id>https://www.zhangquan.me/2023/02/16/mongodb-xie-cao-zuo-shi-wu/</id>
+    <published>2023-02-16T02:23:20.000Z</published>
+    <updated>2023-02-16T02:24:15.394Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;什么是-writeconcern&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#什么是-writeconcern&quot;&gt;&lt;/a&gt; 什么是 writeConcern&lt;/h2&gt;
+&lt;p&gt;writeConcern</summary>
+        
+      
+    
+    
+    
+    <category term="MongoDB" scheme="https://www.zhangquan.me/categories/MongoDB/"/>
+    
+    
+    <category term="MongoDB" scheme="https://www.zhangquan.me/tags/MongoDB/"/>
+    
+    <category term="NoSQL" scheme="https://www.zhangquan.me/tags/NoSQL/"/>
+    
+  </entry>
   
   <entry>
     <title>MongoDB 复制集</title>
@@ -567,33 +595,6 @@
     <category term="Prometheus" scheme="https://www.zhangquan.me/tags/Prometheus/"/>
     
     <category term="AlertManager" scheme="https://www.zhangquan.me/tags/AlertManager/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Prometheus 查询语言 PromQL 使用说明</title>
-    <link href="https://www.zhangquan.me/2022/09/07/prometheus-cha-xun-yu-yan-promql-shi-yong-shuo-ming/"/>
-    <id>https://www.zhangquan.me/2022/09/07/prometheus-cha-xun-yu-yan-promql-shi-yong-shuo-ming/</id>
-    <published>2022-09-07T11:45:33.000Z</published>
-    <updated>2023-02-15T09:35:55.328Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;prometheus-查询语言-promql-使用说明&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#prometheus-查询语言-promql-使用说明&quot;&gt;&lt;/a&gt; Prometheus 查询语言 PromQL</summary>
-        
-      
-    
-    
-    
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/categories/Kubernetes/"/>
-    
-    
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
-    
-    <category term="Prometheus" scheme="https://www.zhangquan.me/tags/Prometheus/"/>
     
   </entry>
   
