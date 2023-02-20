@@ -45,7 +45,7 @@ $ mvn clean compile
 
 * 报错1：Could not find artifact org.unidal.framework:foundation-service:jar:2.5.0
 
-```
+```bash
 [ERROR] Failed to execute goal on project cat-core: Could not resolve dependencies for project com.dianping.cat:cat-core:jar:3.0.0: The following artifacts could not be resolved: org.unidal.framework:foundation-ser
 vice:jar:2.5.0, org.unidal.framework:web-framework:jar:2.4.0, org.unidal.framework:dal-jdbc:jar:2.4.0: Could not find artifact org.unidal.framework:foundation-service:jar:2.5.0 in alimaven (http://maven.aliyun.com/
 nexus/content/groups/public) -> [Help 1]
@@ -55,7 +55,7 @@ nexus/content/groups/public) -> [Help 1]
 
 本地 mvn-repo 分支解压，解压出org目录，并将org目录拷贝到本地的.m2仓库中
 
-```
+```bash
 $ ll ~/.m2/repository/org/unidal 
 drwxrwxr-x@  3 zhangquan  180847186    96B 11 14  2017 eunit
 drwxrwxr-x@ 11 zhangquan  180847186   352B 11 14  2017 framework
@@ -67,7 +67,7 @@ drwxrwxr-x@  9 zhangquan  180847186   288B 11 14  2017 webres
 
 * 报错2：Could not find artifact org.codehaus.plexus:plexus-container-default:jar:3.1.0
 
-```
+```bash
 [ERROR] Failed to execute goal org.unidal.maven.plugins:codegen-maven-plugin:2.5.8:dal-model (generate data model) on project cat-client: Execution generate data model of goal org.unidal.maven.plugins:codegen-maven-plugin:2.5.8:dal-model failed: Plugin org.unidal.maven.plugins:codegen-maven-plugin:2.5.8 or one of its dependencies could not be resolved: Could not find artifact org.codehaus.plexus:plexus-container-default:jar:3.1.0 in unidal (http://unidal.org/nexus/content/repositories/releases/) -> [Help 1]
 ```
 
@@ -82,14 +82,14 @@ drwxrwxr-x@  9 zhangquan  180847186   288B 11 14  2017 webres
 
 ### 在cat根目录执行install命令
 
-```
+```bash
 # zhangquan @ MacBook-Pro in ~/docker-php-dev/www/github/cat on git:master x [20:49:13] C:130
 $ mvn clean install -DskipTests
 ```
 
 报错：Failure to find org.unidal.framework:test-framework:jar:2.4.0
 
-```
+```bash
 [ERROR] Failed to execute goal on project cat-client: Could not resolve dependencies for project com.dianping.cat:cat-client:jar:3.0.0: Failure to find org.unidal.framework:test-framework:jar:2.4.0 in http://unidal.org/nexus/content/repositories/releases/ was cached in the local repository, resolution will not be reattempted until the update interval of unidal has elapsed or updates are forced -> [Help 1]
 ```
 
@@ -111,7 +111,7 @@ install成功后，将cat-home-3.0.0.war修改为cat.war
 
 在cat根目录执行命令：打开cat.txt，即可看到cat-home定义的version
 
-``` shell
+``` bash
 mvn help:effective-pom > cat.txt
 ```
 
@@ -121,7 +121,7 @@ mvn help:effective-pom > cat.txt
 
 * 创建数据库，数据库名cat，数据库编码使用utf8mb4，否则可能造成中文乱码等问题；
 
-```
+```mysql
 CREATE DATABASE `cat` DEFAULT CHARACTER SET utf8mb4 ;
 ```
 * 将 cat工程中，script目录中的 sql 拷贝到cat数据库运行
@@ -152,7 +152,7 @@ sql拷贝到cat数据库运行，初始化数据表；
 
 client.xml配置
 
-```
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <config mode="client">
     <servers>
@@ -167,7 +167,7 @@ client.xml配置
 
 datasources.xml配置文件
 
-```
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 
 <data-sources>
@@ -211,7 +211,8 @@ datasources.xml配置文件
 
 
 进入【服务端配置】页面修改IP地址：
-```
+
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <server-config>
    <server id="default">
@@ -250,7 +251,6 @@ datasources.xml配置文件
       </properties>
    </server>
 </server-config>
-
 ```
 
 进入【客户端路由】页面修改IP地址：
