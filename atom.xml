@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2023-02-23T03:34:22.503Z</updated>
+  <updated>2023-03-06T09:08:51.991Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>MongoDB 多文档事务</title>
+    <link href="https://www.zhangquan.me/2023/03/06/mongodb-duo-wen-dang-shi-wu/"/>
+    <id>https://www.zhangquan.me/2023/03/06/mongodb-duo-wen-dang-shi-wu/</id>
+    <published>2023-03-06T09:01:11.000Z</published>
+    <updated>2023-03-06T09:08:51.991Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;mongodb-多文档事务&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#mongodb-多文档事务&quot;&gt;&lt;/a&gt; MongoDB 多文档事务&lt;/h1&gt;
+&lt;p&gt;MongoDB 虽然已经在 4.2</summary>
+        
+      
+    
+    
+    
+    <category term="MongoDB" scheme="https://www.zhangquan.me/categories/MongoDB/"/>
+    
+    
+    <category term="MongoDB" scheme="https://www.zhangquan.me/tags/MongoDB/"/>
+    
+    <category term="NoSQL" scheme="https://www.zhangquan.me/tags/NoSQL/"/>
+    
+  </entry>
   
   <entry>
     <title>MongoDB 读操作事务之readConcern</title>
@@ -549,36 +577,6 @@
         
     <summary type="html">&lt;h1 id=&quot;istio的安装和部署&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#istio的安装和部署&quot;&gt;&lt;/a&gt; Istio的安装和部署&lt;/h1&gt;
 &lt;h2 id=&quot;环境&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="Istio" scheme="https://www.zhangquan.me/categories/Istio/"/>
-    
-    
-    <category term="Istio" scheme="https://www.zhangquan.me/tags/Istio/"/>
-    
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
-    
-    <category term="Service Mesh" scheme="https://www.zhangquan.me/tags/Service-Mesh/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Istio 入门及核心功能介绍</title>
-    <link href="https://www.zhangquan.me/2022/09/25/istio-ru-men-ji-he-xin-gong-neng-jie-shao/"/>
-    <id>https://www.zhangquan.me/2022/09/25/istio-ru-men-ji-he-xin-gong-neng-jie-shao/</id>
-    <published>2022-09-25T13:23:08.000Z</published>
-    <updated>2023-02-15T09:36:44.121Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;istio-入门及核心功能介绍&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#istio-入门及核心功能介绍&quot;&gt;&lt;/a&gt; Istio 入门及核心功能介绍&lt;/h1&gt;
-&lt;p&gt;&lt;img</summary>
         
       
     
