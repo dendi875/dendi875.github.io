@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.zhangquan.me/2023/03/20/mongodb-kai-fa-zui-jia-shi-jian/</loc>
+    <lastmod>2023-03-20</lastmod>
+  </url>
+  <url>
     <loc>https://www.zhangquan.me/2023/03/13/mongodb-change-streams/</loc>
     <lastmod>2023-03-13</lastmod>
   </url>
