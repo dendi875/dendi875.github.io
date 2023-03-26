@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>MongoDB 分片集群机制及原理</title>
+      <link href="/2023/03/26/mongodb-fen-pian-ji-qun-ji-zhi-ji-yuan-li/"/>
+      <url>/2023/03/26/mongodb-fen-pian-ji-qun-ji-zhi-ji-yuan-li/</url>
+      
+        <content type="html"><![CDATA[<h2 id="mongodb-常见部署架构"><a class="markdownIt-Anchor" href="#mongodb-常见部署架构"></a> MongoDB 常见部署架构</h2><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20230314112034.png" alt=""></p><p>MongoDB  有三种常见的部署架构：</p><ul><li>单机版：只有一个单节点，一般用来做开发和测试</li><li>复制集：绝大部分 MongoDB 实例上线的时候都使用复制集、高可用模式，1主2从（或更多从节点），至少是三个节点的架构</li><li>分片集群：节点数明显增多，一般有 9  个实例</li></ul><p>绝大部分使用场景是<strong>复制集</strong>。</p><h2 id="为什么要使用分片集群"><a class="markdownIt-Anchor" href="#为什么要使用分片集群"></a> 为什么要使用分片集群？</h2><ul><li>数据容量日益增大，访问性能日渐降低，怎么办？</li><li>新品上线异常火爆，如何支撑更多的并发用户？</li><li>单库已有 10TB 数据，恢复需要1-2天，如何加速？</li><li>地理分布数据，你的数据需要服务全球用户</li></ul><h2 id="分片如何解决"><a class="markdownIt-Anchor" href="#分片如何解决"></a> 分片如何解决？</h2><p>假设现在交易表中已经有 10 亿条数据，刚开始放到一个 mongod 实例表中，发现读写很慢。</p><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/mongs-1.png" alt=""></p><ul><li><p>把数据分成两半，放到2个库物理里</p><p>把交易号 0 ~ 500000000 的交易数据放到第一台 mongodb 机器中中，500000000 ~ 1000000000 的交易号数据放到第二台 mongodb   实例中。</p><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/mongs-2.png" alt=""></p></li><li><p>把数据分成4部分，放到4个物理库里</p><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/mongs-3.png" alt=""></p></li><li><p>完整的分片集群</p><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/mongs-4.png" alt=""></p></li></ul><p>以上是一个完整的 4 分片的 mongodb 集群，有 <code>Primary</code>，<code>Secondary</code> 数据节点，有  <code>mongs</code> 路由节点，有 <code>config</code> 配置节点，有应用程序和驱动程序。</p><h2 id="分片集群解剖"><a class="markdownIt-Anchor" href="#分片集群解剖"></a> 分片集群解剖</h2><h3 id="路由节点-mongos"><a class="markdownIt-Anchor" href="#路由节点-mongos"></a> 路由节点 mongos</h3><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/mongs-4.png" alt=""></p><p>mongs 作用：</p><ul><li>为应用程序提供一个集群单一入口，一般情况下只使用一个 mongos，其它的 mongos 作为高可用存在</li><li>你的数据可能存在多个分片（shard）上，mongos 能够转发你的请求到相应的分片服务器上，并且把结果进行合并再返回给应用端</li><li>mongs 至少有两个，目的是做高可用，更多的 mongos 可以做 Load Balance 的效果</li></ul><h3 id="配置节点-config"><a class="markdownIt-Anchor" href="#配置节点-config"></a> 配置节点 config</h3><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20230314132702.png" alt=""></p><p>配置节点就是一个标准的普通的 mongodb 实例产生而来，它就是一个普通的复制集（3个节点），3个节点的目的是提供高可用，在  mongodb 集群中是没有单点故障的，所有的地方都是高可用的。</p><p>3个配置节点存储的数据是相同的，它存储的数据是集群中的元数据，配置节点中最重要的一张表就是 <code>Shard</code>表，它存储了 key 的范围和 Shard 的映射关系，即一段数值的文档是存在哪一个分片上，比如编号是 0 ~ 1000 的文档存在 Shard0 上。</p><table><thead><tr><th>Lower</th><th>Uppwer</th><th>Shard</th></tr></thead><tbody><tr><td>0</td><td>1000</td><td>Shard0</td></tr><tr><td>1001</td><td>2000</td><td>Shard1</td></tr></tbody></table><h3 id="数据节点-mongod"><a class="markdownIt-Anchor" href="#数据节点-mongod"></a> 数据节点 mongod</h3><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20230314133728.png" alt=""></p><p>数据节点包含 <code>Primary</code> 和 <code>Secondary</code>，以复制集为单位（一个分片一个复制集），最大 1024 个分片。</p><p>分片中的数据是不重复的，比如有 4 个分片，那么每个分片就占了25%的数据，少了任意一个分片就少了 25 %的数据，所有分片在一起才可完整工作。</p><h2 id="分片集群特点"><a class="markdownIt-Anchor" href="#分片集群特点"></a> 分片集群特点</h2><ul><li>应用全透明，无特殊处理：单复制集的应用程序代码可以无缝升级到分片集群，代码无需更改</li><li>数据自动均衡：数据在分片之间是自动均衡的，mongodb 会在背后自动检测各个分片的数据情况，如果发现不均衡的话会自动把数据从一个分片迁移到另一个分片</li><li>动态扩容，无须下线：可以先使用一个复制集，在需要的时候在线上无需下线的情况下，把新的节点加到集群中，实现线上动态扩容的机制</li><li>提供三种分片方式</li></ul><h2 id="分片集群数据分布方式"><a class="markdownIt-Anchor" href="#分片集群数据分布方式"></a> 分片集群数据分布方式</h2><h3 id="基于范围"><a class="markdownIt-Anchor" href="#基于范围"></a> 基于范围</h3><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20230314135026.png" alt=""></p><p>基于范围是最常见的方式，就是选择一个或几个组合字段，把字段的值划分为一个范围空间，然后进行分块，分成 Chunk1、Chunk2、Chunk3，Chunk4等，这个 Chunk 是一个逻辑的分块。</p><table><thead><tr><th>Pros（优点）</th><th>Cons（缺点）</th></tr></thead><tbody><tr><td>片键范围查询性能好</td><td>数据分布可能不均匀</td></tr><tr><td>优化读</td><td>容易有热点，比如用自增ID值划分Chunk，那么新进来的数据都会写到同一个分片上</td></tr></tbody></table><h3 id="基于-hash"><a class="markdownIt-Anchor" href="#基于-hash"></a> 基于 Hash</h3><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20230314135902.png" alt=""></p><p>hash 是按某个字段值进行 hash，这样写入的时候就可以把文档写到不同的分块上。</p><table><thead><tr><th>Pros（优点）</th><th>Cons（缺点）</th></tr></thead><tbody><tr><td>数据分布均匀，写优化</td><td>范围查询效率低</td></tr></tbody></table><h3 id="基于-zone-tag"><a class="markdownIt-Anchor" href="#基于-zone-tag"></a> 基于 zone / tag</h3><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20230314140321.png" alt=""></p><p>通过给分片打标签的方式，可以把地域化的数据组织到当地的分片上。</p><h2 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h2><ul><li>分片集群可以有效解决性能瓶颈及系统扩容问题</li><li>分片额外消耗较多，成本高，管理复杂，能不分片尽量不要分片</li></ul><h2 id="参考"><a class="markdownIt-Anchor" href="#参考"></a> 参考</h2><ul><li><a href="https://www.mongodb.com/docs/v4.2/sharding/">https://www.mongodb.com/docs/v4.2/sharding/</a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> MongoDB </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> MongoDB </tag>
+            
+            <tag> NoSQL </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>MongoDB 开发最佳实践</title>
       <link href="/2023/03/20/mongodb-kai-fa-zui-jia-shi-jian/"/>
       <url>/2023/03/20/mongodb-kai-fa-zui-jia-shi-jian/</url>

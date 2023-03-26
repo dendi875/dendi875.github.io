@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2023-03-20T01:37:36.660Z</updated>
+  <updated>2023-03-26T06:31:26.049Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>MongoDB 分片集群机制及原理</title>
+    <link href="https://www.zhangquan.me/2023/03/26/mongodb-fen-pian-ji-qun-ji-zhi-ji-yuan-li/"/>
+    <id>https://www.zhangquan.me/2023/03/26/mongodb-fen-pian-ji-qun-ji-zhi-ji-yuan-li/</id>
+    <published>2023-03-26T06:30:32.000Z</published>
+    <updated>2023-03-26T06:31:26.049Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;mongodb-常见部署架构&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#mongodb-常见部署架构&quot;&gt;&lt;/a&gt; MongoDB 常见部署架构&lt;/h2&gt;
+&lt;p&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    <category term="MongoDB" scheme="https://www.zhangquan.me/categories/MongoDB/"/>
+    
+    
+    <category term="MongoDB" scheme="https://www.zhangquan.me/tags/MongoDB/"/>
+    
+    <category term="NoSQL" scheme="https://www.zhangquan.me/tags/NoSQL/"/>
+    
+  </entry>
   
   <entry>
     <title>MongoDB 开发最佳实践</title>
@@ -568,31 +596,6 @@
     <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
     
     <category term="Service Mesh" scheme="https://www.zhangquan.me/tags/Service-Mesh/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>CentOS/RHEL 7 下安装 Shadowsocks 客户端</title>
-    <link href="https://www.zhangquan.me/2022/10/10/centos-rhel-7-xia-an-zhuang-shadowsocks-ke-hu-duan/"/>
-    <id>https://www.zhangquan.me/2022/10/10/centos-rhel-7-xia-an-zhuang-shadowsocks-ke-hu-duan/</id>
-    <published>2022-10-10T03:16:03.000Z</published>
-    <updated>2023-02-15T09:36:49.252Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;centosrhel-7-下安装-shadowsocks-客户端&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#centosrhel-7-下安装-shadowsocks-客户端&quot;&gt;&lt;/a&gt; CentOS/RHEL 7 下安装</summary>
-        
-      
-    
-    
-    
-    <category term="科学上网" scheme="https://www.zhangquan.me/categories/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/"/>
-    
-    
-    <category term="科学上网" scheme="https://www.zhangquan.me/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/"/>
     
   </entry>
   
