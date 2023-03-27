@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2023-03-26T06:32:35.955Z</updated>
+  <updated>2023-03-27T02:34:43.422Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>MongoDB 分片集群设计</title>
+    <link href="https://www.zhangquan.me/2023/03/27/mongodb-fen-pian-ji-qun-she-ji/"/>
+    <id>https://www.zhangquan.me/2023/03/27/mongodb-fen-pian-ji-qun-she-ji/</id>
+    <published>2023-03-27T02:33:12.000Z</published>
+    <updated>2023-03-27T02:34:43.422Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;对于开发者来说最重要的就是如何对 mongodb 进行&lt;strong&gt;模型设计&lt;/strong&gt;，对DBA运维来说最重要的就是如何对 mongodb 进行&lt;strong&gt;分片集群设计&lt;/strong&gt;。&lt;/p&gt;
+&lt;h2 id=&quot;如何用好分片集群&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="MongoDB" scheme="https://www.zhangquan.me/categories/MongoDB/"/>
+    
+    
+    <category term="MongoDB" scheme="https://www.zhangquan.me/tags/MongoDB/"/>
+    
+    <category term="NoSQL" scheme="https://www.zhangquan.me/tags/NoSQL/"/>
+    
+  </entry>
   
   <entry>
     <title>MongoDB 分片集群机制及原理</title>
@@ -190,7 +218,7 @@
     <link href="https://www.zhangquan.me/2023/02/16/mongodb-xie-cao-zuo-shi-wu/"/>
     <id>https://www.zhangquan.me/2023/02/16/mongodb-xie-cao-zuo-shi-wu/</id>
     <published>2023-02-16T02:23:20.000Z</published>
-    <updated>2023-02-16T02:24:15.394Z</updated>
+    <updated>2023-03-27T02:03:12.369Z</updated>
     
     
       
@@ -553,36 +581,6 @@
         
     <summary type="html">&lt;h1 id=&quot;istio-gateway网关&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#istio-gateway网关&quot;&gt;&lt;/a&gt; Istio Gateway（网关）&lt;/h1&gt;
 &lt;h2 id=&quot;什么是网关&quot;&gt;&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="Istio" scheme="https://www.zhangquan.me/categories/Istio/"/>
-    
-    
-    <category term="Istio" scheme="https://www.zhangquan.me/tags/Istio/"/>
-    
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
-    
-    <category term="Service Mesh" scheme="https://www.zhangquan.me/tags/Service-Mesh/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>如何使用 Istio 设置动态路由</title>
-    <link href="https://www.zhangquan.me/2022/10/16/istio-she-zhi-dong-tai-lu-you/"/>
-    <id>https://www.zhangquan.me/2022/10/16/istio-she-zhi-dong-tai-lu-you/</id>
-    <published>2022-10-16T11:23:05.000Z</published>
-    <updated>2023-02-15T09:36:39.678Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;如何使用-istio-设置动态路由&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#如何使用-istio-设置动态路由&quot;&gt;&lt;/a&gt; 如何使用 Istio 设置动态路由&lt;/h1&gt;
-&lt;p&gt;路由这个功能是 Istio</summary>
         
       
     
