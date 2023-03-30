@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2023-03-27T02:34:43.422Z</updated>
+  <updated>2023-03-30T09:30:42.754Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>MongoDB 监控最佳实践</title>
+    <link href="https://www.zhangquan.me/2023/03/30/mongodb-jian-kong-zui-jia-shi-jian/"/>
+    <id>https://www.zhangquan.me/2023/03/30/mongodb-jian-kong-zui-jia-shi-jian/</id>
+    <published>2023-03-30T09:30:01.000Z</published>
+    <updated>2023-03-30T09:30:42.754Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;常用的监控工具及手段&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#常用的监控工具及手段&quot;&gt;&lt;/a&gt; 常用的监控工具及手段&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;MongoDB Ops</summary>
+        
+      
+    
+    
+    
+    <category term="MongoDB" scheme="https://www.zhangquan.me/categories/MongoDB/"/>
+    
+    
+    <category term="MongoDB" scheme="https://www.zhangquan.me/tags/MongoDB/"/>
+    
+    <category term="NoSQL" scheme="https://www.zhangquan.me/tags/NoSQL/"/>
+    
+  </entry>
   
   <entry>
     <title>MongoDB 分片集群设计</title>
@@ -551,36 +581,6 @@
         
     <summary type="html">&lt;h1 id=&quot;istio-serviceentry服务入口&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#istio-serviceentry服务入口&quot;&gt;&lt;/a&gt; Istio ServiceEntry（服务入口）&lt;/h1&gt;
 &lt;h2</summary>
-        
-      
-    
-    
-    
-    <category term="Istio" scheme="https://www.zhangquan.me/categories/Istio/"/>
-    
-    
-    <category term="Istio" scheme="https://www.zhangquan.me/tags/Istio/"/>
-    
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
-    
-    <category term="Service Mesh" scheme="https://www.zhangquan.me/tags/Service-Mesh/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Istio Gateway（网关）</title>
-    <link href="https://www.zhangquan.me/2022/10/24/istio-gateway-wang-guan/"/>
-    <id>https://www.zhangquan.me/2022/10/24/istio-gateway-wang-guan/</id>
-    <published>2022-10-24T08:15:25.000Z</published>
-    <updated>2023-02-15T09:36:46.775Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;istio-gateway网关&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#istio-gateway网关&quot;&gt;&lt;/a&gt; Istio Gateway（网关）&lt;/h1&gt;
-&lt;h2 id=&quot;什么是网关&quot;&gt;&lt;a</summary>
         
       
     
