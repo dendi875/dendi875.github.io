@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>MongoDB 索引机制（上）</title>
+      <link href="/2023/04/02/mongodb-suo-yin-ji-zhi-shang/"/>
+      <url>/2023/04/02/mongodb-suo-yin-ji-zhi-shang/</url>
+      
+        <content type="html"><![CDATA[<h2 id="术语"><a class="markdownIt-Anchor" href="#术语"></a> 术语</h2><h3 id="indexkeydatapage索引键数据页"><a class="markdownIt-Anchor" href="#indexkeydatapage索引键数据页"></a> Index/Key/DataPage（索引/键/数据页）</h3><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20230402152907.png" alt=""></p><h3 id="covered-queryfetch查询覆盖抓取"><a class="markdownIt-Anchor" href="#covered-queryfetch查询覆盖抓取"></a> Covered Query/FETCH（查询覆盖/抓取）</h3><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20230402153256.png" alt=""></p><p>如果所有需要的字段都在索引中，不需要额外的字段，就可以不再需要从数据页加载数据，这就是<strong>查询覆盖</strong>。</p><p>在 Mongo 中我们可以把想要查找的字段组成一个索引，以后如果想要查寻这些字段的数据就不需要查真正的文档了，在索引中就能快速拿到想要的数据。</p><p>比如：我们想要找查 firstName、lastName、gender、age 这四个字段，可以把这四个字段组成一个索引。</p><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">db<span class="token punctuation">.</span>human<span class="token punctuation">.</span><span class="token function">createIndex</span><span class="token punctuation">(</span>  <span class="token punctuation">{</span>    <span class="token string">"firstName"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>    <span class="token string">"lastName"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>    <span class="token string">"gender"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>    <span class="token string">"age"</span><span class="token operator">:</span> <span class="token number">1</span>  <span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h3 id="ixscancollscan索引扫描集合扫描"><a class="markdownIt-Anchor" href="#ixscancollscan索引扫描集合扫描"></a> IXSCAN/COLLSCAN（索引扫描/集合扫描）</h3><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20230402154033.png" alt=""></p><p>IXSCAN: 索引扫描，表示在<strong>索引表</strong>中对集合项一项一项查过去，索引页面不会太多</p><p>COLLSCAN：集合扫描或者表扫描，在关系型数据库中叫做<strong>全表扫描</strong></p><h3 id="big-o-notation时间复杂度"><a class="markdownIt-Anchor" href="#big-o-notation时间复杂度"></a> Big O Notation（时间复杂度）</h3><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20230402154601.png" alt=""></p><p>时间复杂度：用来表示一个查询所需要的时间。</p><p>如上图所示，x 轴表示数据量，y 轴表示查询所需要的时间，COLLSCAN 的时间复杂度是一个线性增长的</p><h3 id="query-shape查询的形状"><a class="markdownIt-Anchor" href="#query-shape查询的形状"></a> Query Shape（查询的形状）</h3><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20230402155158.png" alt=""></p><p>查询的形状：你的查询条件用到了哪些字段，如上图所示，用到了 <a href="http://attributes.name">attributes.name</a> 和 attributes.value 这两个字段的等值查询，</p><p>不同的查询形状对不同的索引是有影响的。</p><h3 id="index-prefix索引前缀"><a class="markdownIt-Anchor" href="#index-prefix索引前缀"></a> Index Prefix（索引前缀）</h3><p>Index Prefix： 表示当你创建一个索引时，如果这个索引是一个组合索引，比如有 firstName、lastName、gender、age 这四个字段</p><p>那么你当创建是一个索引时，它是有三个前缀的。</p><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">db<span class="token punctuation">.</span>human<span class="token punctuation">.</span><span class="token function">createIndex</span><span class="token punctuation">(</span><span class="token punctuation">{</span>firstName<span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span> lastName<span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span> gender<span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span> age<span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>以上索引的全部前缀包括：</p><ul><li>{firstName: 1}</li><li>{firstName: 1, lastName: 1}</li><li>{firstName: 1, lastName: 1, gender: 1}</li></ul><p><strong>所有索引前缀都可以被该索引覆盖，没有必要针对这些查询建立额外的索引</strong></p><h3 id="selectivity过滤性"><a class="markdownIt-Anchor" href="#selectivity过滤性"></a> Selectivity（过滤性）</h3><p>假设在一个有10000条记录的用户集合中：</p><ul><li>满足 gender= F（女性） 的记录有4000 条 ，1W条中有 4000条是女性用户</li><li>满足 city=SH 的记录有 100 条，1W 条中有 100 条城市是在上海的用户</li><li>满足 name=“zhangsan” 的记录有 10 条，1W 条中有 10 条名字叫张三的用户</li></ul><p>条件 name 能过滤掉最多的数据，city 其次，gender 最弱。所以 name 的过滤性（selectivity）大于 city 大于 gender。</p><p>如果要查询同时满足：gender == F &amp;&amp; city == SH &amp;&amp; name == ‘zhangsan’ 的记录，但只允许为 gender/city/name 中的一个建立索引，应该把索引放在哪里？肯定是<strong>把索引建在过滤性最强的那个字段上</strong>。</p><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20230402161713.png" alt=""></p><h2 id="b树结构"><a class="markdownIt-Anchor" href="#b树结构"></a> B树结构</h2><p>索引背后是 B-树。要正确使用索引，必须先了解 B-树的工作原理。</p><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20230402161809.png" alt=""></p><p>B- 树： 基于B树，但是子节点数量可以超过2个。</p><h2 id="数据结构与算法复习"><a class="markdownIt-Anchor" href="#数据结构与算法复习"></a> 数据结构与算法复习</h2><p>由于 B树/B-树的工作过程过于复杂，但本质上它是一个有序的数据结构。我们用数组来理解它。</p><p>假设索引为 {a: 1}（a 升序）：</p><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20230402162009.png" alt=""></p><h2 id="参考"><a class="markdownIt-Anchor" href="#参考"></a> 参考</h2><ul><li><a href="https://www.mongodb.com/docs/v4.2/indexes/">https://www.mongodb.com/docs/v4.2/indexes/</a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> MongoDB </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> MongoDB </tag>
+            
+            <tag> NoSQL </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>MongoDB 监控最佳实践</title>
       <link href="/2023/03/30/mongodb-jian-kong-zui-jia-shi-jian/"/>
       <url>/2023/03/30/mongodb-jian-kong-zui-jia-shi-jian/</url>
