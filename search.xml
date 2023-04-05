@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>ZooKeeper 概述</title>
+      <link href="/2023/04/05/zookeeper-gai-shu/"/>
+      <url>/2023/04/05/zookeeper-gai-shu/</url>
+      
+        <content type="html"><![CDATA[<h1 id="zookeeper-概述"><a class="markdownIt-Anchor" href="#zookeeper-概述"></a> ZooKeeper 概述</h1><h2 id="什么是-zookeeper"><a class="markdownIt-Anchor" href="#什么是-zookeeper"></a> 什么是 Zookeeper ?</h2><p>ZooKeeper 是一个分布式的，开放源码的分<strong>布式应用程序协同服务</strong>。</p><p>ZooKeeper 的设计目标是将那些复杂且容易出错的分布式一致性服务封装起来，构成一个高效可靠的原语集，并以一系列简单易用的接口提供给用户使用。</p><h2 id="zookeeper-发展历史"><a class="markdownIt-Anchor" href="#zookeeper-发展历史"></a> ZooKeeper 发展历史</h2><p>ZooKeeper 最早起源于雅虎研究院的一个研究小组。在当时，研究人员发现，在雅虎内部很多大型系统基本都需要依赖一个类似的系统来进行分布式协同，但是这些系统往往都存在分布式单点问题。</p><p>所以，雅虎的开发人员就开发了一个通用的无单点问题的分布式协调框架，这就是 ZooKeeper。ZooKeeper 之后在开源界被大量使用，下面列出了 3 个著名开源项目是如何使用 ZooKeeper：</p><ul><li><p>Hadoop：使用 ZooKeeper 做Namenode 的高可用。</p></li><li><p>HBase：保证集群中只有一个 master，保存 hbase:meta 表的位置，保存集群中的 RegionServer 列表。</p></li><li><p>Kafka：集群成员管理，controller 节点选举</p></li></ul><h2 id="zookeeper-应用场景"><a class="markdownIt-Anchor" href="#zookeeper-应用场景"></a> Zookeeper 应用场景</h2><p>典型应用场景：</p><ul><li><p>配置管理（configurationmanagement）</p></li><li><p>DNS服务</p></li><li><p>组成员管理（groupmembership），如 HBase</p></li><li><p>各种分布式锁</p></li></ul><p>ZooKeeper 适用于存储和协同相关的关键数据，<strong>不适合用于大数据量存储</strong>。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Zookeeper </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Zookeeper </tag>
+            
+            <tag> 分布式系统 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>MongoDB 索引机制（下）</title>
       <link href="/2023/04/05/mongodb-suo-yin-ji-zhi-xia/"/>
       <url>/2023/04/05/mongodb-suo-yin-ji-zhi-xia/</url>

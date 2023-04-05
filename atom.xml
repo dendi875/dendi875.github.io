@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2023-04-05T07:27:41.233Z</updated>
+  <updated>2023-04-05T07:41:26.770Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ZooKeeper 概述</title>
+    <link href="https://www.zhangquan.me/2023/04/05/zookeeper-gai-shu/"/>
+    <id>https://www.zhangquan.me/2023/04/05/zookeeper-gai-shu/</id>
+    <published>2023-04-05T07:40:45.000Z</published>
+    <updated>2023-04-05T07:41:26.770Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;zookeeper-概述&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#zookeeper-概述&quot;&gt;&lt;/a&gt; ZooKeeper 概述&lt;/h1&gt;
+&lt;h2 id=&quot;什么是-zookeeper&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Zookeeper" scheme="https://www.zhangquan.me/categories/Zookeeper/"/>
+    
+    
+    <category term="Zookeeper" scheme="https://www.zhangquan.me/tags/Zookeeper/"/>
+    
+    <category term="分布式系统" scheme="https://www.zhangquan.me/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/"/>
+    
+  </entry>
   
   <entry>
     <title>MongoDB 索引机制（下）</title>
@@ -547,35 +575,6 @@
         
     <summary type="html">&lt;h1 id=&quot;istio-engress实现访问外部服务&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#istio-engress实现访问外部服务&quot;&gt;&lt;/a&gt; Istio Engress—实现访问外部服务&lt;/h1&gt;
 &lt;p&gt;在 Istio</summary>
-        
-      
-    
-    
-    
-    <category term="Istio" scheme="https://www.zhangquan.me/categories/Istio/"/>
-    
-    
-    <category term="Istio" scheme="https://www.zhangquan.me/tags/Istio/"/>
-    
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
-    
-    <category term="Service Mesh" scheme="https://www.zhangquan.me/tags/Service-Mesh/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Istio Ingress—控制进入网格的流量（把网格中的服务暴露出去）</title>
-    <link href="https://www.zhangquan.me/2022/11/06/istio-ingress-kong-zhi-jin-ru-wang-ge-de-liu-liang-ba-wang-ge-zhong-de-fu-wu-bao-lu-chu-qu/"/>
-    <id>https://www.zhangquan.me/2022/11/06/istio-ingress-kong-zhi-jin-ru-wang-ge-de-liu-liang-ba-wang-ge-zhong-de-fu-wu-bao-lu-chu-qu/</id>
-    <published>2022-11-06T11:00:32.000Z</published>
-    <updated>2023-02-15T09:36:45.741Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;istio-ingress控制进入网格的流量把网格中的服务暴露出去&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#istio-ingress控制进入网格的流量把网格中的服务暴露出去&quot;&gt;&lt;/a&gt; Istio</summary>
         
       
     
