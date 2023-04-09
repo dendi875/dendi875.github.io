@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2023-04-08T06:30:10.087Z</updated>
+  <updated>2023-04-09T07:17:22.731Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -17,11 +17,39 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>ZooKeeper 架构与集群安装</title>
+    <link href="https://www.zhangquan.me/2023/04/09/zookeeper-jia-gou-yu-ji-qun-an-zhuang/"/>
+    <id>https://www.zhangquan.me/2023/04/09/zookeeper-jia-gou-yu-ji-qun-an-zhuang/</id>
+    <published>2023-04-09T07:16:28.000Z</published>
+    <updated>2023-04-09T07:17:22.731Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;zookeeper-总体架构&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#zookeeper-总体架构&quot;&gt;&lt;/a&gt; ZooKeeper 总体架构&lt;/h2&gt;
+&lt;p&gt;应用使用 ZooKeeper 客户端库来与 ZooKeeper</summary>
+        
+      
+    
+    
+    
+    <category term="Zookeeper" scheme="https://www.zhangquan.me/categories/Zookeeper/"/>
+    
+    
+    <category term="Zookeeper" scheme="https://www.zhangquan.me/tags/Zookeeper/"/>
+    
+    <category term="分布式系统" scheme="https://www.zhangquan.me/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/"/>
+    
+  </entry>
+  
+  <entry>
     <title>ZooKeeper 服务说明</title>
     <link href="https://www.zhangquan.me/2023/04/08/zookeeper-fu-wu-shuo-ming/"/>
     <id>https://www.zhangquan.me/2023/04/08/zookeeper-fu-wu-shuo-ming/</id>
     <published>2023-04-08T06:20:35.000Z</published>
-    <updated>2023-04-08T06:30:10.087Z</updated>
+    <updated>2023-04-08T06:34:36.157Z</updated>
     
     
       
@@ -544,35 +572,6 @@
         
         
     <summary type="html">&lt;h2 id=&quot;熔断失败也是一种选择&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#熔断失败也是一种选择&quot;&gt;&lt;/a&gt;</summary>
-        
-      
-    
-    
-    
-    <category term="Istio" scheme="https://www.zhangquan.me/categories/Istio/"/>
-    
-    
-    <category term="Istio" scheme="https://www.zhangquan.me/tags/Istio/"/>
-    
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
-    
-    <category term="Service Mesh" scheme="https://www.zhangquan.me/tags/Service-Mesh/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Istio 超时重试—提升系统的健壮性和可用性</title>
-    <link href="https://www.zhangquan.me/2022/11/20/istio-chao-shi-chong-shi-ti-sheng-xi-tong-de-jian-zhuang-xing-he-ke-yong-xing/"/>
-    <id>https://www.zhangquan.me/2022/11/20/istio-chao-shi-chong-shi-ti-sheng-xi-tong-de-jian-zhuang-xing-he-ke-yong-xing/</id>
-    <published>2022-11-20T10:19:38.000Z</published>
-    <updated>2023-02-15T09:36:26.727Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;为什么需要超时和重试&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#为什么需要超时和重试&quot;&gt;&lt;/a&gt;</summary>
         
       
     
