@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.zhangquan.me/2022/06/15/java-zhong-que-ding-li-xiang-xian-cheng-chi-de-da-xiao-he-linux-cha-kan-cpu-he-shu/</loc>
+    <lastmod>2023-04-10</lastmod>
+  </url>
+  <url>
     <loc>https://www.zhangquan.me/2023/04/09/zookeeper-jia-gou-yu-ji-qun-an-zhuang/</loc>
     <lastmod>2023-04-09</lastmod>
   </url>
@@ -138,10 +142,6 @@
   </url>
   <url>
     <loc>https://www.zhangquan.me/2022/06/19/java-zhong-optional-lei-xiang-jie/</loc>
-    <lastmod>2023-02-15</lastmod>
-  </url>
-  <url>
-    <loc>https://www.zhangquan.me/2022/06/15/java-zhong-que-ding-li-xiang-xian-cheng-chi-de-da-xiao-he-linux-cha-kan-cpu-he-shu/</loc>
     <lastmod>2023-02-15</lastmod>
   </url>
   <url>
