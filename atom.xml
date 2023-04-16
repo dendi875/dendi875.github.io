@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2023-04-14T03:45:04.804Z</updated>
+  <updated>2023-04-16T08:34:46.990Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ZooKeeper API使用之实现分布式队列</title>
+    <link href="https://www.zhangquan.me/2023/04/16/zookeeper-api-shi-yong-zhi-shi-xian-fen-bu-shi-dui-lie/"/>
+    <id>https://www.zhangquan.me/2023/04/16/zookeeper-api-shi-yong-zhi-shi-xian-fen-bu-shi-dui-lie/</id>
+    <published>2023-04-16T08:33:51.000Z</published>
+    <updated>2023-04-16T08:34:46.990Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;使用-maven-构建-zookeeper-源码&quot;&gt;&lt;a href=&quot;#使用-maven-构建-zookeeper-源码&quot; class=&quot;headerlink&quot; title=&quot;使用 maven 构建 zookeeper 源码&quot;&gt;&lt;/a&gt;使用 maven 构建</summary>
+        
+      
+    
+    
+    
+    <category term="Zookeeper" scheme="https://www.zhangquan.me/categories/Zookeeper/"/>
+    
+    
+    <category term="Zookeeper" scheme="https://www.zhangquan.me/tags/Zookeeper/"/>
+    
+    <category term="分布式系统" scheme="https://www.zhangquan.me/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/"/>
+    
+  </entry>
   
   <entry>
     <title>ZooKeeper API 简介</title>
@@ -550,36 +577,6 @@
     <category term="MongoDB" scheme="https://www.zhangquan.me/tags/MongoDB/"/>
     
     <category term="NoSQL" scheme="https://www.zhangquan.me/tags/NoSQL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Istio 流量镜像</title>
-    <link href="https://www.zhangquan.me/2022/12/25/istio-liu-liang-jing-xiang/"/>
-    <id>https://www.zhangquan.me/2022/12/25/istio-liu-liang-jing-xiang/</id>
-    <published>2022-12-25T08:58:47.000Z</published>
-    <updated>2023-02-15T09:36:41.600Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;背景&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#背景&quot;&gt;&lt;/a&gt; 背景&lt;/h2&gt;
-&lt;p&gt;流量镜像，也叫影子流量（Traffic</summary>
-        
-      
-    
-    
-    
-    <category term="Istio" scheme="https://www.zhangquan.me/categories/Istio/"/>
-    
-    
-    <category term="Istio" scheme="https://www.zhangquan.me/tags/Istio/"/>
-    
-    <category term="Kubernetes" scheme="https://www.zhangquan.me/tags/Kubernetes/"/>
-    
-    <category term="Service Mesh" scheme="https://www.zhangquan.me/tags/Service-Mesh/"/>
     
   </entry>
   
