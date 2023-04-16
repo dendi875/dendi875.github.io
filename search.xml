@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>ZooKeeper API使用之实现分布式锁</title>
+      <link href="/2023/04/16/zookeeper-api-shi-yong-zhi-shi-xian-fen-bu-shi-suo/"/>
+      <url>/2023/04/16/zookeeper-api-shi-yong-zhi-shi-xian-fen-bu-shi-suo/</url>
+      
+        <content type="html"><![CDATA[<h2 id="分布式锁的设计"><a href="#分布式锁的设计" class="headerlink" title="分布式锁的设计"></a>分布式锁的设计</h2><p>使用Zookeeper API 来实现一个分布式锁时，应该怎样设计呢？</p><p> zookeeper 分布式锁源代码：<a href="https://github.com/apache/zookeeper/tree/branch-3.5.5/zookeeper-recipes/zookeeper-recipes-lock">https://github.com/apache/zookeeper/tree/branch-3.5.5/zookeeper-recipes/zookeeper-recipes-lock</a></p><p><strong>使用临时顺序 znode （比如: /lock）来表示获取锁的请求，创建最小后缀数字 znode 的用户成功拿到锁。</strong></p><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20230326173446.png" alt=""></p><p>如上图所示，有3个锁请求，分别是后续数字1，后续数字2，后续数字3。因为数字1 是最小的，所以后续数字1的请求能够拿到锁，成为锁的持有者。</p><h2 id="避免羊群效应（herd-effect）"><a href="#避免羊群效应（herd-effect）" class="headerlink" title="避免羊群效应（herd effect）"></a>避免羊群效应（herd effect）</h2><p>在设计锁时要注意避免羊群效应。</p><p>把锁请求者按照后缀数字进行排队，后缀数字小的锁请求者先获取锁。如果所有的锁请求者都 watch 锁持有者，当代表锁请求者的 znode 被删除以后，所有的锁请求者都会通知到，但是只有一个锁请求者能拿到锁。这就是羊群效应。</p><p>为了避免羊群效应，<strong>每个锁请求者 watch 它前面的锁请求者</strong>。每次锁被释放，只会有一个锁请求者会被通知到。这样做还让锁的分配具有公平性，锁定的分配遵循先到先得的原则。</p><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20230326173900.png" alt=""></p><p>如上图所示，后续数字3的锁请求它 watch 的不是锁持有者（后续数字1的锁请求者），而是 watch 它前面的锁请求者（后续数字2）</p><h2 id="代码展示"><a href="#代码展示" class="headerlink" title="代码展示"></a>代码展示</h2><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20230326174605.png" alt=""></p><h2 id="运行测试用例"><a href="#运行测试用例" class="headerlink" title="运行测试用例"></a>运行测试用例</h2><p>运行 zookeeper-recipes-queue 中的单元测试文件 DistributedQueueTest：</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> zookeeper/zookeeper-recipes/zookeeper-recipes-lockmvn <span class="token builtin class-name">test</span> -Dtest<span class="token operator">=</span>org.apache.zookeeper.recipes.lock.WriteLockTest<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul><li><a href="https://zookeeper.apache.org/doc/r3.5.3-beta/recipes.html#sc_recipes_Locks">https://zookeeper.apache.org/doc/r3.5.3-beta/recipes.html#sc_recipes_Locks</a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Zookeeper </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Zookeeper </tag>
+            
+            <tag> 分布式系统 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>ZooKeeper API使用之实现分布式队列</title>
       <link href="/2023/04/16/zookeeper-api-shi-yong-zhi-shi-xian-fen-bu-shi-dui-lie/"/>
       <url>/2023/04/16/zookeeper-api-shi-yong-zhi-shi-xian-fen-bu-shi-dui-lie/</url>
