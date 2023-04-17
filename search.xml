@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>ZooKeeper API使用之实现分布式选举</title>
+      <link href="/2023/04/17/zookeeper-api-shi-yong-zhi-shi-xian-fen-bu-shi-xuan-ju/"/>
+      <url>/2023/04/17/zookeeper-api-shi-yong-zhi-shi-xian-fen-bu-shi-xuan-ju/</url>
+      
+        <content type="html"><![CDATA[<h2 id="分布式选举的设计"><a href="#分布式选举的设计" class="headerlink" title="分布式选举的设计"></a>分布式选举的设计</h2><p>使用Zookeeper API 来实现一个分布式选举时，应该怎样设计呢？</p><p>zookeeper 分布式选举源代码：<a href="https://github.com/apache/zookeeper/tree/branch-3.5.5/zookeeper-recipes/zookeeper-recipes-election">https://github.com/apache/zookeeper/tree/branch-3.5.5/zookeeper-recipes/zookeeper-recipes-election</a></p><p>使用临时顺序 znode 来表示选举请求，创建最小后缀数字 znode 的选举请求成功。在协同设计上和分布式锁是一样的，不同之处在于具体实现。不同于分布式锁，选举的具体实现对选举的各个阶段做了监控。</p><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20230326180224.png" alt=""></p><p>如上图所示，有三个选举请求 n_0000000000，n_0000000001，n_0000000002，n_0000000000这个节点后续数字最小，所以它赢得了选举成为了 leader，n_0000000001和n_0000000002的选举排在n_0000000000节点的后面。</p><h2 id="代码展示"><a href="#代码展示" class="headerlink" title="代码展示"></a>代码展示</h2><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20230326180719.png" alt=""></p><h2 id="运行测试用例"><a href="#运行测试用例" class="headerlink" title="运行测试用例"></a>运行测试用例</h2><p>运行 zookeeper-recipes-queue 中的单元测试文件 DistributedQueueTest：</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> zookeeper/zookeeper-recipes/zookeeper-recipes-electionmvn <span class="token builtin class-name">test</span> -Dtest<span class="token operator">=</span>org.apache.zookeeper.recipes.leader.LeaderElectionSupportTest<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul><li><a href="https://zookeeper.apache.org/doc/r3.5.5/recipes.html#sc_leaderElection">https://zookeeper.apache.org/doc/r3.5.5/recipes.html#sc_leaderElection</a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Zookeeper </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Zookeeper </tag>
+            
+            <tag> 分布式系统 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>ZooKeeper API使用之实现分布式锁</title>
       <link href="/2023/04/16/zookeeper-api-shi-yong-zhi-shi-xian-fen-bu-shi-suo/"/>
       <url>/2023/04/16/zookeeper-api-shi-yong-zhi-shi-xian-fen-bu-shi-suo/</url>

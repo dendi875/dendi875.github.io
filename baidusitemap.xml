@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.zhangquan.me/2023/04/17/zookeeper-api-shi-yong-zhi-shi-xian-fen-bu-shi-xuan-ju/</loc>
+    <lastmod>2023-04-17</lastmod>
+  </url>
+  <url>
     <loc>https://www.zhangquan.me/2023/04/16/zookeeper-api-shi-yong-zhi-shi-xian-fen-bu-shi-dui-lie/</loc>
     <lastmod>2023-04-16</lastmod>
   </url>
