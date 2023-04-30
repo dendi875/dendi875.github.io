@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2023-04-28T02:39:24.110Z</updated>
+  <updated>2023-04-30T05:57:33.576Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ZooKeeper Observer</title>
+    <link href="https://www.zhangquan.me/2023/04/30/zookeeper-observer/"/>
+    <id>https://www.zhangquan.me/2023/04/30/zookeeper-observer/</id>
+    <published>2023-04-30T05:56:47.000Z</published>
+    <updated>2023-04-30T05:57:33.576Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;ZooKeeper-如何处理写请求&quot;&gt;&lt;a href=&quot;#ZooKeeper-如何处理写请求&quot; class=&quot;headerlink&quot; title=&quot;ZooKeeper 如何处理写请求&quot;&gt;&lt;/a&gt;ZooKeeper 如何处理写请求&lt;/h2&gt;&lt;p&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    <category term="Zookeeper" scheme="https://www.zhangquan.me/categories/Zookeeper/"/>
+    
+    
+    <category term="Zookeeper" scheme="https://www.zhangquan.me/tags/Zookeeper/"/>
+    
+    <category term="分布式系统" scheme="https://www.zhangquan.me/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/"/>
+    
+  </entry>
   
   <entry>
     <title>ZooKeeper 的监控</title>
@@ -537,33 +564,6 @@
         
     <summary type="html">&lt;h1 id=&quot;mongodb-读操作事务之readconcern&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#mongodb-读操作事务之readconcern&quot;&gt;&lt;/a&gt; MongoDB 读操作事务之readConcern&lt;/h1&gt;
 &lt;h2</summary>
-        
-      
-    
-    
-    
-    <category term="MongoDB" scheme="https://www.zhangquan.me/categories/MongoDB/"/>
-    
-    
-    <category term="MongoDB" scheme="https://www.zhangquan.me/tags/MongoDB/"/>
-    
-    <category term="NoSQL" scheme="https://www.zhangquan.me/tags/NoSQL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MongoDB 读操作事务之readPreference</title>
-    <link href="https://www.zhangquan.me/2023/02/20/mongodb-du-cao-zuo-shi-wu-zhi-readpreference/"/>
-    <id>https://www.zhangquan.me/2023/02/20/mongodb-du-cao-zuo-shi-wu-zhi-readpreference/</id>
-    <published>2023-02-20T01:46:47.000Z</published>
-    <updated>2023-02-20T01:49:21.867Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;MongoDB 是一个分布式架构，在最小部署的情况下，它必须是一个主从从（一主两从）3个节点的架构，如果涉及到分片的话还有 &lt;a</summary>
         
       
     
