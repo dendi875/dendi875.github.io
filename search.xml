@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>ZooKeeper 服务发现（二）</title>
+      <link href="/2023/05/06/zookeeper-fu-wu-fa-xian-er/"/>
+      <url>/2023/05/06/zookeeper-fu-wu-fa-xian-er/</url>
+      
+        <content type="html"><![CDATA[<p>本篇我们介绍一下 ZooKeeper 服务发现这个模块的内部实现和相关代码。</p><p>首先我们来了解下服务发现模块里的几个概念：</p><h3 id="Node-Cache"><a href="#Node-Cache" class="headerlink" title="Node Cache"></a>Node Cache</h3><p>Node Cache 是 curator 的一个 recipe ，用来本地 cache 来缓存 ZooKeeper znode上的数据。Node Cache 通过监控一个 znode 的 update / create / delete 事件来更新本地的 znode 数据。用户可以在 Node Cache 上面注册一个 listener 来获取 cache 更新的通知。</p><h3 id="Path-Cache"><a href="#Path-Cache" class="headerlink" title="Path Cache"></a>Path Cache</h3><p>Path Cache 和 Node Cache 一样，不同之处是在于 Path Cache 缓存一个 znode 目录下所有子节点。Node Cache 它只监控一个 znode 上的数据，Path Cache 它监控一个 znode 目录下所有子 znode 的数据。</p><h3 id="container-节点"><a href="#container-节点" class="headerlink" title="container 节点"></a>container 节点</h3><p>container 节点是一种新引入的 znode ，目的在于<strong>下挂子节点</strong>。当一个 container 节点的所有子节点被删除之后，ZooKeeper 会删除掉这个 container 节点。服务发现的 base path 节点和服务节点就是 containe 节点。</p><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20230413220054.png" alt=""></p><h2 id="服务发现模块内部实现核心代码"><a href="#服务发现模块内部实现核心代码" class="headerlink" title="服务发现模块内部实现核心代码"></a>服务发现模块内部实现核心代码</h2><h3 id="ServiceDiscoveryImpl"><a href="#ServiceDiscoveryImpl" class="headerlink" title="ServiceDiscoveryImpl"></a>ServiceDiscoveryImpl</h3><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20230413221348.png" alt=""></p><h3 id="ServiceCacheImpl"><a href="#ServiceCacheImpl" class="headerlink" title="ServiceCacheImpl"></a>ServiceCacheImpl</h3><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/ServiceCacheImpl-2.png" alt=""></p><p>ServiceCacheImpl 使用一个 PathChildrenCache 来维护一个 instances 。这个 instances也是对 znode 数据的一个 cache 。</p><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/ServiceCacheImpl.png" alt=""></p><h3 id="ServiceProviderImpl"><a href="#ServiceProviderImpl" class="headerlink" title="ServiceProviderImpl"></a>ServiceProviderImpl</h3><p>ServiceProviderImpl 是多个对象的 facade。</p><p><img src="https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/ServiceProviderImpl-1.png" alt=""></p><h3 id="ProviderStrategy"><a href="#ProviderStrategy" class="headerlink" title="ProviderStrategy"></a>ProviderStrategy</h3><h3 id="DownInstancePolicy"><a href="#DownInstancePolicy" class="headerlink" title="DownInstancePolicy"></a>DownInstancePolicy</h3><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul><li><a href="https://curator.apache.org/curator-recipes/node-cache.html">https://curator.apache.org/curator-recipes/node-cache.html</a></li><li><a href="https://curator.apache.org/curator-recipes/path-cache.html">https://curator.apache.org/curator-recipes/path-cache.html</a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Zookeeper </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Zookeeper </tag>
+            
+            <tag> 分布式系统 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>ZooKeeper 服务发现（一）</title>
       <link href="/2023/05/04/zookeeper-fu-wu-fa-xian-yi/"/>
       <url>/2023/05/04/zookeeper-fu-wu-fa-xian-yi/</url>
