@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2023-05-06T05:28:59.290Z</updated>
+  <updated>2023-05-22T02:34:04.233Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>HBase 之使用 Docker 设置本地 HBase 集群</title>
+    <link href="https://www.zhangquan.me/2023/05/22/hbase-zhi-shi-yong-docker-she-zhi-ben-di-hbase-ji-qun/"/>
+    <id>https://www.zhangquan.me/2023/05/22/hbase-zhi-shi-yong-docker-she-zhi-ben-di-hbase-ji-qun/</id>
+    <published>2023-05-22T02:32:16.000Z</published>
+    <updated>2023-05-22T02:34:04.233Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在本教程中，将使用 Docker Compose 设置我们自己的 HBase 集群。&lt;/p&gt;
+&lt;h2 id=&quot;先决条件&quot;&gt;&lt;a href=&quot;#先决条件&quot; class=&quot;headerlink&quot; title=&quot;先决条件&quot;&gt;&lt;/a&gt;先决条件&lt;/h2&gt;&lt;p&gt;在安装本地 HBase</summary>
+        
+      
+    
+    
+    
+    <category term="HBase" scheme="https://www.zhangquan.me/categories/HBase/"/>
+    
+    
+    <category term="NoSQL" scheme="https://www.zhangquan.me/tags/NoSQL/"/>
+    
+    <category term="HBase" scheme="https://www.zhangquan.me/tags/HBase/"/>
+    
+  </entry>
   
   <entry>
     <title>ZooKeeper 服务发现（二）</title>
@@ -536,34 +564,6 @@
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;关于驱动程序：总是选择与所用之 MongoDB</summary>
-        
-      
-    
-    
-    
-    <category term="MongoDB" scheme="https://www.zhangquan.me/categories/MongoDB/"/>
-    
-    
-    <category term="MongoDB" scheme="https://www.zhangquan.me/tags/MongoDB/"/>
-    
-    <category term="NoSQL" scheme="https://www.zhangquan.me/tags/NoSQL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MongoDB Change Streams</title>
-    <link href="https://www.zhangquan.me/2023/03/13/mongodb-change-streams/"/>
-    <id>https://www.zhangquan.me/2023/03/13/mongodb-change-streams/</id>
-    <published>2023-03-13T10:13:05.000Z</published>
-    <updated>2023-03-13T10:14:29.994Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;什么是-change-stream&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#什么是-change-stream&quot;&gt;&lt;/a&gt; 什么是 Change Stream？&lt;/h2&gt;
-&lt;p&gt;Change Stream 是 MongoDB</summary>
         
       
     
