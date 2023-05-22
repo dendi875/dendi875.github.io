@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2023-05-22T07:30:17.111Z</updated>
+  <updated>2023-05-22T11:50:02.156Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Java并发编程—可见性、原子性和有序性问题：并发编程Bug的源头</title>
+    <link href="https://www.zhangquan.me/2023/05/22/java-bing-fa-bian-cheng-ke-jian-xing-yuan-zi-xing-he-you-xu-xing-wen-ti-bing-fa-bian-cheng-bug-de-yuan-tou/"/>
+    <id>https://www.zhangquan.me/2023/05/22/java-bing-fa-bian-cheng-ke-jian-xing-yuan-zi-xing-he-you-xu-xing-wen-ti-bing-fa-bian-cheng-bug-de-yuan-tou/</id>
+    <published>2023-05-22T10:15:10.000Z</published>
+    <updated>2023-05-22T11:50:02.156Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;并发程序幕后的故事&quot;&gt;&lt;a href=&quot;#并发程序幕后的故事&quot; class=&quot;headerlink&quot; title=&quot;并发程序幕后的故事&quot;&gt;&lt;/a&gt;并发程序幕后的故事&lt;/h2&gt;&lt;p&gt;这些年，我们的 CPU、内存、I/O</summary>
+        
+      
+    
+    
+    
+    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+    
+    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
+    
+    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
   
   <entry>
     <title>Java并发编程—如何才能学好并发编程</title>
@@ -534,34 +561,6 @@
         
     <summary type="html">&lt;p&gt;对于开发者来说最重要的就是如何对 mongodb 进行&lt;strong&gt;模型设计&lt;/strong&gt;，对DBA运维来说最重要的就是如何对 mongodb 进行&lt;strong&gt;分片集群设计&lt;/strong&gt;。&lt;/p&gt;
 &lt;h2 id=&quot;如何用好分片集群&quot;&gt;&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="MongoDB" scheme="https://www.zhangquan.me/categories/MongoDB/"/>
-    
-    
-    <category term="MongoDB" scheme="https://www.zhangquan.me/tags/MongoDB/"/>
-    
-    <category term="NoSQL" scheme="https://www.zhangquan.me/tags/NoSQL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MongoDB 分片集群机制及原理</title>
-    <link href="https://www.zhangquan.me/2023/03/26/mongodb-fen-pian-ji-qun-ji-zhi-ji-yuan-li/"/>
-    <id>https://www.zhangquan.me/2023/03/26/mongodb-fen-pian-ji-qun-ji-zhi-ji-yuan-li/</id>
-    <published>2023-03-26T06:30:32.000Z</published>
-    <updated>2023-03-26T06:32:35.955Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;mongodb-常见部署架构&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#mongodb-常见部署架构&quot;&gt;&lt;/a&gt; MongoDB 常见部署架构&lt;/h2&gt;
-&lt;p&gt;&lt;img</summary>
         
       
     
