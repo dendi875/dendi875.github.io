@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2023-05-22T02:34:04.233Z</updated>
+  <updated>2023-05-22T07:30:17.111Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Java并发编程—如何才能学好并发编程</title>
+    <link href="https://www.zhangquan.me/2023/05/22/java-bing-fa-bian-cheng-ru-he-cai-neng-xue-hao-bing-fa-bian-cheng/"/>
+    <id>https://www.zhangquan.me/2023/05/22/java-bing-fa-bian-cheng-ru-he-cai-neng-xue-hao-bing-fa-bian-cheng/</id>
+    <published>2023-05-22T07:29:07.000Z</published>
+    <updated>2023-05-22T07:30:17.111Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;并发编程并不是一门相对独立的学科，而是一个综合学科。并发编程相关的概念和技术看上非常零散，相关度也很低，总给你一种这样的感觉：我已经学习很多相关技术了，可还是搞不定并发编程。那如何才能学习好并发编程呢？&lt;/p&gt;
+&lt;p&gt;其实很简单，只要你能从两个方面突破一下就可以了。一个是“</summary>
+        
+      
+    
+    
+    
+    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+    
+    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
+    
+    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
   
   <entry>
     <title>HBase 之使用 Docker 设置本地 HBase 集群</title>
@@ -534,36 +562,6 @@
         
     <summary type="html">&lt;h2 id=&quot;mongodb-常见部署架构&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#mongodb-常见部署架构&quot;&gt;&lt;/a&gt; MongoDB 常见部署架构&lt;/h2&gt;
 &lt;p&gt;&lt;img</summary>
-        
-      
-    
-    
-    
-    <category term="MongoDB" scheme="https://www.zhangquan.me/categories/MongoDB/"/>
-    
-    
-    <category term="MongoDB" scheme="https://www.zhangquan.me/tags/MongoDB/"/>
-    
-    <category term="NoSQL" scheme="https://www.zhangquan.me/tags/NoSQL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MongoDB 开发最佳实践</title>
-    <link href="https://www.zhangquan.me/2023/03/20/mongodb-kai-fa-zui-jia-shi-jian/"/>
-    <id>https://www.zhangquan.me/2023/03/20/mongodb-kai-fa-zui-jia-shi-jian/</id>
-    <published>2023-03-20T01:36:53.000Z</published>
-    <updated>2023-03-20T01:37:36.660Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;关于连接到-mongodb&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#关于连接到-mongodb&quot;&gt;&lt;/a&gt; 关于连接到 MongoDB&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;关于驱动程序：总是选择与所用之 MongoDB</summary>
         
       
     
