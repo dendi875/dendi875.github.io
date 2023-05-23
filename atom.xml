@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2023-05-22T11:50:02.156Z</updated>
+  <updated>2023-05-23T13:38:25.011Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Java并发编程—Java内存模型：看Java如何解决可见性和有序性问题</title>
+    <link href="https://www.zhangquan.me/2023/05/23/java-bing-fa-bian-cheng-java-nei-cun-mo-xing-kan-java-ru-he-jie-jue-ke-jian-xing-he-you-xu-xing-wen-ti/"/>
+    <id>https://www.zhangquan.me/2023/05/23/java-bing-fa-bian-cheng-java-nei-cun-mo-xing-kan-java-ru-he-jie-jue-ke-jian-xing-he-you-xu-xing-wen-ti/</id>
+    <published>2023-05-23T13:37:42.000Z</published>
+    <updated>2023-05-23T13:38:25.011Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;上一期我们讲到在并发场景中，因可见性、原子性、有序性导致的问题常常会违背我们的直觉，从而成为并发编程的 Bug 之源。这三者在编程领域属于共性问题，所有的编程语言都会遇到，Java 在诞生之初就支持多线程，自然也有针对这三者的技术方案，而且在编程语言领域处于领先地位。理解</summary>
+        
+      
+    
+    
+    
+    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+    
+    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
+    
+    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
   
   <entry>
     <title>Java并发编程—可见性、原子性和有序性问题：并发编程Bug的源头</title>
@@ -533,34 +560,6 @@
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;MongoDB Ops</summary>
-        
-      
-    
-    
-    
-    <category term="MongoDB" scheme="https://www.zhangquan.me/categories/MongoDB/"/>
-    
-    
-    <category term="MongoDB" scheme="https://www.zhangquan.me/tags/MongoDB/"/>
-    
-    <category term="NoSQL" scheme="https://www.zhangquan.me/tags/NoSQL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MongoDB 分片集群设计</title>
-    <link href="https://www.zhangquan.me/2023/03/27/mongodb-fen-pian-ji-qun-she-ji/"/>
-    <id>https://www.zhangquan.me/2023/03/27/mongodb-fen-pian-ji-qun-she-ji/</id>
-    <published>2023-03-27T02:33:12.000Z</published>
-    <updated>2023-03-27T02:34:43.422Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;对于开发者来说最重要的就是如何对 mongodb 进行&lt;strong&gt;模型设计&lt;/strong&gt;，对DBA运维来说最重要的就是如何对 mongodb 进行&lt;strong&gt;分片集群设计&lt;/strong&gt;。&lt;/p&gt;
-&lt;h2 id=&quot;如何用好分片集群&quot;&gt;&lt;a</summary>
         
       
     
