@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2023-06-13T03:49:15.689Z</updated>
+  <updated>2023-06-13T03:55:18.641Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Java并发编程—互斥锁（下）：如何用一把锁保护多个资源？</title>
+    <link href="https://www.zhangquan.me/2023/06/13/java-bing-fa-bian-cheng-hu-chi-suo-xia-ru-he-yong-yi-ba-suo-bao-hu-duo-ge-zi-yuan/"/>
+    <id>https://www.zhangquan.me/2023/06/13/java-bing-fa-bian-cheng-hu-chi-suo-xia-ru-he-yong-yi-ba-suo-bao-hu-duo-ge-zi-yuan/</id>
+    <published>2023-06-13T03:53:44.000Z</published>
+    <updated>2023-06-13T03:55:18.641Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+    
+    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
+    
+    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
   
   <entry>
     <title>Java并发编程—互斥锁（上）：解决原子性问题</title>
@@ -530,34 +557,6 @@
         
     <summary type="html">&lt;h2 id=&quot;索引执行计划&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#索引执行计划&quot;&gt;&lt;/a&gt; 索引执行计划&lt;/h2&gt;
 &lt;p&gt;在 mongo</summary>
-        
-      
-    
-    
-    
-    <category term="MongoDB" scheme="https://www.zhangquan.me/categories/MongoDB/"/>
-    
-    
-    <category term="MongoDB" scheme="https://www.zhangquan.me/tags/MongoDB/"/>
-    
-    <category term="NoSQL" scheme="https://www.zhangquan.me/tags/NoSQL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MongoDB 索引机制（上）</title>
-    <link href="https://www.zhangquan.me/2023/04/02/mongodb-suo-yin-ji-zhi-shang/"/>
-    <id>https://www.zhangquan.me/2023/04/02/mongodb-suo-yin-ji-zhi-shang/</id>
-    <published>2023-04-02T10:35:29.000Z</published>
-    <updated>2023-04-02T10:35:58.345Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;术语&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#术语&quot;&gt;&lt;/a&gt; 术语&lt;/h2&gt;
-&lt;h3 id=&quot;indexkeydatapage索引键数据页&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot;</summary>
         
       
     
