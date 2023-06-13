@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2023-05-23T13:38:25.011Z</updated>
+  <updated>2023-06-13T03:49:15.689Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Java并发编程—互斥锁（上）：解决原子性问题</title>
+    <link href="https://www.zhangquan.me/2023/06/13/java-bing-fa-bian-cheng-hu-chi-suo-shang-jie-jue-yuan-zi-xing-wen-ti/"/>
+    <id>https://www.zhangquan.me/2023/06/13/java-bing-fa-bian-cheng-hu-chi-suo-shang-jie-jue-yuan-zi-xing-wen-ti/</id>
+    <published>2023-06-13T03:47:58.000Z</published>
+    <updated>2023-06-13T03:49:15.689Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;你已经知道，原子性问题的源头是&lt;strong&gt;线程切换&lt;/strong&gt;，如果能够禁用线程切换那不就能解决这个问题了吗？而操作系统做线程切换是依赖 CPU 中断的，所以禁止 CPU 发生中断就能够禁止线程切换。&lt;/p&gt;
+&lt;p&gt;在早期单核 CPU</summary>
+        
+      
+    
+    
+    
+    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+    
+    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
+    
+    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
   
   <entry>
     <title>Java并发编程—Java内存模型：看Java如何解决可见性和有序性问题</title>
@@ -530,36 +558,6 @@
         
     <summary type="html">&lt;h2 id=&quot;术语&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#术语&quot;&gt;&lt;/a&gt; 术语&lt;/h2&gt;
 &lt;h3 id=&quot;indexkeydatapage索引键数据页&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="MongoDB" scheme="https://www.zhangquan.me/categories/MongoDB/"/>
-    
-    
-    <category term="MongoDB" scheme="https://www.zhangquan.me/tags/MongoDB/"/>
-    
-    <category term="NoSQL" scheme="https://www.zhangquan.me/tags/NoSQL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MongoDB 监控最佳实践</title>
-    <link href="https://www.zhangquan.me/2023/03/30/mongodb-jian-kong-zui-jia-shi-jian/"/>
-    <id>https://www.zhangquan.me/2023/03/30/mongodb-jian-kong-zui-jia-shi-jian/</id>
-    <published>2023-03-30T09:30:01.000Z</published>
-    <updated>2023-03-30T09:30:42.754Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;常用的监控工具及手段&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#常用的监控工具及手段&quot;&gt;&lt;/a&gt; 常用的监控工具及手段&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;MongoDB Ops</summary>
         
       
     
