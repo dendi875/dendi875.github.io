@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2023-06-13T03:55:18.641Z</updated>
+  <updated>2023-06-14T04:03:28.951Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -17,11 +17,38 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Java并发编程— 一不小心就死锁了，怎么办？</title>
+    <link href="https://www.zhangquan.me/2023/06/14/java-bing-fa-bian-cheng-yi-bu-xiao-xin-jiu-si-suo-liao-zen-me-ban/"/>
+    <id>https://www.zhangquan.me/2023/06/14/java-bing-fa-bian-cheng-yi-bu-xiao-xin-jiu-si-suo-liao-zen-me-ban/</id>
+    <published>2023-06-14T04:02:46.000Z</published>
+    <updated>2023-06-14T04:03:28.951Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+    
+    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
+    
+    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Java并发编程—互斥锁（下）：如何用一把锁保护多个资源？</title>
     <link href="https://www.zhangquan.me/2023/06/13/java-bing-fa-bian-cheng-hu-chi-suo-xia-ru-he-yong-yi-ba-suo-bao-hu-duo-ge-zi-yuan/"/>
     <id>https://www.zhangquan.me/2023/06/13/java-bing-fa-bian-cheng-hu-chi-suo-xia-ru-he-yong-yi-ba-suo-bao-hu-duo-ge-zi-yuan/</id>
     <published>2023-06-13T03:53:44.000Z</published>
-    <updated>2023-06-13T03:55:18.641Z</updated>
+    <updated>2023-06-14T01:52:46.754Z</updated>
     
     
       
@@ -540,34 +567,6 @@
     <category term="Zookeeper" scheme="https://www.zhangquan.me/tags/Zookeeper/"/>
     
     <category term="分布式系统" scheme="https://www.zhangquan.me/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MongoDB 索引机制（下）</title>
-    <link href="https://www.zhangquan.me/2023/04/05/mongodb-suo-yin-ji-zhi-xia/"/>
-    <id>https://www.zhangquan.me/2023/04/05/mongodb-suo-yin-ji-zhi-xia/</id>
-    <published>2023-04-05T07:26:48.000Z</published>
-    <updated>2023-04-05T07:27:41.233Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;索引执行计划&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#索引执行计划&quot;&gt;&lt;/a&gt; 索引执行计划&lt;/h2&gt;
-&lt;p&gt;在 mongo</summary>
-        
-      
-    
-    
-    
-    <category term="MongoDB" scheme="https://www.zhangquan.me/categories/MongoDB/"/>
-    
-    
-    <category term="MongoDB" scheme="https://www.zhangquan.me/tags/MongoDB/"/>
-    
-    <category term="NoSQL" scheme="https://www.zhangquan.me/tags/NoSQL/"/>
     
   </entry>
   
