@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2023-06-16T07:42:56.697Z</updated>
+  <updated>2023-06-16T09:18:51.887Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Java并发编程—理论基础总结</title>
+    <link href="https://www.zhangquan.me/2023/06/16/java-bing-fa-bian-cheng-li-lun-ji-chu-zong-jie/"/>
+    <id>https://www.zhangquan.me/2023/06/16/java-bing-fa-bian-cheng-li-lun-ji-chu-zong-jie/</id>
+    <published>2023-06-16T09:18:22.000Z</published>
+    <updated>2023-06-16T09:18:51.887Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;到这里，专栏的第一模块——并发编程的理论基础，我们已经讲解完了，总共 12 篇，不算少，但“跳出来，看全景”你会发现这 12</summary>
+        
+      
+    
+    
+    
+    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+    
+    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
+    
+    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
   
   <entry>
     <title>Java并发编程—如何用面向对象思想写好并发程序？</title>
@@ -526,33 +553,6 @@
         
         
     <summary type="html">&lt;h2 id=&quot;什么是-Apache-Curator&quot;&gt;&lt;a href=&quot;#什么是-Apache-Curator&quot; class=&quot;headerlink&quot; title=&quot;什么是 Apache Curator&quot;&gt;&lt;/a&gt;什么是 Apache</summary>
-        
-      
-    
-    
-    
-    <category term="Zookeeper" scheme="https://www.zhangquan.me/categories/Zookeeper/"/>
-    
-    
-    <category term="Zookeeper" scheme="https://www.zhangquan.me/tags/Zookeeper/"/>
-    
-    <category term="分布式系统" scheme="https://www.zhangquan.me/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ZooKeeper API使用之实现分布式选举</title>
-    <link href="https://www.zhangquan.me/2023/04/17/zookeeper-api-shi-yong-zhi-shi-xian-fen-bu-shi-xuan-ju/"/>
-    <id>https://www.zhangquan.me/2023/04/17/zookeeper-api-shi-yong-zhi-shi-xian-fen-bu-shi-xuan-ju/</id>
-    <published>2023-04-17T01:21:25.000Z</published>
-    <updated>2023-04-17T01:22:10.797Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;分布式选举的设计&quot;&gt;&lt;a href=&quot;#分布式选举的设计&quot; class=&quot;headerlink&quot; title=&quot;分布式选举的设计&quot;&gt;&lt;/a&gt;分布式选举的设计&lt;/h2&gt;&lt;p&gt;使用Zookeeper API</summary>
         
       
     
