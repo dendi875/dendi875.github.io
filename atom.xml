@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2023-06-14T05:43:09.692Z</updated>
+  <updated>2023-06-15T10:52:19.955Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,61 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Java并发编程—管程：并发编程的万能钥匙</title>
+    <link href="https://www.zhangquan.me/2023/06/15/java-bing-fa-bian-cheng-guan-cheng-bing-fa-bian-cheng-de-wan-neng-yao-chi/"/>
+    <id>https://www.zhangquan.me/2023/06/15/java-bing-fa-bian-cheng-guan-cheng-bing-fa-bian-cheng-de-wan-neng-yao-chi/</id>
+    <published>2023-06-15T10:51:41.000Z</published>
+    <updated>2023-06-15T10:52:19.955Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;并发编程这个技术领域已经发展了半个世纪了，相关的理论和技术纷繁复杂。那有没有一种核心技术可以很方便地解决我们的并发问题呢？这个问题如果让我选择，我一定会选择&lt;strong&gt;管程&lt;/strong&gt;技术。Java 语言在 1.5 之前，提供的唯一的并发原语就是管程，而且</summary>
+        
+      
+    
+    
+    
+    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+    
+    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
+    
+    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java并发编程—安全性、活跃性以及性能问题</title>
+    <link href="https://www.zhangquan.me/2023/06/15/java-bing-fa-bian-cheng-an-quan-xing-huo-yue-xing-yi-ji-xing-neng-wen-ti/"/>
+    <id>https://www.zhangquan.me/2023/06/15/java-bing-fa-bian-cheng-an-quan-xing-huo-yue-xing-yi-ji-xing-neng-wen-ti/</id>
+    <published>2023-06-15T09:23:10.000Z</published>
+    <updated>2023-06-15T10:52:11.344Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;并发编程中我们需要注意的问题有很多，主要有三个方面，分别是：&lt;strong&gt;安全性问题、活跃性问题和性能问题&lt;/strong&gt;。下面我就来一一介绍这些问题。&lt;/p&gt;
+&lt;h2 id=&quot;安全性问题&quot;&gt;&lt;a href=&quot;#安全性问题&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+    
+    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
+    
+    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
   
   <entry>
     <title>Java并发编程—用“等待-通知”机制优化循环等待</title>
@@ -499,62 +554,6 @@
         
         
     <summary type="html">&lt;h2 id=&quot;协同服务说明&quot;&gt;&lt;a href=&quot;#协同服务说明&quot; class=&quot;headerlink&quot; title=&quot;协同服务说明&quot;&gt;&lt;/a&gt;协同服务说明&lt;/h2&gt;&lt;p&gt;一个 master-worker 的组成员管理系统，在这个系统中只有一个 master，可以有多个</summary>
-        
-      
-    
-    
-    
-    <category term="Zookeeper" scheme="https://www.zhangquan.me/categories/Zookeeper/"/>
-    
-    
-    <category term="Zookeeper" scheme="https://www.zhangquan.me/tags/Zookeeper/"/>
-    
-    <category term="分布式系统" scheme="https://www.zhangquan.me/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ZooKeeper 架构与集群安装</title>
-    <link href="https://www.zhangquan.me/2023/04/09/zookeeper-jia-gou-yu-ji-qun-an-zhuang/"/>
-    <id>https://www.zhangquan.me/2023/04/09/zookeeper-jia-gou-yu-ji-qun-an-zhuang/</id>
-    <published>2023-04-09T07:16:28.000Z</published>
-    <updated>2023-04-09T07:17:22.731Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;zookeeper-总体架构&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#zookeeper-总体架构&quot;&gt;&lt;/a&gt; ZooKeeper 总体架构&lt;/h2&gt;
-&lt;p&gt;应用使用 ZooKeeper 客户端库来与 ZooKeeper</summary>
-        
-      
-    
-    
-    
-    <category term="Zookeeper" scheme="https://www.zhangquan.me/categories/Zookeeper/"/>
-    
-    
-    <category term="Zookeeper" scheme="https://www.zhangquan.me/tags/Zookeeper/"/>
-    
-    <category term="分布式系统" scheme="https://www.zhangquan.me/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ZooKeeper 服务说明</title>
-    <link href="https://www.zhangquan.me/2023/04/08/zookeeper-fu-wu-shuo-ming/"/>
-    <id>https://www.zhangquan.me/2023/04/08/zookeeper-fu-wu-shuo-ming/</id>
-    <published>2023-04-08T06:20:35.000Z</published>
-    <updated>2023-04-08T06:34:36.157Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;zookeeper-服务的使用&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#zookeeper-服务的使用&quot;&gt;&lt;/a&gt; ZooKeeper 服务的使用&lt;/h2&gt;
-&lt;p&gt;要使用 ZooKeeper 服务我们的应用就要引入</summary>
         
       
     
