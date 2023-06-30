@@ -2,6 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.zhangquan.me/2023/06/29/java-bing-fa-bian-cheng-semaphore-ru-he-kuai-su-shi-xian-yi-ge-xian-liu-qi/</loc>
+    <lastmod>2023-06-30</lastmod>
+  </url>
+  <url>
+    <loc>https://www.zhangquan.me/2023/05/22/java-bing-fa-bian-cheng-ru-he-cai-neng-xue-hao-bing-fa-bian-cheng/</loc>
+    <lastmod>2023-06-30</lastmod>
+  </url>
+  <url>
+    <loc>https://www.zhangquan.me/2023/05/23/java-bing-fa-bian-cheng-java-nei-cun-mo-xing-kan-java-ru-he-jie-jue-ke-jian-xing-he-you-xu-xing-wen-ti/</loc>
+    <lastmod>2023-06-30</lastmod>
+  </url>
+  <url>
+    <loc>https://www.zhangquan.me/2023/06/27/java-bing-fa-bian-cheng-lock-he-condition-shang-yin-cang-zai-bing-fa-bao-zhong-de-guan-cheng/</loc>
     <lastmod>2023-06-29</lastmod>
   </url>
   <url>
@@ -11,10 +23,6 @@
   <url>
     <loc>https://www.zhangquan.me/2023/06/27/java-bing-fa-bian-cheng-lock-he-condition-xia-dubbo-ru-he-yong-guan-cheng-shi-xian-yi-bu-zhuan-tong-bu/</loc>
     <lastmod>2023-06-28</lastmod>
-  </url>
-  <url>
-    <loc>https://www.zhangquan.me/2023/06/27/java-bing-fa-bian-cheng-lock-he-condition-shang-yin-cang-zai-bing-fa-bao-zhong-de-guan-cheng/</loc>
-    <lastmod>2023-06-27</lastmod>
   </url>
   <url>
     <loc>https://www.zhangquan.me/2023/06/16/java-bing-fa-bian-cheng-li-lun-ji-chu-zong-jie/</loc>
@@ -61,15 +69,7 @@
     <lastmod>2023-06-01</lastmod>
   </url>
   <url>
-    <loc>https://www.zhangquan.me/2023/05/23/java-bing-fa-bian-cheng-java-nei-cun-mo-xing-kan-java-ru-he-jie-jue-ke-jian-xing-he-you-xu-xing-wen-ti/</loc>
-    <lastmod>2023-05-23</lastmod>
-  </url>
-  <url>
     <loc>https://www.zhangquan.me/2023/05/22/java-bing-fa-bian-cheng-ke-jian-xing-yuan-zi-xing-he-you-xu-xing-wen-ti-bing-fa-bian-cheng-bug-de-yuan-tou/</loc>
-    <lastmod>2023-05-22</lastmod>
-  </url>
-  <url>
-    <loc>https://www.zhangquan.me/2023/05/22/java-bing-fa-bian-cheng-ru-he-cai-neng-xue-hao-bing-fa-bian-cheng/</loc>
     <lastmod>2023-05-22</lastmod>
   </url>
   <url>
