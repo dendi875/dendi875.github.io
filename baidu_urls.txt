@@ -1,3 +1,5 @@
+https://www.zhangquan.me/2023/06/30/java-bing-fa-bian-cheng-countdownlatch-he-cyclicbarrier-ru-he-rang-duo-xian-cheng-bu-diao-yi-zhi/
+https://www.zhangquan.me/2023/06/30/java-bing-fa-bian-cheng-stampedlock-you-mei-you-bi-du-xie-suo-geng-kuai-de-suo/
 https://www.zhangquan.me/2023/06/30/java-bing-fa-bian-cheng-readwritelock-ru-he-kuai-su-shi-xian-yi-ge-wan-bei-de-huan-cun/
 https://www.zhangquan.me/2023/06/29/java-bing-fa-bian-cheng-semaphore-ru-he-kuai-su-shi-xian-yi-ge-xian-liu-qi/
 https://www.zhangquan.me/2023/06/27/java-bing-fa-bian-cheng-lock-he-condition-xia-dubbo-ru-he-yong-guan-cheng-shi-xian-yi-bu-zhuan-tong-bu/

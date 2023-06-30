@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2023-06-30T07:02:01.547Z</updated>
+  <updated>2023-06-30T07:25:49.406Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,60 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Java并发编程—CountDownLatch和CyclicBarrier：如何让多线程步调一致？</title>
+    <link href="https://www.zhangquan.me/2023/06/30/java-bing-fa-bian-cheng-countdownlatch-he-cyclicbarrier-ru-he-rang-duo-xian-cheng-bu-diao-yi-zhi/"/>
+    <id>https://www.zhangquan.me/2023/06/30/java-bing-fa-bian-cheng-countdownlatch-he-cyclicbarrier-ru-he-rang-duo-xian-cheng-bu-diao-yi-zhi/</id>
+    <published>2023-06-30T07:25:09.000Z</published>
+    <updated>2023-06-30T07:25:49.406Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;前几天老板突然匆匆忙忙过来，说对账系统最近越来越慢了，能不能快速优化一下。我了解了对账系统的业务后，发现还是挺简单的，用户通过在线商城下单，会生成电子订单，保存在订单库；之后物流会生成派送单给用户发货，派送单保存在派送单库。为了防止漏派送或者重复派送，对账系统每天还会校验是</summary>
+        
+      
+    
+    
+    
+    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+    
+    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
+    
+    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java并发编程—StampedLock：有没有比读写锁更快的锁？</title>
+    <link href="https://www.zhangquan.me/2023/06/30/java-bing-fa-bian-cheng-stampedlock-you-mei-you-bi-du-xie-suo-geng-kuai-de-suo/"/>
+    <id>https://www.zhangquan.me/2023/06/30/java-bing-fa-bian-cheng-stampedlock-you-mei-you-bi-du-xie-suo-geng-kuai-de-suo/</id>
+    <published>2023-06-30T07:15:53.000Z</published>
+    <updated>2023-06-30T07:25:51.612Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+    
+    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
+    
+    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
   
   <entry>
     <title>Java并发编程—ReadWriteLock：如何快速实现一个完备的缓存？</title>
@@ -503,63 +557,6 @@
     <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
     
     <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>HBase 之使用 Docker 设置本地 HBase 集群</title>
-    <link href="https://www.zhangquan.me/2023/05/22/hbase-zhi-shi-yong-docker-she-zhi-ben-di-hbase-ji-qun/"/>
-    <id>https://www.zhangquan.me/2023/05/22/hbase-zhi-shi-yong-docker-she-zhi-ben-di-hbase-ji-qun/</id>
-    <published>2023-05-22T02:32:16.000Z</published>
-    <updated>2023-06-01T06:03:52.730Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;在本教程中，将使用 Docker Compose 设置我们自己的 HBase 集群。&lt;/p&gt;
-&lt;h2 id=&quot;先决条件&quot;&gt;&lt;a href=&quot;#先决条件&quot; class=&quot;headerlink&quot; title=&quot;先决条件&quot;&gt;&lt;/a&gt;先决条件&lt;/h2&gt;&lt;p&gt;在安装本地 HBase</summary>
-        
-      
-    
-    
-    
-    <category term="HBase" scheme="https://www.zhangquan.me/categories/HBase/"/>
-    
-    
-    <category term="HBase" scheme="https://www.zhangquan.me/tags/HBase/"/>
-    
-    <category term="NoSQL" scheme="https://www.zhangquan.me/tags/NoSQL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ZooKeeper 服务发现（二）</title>
-    <link href="https://www.zhangquan.me/2023/05/06/zookeeper-fu-wu-fa-xian-er/"/>
-    <id>https://www.zhangquan.me/2023/05/06/zookeeper-fu-wu-fa-xian-er/</id>
-    <published>2023-05-06T05:28:18.000Z</published>
-    <updated>2023-05-06T05:28:59.290Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;本篇我们介绍一下 ZooKeeper 服务发现这个模块的内部实现和相关代码。&lt;/p&gt;
-&lt;p&gt;首先我们来了解下服务发现模块里的几个概念：&lt;/p&gt;
-&lt;h3 id=&quot;Node-Cache&quot;&gt;&lt;a href=&quot;#Node-Cache&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="Zookeeper" scheme="https://www.zhangquan.me/categories/Zookeeper/"/>
-    
-    
-    <category term="Zookeeper" scheme="https://www.zhangquan.me/tags/Zookeeper/"/>
-    
-    <category term="分布式系统" scheme="https://www.zhangquan.me/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/"/>
     
   </entry>
   

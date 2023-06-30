@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.zhangquan.me/2023/06/30/java-bing-fa-bian-cheng-stampedlock-you-mei-you-bi-du-xie-suo-geng-kuai-de-suo/</loc>
+    
+    <lastmod>2023-06-30</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.zhangquan.me/2023/06/30/java-bing-fa-bian-cheng-countdownlatch-he-cyclicbarrier-ru-he-rang-duo-xian-cheng-bu-diao-yi-zhi/</loc>
+    
+    <lastmod>2023-06-30</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.zhangquan.me/2023/06/30/java-bing-fa-bian-cheng-readwritelock-ru-he-kuai-su-shi-xian-yi-ge-wan-bei-de-huan-cun/</loc>
     
     <lastmod>2023-06-30</lastmod>
