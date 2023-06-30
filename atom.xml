@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2023-06-30T05:38:12.731Z</updated>
+  <updated>2023-06-30T07:02:01.547Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -17,11 +17,38 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Java并发编程—ReadWriteLock：如何快速实现一个完备的缓存？</title>
+    <link href="https://www.zhangquan.me/2023/06/30/java-bing-fa-bian-cheng-readwritelock-ru-he-kuai-su-shi-xian-yi-ge-wan-bei-de-huan-cun/"/>
+    <id>https://www.zhangquan.me/2023/06/30/java-bing-fa-bian-cheng-readwritelock-ru-he-kuai-su-shi-xian-yi-ge-wan-bei-de-huan-cun/</id>
+    <published>2023-06-30T07:01:15.000Z</published>
+    <updated>2023-06-30T07:02:01.547Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;前面我们介绍了&lt;a href=&quot;https://zhangquan.me/2023/06/15/java-bing-fa-bian-cheng-guan-cheng-bing-fa-bian-cheng-de-wan-neng-yao-chi/&quot;&gt;管程&lt;/a&gt;和&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+    
+    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
+    
+    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Java并发编程—Semaphore：如何快速实现一个限流器？</title>
     <link href="https://www.zhangquan.me/2023/06/29/java-bing-fa-bian-cheng-semaphore-ru-he-kuai-su-shi-xian-yi-ge-xian-liu-qi/"/>
     <id>https://www.zhangquan.me/2023/06/29/java-bing-fa-bian-cheng-semaphore-ru-he-kuai-su-shi-xian-yi-ge-xian-liu-qi/</id>
     <published>2023-06-29T02:27:46.000Z</published>
-    <updated>2023-06-30T05:38:12.731Z</updated>
+    <updated>2023-06-30T06:47:15.239Z</updated>
     
     
       
@@ -49,7 +76,7 @@
     <link href="https://www.zhangquan.me/2023/06/27/java-bing-fa-bian-cheng-lock-he-condition-xia-dubbo-ru-he-yong-guan-cheng-shi-xian-yi-bu-zhuan-tong-bu/"/>
     <id>https://www.zhangquan.me/2023/06/27/java-bing-fa-bian-cheng-lock-he-condition-xia-dubbo-ru-he-yong-guan-cheng-shi-xian-yi-bu-zhuan-tong-bu/</id>
     <published>2023-06-27T12:27:06.000Z</published>
-    <updated>2023-06-28T06:55:16.660Z</updated>
+    <updated>2023-06-30T06:41:05.583Z</updated>
     
     
       
@@ -76,7 +103,7 @@
     <link href="https://www.zhangquan.me/2023/06/27/java-bing-fa-bian-cheng-lock-he-condition-shang-yin-cang-zai-bing-fa-bao-zhong-de-guan-cheng/"/>
     <id>https://www.zhangquan.me/2023/06/27/java-bing-fa-bian-cheng-lock-he-condition-shang-yin-cang-zai-bing-fa-bao-zhong-de-guan-cheng/</id>
     <published>2023-06-27T01:35:15.000Z</published>
-    <updated>2023-06-29T08:47:23.158Z</updated>
+    <updated>2023-06-30T06:41:07.935Z</updated>
     
     
       
@@ -211,7 +238,7 @@
     <link href="https://www.zhangquan.me/2023/06/16/java-bing-fa-bian-cheng-java-xian-cheng-shang-java-xian-cheng-de-sheng-ming-zhou-qi/"/>
     <id>https://www.zhangquan.me/2023/06/16/java-bing-fa-bian-cheng-java-xian-cheng-shang-java-xian-cheng-de-sheng-ming-zhou-qi/</id>
     <published>2023-06-16T03:54:04.000Z</published>
-    <updated>2023-06-16T03:58:05.894Z</updated>
+    <updated>2023-06-30T06:36:34.642Z</updated>
     
     
       
@@ -265,7 +292,7 @@
     <link href="https://www.zhangquan.me/2023/06/15/java-bing-fa-bian-cheng-an-quan-xing-huo-yue-xing-yi-ji-xing-neng-wen-ti/"/>
     <id>https://www.zhangquan.me/2023/06/15/java-bing-fa-bian-cheng-an-quan-xing-huo-yue-xing-yi-ji-xing-neng-wen-ti/</id>
     <published>2023-06-15T09:23:10.000Z</published>
-    <updated>2023-06-29T03:32:39.631Z</updated>
+    <updated>2023-06-30T06:26:48.628Z</updated>
     
     
       
@@ -320,7 +347,7 @@
     <link href="https://www.zhangquan.me/2023/06/14/java-bing-fa-bian-cheng-yi-bu-xiao-xin-jiu-si-suo-liao-zen-me-ban/"/>
     <id>https://www.zhangquan.me/2023/06/14/java-bing-fa-bian-cheng-yi-bu-xiao-xin-jiu-si-suo-liao-zen-me-ban/</id>
     <published>2023-06-14T04:02:46.000Z</published>
-    <updated>2023-06-14T04:03:28.951Z</updated>
+    <updated>2023-06-30T06:15:08.516Z</updated>
     
     
       
@@ -374,7 +401,7 @@
     <link href="https://www.zhangquan.me/2023/06/13/java-bing-fa-bian-cheng-hu-chi-suo-shang-jie-jue-yuan-zi-xing-wen-ti/"/>
     <id>https://www.zhangquan.me/2023/06/13/java-bing-fa-bian-cheng-hu-chi-suo-shang-jie-jue-yuan-zi-xing-wen-ti/</id>
     <published>2023-06-13T03:47:58.000Z</published>
-    <updated>2023-06-13T03:49:15.689Z</updated>
+    <updated>2023-06-30T06:02:19.466Z</updated>
     
     
       
@@ -402,7 +429,7 @@
     <link href="https://www.zhangquan.me/2023/05/23/java-bing-fa-bian-cheng-java-nei-cun-mo-xing-kan-java-ru-he-jie-jue-ke-jian-xing-he-you-xu-xing-wen-ti/"/>
     <id>https://www.zhangquan.me/2023/05/23/java-bing-fa-bian-cheng-java-nei-cun-mo-xing-kan-java-ru-he-jie-jue-ke-jian-xing-he-you-xu-xing-wen-ti/</id>
     <published>2023-05-23T13:37:42.000Z</published>
-    <updated>2023-06-30T05:32:14.275Z</updated>
+    <updated>2023-06-30T05:59:13.338Z</updated>
     
     
       
@@ -456,7 +483,7 @@
     <link href="https://www.zhangquan.me/2023/05/22/java-bing-fa-bian-cheng-ru-he-cai-neng-xue-hao-bing-fa-bian-cheng/"/>
     <id>https://www.zhangquan.me/2023/05/22/java-bing-fa-bian-cheng-ru-he-cai-neng-xue-hao-bing-fa-bian-cheng/</id>
     <published>2023-05-22T07:29:07.000Z</published>
-    <updated>2023-06-30T05:33:47.088Z</updated>
+    <updated>2023-06-30T06:54:09.204Z</updated>
     
     
       
@@ -522,33 +549,6 @@
     <summary type="html">&lt;p&gt;本篇我们介绍一下 ZooKeeper 服务发现这个模块的内部实现和相关代码。&lt;/p&gt;
 &lt;p&gt;首先我们来了解下服务发现模块里的几个概念：&lt;/p&gt;
 &lt;h3 id=&quot;Node-Cache&quot;&gt;&lt;a href=&quot;#Node-Cache&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="Zookeeper" scheme="https://www.zhangquan.me/categories/Zookeeper/"/>
-    
-    
-    <category term="Zookeeper" scheme="https://www.zhangquan.me/tags/Zookeeper/"/>
-    
-    <category term="分布式系统" scheme="https://www.zhangquan.me/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ZooKeeper 服务发现（一）</title>
-    <link href="https://www.zhangquan.me/2023/05/04/zookeeper-fu-wu-fa-xian-yi/"/>
-    <id>https://www.zhangquan.me/2023/05/04/zookeeper-fu-wu-fa-xian-yi/</id>
-    <published>2023-05-04T12:09:16.000Z</published>
-    <updated>2023-05-04T12:13:20.843Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;什么是服务发现&quot;&gt;&lt;a href=&quot;#什么是服务发现&quot; class=&quot;headerlink&quot;</summary>
         
       
     
