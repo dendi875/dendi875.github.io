@@ -5,8 +5,8 @@
 # Site
 title: 一代键客
 subtitle: '路漫漫其修远兮，吾将上下而求索'
-description: 'PHP Java Go MySQL 后端开发'
-keywords: [PHP, Java, Go, MySQL, Linux, Docker等]
+description: 'PHP Java Go Python 后端开发'
+keywords: [PHP, Java, Go, Python, Linux, Docker, Kubernetes等]
 author: 张权
 language: zh-CN
 timezone: ''
