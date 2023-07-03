@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2023-06-30T07:25:49.406Z</updated>
+  <updated>2023-07-03T05:46:31.228Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -17,11 +17,66 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Java并发编程—原子类：无锁工具类的典范</title>
+    <link href="https://www.zhangquan.me/2023/07/03/java-bing-fa-bian-cheng-yuan-zi-lei-wu-suo-gong-ju-lei-de-dian-fan/"/>
+    <id>https://www.zhangquan.me/2023/07/03/java-bing-fa-bian-cheng-yuan-zi-lei-wu-suo-gong-ju-lei-de-dian-fan/</id>
+    <published>2023-07-03T05:43:30.000Z</published>
+    <updated>2023-07-03T05:46:31.228Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;前面我们多次提到一个累加器的例子，示例代码如下。在这个例子中，add10K() 这个方法不是线程安全的，问题就出在变量 count 的可见性和 count+=1 的原子性上。可见性问题可以用 volatile</summary>
+        
+      
+    
+    
+    
+    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+    
+    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
+    
+    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java并发编程—并发容器：都有哪些“坑”需要我们填？</title>
+    <link href="https://www.zhangquan.me/2023/07/03/java-bing-fa-bian-cheng-bing-fa-rong-qi-du-you-na-xie-keng-xu-yao-wo-men-tian/"/>
+    <id>https://www.zhangquan.me/2023/07/03/java-bing-fa-bian-cheng-bing-fa-rong-qi-du-you-na-xie-keng-xu-yao-wo-men-tian/</id>
+    <published>2023-07-03T05:32:46.000Z</published>
+    <updated>2023-07-03T05:39:08.865Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Java 并发包有很大一部分内容都是关于&lt;strong&gt;并发容器&lt;/strong&gt;的，因此学习和搞懂这部分的内容很有必要。&lt;/p&gt;
+&lt;p&gt;Java 1.5 之前提供的&lt;strong&gt;同步容器&lt;/strong&gt;虽然也能保证线程安全，但是性能很差，而 Java 1.5</summary>
+        
+      
+    
+    
+    
+    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+    
+    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
+    
+    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Java并发编程—CountDownLatch和CyclicBarrier：如何让多线程步调一致？</title>
     <link href="https://www.zhangquan.me/2023/06/30/java-bing-fa-bian-cheng-countdownlatch-he-cyclicbarrier-ru-he-rang-duo-xian-cheng-bu-diao-yi-zhi/"/>
     <id>https://www.zhangquan.me/2023/06/30/java-bing-fa-bian-cheng-countdownlatch-he-cyclicbarrier-ru-he-rang-duo-xian-cheng-bu-diao-yi-zhi/</id>
     <published>2023-06-30T07:25:09.000Z</published>
-    <updated>2023-06-30T07:25:49.406Z</updated>
+    <updated>2023-07-03T05:32:07.556Z</updated>
     
     
       
@@ -48,7 +103,7 @@
     <link href="https://www.zhangquan.me/2023/06/30/java-bing-fa-bian-cheng-stampedlock-you-mei-you-bi-du-xie-suo-geng-kuai-de-suo/"/>
     <id>https://www.zhangquan.me/2023/06/30/java-bing-fa-bian-cheng-stampedlock-you-mei-you-bi-du-xie-suo-geng-kuai-de-suo/</id>
     <published>2023-06-30T07:15:53.000Z</published>
-    <updated>2023-06-30T07:25:51.612Z</updated>
+    <updated>2023-07-03T05:30:35.730Z</updated>
     
     
       
@@ -211,7 +266,7 @@
     <link href="https://www.zhangquan.me/2023/06/16/java-bing-fa-bian-cheng-ru-he-yong-mian-xiang-dui-xiang-si-xiang-xie-hao-bing-fa-cheng-xu/"/>
     <id>https://www.zhangquan.me/2023/06/16/java-bing-fa-bian-cheng-ru-he-yong-mian-xiang-dui-xiang-si-xiang-xie-hao-bing-fa-cheng-xu/</id>
     <published>2023-06-16T07:42:26.000Z</published>
-    <updated>2023-06-16T07:42:56.697Z</updated>
+    <updated>2023-06-30T07:34:08.758Z</updated>
     
     
       
@@ -491,61 +546,6 @@
         
         
     <summary type="html">&lt;p&gt;上一期我们讲到在并发场景中，因可见性、原子性、有序性导致的问题常常会违背我们的直觉，从而成为并发编程的 Bug 之源。这三者在编程领域属于共性问题，所有的编程语言都会遇到，Java 在诞生之初就支持多线程，自然也有针对这三者的技术方案，而且在编程语言领域处于领先地位。理解</summary>
-        
-      
-    
-    
-    
-    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-    
-    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
-    
-    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java并发编程—可见性、原子性和有序性问题：并发编程Bug的源头</title>
-    <link href="https://www.zhangquan.me/2023/05/22/java-bing-fa-bian-cheng-ke-jian-xing-yuan-zi-xing-he-you-xu-xing-wen-ti-bing-fa-bian-cheng-bug-de-yuan-tou/"/>
-    <id>https://www.zhangquan.me/2023/05/22/java-bing-fa-bian-cheng-ke-jian-xing-yuan-zi-xing-he-you-xu-xing-wen-ti-bing-fa-bian-cheng-bug-de-yuan-tou/</id>
-    <published>2023-05-22T10:15:10.000Z</published>
-    <updated>2023-05-22T11:50:02.156Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;并发程序幕后的故事&quot;&gt;&lt;a href=&quot;#并发程序幕后的故事&quot; class=&quot;headerlink&quot; title=&quot;并发程序幕后的故事&quot;&gt;&lt;/a&gt;并发程序幕后的故事&lt;/h2&gt;&lt;p&gt;这些年，我们的 CPU、内存、I/O</summary>
-        
-      
-    
-    
-    
-    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-    
-    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
-    
-    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java并发编程—如何才能学好并发编程</title>
-    <link href="https://www.zhangquan.me/2023/05/22/java-bing-fa-bian-cheng-ru-he-cai-neng-xue-hao-bing-fa-bian-cheng/"/>
-    <id>https://www.zhangquan.me/2023/05/22/java-bing-fa-bian-cheng-ru-he-cai-neng-xue-hao-bing-fa-bian-cheng/</id>
-    <published>2023-05-22T07:29:07.000Z</published>
-    <updated>2023-06-30T06:54:09.204Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;并发编程并不是一门相对独立的学科，而是一个综合学科。并发编程相关的概念和技术看上非常零散，相关度也很低，总给你一种这样的感觉：我已经学习很多相关技术了，可还是搞不定并发编程。那如何才能学习好并发编程呢？&lt;/p&gt;
-&lt;p&gt;其实很简单，只要你能从两个方面突破一下就可以了。一个是“</summary>
         
       
     
