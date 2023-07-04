@@ -4,7 +4,7 @@ author: 张权
 top: false
 cover: false
 toc: true
-mathjax: true
+mathjax: false
 date: 2023-04-09 15:16:28
 password:
 summary: ZooKeeper 架构与集群安装

@@ -4,7 +4,7 @@ author: 张权
 top: false
 cover: false
 toc: true
-mathjax: true
+mathjax: false
 date: 2022-09-09 13:27:50
 password:
 summary: Prometheus报警系统AlertManager

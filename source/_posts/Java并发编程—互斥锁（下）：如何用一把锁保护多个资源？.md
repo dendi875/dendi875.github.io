@@ -4,7 +4,7 @@ author: 张权
 top: false
 cover: false
 toc: true
-mathjax: true
+mathjax: false
 date: 2023-06-13 11:53:44
 password:
 summary: Java并发编程—互斥锁（下）：如何用一把锁保护多个资源？

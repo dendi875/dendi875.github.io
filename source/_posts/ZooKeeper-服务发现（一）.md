@@ -4,7 +4,7 @@ author: 张权
 top: false
 cover: false
 toc: true
-mathjax: true
+mathjax: false
 date: 2023-05-04 20:09:16
 password:
 summary: ZooKeeper 服务发现（一）

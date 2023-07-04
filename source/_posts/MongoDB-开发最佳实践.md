@@ -4,7 +4,7 @@ author: 张权
 top: false
 cover: false
 toc: true
-mathjax: true
+mathjax: false
 date: 2023-03-20 09:36:53
 password:
 summary: MongoDB 开发最佳实践

@@ -4,7 +4,7 @@ author: 张权
 top: false
 cover: false
 toc: true
-mathjax: true
+mathjax: false
 date: 2021-11-26 14:06:52
 password:
 summary:  Mac 系统使用经验

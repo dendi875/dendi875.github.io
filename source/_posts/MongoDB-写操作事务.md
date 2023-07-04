@@ -4,7 +4,7 @@ author: 张权
 top: false
 cover: false
 toc: true
-mathjax: true
+mathjax: false
 date: 2023-02-16 10:23:20
 password:
 summary: MongoDB 写操作事务

@@ -4,7 +4,7 @@ author: 张权
 top: false
 cover: false
 toc: true
-mathjax: true
+mathjax: false
 date: 2023-06-16 15:42:26
 password:
 summary: Java并发编程—如何用面向对象思想写好并发程序？

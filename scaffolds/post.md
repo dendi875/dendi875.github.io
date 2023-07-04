@@ -6,7 +6,7 @@ top: false
 cover: false
 password:
 toc: true
-mathjax: true
+mathjax: false
 summary:
 tags:
 categories:

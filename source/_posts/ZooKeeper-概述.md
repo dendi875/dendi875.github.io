@@ -4,7 +4,7 @@ author: 张权
 top: false
 cover: false
 toc: true
-mathjax: true
+mathjax: false
 date: 2023-04-05 15:40:45
 password:
 summary: ZooKeeper 概述

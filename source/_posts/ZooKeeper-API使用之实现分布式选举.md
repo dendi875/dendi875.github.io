@@ -4,7 +4,7 @@ author: 张权
 top: false
 cover: false
 toc: true
-mathjax: true
+mathjax: false
 date: 2023-04-17 09:21:25
 password:
 summary: ZooKeeper API使用之实现分布式选举

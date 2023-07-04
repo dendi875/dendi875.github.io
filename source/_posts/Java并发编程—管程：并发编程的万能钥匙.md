@@ -4,7 +4,7 @@ author: 张权
 top: false
 cover: false
 toc: true
-mathjax: true
+mathjax: false
 date: 2023-06-15 18:51:41
 password:
 summary: Java并发编程—管程：并发编程的万能钥匙

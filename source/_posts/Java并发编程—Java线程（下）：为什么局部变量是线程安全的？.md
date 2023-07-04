@@ -4,7 +4,7 @@ author: 张权
 top: false
 cover: false
 toc: true
-mathjax: true
+mathjax: false
 date: 2023-06-16 12:01:42
 password:
 summary: Java并发编程—Java线程（下）：为什么局部变量是线程安全的？

@@ -4,7 +4,7 @@ author: 张权
 top: false
 cover: false
 toc: true
-mathjax: true
+mathjax: false
 date: 2023-03-06 17:01:11
 password:
 summary: MongoDB 多文档事务

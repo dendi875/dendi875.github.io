@@ -4,7 +4,7 @@ author: 张权
 top: false
 cover: false
 toc: true
-mathjax: true
+mathjax: false
 date: 2023-06-14 13:24:33
 password:
 summary: Java并发编程—用“等待-通知”机制优化循环等待

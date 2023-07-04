@@ -4,7 +4,7 @@ author: 张权
 top: false
 cover: false
 toc: true
-mathjax: true
+mathjax: false
 date: 2023-06-14 12:02:46
 password:
 summary: Java并发编程— 一不小心就死锁了，怎么办？

@@ -4,7 +4,7 @@ author: 张权
 top: false
 cover: false
 toc: true
-mathjax: true
+mathjax: false
 date: 2022-08-21 22:41:09
 password:
 summary: Kubernetes 持久化存储PV 和 PVC 的使用

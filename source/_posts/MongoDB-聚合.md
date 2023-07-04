@@ -4,7 +4,7 @@ author: 张权
 top: false
 cover: false
 toc: true
-mathjax: true
+mathjax: false
 date: 2023-02-06 09:42:37
 password:
 summary: MongoDB 聚合

@@ -4,7 +4,7 @@ author: 张权
 top: false
 cover: false
 toc: true
-mathjax: true
+mathjax: false
 date: 2021-11-26 20:56:58
 password:
 summary: Spring Boot 集成 CAT的使用

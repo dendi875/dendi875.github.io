@@ -4,7 +4,7 @@ author: 张权
 top: false
 cover: false
 toc: true
-mathjax: true
+mathjax: false
 date: 2023-03-27 10:33:12
 password:
 summary: MongoDB 分片集群设计

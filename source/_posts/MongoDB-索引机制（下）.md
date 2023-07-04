@@ -4,7 +4,7 @@ author: 张权
 top: false
 cover: false
 toc: true
-mathjax: true
+mathjax: false
 date: 2023-04-05 15:26:48
 password:
 summary: MongoDB 索引机制（下）

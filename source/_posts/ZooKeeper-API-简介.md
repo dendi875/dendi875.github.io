@@ -4,7 +4,7 @@ author: 张权
 top: false
 cover: false
 toc: true
-mathjax: true
+mathjax: false
 date: 2023-04-14 11:13:03
 password:
 summary: ZooKeeper API 简介

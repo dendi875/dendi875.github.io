@@ -4,7 +4,7 @@ author: 张权
 top: false
 cover: false
 toc: true
-mathjax: true
+mathjax: false
 date: 2023-01-02 16:17:15
 password:
 summary: MongoDB 入门与基本操作
