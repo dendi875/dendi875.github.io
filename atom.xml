@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2023-07-04T01:44:03.970Z</updated>
+  <updated>2023-07-05T02:19:08.041Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -17,11 +17,38 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Java并发编程—Future：如何用多线程实现最优的“烧水泡茶”程序？</title>
+    <link href="https://www.zhangquan.me/2023/07/05/java-bing-fa-bian-cheng-future-ru-he-yong-duo-xian-cheng-shi-xian-zui-you-de-shao-shui-pao-cha-cheng-xu/"/>
+    <id>https://www.zhangquan.me/2023/07/05/java-bing-fa-bian-cheng-future-ru-he-yong-duo-xian-cheng-shi-xian-zui-you-de-shao-shui-pao-cha-cheng-xu/</id>
+    <published>2023-07-05T02:18:29.000Z</published>
+    <updated>2023-07-05T02:19:08.041Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在 &lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+    
+    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
+    
+    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Java并发编程—Executor与线程池：如何创建正确的线程池？</title>
     <link href="https://www.zhangquan.me/2023/07/04/java-bing-fa-bian-cheng-executor-yu-xian-cheng-chi-ru-he-chuang-jian-zheng-que-de-xian-cheng-chi/"/>
     <id>https://www.zhangquan.me/2023/07/04/java-bing-fa-bian-cheng-executor-yu-xian-cheng-chi-ru-he-chuang-jian-zheng-que-de-xian-cheng-chi/</id>
     <published>2023-07-04T01:42:52.000Z</published>
-    <updated>2023-07-04T01:44:03.970Z</updated>
+    <updated>2023-07-04T08:52:44.367Z</updated>
     
     
       
@@ -103,7 +130,7 @@
     <link href="https://www.zhangquan.me/2023/06/30/java-bing-fa-bian-cheng-countdownlatch-he-cyclicbarrier-ru-he-rang-duo-xian-cheng-bu-diao-yi-zhi/"/>
     <id>https://www.zhangquan.me/2023/06/30/java-bing-fa-bian-cheng-countdownlatch-he-cyclicbarrier-ru-he-rang-duo-xian-cheng-bu-diao-yi-zhi/</id>
     <published>2023-06-30T07:25:09.000Z</published>
-    <updated>2023-07-04T01:38:46.912Z</updated>
+    <updated>2023-07-04T09:10:00.030Z</updated>
     
     
       
@@ -518,34 +545,6 @@
         
         
     <summary type="html">&lt;p&gt;在&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-    
-    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
-    
-    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java并发编程—互斥锁（上）：解决原子性问题</title>
-    <link href="https://www.zhangquan.me/2023/06/13/java-bing-fa-bian-cheng-hu-chi-suo-shang-jie-jue-yuan-zi-xing-wen-ti/"/>
-    <id>https://www.zhangquan.me/2023/06/13/java-bing-fa-bian-cheng-hu-chi-suo-shang-jie-jue-yuan-zi-xing-wen-ti/</id>
-    <published>2023-06-13T03:47:58.000Z</published>
-    <updated>2023-07-04T01:39:16.108Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;你已经知道，原子性问题的源头是&lt;strong&gt;线程切换&lt;/strong&gt;，如果能够禁用线程切换那不就能解决这个问题了吗？而操作系统做线程切换是依赖 CPU 中断的，所以禁止 CPU 发生中断就能够禁止线程切换。&lt;/p&gt;
-&lt;p&gt;在早期单核 CPU</summary>
         
       
     
