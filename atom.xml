@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2023-07-05T02:19:08.041Z</updated>
+  <updated>2023-07-07T03:24:53.011Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Java并发编程—CompletableFuture：异步编程没那么难</title>
+    <link href="https://www.zhangquan.me/2023/07/07/java-bing-fa-bian-cheng-completablefuture-yi-bu-bian-cheng-mei-na-me-nan/"/>
+    <id>https://www.zhangquan.me/2023/07/07/java-bing-fa-bian-cheng-completablefuture-yi-bu-bian-cheng-mei-na-me-nan/</id>
+    <published>2023-07-07T03:23:03.000Z</published>
+    <updated>2023-07-07T03:24:53.011Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;前面我们不止一次提到，用多线程优化性能，其实不过就是将串行操作变成并行操作。如果仔细观察，你还会发现在串行转换成并行的过程中，一定会涉及到异步化，例如下面的示例代码，现在是串行的，为了提升性能，我们得把它们并行化，那具体实施起来该怎么做呢？&lt;/p&gt;
+&lt;pre</summary>
+        
+      
+    
+    
+    
+    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+    
+    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
+    
+    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
   
   <entry>
     <title>Java并发编程—Future：如何用多线程实现最优的“烧水泡茶”程序？</title>
@@ -511,33 +539,6 @@
     <id>https://www.zhangquan.me/2023/06/14/java-bing-fa-bian-cheng-yi-bu-xiao-xin-jiu-si-suo-liao-zen-me-ban/</id>
     <published>2023-06-14T04:02:46.000Z</published>
     <updated>2023-07-04T01:38:40.623Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;在&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-    
-    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
-    
-    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java并发编程—互斥锁（下）：如何用一把锁保护多个资源？</title>
-    <link href="https://www.zhangquan.me/2023/06/13/java-bing-fa-bian-cheng-hu-chi-suo-xia-ru-he-yong-yi-ba-suo-bao-hu-duo-ge-zi-yuan/"/>
-    <id>https://www.zhangquan.me/2023/06/13/java-bing-fa-bian-cheng-hu-chi-suo-xia-ru-he-yong-yi-ba-suo-bao-hu-duo-ge-zi-yuan/</id>
-    <published>2023-06-13T03:53:44.000Z</published>
-    <updated>2023-07-04T01:39:18.738Z</updated>
     
     
       
