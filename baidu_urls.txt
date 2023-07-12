@@ -1,3 +1,4 @@
+https://www.zhangquan.me/2023/07/12/java-bing-fa-bian-cheng-fork-join-dan-ji-ban-de-mapreduce/
 https://www.zhangquan.me/2023/07/10/java-bing-fa-bian-cheng-completionservice-ru-he-pi-liang-zhi-xing-yi-bu-ren-wu/
 https://www.zhangquan.me/2023/07/07/java-bing-fa-bian-cheng-completablefuture-yi-bu-bian-cheng-mei-na-me-nan/
 https://www.zhangquan.me/2023/07/05/java-bing-fa-bian-cheng-future-ru-he-yong-duo-xian-cheng-shi-xian-zui-you-de-shao-shui-pao-cha-cheng-xu/
