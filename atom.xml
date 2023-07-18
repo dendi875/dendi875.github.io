@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2023-07-12T11:49:43.987Z</updated>
+  <updated>2023-07-18T07:51:48.847Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Java并发编程—Immutability模式：如何利用不变性解决并发问题？</title>
+    <link href="https://www.zhangquan.me/2023/07/18/java-bing-fa-bian-cheng-immutability-mo-shi-ru-he-li-yong-bu-bian-xing-jie-jue-bing-fa-wen-ti/"/>
+    <id>https://www.zhangquan.me/2023/07/18/java-bing-fa-bian-cheng-immutability-mo-shi-ru-he-li-yong-bu-bian-xing-jie-jue-bing-fa-wen-ti/</id>
+    <published>2023-07-18T07:51:13.000Z</published>
+    <updated>2023-07-18T07:51:48.847Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;我们知道，“多个线程同时读写同一共享变量存在并发问题”，这里的必要条件之一是读写，如果只有读，而没有写，是没有并发问题的。&lt;/p&gt;
+&lt;p&gt;解决并发问题，其实最简单的办法就是让共享变量只有读操作，而没有写操作。这个办法如此重要，以至于被上升到了一种解决并发问题的设计模式：&lt;s</summary>
+        
+      
+    
+    
+    
+    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+    
+    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
+    
+    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
   
   <entry>
     <title>Java并发编程— Fork/Join：单机版的MapReduce</title>
@@ -518,34 +546,6 @@
         
         
     <summary type="html">&lt;p&gt;并发编程这个技术领域已经发展了半个世纪了，相关的理论和技术纷繁复杂。那有没有一种核心技术可以很方便地解决我们的并发问题呢？这个问题如果让我选择，我一定会选择&lt;strong&gt;管程&lt;/strong&gt;技术。Java 语言在 1.5 之前，提供的唯一的并发原语就是管程，而且</summary>
-        
-      
-    
-    
-    
-    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-    
-    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
-    
-    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java并发编程—安全性、活跃性以及性能问题</title>
-    <link href="https://www.zhangquan.me/2023/06/15/java-bing-fa-bian-cheng-an-quan-xing-huo-yue-xing-yi-ji-xing-neng-wen-ti/"/>
-    <id>https://www.zhangquan.me/2023/06/15/java-bing-fa-bian-cheng-an-quan-xing-huo-yue-xing-yi-ji-xing-neng-wen-ti/</id>
-    <published>2023-06-15T09:23:10.000Z</published>
-    <updated>2023-07-04T01:39:36.357Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;并发编程中我们需要注意的问题有很多，主要有三个方面，分别是：&lt;strong&gt;安全性问题、活跃性问题和性能问题&lt;/strong&gt;。下面我就来一一介绍这些问题。&lt;/p&gt;
-&lt;h2 id=&quot;安全性问题&quot;&gt;&lt;a href=&quot;#安全性问题&quot; class=&quot;headerlink&quot;</summary>
         
       
     
