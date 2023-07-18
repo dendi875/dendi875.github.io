@@ -4,7 +4,7 @@ author: 张权
 top: false
 cover: false
 toc: true
-mathjax: true
+mathjax: false
 date: 2022-06-26 18:15:09
 password:
 summary: Java8 Lambda 表达式详细介绍

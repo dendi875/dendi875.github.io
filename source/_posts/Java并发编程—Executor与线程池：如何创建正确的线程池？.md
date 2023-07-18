@@ -183,3 +183,4 @@ try {
 * 极客时间 王宝令[《Java并发编程实战》](https://time.geekbang.org/column/intro/100023901)
 * https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ThreadPoolExecutor.html
 * https://medium.com/codex/executorservice-internal-working-in-java-7b286882f54e
+* https://github.com/aliakh/demo-java-concurrency-parallelism
