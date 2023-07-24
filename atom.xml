@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2023-07-18T07:51:48.847Z</updated>
+  <updated>2023-07-24T12:39:32.227Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -17,11 +17,38 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Java并发编程—Copy-on-Write模式：不是延时策略的COW</title>
+    <link href="https://www.zhangquan.me/2023/07/24/java-bing-fa-bian-cheng-copy-on-write-mo-shi-bu-shi-yan-shi-ce-lue-de-cow/"/>
+    <id>https://www.zhangquan.me/2023/07/24/java-bing-fa-bian-cheng-copy-on-write-mo-shi-bu-shi-yan-shi-ce-lue-de-cow/</id>
+    <published>2023-07-24T12:38:38.000Z</published>
+    <updated>2023-07-24T12:39:32.227Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+    
+    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
+    
+    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Java并发编程—Immutability模式：如何利用不变性解决并发问题？</title>
     <link href="https://www.zhangquan.me/2023/07/18/java-bing-fa-bian-cheng-immutability-mo-shi-ru-he-li-yong-bu-bian-xing-jie-jue-bing-fa-wen-ti/"/>
     <id>https://www.zhangquan.me/2023/07/18/java-bing-fa-bian-cheng-immutability-mo-shi-ru-he-li-yong-bu-bian-xing-jie-jue-bing-fa-wen-ti/</id>
     <published>2023-07-18T07:51:13.000Z</published>
-    <updated>2023-07-18T07:51:48.847Z</updated>
+    <updated>2023-07-24T12:39:38.325Z</updated>
     
     
       
@@ -519,33 +546,6 @@
         
         
     <summary type="html">&lt;p&gt;在 Java 领域，实现并发程序的主要手段就是多线程。线程是操作系统里的一个概念，虽然各种不同的开发语言如 Java、C# 等都对其进行了封装，但是万变不离操作系统。Java</summary>
-        
-      
-    
-    
-    
-    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-    
-    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
-    
-    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java并发编程—管程：并发编程的万能钥匙</title>
-    <link href="https://www.zhangquan.me/2023/06/15/java-bing-fa-bian-cheng-guan-cheng-bing-fa-bian-cheng-de-wan-neng-yao-chi/"/>
-    <id>https://www.zhangquan.me/2023/06/15/java-bing-fa-bian-cheng-guan-cheng-bing-fa-bian-cheng-de-wan-neng-yao-chi/</id>
-    <published>2023-06-15T10:51:41.000Z</published>
-    <updated>2023-07-04T01:39:46.917Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;并发编程这个技术领域已经发展了半个世纪了，相关的理论和技术纷繁复杂。那有没有一种核心技术可以很方便地解决我们的并发问题呢？这个问题如果让我选择，我一定会选择&lt;strong&gt;管程&lt;/strong&gt;技术。Java 语言在 1.5 之前，提供的唯一的并发原语就是管程，而且</summary>
         
       
     

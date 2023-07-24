@@ -2,7 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.zhangquan.me/2023/07/18/java-bing-fa-bian-cheng-immutability-mo-shi-ru-he-li-yong-bu-bian-xing-jie-jue-bing-fa-wen-ti/</loc>
-    <lastmod>2023-07-18</lastmod>
+    <lastmod>2023-07-24</lastmod>
+  </url>
+  <url>
+    <loc>https://www.zhangquan.me/2023/07/24/java-bing-fa-bian-cheng-copy-on-write-mo-shi-bu-shi-yan-shi-ce-lue-de-cow/</loc>
+    <lastmod>2023-07-24</lastmod>
   </url>
   <url>
     <loc>https://www.zhangquan.me/2022/06/19/java-zhong-optional-lei-xiang-jie/</loc>
