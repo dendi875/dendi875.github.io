@@ -7,7 +7,7 @@ toc: true
 mathjax: false
 date: 2023-07-18 15:51:13
 password:
-summary:
+summary: Java并发编程—Immutability模式：如何利用不变性解决并发问题？
 tags:
 	- Java
 	- 并发编程
@@ -234,7 +234,7 @@ public final class Account{
 
 3、类的属性如果是引用型，该属性对应的类也需要满足不可变类的条件，且不能提供修改该属性的方法。
 
-Account 类的唯一属性user是final的，提供的方法是可读的，user的类型是StringBuffer，StringBuffer也是final的，这样看来 Account类是不可变性的，但是去看StringBuffer的源码，你会发现StringBuffer类的属性value是可变的，StringBuffer类中的value定义: `char[] value;>`,并且提供了`append(Object object)`和`setCharAt(int index, char ch)`修改value。所以,Account类不具备不可变性。
+Account 类的唯一属性user是final的，提供的方法是可读的，user的类型是StringBuffer，StringBuffer也是final的，这样看来 Account类是不可变性的，但是去看StringBuffer的源码，你会发现StringBuffer类的属性value是可变的，StringBuffer类中的value定义: `char[] value;`,并且提供了`append(Object object)`和`setCharAt(int index, char ch)`修改value。所以，Account类不具备不可变性。
 
 要让Account具备不可变性，一个简单的解决方案是让 getUser() 方法返回 String 对象。String类中的value定义：`private final char value[];`
 
