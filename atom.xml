@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2023-07-24T12:39:32.227Z</updated>
+  <updated>2023-07-26T03:15:27.932Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -17,11 +17,38 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Java并发编程—线程本地存储模式：没有共享，就没有伤害</title>
+    <link href="https://www.zhangquan.me/2023/07/26/java-bing-fa-bian-cheng-xian-cheng-ben-di-cun-chu-mo-shi-mei-you-gong-xiang-jiu-mei-you-shang-hai/"/>
+    <id>https://www.zhangquan.me/2023/07/26/java-bing-fa-bian-cheng-xian-cheng-ben-di-cun-chu-mo-shi-mei-you-gong-xiang-jiu-mei-you-shang-hai/</id>
+    <published>2023-07-26T03:12:54.000Z</published>
+    <updated>2023-07-26T03:15:27.932Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;我们曾经一遍一遍又一遍地重复，多个线程同时读写同一共享变量存在并发问题。&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+    
+    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
+    
+    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Java并发编程—Copy-on-Write模式：不是延时策略的COW</title>
     <link href="https://www.zhangquan.me/2023/07/24/java-bing-fa-bian-cheng-copy-on-write-mo-shi-bu-shi-yan-shi-ce-lue-de-cow/"/>
     <id>https://www.zhangquan.me/2023/07/24/java-bing-fa-bian-cheng-copy-on-write-mo-shi-bu-shi-yan-shi-ce-lue-de-cow/</id>
     <published>2023-07-24T12:38:38.000Z</published>
-    <updated>2023-07-24T12:39:32.227Z</updated>
+    <updated>2023-07-26T03:02:30.370Z</updated>
     
     
       
@@ -519,33 +546,6 @@
         
         
     <summary type="html">&lt;p&gt;在 Java 领域，实现并发程序的主要手段就是多线程，使用多线程还是比较简单的，但是使用多少个线程却是个困难的问题。工作中，经常有人问，“各种线程池的线程数量调整成多少是合适的？”或者“Tomcat 的线程数、Jdbc</summary>
-        
-      
-    
-    
-    
-    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-    
-    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
-    
-    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java并发编程—Java线程（上）：Java线程的生命周期</title>
-    <link href="https://www.zhangquan.me/2023/06/16/java-bing-fa-bian-cheng-java-xian-cheng-shang-java-xian-cheng-de-sheng-ming-zhou-qi/"/>
-    <id>https://www.zhangquan.me/2023/06/16/java-bing-fa-bian-cheng-java-xian-cheng-shang-java-xian-cheng-de-sheng-ming-zhou-qi/</id>
-    <published>2023-06-16T03:54:04.000Z</published>
-    <updated>2023-07-04T01:38:53.111Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;在 Java 领域，实现并发程序的主要手段就是多线程。线程是操作系统里的一个概念，虽然各种不同的开发语言如 Java、C# 等都对其进行了封装，但是万变不离操作系统。Java</summary>
         
       
     
