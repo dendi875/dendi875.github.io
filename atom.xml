@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2023-07-26T03:15:27.932Z</updated>
+  <updated>2023-07-30T11:56:12.727Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Java并发编程—Guarded Suspension模式：等待唤醒机制的规范实现</title>
+    <link href="https://www.zhangquan.me/2023/07/30/java-bing-fa-bian-cheng-guarded-suspension-mo-shi-deng-dai-huan-xing-ji-zhi-de-gui-fan-shi-xian/"/>
+    <id>https://www.zhangquan.me/2023/07/30/java-bing-fa-bian-cheng-guarded-suspension-mo-shi-deng-dai-huan-xing-ji-zhi-de-gui-fan-shi-xian/</id>
+    <published>2023-07-30T11:55:33.000Z</published>
+    <updated>2023-07-30T11:56:12.727Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;前不久，同事小灰工作中遇到一个问题，他开发了一个 Web 项目：Web</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Java并发编程—线程本地存储模式：没有共享，就没有伤害</title>
@@ -519,33 +540,6 @@
         
         
     <summary type="html">&lt;p&gt;我们一遍一遍重复再重复地讲到，多个线程同时访问共享变量的时候，会导致并发问题。那在 Java 语言里，是不是所有变量都是共享变量呢？工作中我发现不少同学会给方法里面的局部变量设置同步，显然这些同学并没有把共享变量搞清楚。那 Java</summary>
-        
-      
-    
-    
-    
-    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-    
-    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
-    
-    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java并发编程—Java线程（中）：创建多少线程才是合适的？</title>
-    <link href="https://www.zhangquan.me/2023/06/16/java-bing-fa-bian-cheng-java-xian-cheng-zhong-chuang-jian-duo-shao-xian-cheng-cai-shi-he-gua-de/"/>
-    <id>https://www.zhangquan.me/2023/06/16/java-bing-fa-bian-cheng-java-xian-cheng-zhong-chuang-jian-duo-shao-xian-cheng-cai-shi-he-gua-de/</id>
-    <published>2023-06-16T03:57:49.000Z</published>
-    <updated>2023-07-04T01:38:59.501Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;在 Java 领域，实现并发程序的主要手段就是多线程，使用多线程还是比较简单的，但是使用多少个线程却是个困难的问题。工作中，经常有人问，“各种线程池的线程数量调整成多少是合适的？”或者“Tomcat 的线程数、Jdbc</summary>
         
       
     
