@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2023-07-30T11:56:12.727Z</updated>
+  <updated>2023-07-31T02:21:03.903Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -17,11 +17,38 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Java并发编程—Balking模式：再谈线程安全的单例模式</title>
+    <link href="https://www.zhangquan.me/2023/07/31/java-bing-fa-bian-cheng-balking-mo-shi-zai-tan-xian-cheng-an-quan-de-dan-li-mo-shi/"/>
+    <id>https://www.zhangquan.me/2023/07/31/java-bing-fa-bian-cheng-balking-mo-shi-zai-tan-xian-cheng-an-quan-de-dan-li-mo-shi/</id>
+    <published>2023-07-31T02:20:07.000Z</published>
+    <updated>2023-07-31T02:21:03.903Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;上&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+    
+    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
+    
+    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Java并发编程—Guarded Suspension模式：等待唤醒机制的规范实现</title>
     <link href="https://www.zhangquan.me/2023/07/30/java-bing-fa-bian-cheng-guarded-suspension-mo-shi-deng-dai-huan-xing-ji-zhi-de-gui-fan-shi-xian/"/>
     <id>https://www.zhangquan.me/2023/07/30/java-bing-fa-bian-cheng-guarded-suspension-mo-shi-deng-dai-huan-xing-ji-zhi-de-gui-fan-shi-xian/</id>
     <published>2023-07-30T11:55:33.000Z</published>
-    <updated>2023-07-30T11:56:12.727Z</updated>
+    <updated>2023-07-31T02:20:43.833Z</updated>
     
     
       
@@ -34,6 +61,12 @@
     
     
     
+    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+    
+    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
+    
+    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
     
   </entry>
   
@@ -513,33 +546,6 @@
         
         
     <summary type="html">&lt;p&gt;面向对象思想与并发编程有关系吗？本来是没关系的，它们分属两个不同的领域，但是在 Java 语言里，这两个领域被无情地融合在一起了，好在融合的效果还是不错的：&lt;strong&gt;在 Java</summary>
-        
-      
-    
-    
-    
-    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-    
-    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
-    
-    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java并发编程—Java线程（下）：为什么局部变量是线程安全的？</title>
-    <link href="https://www.zhangquan.me/2023/06/16/java-bing-fa-bian-cheng-java-xian-cheng-xia-wei-shi-me-ju-bu-bian-liang-shi-xian-cheng-an-quan-de/"/>
-    <id>https://www.zhangquan.me/2023/06/16/java-bing-fa-bian-cheng-java-xian-cheng-xia-wei-shi-me-ju-bu-bian-liang-shi-xian-cheng-an-quan-de/</id>
-    <published>2023-06-16T04:01:42.000Z</published>
-    <updated>2023-07-04T01:38:56.102Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;我们一遍一遍重复再重复地讲到，多个线程同时访问共享变量的时候，会导致并发问题。那在 Java 语言里，是不是所有变量都是共享变量呢？工作中我发现不少同学会给方法里面的局部变量设置同步，显然这些同学并没有把共享变量搞清楚。那 Java</summary>
         
       
     
