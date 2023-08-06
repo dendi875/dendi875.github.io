@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2023-08-03T10:08:05.464Z</updated>
+  <updated>2023-08-06T11:43:35.155Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Java并发编程—Worker Thread模式：如何避免重复创建线程？</title>
+    <link href="https://www.zhangquan.me/2023/08/06/java-bing-fa-bian-cheng-worker-thread-mo-shi-ru-he-bi-mian-chong-fu-chuang-jian-xian-cheng/"/>
+    <id>https://www.zhangquan.me/2023/08/06/java-bing-fa-bian-cheng-worker-thread-mo-shi-ru-he-bi-mian-chong-fu-chuang-jian-xian-cheng/</id>
+    <published>2023-08-06T11:42:01.000Z</published>
+    <updated>2023-08-06T11:43:35.155Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+    
+    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
+    
+    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
   
   <entry>
     <title>Java并发编程—Thread-Per-Message模式：最简单实用的分工方法</title>
@@ -513,33 +540,6 @@
         
         
     <summary type="html">&lt;p&gt;在&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-    
-    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
-    
-    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java并发编程—Lock和Condition（上）：隐藏在并发包中的管程</title>
-    <link href="https://www.zhangquan.me/2023/06/27/java-bing-fa-bian-cheng-lock-he-condition-shang-yin-cang-zai-bing-fa-bao-zhong-de-guan-cheng/"/>
-    <id>https://www.zhangquan.me/2023/06/27/java-bing-fa-bian-cheng-lock-he-condition-shang-yin-cang-zai-bing-fa-bao-zhong-de-guan-cheng/</id>
-    <published>2023-06-27T01:35:15.000Z</published>
-    <updated>2023-07-04T01:39:02.492Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;Java SDK 并发包内容很丰富，包罗万象，但是我觉得最核心的还是其对管程的实现。因为理论上利用管程，你几乎可以实现并发包里所有的工具类。在&lt;a</summary>
         
       
     
