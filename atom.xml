@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2023-07-31T02:21:03.903Z</updated>
+  <updated>2023-08-03T10:08:05.464Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,54 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Java并发编程—Thread-Per-Message模式：最简单实用的分工方法</title>
+    <link href="https://www.zhangquan.me/2023/08/03/java-bing-fa-bian-cheng-thread-per-message-mo-shi-zui-jian-dan-shi-yong-de-fen-gong-fang-fa/"/>
+    <id>https://www.zhangquan.me/2023/08/03/java-bing-fa-bian-cheng-thread-per-message-mo-shi-zui-jian-dan-shi-yong-de-fen-gong-fang-fa/</id>
+    <published>2023-08-03T10:07:13.000Z</published>
+    <updated>2023-08-03T10:08:05.464Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;我们曾经把并发编程领域的问题总结为三个核心问题：分工、同步和互斥。其中，同步和互斥相关问题更多地源自微观，而分工问题则是源自宏观。我们解决问题，往往都是从宏观入手，在编程领域，软件的设计过程也是先从概要设计开始，而后才进行详细设计。同样，&lt;strong&gt;解决并发编程问题，首</summary>
+        
+      
+    
+    
+    
+    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+    
+    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
+    
+    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="https://www.zhangquan.me/2023/07/31/java-bing-fa-bian-cheng-balking-mo-shi-zai-tan-xian-cheng-an-quan-de-dan-li-mo-shi/"/>
+    <id>https://www.zhangquan.me/2023/07/31/java-bing-fa-bian-cheng-balking-mo-shi-zai-tan-xian-cheng-an-quan-de-dan-li-mo-shi/</id>
+    <published>2023-07-31T08:56:52.621Z</published>
+    <updated>2023-07-31T08:56:52.622Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;article class=&quot;markdown-body&quot;&gt;&lt;p&gt;上&lt;a</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Java并发编程—Balking模式：再谈线程安全的单例模式</title>
@@ -492,60 +540,6 @@
         
         
     <summary type="html">&lt;p&gt;Java SDK 并发包内容很丰富，包罗万象，但是我觉得最核心的还是其对管程的实现。因为理论上利用管程，你几乎可以实现并发包里所有的工具类。在&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-    
-    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
-    
-    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java并发编程—理论基础总结</title>
-    <link href="https://www.zhangquan.me/2023/06/16/java-bing-fa-bian-cheng-li-lun-ji-chu-zong-jie/"/>
-    <id>https://www.zhangquan.me/2023/06/16/java-bing-fa-bian-cheng-li-lun-ji-chu-zong-jie/</id>
-    <published>2023-06-16T09:18:22.000Z</published>
-    <updated>2023-07-04T01:39:41.316Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;到这里，专栏的第一模块——并发编程的理论基础，我们已经讲解完了，总共 12 篇，不算少，但“跳出来，看全景”你会发现这 12</summary>
-        
-      
-    
-    
-    
-    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-    
-    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
-    
-    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java并发编程—如何用面向对象思想写好并发程序？</title>
-    <link href="https://www.zhangquan.me/2023/06/16/java-bing-fa-bian-cheng-ru-he-yong-mian-xiang-dui-xiang-si-xiang-xie-hao-bing-fa-cheng-xu/"/>
-    <id>https://www.zhangquan.me/2023/06/16/java-bing-fa-bian-cheng-ru-he-yong-mian-xiang-dui-xiang-si-xiang-xie-hao-bing-fa-cheng-xu/</id>
-    <published>2023-06-16T07:42:26.000Z</published>
-    <updated>2023-07-04T01:39:33.519Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;面向对象思想与并发编程有关系吗？本来是没关系的，它们分属两个不同的领域，但是在 Java 语言里，这两个领域被无情地融合在一起了，好在融合的效果还是不错的：&lt;strong&gt;在 Java</summary>
         
       
     

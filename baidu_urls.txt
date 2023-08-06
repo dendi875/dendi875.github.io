@@ -1,3 +1,5 @@
+https://www.zhangquan.me/2023/08/03/java-bing-fa-bian-cheng-thread-per-message-mo-shi-zui-jian-dan-shi-yong-de-fen-gong-fang-fa/
+https://www.zhangquan.me/2023/07/31/java-bing-fa-bian-cheng-balking-mo-shi-zai-tan-xian-cheng-an-quan-de-dan-li-mo-shi/
 https://www.zhangquan.me/2023/07/31/java-bing-fa-bian-cheng-balking-mo-shi-zai-tan-xian-cheng-an-quan-de-dan-li-mo-shi/
 https://www.zhangquan.me/2023/07/30/java-bing-fa-bian-cheng-guarded-suspension-mo-shi-deng-dai-huan-xing-ji-zhi-de-gui-fan-shi-xian/
 https://www.zhangquan.me/2023/07/26/java-bing-fa-bian-cheng-xian-cheng-ben-di-cun-chu-mo-shi-mei-you-gong-xiang-jiu-mei-you-shang-hai/
