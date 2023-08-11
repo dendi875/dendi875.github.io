@@ -1,3 +1,4 @@
+https://www.zhangquan.me/2023/08/11/java-bing-fa-bian-cheng-liang-jie-duan-zhong-zhi-mo-shi-ru-he-you-ya-di-zhong-zhi-xian-cheng/
 https://www.zhangquan.me/2023/08/06/java-bing-fa-bian-cheng-worker-thread-mo-shi-ru-he-bi-mian-chong-fu-chuang-jian-xian-cheng/
 https://www.zhangquan.me/2023/08/03/java-bing-fa-bian-cheng-thread-per-message-mo-shi-zui-jian-dan-shi-yong-de-fen-gong-fang-fa/
 https://www.zhangquan.me/2023/07/31/java-bing-fa-bian-cheng-balking-mo-shi-zai-tan-xian-cheng-an-quan-de-dan-li-mo-shi/
