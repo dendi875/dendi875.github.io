@@ -71,27 +71,6 @@
   </entry>
   
   <entry>
-    <title></title>
-    <link href="https://www.zhangquan.me/2023/07/31/java-bing-fa-bian-cheng-balking-mo-shi-zai-tan-xian-cheng-an-quan-de-dan-li-mo-shi/"/>
-    <id>https://www.zhangquan.me/2023/07/31/java-bing-fa-bian-cheng-balking-mo-shi-zai-tan-xian-cheng-an-quan-de-dan-li-mo-shi/</id>
-    <published>2023-07-31T08:56:52.621Z</published>
-    <updated>2023-07-31T08:56:52.622Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;article class=&quot;markdown-body&quot;&gt;&lt;p&gt;上&lt;a</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
     <title>Java并发编程—Balking模式：再谈线程安全的单例模式</title>
     <link href="https://www.zhangquan.me/2023/07/31/java-bing-fa-bian-cheng-balking-mo-shi-zai-tan-xian-cheng-an-quan-de-dan-li-mo-shi/"/>
     <id>https://www.zhangquan.me/2023/07/31/java-bing-fa-bian-cheng-balking-mo-shi-zai-tan-xian-cheng-an-quan-de-dan-li-mo-shi/</id>
@@ -540,6 +519,33 @@
         
         
     <summary type="html">&lt;p&gt;在&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+    
+    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
+    
+    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java并发编程—Lock和Condition（上）：隐藏在并发包中的管程</title>
+    <link href="https://www.zhangquan.me/2023/06/27/java-bing-fa-bian-cheng-lock-he-condition-shang-yin-cang-zai-bing-fa-bao-zhong-de-guan-cheng/"/>
+    <id>https://www.zhangquan.me/2023/06/27/java-bing-fa-bian-cheng-lock-he-condition-shang-yin-cang-zai-bing-fa-bao-zhong-de-guan-cheng/</id>
+    <published>2023-06-27T01:35:15.000Z</published>
+    <updated>2023-07-04T01:39:02.492Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Java SDK 并发包内容很丰富，包罗万象，但是我觉得最核心的还是其对管程的实现。因为理论上利用管程，你几乎可以实现并发包里所有的工具类。在&lt;a</summary>
         
       
     
