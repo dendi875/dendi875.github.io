@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2023-08-11T12:54:20.872Z</updated>
+  <updated>2023-08-15T13:19:01.649Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Java并发编程—生产者-消费者模式：用流水线思想提高效率</title>
+    <link href="https://www.zhangquan.me/2023/08/15/java-bing-fa-bian-cheng-sheng-chan-zhe-xiao-fei-zhe-mo-shi-yong-liu-shui-xian-si-xiang-ti-gao-xiao-lu/"/>
+    <id>https://www.zhangquan.me/2023/08/15/java-bing-fa-bian-cheng-sheng-chan-zhe-xiao-fei-zhe-mo-shi-yong-liu-shui-xian-si-xiang-ti-gao-xiao-lu/</id>
+    <published>2023-08-15T13:18:13.000Z</published>
+    <updated>2023-08-15T13:19:01.649Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+    
+    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
+    
+    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
   
   <entry>
     <title>Java并发编程—两阶段终止模式：如何优雅地终止线程？</title>
@@ -519,33 +546,6 @@
         
     <summary type="html">&lt;p&gt;Semaphore，现在普遍翻译为“信号量”，以前也曾被翻译成“信号灯”，因为类似现实生活里的红绿灯，车辆能不能通行，要看是不是绿灯。同样，在编程世界里，线程能不能执行，也要看信号量是不是允许。&lt;/p&gt;
 &lt;p&gt;信号量是由大名鼎鼎的计算机科学家迪杰斯特拉（Dijkstra）于</summary>
-        
-      
-    
-    
-    
-    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-    
-    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
-    
-    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java并发编程—Lock和Condition（下）：Dubbo如何用管程实现异步转同步？</title>
-    <link href="https://www.zhangquan.me/2023/06/27/java-bing-fa-bian-cheng-lock-he-condition-xia-dubbo-ru-he-yong-guan-cheng-shi-xian-yi-bu-zhuan-tong-bu/"/>
-    <id>https://www.zhangquan.me/2023/06/27/java-bing-fa-bian-cheng-lock-he-condition-xia-dubbo-ru-he-yong-guan-cheng-shi-xian-yi-bu-zhuan-tong-bu/</id>
-    <published>2023-06-27T12:27:06.000Z</published>
-    <updated>2023-07-04T01:39:05.103Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;在&lt;a</summary>
         
       
     
