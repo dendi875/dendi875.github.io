@@ -81,7 +81,7 @@
   <url>
     <loc>https://www.zhangquan.me/2023/08/11/java-bing-fa-bian-cheng-liang-jie-duan-zhong-zhi-mo-shi-ru-he-you-ya-di-zhong-zhi-xian-cheng/</loc>
     
-    <lastmod>2023-08-11</lastmod>
+    <lastmod>2023-08-14</lastmod>
     
   </url>
   
@@ -1257,6 +1257,13 @@
   </url>
   
   <url>
+    <loc>https://www.zhangquan.me/tags/Python/</loc>
+    <lastmod>2023-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.zhangquan.me/tags/Spring-Boot/</loc>
     <lastmod>2023-09-13</lastmod>
     <changefreq>daily</changefreq>
@@ -1321,13 +1328,6 @@
   
   <url>
     <loc>https://www.zhangquan.me/tags/AlertManager/</loc>
-    <lastmod>2023-09-13</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.zhangquan.me/tags/Python/</loc>
     <lastmod>2023-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1441,6 +1441,13 @@
   </url>
   
   <url>
+    <loc>https://www.zhangquan.me/categories/Python/</loc>
+    <lastmod>2023-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.zhangquan.me/categories/Zookeeper/</loc>
     <lastmod>2023-09-13</lastmod>
     <changefreq>daily</changefreq>
@@ -1484,13 +1491,6 @@
   
   <url>
     <loc>https://www.zhangquan.me/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/</loc>
-    <lastmod>2023-09-13</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.zhangquan.me/categories/Python/</loc>
     <lastmod>2023-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
