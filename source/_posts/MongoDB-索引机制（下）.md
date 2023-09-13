@@ -68,7 +68,7 @@ db.members.find({ city: “SH”, name: “zhangsan”})
 db.members.find({ gender: “F”， age: {$gte: 18}}).sort(“birth_date:1”)
 ```
 
-如上面的查询：我们想要在 members 坐集合中找到性别是女生的，年龄大于等于18岁的用户，并且按出生日期排序，这个查询用到了3个字段，两个是查询条件，一个是排序，这三个字段建立索引时排列组合方式不同对性能影响也不同，例如：
+如上面的查询：我们想要在 members 用户集合中找到性别是女生的，年龄大于等于18岁的用户，并且按出生日期排序，这个查询用到了3个字段，两个是查询条件，一个是排序，这三个字段建立索引时排列组合方式不同对性能影响也不同，例如：
 
 ```javascript
 { gender: 1, age: 1, birth_date: 1 }
@@ -301,7 +301,7 @@ db.<collection_name>.createIndex(
 )   
 ```
 
-别外一个场景是：因为 mongo 是 JSON 文档可以随时字段，比如第一个版本文档中没有 wechat 字段，该字段是后面的需求加上的，但我们希望只对有wechat字段的文档建索引：
+别外一个场景是：因为 mongo 是 JSON 文档可以随时增加和删除字段，比如第一个版本文档中没有 wechat 字段，该字段是后面的需求加上的，但我们希望只对有wechat字段的文档建索引：
 
 ```javascript
 db.<collection_name>.createIndex( 

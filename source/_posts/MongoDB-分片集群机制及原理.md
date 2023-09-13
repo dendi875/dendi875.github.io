@@ -53,7 +53,7 @@ MongoDB  有三种常见的部署架构：
 
   ![](https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/mongs-4.png)
 
-以上是一个完整的 4 分片的 mongodb 集群，有 `Primary`，`Secondary` 数据节点，有  `mongs ` 路由节点，有 `config` 配置节点，有应用程序和驱动程序。
+以上是一个完整的 4 分片的 mongodb 集群，有 `Primary`，`Secondary` 数据节点，有  `mongos ` 路由节点，有 `config` 配置节点，有应用程序和驱动程序。
 
 ## 分片集群解剖
 
