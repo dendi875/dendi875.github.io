@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2023-08-15T13:19:01.649Z</updated>
+  <updated>2023-09-13T05:38:48.002Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Python里参数是如何传递的？</title>
+    <link href="https://www.zhangquan.me/2023/09/13/python-li-can-shu-shi-ru-he-chuan-di-de/"/>
+    <id>https://www.zhangquan.me/2023/09/13/python-li-can-shu-shi-ru-he-chuan-di-de/</id>
+    <published>2023-09-13T05:36:46.000Z</published>
+    <updated>2023-09-13T05:38:48.002Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;什么是值传递和引用传递&quot;&gt;&lt;a href=&quot;#什么是值传递和引用传递&quot; class=&quot;headerlink&quot; title=&quot;什么是值传递和引用传递&quot;&gt;&lt;/a&gt;&lt;strong&gt;什么是值传递和引用传递&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;如果你接触过其他的编程语言，比如</summary>
+        
+      
+    
+    
+    
+    <category term="Python" scheme="https://www.zhangquan.me/categories/Python/"/>
+    
+    
+    <category term="Python" scheme="https://www.zhangquan.me/tags/Python/"/>
+    
+  </entry>
   
   <entry>
     <title>Java并发编程—生产者-消费者模式：用流水线思想提高效率</title>
@@ -75,7 +100,7 @@
     <link href="https://www.zhangquan.me/2023/08/06/java-bing-fa-bian-cheng-worker-thread-mo-shi-ru-he-bi-mian-chong-fu-chuang-jian-xian-cheng/"/>
     <id>https://www.zhangquan.me/2023/08/06/java-bing-fa-bian-cheng-worker-thread-mo-shi-ru-he-bi-mian-chong-fu-chuang-jian-xian-cheng/</id>
     <published>2023-08-06T11:42:01.000Z</published>
-    <updated>2023-08-06T11:43:35.155Z</updated>
+    <updated>2023-08-23T06:06:11.984Z</updated>
     
     
       
@@ -102,7 +127,7 @@
     <link href="https://www.zhangquan.me/2023/08/03/java-bing-fa-bian-cheng-thread-per-message-mo-shi-zui-jian-dan-shi-yong-de-fen-gong-fang-fa/"/>
     <id>https://www.zhangquan.me/2023/08/03/java-bing-fa-bian-cheng-thread-per-message-mo-shi-zui-jian-dan-shi-yong-de-fen-gong-fang-fa/</id>
     <published>2023-08-03T10:07:13.000Z</published>
-    <updated>2023-08-03T10:08:05.464Z</updated>
+    <updated>2023-08-23T06:07:21.734Z</updated>
     
     
       
@@ -183,7 +208,7 @@
     <link href="https://www.zhangquan.me/2023/07/26/java-bing-fa-bian-cheng-xian-cheng-ben-di-cun-chu-mo-shi-mei-you-gong-xiang-jiu-mei-you-shang-hai/"/>
     <id>https://www.zhangquan.me/2023/07/26/java-bing-fa-bian-cheng-xian-cheng-ben-di-cun-chu-mo-shi-mei-you-gong-xiang-jiu-mei-you-shang-hai/</id>
     <published>2023-07-26T03:12:54.000Z</published>
-    <updated>2023-07-26T03:15:27.932Z</updated>
+    <updated>2023-08-23T06:11:20.867Z</updated>
     
     
       
@@ -210,7 +235,7 @@
     <link href="https://www.zhangquan.me/2023/07/24/java-bing-fa-bian-cheng-copy-on-write-mo-shi-bu-shi-yan-shi-ce-lue-de-cow/"/>
     <id>https://www.zhangquan.me/2023/07/24/java-bing-fa-bian-cheng-copy-on-write-mo-shi-bu-shi-yan-shi-ce-lue-de-cow/</id>
     <published>2023-07-24T12:38:38.000Z</published>
-    <updated>2023-07-26T03:02:30.370Z</updated>
+    <updated>2023-08-23T06:10:45.656Z</updated>
     
     
       
@@ -237,7 +262,7 @@
     <link href="https://www.zhangquan.me/2023/07/18/java-bing-fa-bian-cheng-immutability-mo-shi-ru-he-li-yong-bu-bian-xing-jie-jue-bing-fa-wen-ti/"/>
     <id>https://www.zhangquan.me/2023/07/18/java-bing-fa-bian-cheng-immutability-mo-shi-ru-he-li-yong-bu-bian-xing-jie-jue-bing-fa-wen-ti/</id>
     <published>2023-07-18T07:51:13.000Z</published>
-    <updated>2023-07-24T12:39:38.325Z</updated>
+    <updated>2023-08-23T06:10:21.512Z</updated>
     
     
       
@@ -518,34 +543,6 @@
         
         
     <summary type="html">&lt;p&gt;前面我们介绍了&lt;a href=&quot;https://zhangquan.me/2023/06/15/java-bing-fa-bian-cheng-guan-cheng-bing-fa-bian-cheng-de-wan-neng-yao-chi/&quot;&gt;管程&lt;/a&gt;和&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-    
-    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
-    
-    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java并发编程—Semaphore：如何快速实现一个限流器？</title>
-    <link href="https://www.zhangquan.me/2023/06/29/java-bing-fa-bian-cheng-semaphore-ru-he-kuai-su-shi-xian-yi-ge-xian-liu-qi/"/>
-    <id>https://www.zhangquan.me/2023/06/29/java-bing-fa-bian-cheng-semaphore-ru-he-kuai-su-shi-xian-yi-ge-xian-liu-qi/</id>
-    <published>2023-06-29T02:27:46.000Z</published>
-    <updated>2023-07-04T01:39:10.637Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;Semaphore，现在普遍翻译为“信号量”，以前也曾被翻译成“信号灯”，因为类似现实生活里的红绿灯，车辆能不能通行，要看是不是绿灯。同样，在编程世界里，线程能不能执行，也要看信号量是不是允许。&lt;/p&gt;
-&lt;p&gt;信号量是由大名鼎鼎的计算机科学家迪杰斯特拉（Dijkstra）于</summary>
         
       
     

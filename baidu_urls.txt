@@ -1,3 +1,4 @@
+https://www.zhangquan.me/2023/09/13/python-li-can-shu-shi-ru-he-chuan-di-de/
 https://www.zhangquan.me/2023/08/15/java-bing-fa-bian-cheng-sheng-chan-zhe-xiao-fei-zhe-mo-shi-yong-liu-shui-xian-si-xiang-ti-gao-xiao-lu/
 https://www.zhangquan.me/2023/08/11/java-bing-fa-bian-cheng-liang-jie-duan-zhong-zhi-mo-shi-ru-he-you-ya-di-zhong-zhi-xian-cheng/
 https://www.zhangquan.me/2023/08/06/java-bing-fa-bian-cheng-worker-thread-mo-shi-ru-he-bi-mian-chong-fu-chuang-jian-xian-cheng/
