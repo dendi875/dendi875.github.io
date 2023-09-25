@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2023-09-13T05:38:48.002Z</updated>
+  <updated>2023-09-25T01:45:16.232Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Python 中的装饰器</title>
+    <link href="https://www.zhangquan.me/2023/09/25/python-zhong-de-zhuang-shi-qi/"/>
+    <id>https://www.zhangquan.me/2023/09/25/python-zhong-de-zhuang-shi-qi/</id>
+    <published>2023-09-25T01:44:12.000Z</published>
+    <updated>2023-09-25T01:45:16.232Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;函数&quot;&gt;&lt;a href=&quot;#函数&quot; class=&quot;headerlink&quot; title=&quot;函数&quot;&gt;&lt;/a&gt;函数&lt;/h2&gt;&lt;p&gt;引入装饰器之前，我们首先来看一下函数的几个核心概念。&lt;/p&gt;
+&lt;h3 id=&quot;函数赋予变量&quot;&gt;&lt;a href=&quot;#函数赋予变量&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Python" scheme="https://www.zhangquan.me/categories/Python/"/>
+    
+    
+    <category term="Python" scheme="https://www.zhangquan.me/tags/Python/"/>
+    
+  </entry>
   
   <entry>
     <title>Python里参数是如何传递的？</title>
@@ -516,33 +542,6 @@
         
         
     <summary type="html">&lt;p&gt;在&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-    
-    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
-    
-    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java并发编程—ReadWriteLock：如何快速实现一个完备的缓存？</title>
-    <link href="https://www.zhangquan.me/2023/06/30/java-bing-fa-bian-cheng-readwritelock-ru-he-kuai-su-shi-xian-yi-ge-wan-bei-de-huan-cun/"/>
-    <id>https://www.zhangquan.me/2023/06/30/java-bing-fa-bian-cheng-readwritelock-ru-he-kuai-su-shi-xian-yi-ge-wan-bei-de-huan-cun/</id>
-    <published>2023-06-30T07:01:15.000Z</published>
-    <updated>2023-07-04T01:39:07.759Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;前面我们介绍了&lt;a href=&quot;https://zhangquan.me/2023/06/15/java-bing-fa-bian-cheng-guan-cheng-bing-fa-bian-cheng-de-wan-neng-yao-chi/&quot;&gt;管程&lt;/a&gt;和&lt;a</summary>
         
       
     
