@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.zhangquan.me/2023/09/25/ru-he-jiang-yi-ge-yi-cun-zai-de-mu-lu-zhuan-huan-wei-yi-ge-git-xiang-mu-bing-tuo-guan-dao-github-cang-ku/</loc>
+    <lastmod>2023-09-30</lastmod>
+  </url>
+  <url>
+    <loc>https://www.zhangquan.me/2022/03/24/xing-neng-ya-ce-gong-ju-wrk-shi-yong-zhi-nan/</loc>
+    <lastmod>2023-09-30</lastmod>
+  </url>
+  <url>
     <loc>https://www.zhangquan.me/2023/09/25/python-zhong-de-zhuang-shi-qi/</loc>
     <lastmod>2023-09-25</lastmod>
   </url>
@@ -291,10 +299,6 @@
   <url>
     <loc>https://www.zhangquan.me/2023/05/22/hbase-zhi-shi-yong-docker-she-zhi-ben-di-hbase-ji-qun/</loc>
     <lastmod>2023-06-01</lastmod>
-  </url>
-  <url>
-    <loc>https://www.zhangquan.me/2022/03/24/xing-neng-ya-ce-gong-ju-wrk-shi-yong-zhi-nan/</loc>
-    <lastmod>2023-04-18</lastmod>
   </url>
   <url>
     <loc>https://www.zhangquan.me/2022/06/15/java-zhong-que-ding-li-xiang-xian-cheng-chi-de-da-xiao-he-linux-cha-kan-cpu-he-shu/</loc>

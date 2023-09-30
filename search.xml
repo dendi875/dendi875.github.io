@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>如何将一个已存在的目录转换为一个 Git 项目并托管到 GitHub 仓库</title>
+      <link href="/2023/09/25/ru-he-jiang-yi-ge-yi-cun-zai-de-mu-lu-zhuan-huan-wei-yi-ge-git-xiang-mu-bing-tuo-guan-dao-github-cang-ku/"/>
+      <url>/2023/09/25/ru-he-jiang-yi-ge-yi-cun-zai-de-mu-lu-zhuan-huan-wei-yi-ge-git-xiang-mu-bing-tuo-guan-dao-github-cang-ku/</url>
+      
+        <content type="html"><![CDATA[<h2 id="一、-打开命令行终端，进入项目所在的本地目录，将目录初始化为一个-Git-项目"><a href="#一、-打开命令行终端，进入项目所在的本地目录，将目录初始化为一个-Git-项目" class="headerlink" title="一、 打开命令行终端，进入项目所在的本地目录，将目录初始化为一个 Git 项目"></a>一、 打开命令行终端，进入项目所在的本地目录，将目录初始化为一个 Git 项目</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">git</span> init<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>此时会在目录中创建一个 <code>.git</code> 隐藏文件夹</p><h2 id="二、-将所有文件放进新的本地-Git-仓库"><a href="#二、-将所有文件放进新的本地-Git-仓库" class="headerlink" title="二、 将所有文件放进新的本地 Git 仓库"></a>二、 将所有文件放进新的本地 Git 仓库</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">git</span> <span class="token function">add</span> <span class="token builtin class-name">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>如果你本地已经有 <code>.gitignore</code> 文件，会按照已有规则过滤不需要添加的文件。如果不想要添加所有文件，可以把 <code>.</code> 符号换成具体的文件名</p><h2 id="三、-将添加的文件提交到仓库"><a href="#三、-将添加的文件提交到仓库" class="headerlink" title="三、 将添加的文件提交到仓库"></a>三、 将添加的文件提交到仓库</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">git</span> commit -m <span class="token string">"Initial commit"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h2 id="四、-访问-GitHub"><a href="#四、-访问-GitHub" class="headerlink" title="四、 访问 GitHub"></a>四、 访问 GitHub</h2><p>有些时候可能要翻墙</p><h2 id="五、-创建一个新仓库"><a href="#五、-创建一个新仓库" class="headerlink" title="五、 创建一个新仓库"></a>五、 创建一个新仓库</h2><p>为了避免冲突，先不要勾选 README 和 LICENSE 选项</p><h2 id="六、-在生成的项目主页上，复制仓库地址"><a href="#六、-在生成的项目主页上，复制仓库地址" class="headerlink" title="六、 在生成的项目主页上，复制仓库地址"></a>六、 在生成的项目主页上，复制仓库地址</h2><p>类似于 <code>git@github.com:dendi875/spring-family-study.git</code></p><h2 id="七、-回到命令行终端界面，将本地仓库关联到远程仓库"><a href="#七、-回到命令行终端界面，将本地仓库关联到远程仓库" class="headerlink" title="七、 回到命令行终端界面，将本地仓库关联到远程仓库"></a>七、 回到命令行终端界面，将本地仓库关联到远程仓库</h2><p><code>$ git remote add origin git@github.com:dendi875/spring-family-study.git</code> 可运行以下命令查看结果：</p><p><code>$ git remote -v</code> </p><h2 id="八、-提交代码到-GitHub-仓库"><a href="#八、-提交代码到-GitHub-仓库" class="headerlink" title="八、 提交代码到 GitHub 仓库"></a>八、 提交代码到 GitHub 仓库</h2><pre class="line-numbers language-none"><code class="language-none">$ git push origin master<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Git </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Git </tag>
+            
+            <tag> 工具 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Python 中的装饰器</title>
       <link href="/2023/09/25/python-zhong-de-zhuang-shi-qi/"/>
       <url>/2023/09/25/python-zhong-de-zhuang-shi-qi/</url>
@@ -3128,9 +3155,9 @@
             
             <tag> C </tag>
             
-            <tag> 数组 </tag>
-            
             <tag> 指针 </tag>
+            
+            <tag> 数组 </tag>
             
         </tags>
       
@@ -3157,9 +3184,9 @@
             
             <tag> C </tag>
             
-            <tag> 数组 </tag>
-            
             <tag> 指针 </tag>
+            
+            <tag> 数组 </tag>
             
         </tags>
       
@@ -3265,9 +3292,9 @@
       
         <tags>
             
-            <tag> 中间件 </tag>
-            
             <tag> CAT </tag>
+            
+            <tag> 中间件 </tag>
             
             <tag> JAVA </tag>
             
@@ -3296,9 +3323,9 @@
       
         <tags>
             
-            <tag> 中间件 </tag>
-            
             <tag> CAT </tag>
+            
+            <tag> 中间件 </tag>
             
             <tag> JAVA </tag>
             
