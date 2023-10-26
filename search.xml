@@ -3155,9 +3155,9 @@
             
             <tag> C </tag>
             
-            <tag> 指针 </tag>
-            
             <tag> 数组 </tag>
+            
+            <tag> 指针 </tag>
             
         </tags>
       
@@ -3184,9 +3184,9 @@
             
             <tag> C </tag>
             
-            <tag> 指针 </tag>
-            
             <tag> 数组 </tag>
+            
+            <tag> 指针 </tag>
             
         </tags>
       
@@ -3292,9 +3292,9 @@
       
         <tags>
             
-            <tag> CAT </tag>
-            
             <tag> 中间件 </tag>
+            
+            <tag> CAT </tag>
             
             <tag> JAVA </tag>
             
@@ -3323,9 +3323,9 @@
       
         <tags>
             
-            <tag> CAT </tag>
-            
             <tag> 中间件 </tag>
+            
+            <tag> CAT </tag>
             
             <tag> JAVA </tag>
             
@@ -3372,7 +3372,7 @@
       
       <categories>
           
-          <category> 设计模式 </category>
+          <category> PHP设计模式 </category>
           
       </categories>
       
@@ -3399,7 +3399,7 @@
       
       <categories>
           
-          <category> 设计模式 </category>
+          <category> PHP设计模式 </category>
           
       </categories>
       
@@ -3426,7 +3426,7 @@
       
       <categories>
           
-          <category> 设计模式 </category>
+          <category> PHP设计模式 </category>
           
       </categories>
       
@@ -3453,7 +3453,7 @@
       
       <categories>
           
-          <category> 设计模式 </category>
+          <category> PHP设计模式 </category>
           
       </categories>
       
@@ -3480,7 +3480,7 @@
       
       <categories>
           
-          <category> 设计模式 </category>
+          <category> PHP设计模式 </category>
           
       </categories>
       
@@ -3507,7 +3507,7 @@
       
       <categories>
           
-          <category> 设计模式 </category>
+          <category> PHP设计模式 </category>
           
       </categories>
       
@@ -3534,7 +3534,7 @@
       
       <categories>
           
-          <category> 设计模式 </category>
+          <category> PHP设计模式 </category>
           
       </categories>
       
@@ -3561,7 +3561,7 @@
       
       <categories>
           
-          <category> 设计模式 </category>
+          <category> PHP设计模式 </category>
           
       </categories>
       
@@ -3588,7 +3588,7 @@
       
       <categories>
           
-          <category> 设计模式 </category>
+          <category> PHP设计模式 </category>
           
       </categories>
       
@@ -3615,7 +3615,7 @@
       
       <categories>
           
-          <category> 设计模式 </category>
+          <category> PHP设计模式 </category>
           
       </categories>
       
