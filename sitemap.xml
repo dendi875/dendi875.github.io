@@ -9,6 +9,13 @@
   </url>
   
   <url>
+    <loc>https://www.zhangquan.me/2021/06/30/she-ji-mo-shi-zhi-chuang-jian-xing-mo-shi-jian-zao-zhe-mo-shi-builder-pattern/</loc>
+    
+    <lastmod>2023-10-27</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.zhangquan.me/2021/07/01/she-ji-mo-shi-zhi-jie-gou-xing-mo-shi-gua-pei-qi-mo-shi-adapter-pattern/</loc>
     
     <lastmod>2023-10-27</lastmod>
@@ -38,13 +45,6 @@
   
   <url>
     <loc>https://www.zhangquan.me/2021/06/30/she-ji-mo-shi-zhi-chuang-jian-xing-mo-shi-chou-xiang-gong-han-mo-shi-abstract-factory-pattern/</loc>
-    
-    <lastmod>2023-10-27</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.zhangquan.me/2021/06/30/she-ji-mo-shi-zhi-chuang-jian-xing-mo-shi-jian-zao-zhe-mo-shi-builder-pattern/</loc>
     
     <lastmod>2023-10-27</lastmod>
     
@@ -1138,20 +1138,6 @@
   </url>
   
   <url>
-    <loc>https://www.zhangquan.me/tags/Git/</loc>
-    <lastmod>2023-10-27</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.zhangquan.me/tags/%E5%B7%A5%E5%85%B7/</loc>
-    <lastmod>2023-10-27</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.zhangquan.me/tags/HBase/</loc>
     <lastmod>2023-10-27</lastmod>
     <changefreq>daily</changefreq>
@@ -1160,6 +1146,20 @@
   
   <url>
     <loc>https://www.zhangquan.me/tags/NoSQL/</loc>
+    <lastmod>2023-10-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zhangquan.me/tags/Git/</loc>
+    <lastmod>2023-10-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zhangquan.me/tags/%E5%B7%A5%E5%85%B7/</loc>
     <lastmod>2023-10-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1385,14 +1385,14 @@
   </url>
   
   <url>
-    <loc>https://www.zhangquan.me/categories/Git/</loc>
+    <loc>https://www.zhangquan.me/categories/HBase/</loc>
     <lastmod>2023-10-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://www.zhangquan.me/categories/HBase/</loc>
+    <loc>https://www.zhangquan.me/categories/Git/</loc>
     <lastmod>2023-10-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
