@@ -3,7 +3,7 @@ title: 设计模式之-创建型模式-抽象工厂模式 (Abstract Factory Patt
 top: false
 cover: false
 toc: true
-mathjax: true
+mathjax: false
 date: 2021-06-30 13:46:18
 password:
 summary: Abstract Factory Pattern
@@ -11,7 +11,7 @@ tags:
 	- PHP
 	- 面向对象
 categories:
-	- 设计模式
+	- PHP设计模式
 ---
 
 # 抽象工厂模式 (Abstract Factory Pattern)

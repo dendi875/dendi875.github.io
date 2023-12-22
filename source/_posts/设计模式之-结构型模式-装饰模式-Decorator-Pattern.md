@@ -3,7 +3,7 @@ title: 设计模式之-结构型模式-装饰模式 (Decorator Pattern)
 top: false
 cover: false
 toc: true
-mathjax: true
+mathjax: false
 date: 2021-07-06 10:16:25
 password:
 summary: Decorator Pattern
@@ -11,21 +11,21 @@ tags:
     - PHP
     - 面向对象
 categories:
-    - 设计模式
+    - PHP设计模式
 ---
 
 # 装饰模式 (Decorator Pattern)
 
 ---
 
-### 0、早餐店的故事
+### 0. 早餐店的故事
 
-* 我们借助早餐店的故事来认识一下装饰模式。小张刚创业一个人开了一家早餐店提供煎饼、手抓饼出售，现在需要实现一个制作面饼的系统。
+我们借助早餐店的故事来认识一下装饰模式。小张刚创业一个人开了一家早餐店提供煎饼、手抓饼出售，现在需要实现一个制作面饼的系统。
 
-> * 实现方案
+实现方案：
 
-``` php
-<?php
+```php
+
 /**
  * 一个各种面饼的制作接口
  *
@@ -146,6 +146,7 @@ $breakfastOne->sale(); //普通的煎饼+鸡蛋+香肠+番茄酱
 
 $breakfastTwo = new Breakfast(new ShouZhuaBing());
 $breakfastTwo->sale(); //普通的手抓饼+鸡蛋+油条+辣椒酱
+
 ```
 ---
 

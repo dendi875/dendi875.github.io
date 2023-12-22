@@ -3,7 +3,7 @@ title: 设计模式之-创建型模式-工厂方法模式 (Factory Method Patter
 top: false
 cover: false
 toc: true
-mathjax: true
+mathjax: false
 date: 2021-06-30 13:40:37
 password:
 summary: Factory Method Pattern
@@ -11,7 +11,7 @@ tags:
 	- PHP
 	- 面向对象
 categories:
-	- 设计模式
+	- PHP设计模式
 ---
 
 # 工厂方法模式 (Factory Method Pattern)

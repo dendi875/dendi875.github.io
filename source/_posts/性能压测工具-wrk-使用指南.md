@@ -7,7 +7,7 @@ toc: true
 mathjax: true
 date: 2022-03-24 16:48:46
 password:
-summary: wrk 是一个开源的、热门的、现代的单机 HTTP 基准测试工具，目前 GitHub 开源平台累计了 31.8k 的 star 数目，足以可见 wrk 在 HTTP 基准测试领域的热门程度。它结合了多线程设计和可扩展的事件通知系统，如 [epoll](https://man7.org/linux/man-pages/man7/epoll.7.html) 和 [kqueue](https://www.freebsd.org/cgi/man.cgi?query=kqueue&sektion=2) ，可以在有限的资源下对目标机器产生大量的负载。并且内置了一个可选的 [LuaJIT](https://en.wikipedia.org/wiki/LuaJIT) 脚本执行引擎，可以处理复杂的 HTTP 请求生成、响应处理以及自定义压测报告。
+summary: 性能压测工具 wrk 使用指南
 tags: 工具
 categories: Linux，分布式，架构
 ---

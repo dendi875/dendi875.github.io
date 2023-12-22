@@ -3,7 +3,7 @@ title: 设计模式之-结构型模式-外观模式 (Facade Pattern)
 top: false
 cover: false
 toc: true
-mathjax: true
+mathjax: false
 date: 2021-07-09 10:55:15
 password:
 summary: Facade Pattern
@@ -11,7 +11,7 @@ tags:
     - PHP
     - 面向对象
 categories:
-    - 设计模式
+    - PHP设计模式
 ---
 
 # 外观模式 (Facade Pattern)

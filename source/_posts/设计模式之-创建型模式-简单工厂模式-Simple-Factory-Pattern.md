@@ -3,7 +3,7 @@ title: 设计模式之-创建型模式-简单工厂模式 (Simple Factory Patter
 top: false
 cover: false
 toc: true
-mathjax: true
+mathjax: false
 date: 2021-06-30 13:32:28
 password:
 summary: Simple Factory Pattern
@@ -11,7 +11,7 @@ tags:
 	- PHP
 	- 面向对象
 categories:
-	- 设计模式
+	- PHP设计模式
 ---
 
 # 简单工厂模式 (Simple Factory Pattern)
