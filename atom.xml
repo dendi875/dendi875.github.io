@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2023-09-30T08:19:36.146Z</updated>
+  <updated>2023-12-29T09:27:47.879Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,222 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>设计模式之美-原型模式：如何最快速地clone一个HashMap散列表？</title>
+    <link href="https://www.zhangquan.me/2023/11/20/she-ji-mo-shi-zhi-mei-yuan-xing-mo-shi-ru-he-zui-kuai-su-di-clone-yi-ge-hashmap-san-lie-biao/"/>
+    <id>https://www.zhangquan.me/2023/11/20/she-ji-mo-shi-zhi-mei-yuan-xing-mo-shi-ru-he-zui-kuai-su-di-clone-yi-ge-hashmap-san-lie-biao/</id>
+    <published>2023-11-20T09:20:55.000Z</published>
+    <updated>2023-12-29T09:27:47.879Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;对于熟悉 JavaScript 语言的前端程序员来说，原型模式是一种比较常用的开发模式。这是因为，有别于 Java、C++ 等基于类的面向对象编程语言，JavaScript 是一种基于原型的面向对象编程语言。即便 JavaScript</summary>
+        
+      
+    
+    
+    
+    <category term="设计模式之美" scheme="https://www.zhangquan.me/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E/"/>
+    
+    
+    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
+    
+    <category term="设计模式之美" scheme="https://www.zhangquan.me/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式之美-建造者模式：详解构造函数、set方法、建造者模式三种对象创建方式</title>
+    <link href="https://www.zhangquan.me/2023/11/18/she-ji-mo-shi-zhi-mei-jian-zao-zhe-mo-shi-xiang-jie-gou-zao-han-shu-set-fang-fa-jian-zao-zhe-mo-shi-san-chong-dui-xiang-chuang-jian-fang-shi/"/>
+    <id>https://www.zhangquan.me/2023/11/18/she-ji-mo-shi-zhi-mei-jian-zao-zhe-mo-shi-xiang-jie-gou-zao-han-shu-set-fang-fa-jian-zao-zhe-mo-shi-san-chong-dui-xiang-chuang-jian-fang-shi/</id>
+    <published>2023-11-18T09:20:45.000Z</published>
+    <updated>2023-12-29T09:27:07.378Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;今天，我们再来学习另外一个比较常用的创建型设计模式，&lt;strong&gt;Builder</summary>
+        
+      
+    
+    
+    
+    <category term="设计模式之美" scheme="https://www.zhangquan.me/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E/"/>
+    
+    
+    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
+    
+    <category term="设计模式之美" scheme="https://www.zhangquan.me/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式之美-工厂模式：我为什么说没事不要随便用工厂模式创建对象？</title>
+    <link href="https://www.zhangquan.me/2023/11/07/she-ji-mo-shi-zhi-mei-gong-han-mo-shi-wo-wei-shi-me-shuo-mei-shi-bu-yao-sui-bian-yong-gong-han-mo-shi-chuang-jian-dui-xiang/"/>
+    <id>https://www.zhangquan.me/2023/11/07/she-ji-mo-shi-zhi-mei-gong-han-mo-shi-wo-wei-shi-me-shuo-mei-shi-bu-yao-sui-bian-yong-gong-han-mo-shi-chuang-jian-dui-xiang/</id>
+    <published>2023-11-07T09:20:36.000Z</published>
+    <updated>2023-12-29T09:26:17.722Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;一般情况下，工厂模式分为三种更加细分的类型：简单工厂、工厂方法和抽象工厂。不过，在 GoF</summary>
+        
+      
+    
+    
+    
+    <category term="设计模式之美" scheme="https://www.zhangquan.me/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E/"/>
+    
+    
+    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
+    
+    <category term="设计模式之美" scheme="https://www.zhangquan.me/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式之美-单例模式（下）：如何设计实现一个集群环境下的分布式单例模式？</title>
+    <link href="https://www.zhangquan.me/2023/11/05/she-ji-mo-shi-zhi-mei-dan-li-mo-shi-xia-ru-he-she-ji-shi-xian-yi-ge-ji-qun-huan-jing-xia-de-fen-bu-shi-dan-li-mo-shi/"/>
+    <id>https://www.zhangquan.me/2023/11/05/she-ji-mo-shi-zhi-mei-dan-li-mo-shi-xia-ru-he-she-ji-shi-xian-yi-ge-ji-qun-huan-jing-xia-de-fen-bu-shi-dan-li-mo-shi/</id>
+    <published>2023-11-05T09:20:26.000Z</published>
+    <updated>2023-12-29T09:24:46.595Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;上两节课中，我们针对单例模式，讲解了单例的应用场景、几种常见的代码实现和存在的问题，并粗略给出了替换单例模式的方法，比如工厂模式、IOC</summary>
+        
+      
+    
+    
+    
+    <category term="设计模式之美" scheme="https://www.zhangquan.me/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E/"/>
+    
+    
+    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
+    
+    <category term="设计模式之美" scheme="https://www.zhangquan.me/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式之美-单例模式（中）：我为什么不推荐使用单例模式？又有何替代方案？</title>
+    <link href="https://www.zhangquan.me/2023/11/01/she-ji-mo-shi-zhi-mei-dan-li-mo-shi-zhong-wo-wei-shi-me-bu-tui-jian-shi-yong-dan-li-mo-shi-you-you-he-ti-dai-fang-an/"/>
+    <id>https://www.zhangquan.me/2023/11/01/she-ji-mo-shi-zhi-mei-dan-li-mo-shi-zhong-wo-wei-shi-me-bu-tui-jian-shi-yong-dan-li-mo-shi-you-you-he-ti-dai-fang-an/</id>
+    <published>2023-11-01T09:20:17.000Z</published>
+    <updated>2023-12-29T09:23:58.848Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;尽管单例是一个很常用的设计模式，在实际的开发中，我们也确实经常用到它，但是，有些人认为单例是一种反模式（anti-pattern），并不推荐使用。所以，今天，我就针对这个说法详细地讲讲这几个问题：单例这种设计模式存在哪些问题？为什么会被称为反模式？如果不用单例，该如何表示全</summary>
+        
+      
+    
+    
+    
+    <category term="设计模式之美" scheme="https://www.zhangquan.me/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E/"/>
+    
+    
+    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
+    
+    <category term="设计模式之美" scheme="https://www.zhangquan.me/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式之美-单例模式（上）：为什么说支持懒加载的双重检测不比饿汉式更优？</title>
+    <link href="https://www.zhangquan.me/2023/10/24/she-ji-mo-shi-zhi-mei-dan-li-mo-shi-shang-wei-shi-me-shuo-zhi-chi-lan-jia-zai-de-shuang-chong-jian-ce-bu-bi-e-han-shi-geng-you/"/>
+    <id>https://www.zhangquan.me/2023/10/24/she-ji-mo-shi-zhi-mei-dan-li-mo-shi-shang-wei-shi-me-shuo-zhi-chi-lan-jia-zai-de-shuang-chong-jian-ce-bu-bi-e-han-shi-geng-you/</id>
+    <published>2023-10-24T09:20:08.000Z</published>
+    <updated>2023-12-29T09:23:19.722Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;我们知道，经典的设计模式有 23 种。其中，常用的并不是很多。据我的工作经验来看，常用的可能都不到一半。如果随便抓一个程序员，让他说一说最熟悉的 3</summary>
+        
+      
+    
+    
+    
+    <category term="设计模式之美" scheme="https://www.zhangquan.me/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E/"/>
+    
+    
+    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
+    
+    <category term="设计模式之美" scheme="https://www.zhangquan.me/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式之美-面向对象、设计原则、设计模式、编程规范、重构，这五者有何关系？</title>
+    <link href="https://www.zhangquan.me/2023/10/23/she-ji-mo-shi-zhi-mei-mian-xiang-dui-xiang-she-ji-yuan-ze-she-ji-mo-shi-bian-cheng-gui-fan-chong-gou-zhe-wu-zhe-you-he-guan-xi/"/>
+    <id>https://www.zhangquan.me/2023/10/23/she-ji-mo-shi-zhi-mei-mian-xiang-dui-xiang-she-ji-yuan-ze-she-ji-mo-shi-bian-cheng-gui-fan-chong-gou-zhe-wu-zhe-you-he-guan-xi/</id>
+    <published>2023-10-23T10:45:51.000Z</published>
+    <updated>2023-12-29T09:28:09.928Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在上一节课中，我们讲到，要具备编写高质量代码的能力，你需要学习一些编程方法论，其中就包含面向对象（我们可以把它看成一种设计思想）、设计原则、设计模式、编程规范、 重构技巧等。而我们整个专栏的内容也是围绕着这几块展开讲解的。所以，今天我就先来简</summary>
+        
+      
+    
+    
+    
+    <category term="设计模式之美" scheme="https://www.zhangquan.me/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E/"/>
+    
+    
+    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
+    
+    <category term="设计模式之美" scheme="https://www.zhangquan.me/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式之美-如何评价代码质量的高低？</title>
+    <link href="https://www.zhangquan.me/2023/10/22/she-ji-mo-shi-zhi-mei-ru-he-ping-jie-dai-ma-zhi-liang-de-gao-di/"/>
+    <id>https://www.zhangquan.me/2023/10/22/she-ji-mo-shi-zhi-mei-ru-he-ping-jie-dai-ma-zhi-liang-de-gao-di/</id>
+    <published>2023-10-22T10:07:00.000Z</published>
+    <updated>2023-12-29T09:22:06.749Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在我的工作经历中，每当同事评论起项目代码质量的时候，听到的最多的评语就是：“代码 写得很烂”或者“代码写得很好”。用“好”“烂”这样的字眼来描述，非常地笼统。当我具体问到底如何烂、如何好的时候，尽管大部分同事都能简单地罗列上几个点，但往往都不</summary>
+        
+      
+    
+    
+    
+    <category term="设计模式之美" scheme="https://www.zhangquan.me/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E/"/>
+    
+    
+    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
+    
+    <category term="设计模式之美" scheme="https://www.zhangquan.me/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E/"/>
+    
+  </entry>
   
   <entry>
     <title>如何将一个已存在的目录转换为一个 Git 项目并托管到 GitHub 仓库</title>
@@ -324,224 +540,6 @@
         
     <summary type="html">&lt;p&gt;我们知道，“多个线程同时读写同一共享变量存在并发问题”，这里的必要条件之一是读写，如果只有读，而没有写，是没有并发问题的。&lt;/p&gt;
 &lt;p&gt;解决并发问题，其实最简单的办法就是让共享变量只有读操作，而没有写操作。这个办法如此重要，以至于被上升到了一种解决并发问题的设计模式：&lt;s</summary>
-        
-      
-    
-    
-    
-    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-    
-    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
-    
-    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java并发编程— Fork/Join：单机版的MapReduce</title>
-    <link href="https://www.zhangquan.me/2023/07/12/java-bing-fa-bian-cheng-fork-join-dan-ji-ban-de-mapreduce/"/>
-    <id>https://www.zhangquan.me/2023/07/12/java-bing-fa-bian-cheng-fork-join-dan-ji-ban-de-mapreduce/</id>
-    <published>2023-07-12T10:48:30.000Z</published>
-    <updated>2023-07-12T11:49:43.987Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;前面我们介绍了线程池、Future、CompletableFuture 和</summary>
-        
-      
-    
-    
-    
-    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-    
-    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
-    
-    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java并发编程—CompletionService：如何批量执行异步任务？</title>
-    <link href="https://www.zhangquan.me/2023/07/10/java-bing-fa-bian-cheng-completionservice-ru-he-pi-liang-zhi-xing-yi-bu-ren-wu/"/>
-    <id>https://www.zhangquan.me/2023/07/10/java-bing-fa-bian-cheng-completionservice-ru-he-pi-liang-zhi-xing-yi-bu-ren-wu/</id>
-    <published>2023-07-10T03:06:36.000Z</published>
-    <updated>2023-07-10T03:08:25.943Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;在 &lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-    
-    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
-    
-    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java并发编程—CompletableFuture：异步编程没那么难</title>
-    <link href="https://www.zhangquan.me/2023/07/07/java-bing-fa-bian-cheng-completablefuture-yi-bu-bian-cheng-mei-na-me-nan/"/>
-    <id>https://www.zhangquan.me/2023/07/07/java-bing-fa-bian-cheng-completablefuture-yi-bu-bian-cheng-mei-na-me-nan/</id>
-    <published>2023-07-07T03:23:03.000Z</published>
-    <updated>2023-07-07T03:24:53.011Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;前面我们不止一次提到，用多线程优化性能，其实不过就是将串行操作变成并行操作。如果仔细观察，你还会发现在串行转换成并行的过程中，一定会涉及到异步化，例如下面的示例代码，现在是串行的，为了提升性能，我们得把它们并行化，那具体实施起来该怎么做呢？&lt;/p&gt;
-&lt;pre</summary>
-        
-      
-    
-    
-    
-    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-    
-    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
-    
-    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java并发编程—Future：如何用多线程实现最优的“烧水泡茶”程序？</title>
-    <link href="https://www.zhangquan.me/2023/07/05/java-bing-fa-bian-cheng-future-ru-he-yong-duo-xian-cheng-shi-xian-zui-you-de-shao-shui-pao-cha-cheng-xu/"/>
-    <id>https://www.zhangquan.me/2023/07/05/java-bing-fa-bian-cheng-future-ru-he-yong-duo-xian-cheng-shi-xian-zui-you-de-shao-shui-pao-cha-cheng-xu/</id>
-    <published>2023-07-05T02:18:29.000Z</published>
-    <updated>2023-07-10T02:12:18.005Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;在 &lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-    
-    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
-    
-    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java并发编程—Executor与线程池：如何创建正确的线程池？</title>
-    <link href="https://www.zhangquan.me/2023/07/04/java-bing-fa-bian-cheng-executor-yu-xian-cheng-chi-ru-he-chuang-jian-zheng-que-de-xian-cheng-chi/"/>
-    <id>https://www.zhangquan.me/2023/07/04/java-bing-fa-bian-cheng-executor-yu-xian-cheng-chi-ru-he-chuang-jian-zheng-que-de-xian-cheng-chi/</id>
-    <published>2023-07-04T01:42:52.000Z</published>
-    <updated>2023-07-04T08:52:44.367Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;虽然在 Java 语言中创建线程看上去就像创建一个对象一样简单，只需要 new Thread() 就可以了，但实际上创建线程远不是创建一个对象那么简单。创建对象，仅仅是在 JVM 的堆里分配一块内存而已；而创建一个线程，却需要调用操作系统内核的</summary>
-        
-      
-    
-    
-    
-    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-    
-    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
-    
-    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java并发编程—原子类：无锁工具类的典范</title>
-    <link href="https://www.zhangquan.me/2023/07/03/java-bing-fa-bian-cheng-yuan-zi-lei-wu-suo-gong-ju-lei-de-dian-fan/"/>
-    <id>https://www.zhangquan.me/2023/07/03/java-bing-fa-bian-cheng-yuan-zi-lei-wu-suo-gong-ju-lei-de-dian-fan/</id>
-    <published>2023-07-03T05:43:30.000Z</published>
-    <updated>2023-07-04T01:39:21.392Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;前面我们多次提到一个累加器的例子，示例代码如下。在这个例子中，add10K() 这个方法不是线程安全的，问题就出在变量 count 的可见性和 count+=1 的原子性上。可见性问题可以用 volatile</summary>
-        
-      
-    
-    
-    
-    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-    
-    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
-    
-    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java并发编程—并发容器：都有哪些“坑”需要我们填？</title>
-    <link href="https://www.zhangquan.me/2023/07/03/java-bing-fa-bian-cheng-bing-fa-rong-qi-du-you-na-xie-keng-xu-yao-wo-men-tian/"/>
-    <id>https://www.zhangquan.me/2023/07/03/java-bing-fa-bian-cheng-bing-fa-rong-qi-du-you-na-xie-keng-xu-yao-wo-men-tian/</id>
-    <published>2023-07-03T05:32:46.000Z</published>
-    <updated>2023-07-03T05:39:08.865Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;Java 并发包有很大一部分内容都是关于&lt;strong&gt;并发容器&lt;/strong&gt;的，因此学习和搞懂这部分的内容很有必要。&lt;/p&gt;
-&lt;p&gt;Java 1.5 之前提供的&lt;strong&gt;同步容器&lt;/strong&gt;虽然也能保证线程安全，但是性能很差，而 Java 1.5</summary>
-        
-      
-    
-    
-    
-    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-    
-    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
-    
-    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java并发编程—CountDownLatch和CyclicBarrier：如何让多线程步调一致？</title>
-    <link href="https://www.zhangquan.me/2023/06/30/java-bing-fa-bian-cheng-countdownlatch-he-cyclicbarrier-ru-he-rang-duo-xian-cheng-bu-diao-yi-zhi/"/>
-    <id>https://www.zhangquan.me/2023/06/30/java-bing-fa-bian-cheng-countdownlatch-he-cyclicbarrier-ru-he-rang-duo-xian-cheng-bu-diao-yi-zhi/</id>
-    <published>2023-06-30T07:25:09.000Z</published>
-    <updated>2023-07-04T09:10:00.030Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;前几天老板突然匆匆忙忙过来，说对账系统最近越来越慢了，能不能快速优化一下。我了解了对账系统的业务后，发现还是挺简单的，用户通过在线商城下单，会生成电子订单，保存在订单库；之后物流会生成派送单给用户发货，派送单保存在派送单库。为了防止漏派送或者重复派送，对账系统每天还会校验是</summary>
         
       
     
