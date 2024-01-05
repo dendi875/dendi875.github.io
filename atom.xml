@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2023-12-29T09:27:47.879Z</updated>
+  <updated>2024-01-05T04:03:21.639Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,62 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>设计模式之美-桥接模式：如何实现支持不同类型和渠道的消息推送系统？</title>
+    <link href="https://www.zhangquan.me/2023/11/21/she-ji-mo-shi-zhi-mei-qiao-jie-mo-shi-ru-he-shi-xian-zhi-chi-bu-tong-lei-xing-he-qu-dao-de-xiao-xi-tui-song-xi-tong/"/>
+    <id>https://www.zhangquan.me/2023/11/21/she-ji-mo-shi-zhi-mei-qiao-jie-mo-shi-ru-he-shi-xian-zhi-chi-bu-tong-lei-xing-he-qu-dao-de-xiao-xi-tui-song-xi-tong/</id>
+    <published>2023-11-21T05:01:10.000Z</published>
+    <updated>2024-01-05T04:03:21.639Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;桥接模式的代码实现非常简单，但是理解起来稍微有点难度，并且应用场景也比较局限，所以，相当于代理模式来说，桥接模式在实际的项目中并没有那么常用，你只需要简单了解，见到能认识就可以，并不是我们学习的重点。&lt;/p&gt;
+&lt;h2 id=&quot;桥接模式的原理解析&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="设计模式之美" scheme="https://www.zhangquan.me/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E/"/>
+    
+    
+    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
+    
+    <category term="设计模式之美" scheme="https://www.zhangquan.me/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式之美-代理模式：代理在RPC、缓存、监控等场景中的应用</title>
+    <link href="https://www.zhangquan.me/2023/11/21/she-ji-mo-shi-zhi-mei-dai-li-mo-shi-dai-li-zai-rpc-huan-cun-jian-kong-deng-chang-jing-zhong-de-ying-yong/"/>
+    <id>https://www.zhangquan.me/2023/11/21/she-ji-mo-shi-zhi-mei-dai-li-mo-shi-dai-li-zai-rpc-huan-cun-jian-kong-deng-chang-jing-zhong-de-ying-yong/</id>
+    <published>2023-11-21T04:01:10.000Z</published>
+    <updated>2024-01-05T04:03:26.098Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;创建型模式主要解决对象的创建问题，封装复杂的创建过程，解耦对象的创建代码和使用代码。&lt;/p&gt;
+&lt;p&gt;其中，单例模式用来创建全局唯一的对象。工厂模式用来创建不同但是相关类型的对象（继承同一父类或者接口的一组子类），由给定的参数来决定创建哪种类型的对象。建造者模式是用来创建复杂</summary>
+        
+      
+    
+    
+    
+    <category term="设计模式之美" scheme="https://www.zhangquan.me/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E/"/>
+    
+    
+    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
+    
+    <category term="设计模式之美" scheme="https://www.zhangquan.me/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E/"/>
+    
+  </entry>
   
   <entry>
     <title>设计模式之美-原型模式：如何最快速地clone一个HashMap散列表？</title>
@@ -485,61 +541,6 @@
         
         
     <summary type="html">&lt;p&gt;我们曾经一遍一遍又一遍地重复，多个线程同时读写同一共享变量存在并发问题。&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-    
-    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
-    
-    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java并发编程—Copy-on-Write模式：不是延时策略的COW</title>
-    <link href="https://www.zhangquan.me/2023/07/24/java-bing-fa-bian-cheng-copy-on-write-mo-shi-bu-shi-yan-shi-ce-lue-de-cow/"/>
-    <id>https://www.zhangquan.me/2023/07/24/java-bing-fa-bian-cheng-copy-on-write-mo-shi-bu-shi-yan-shi-ce-lue-de-cow/</id>
-    <published>2023-07-24T12:38:38.000Z</published>
-    <updated>2023-08-23T06:10:45.656Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;在&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-    
-    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
-    
-    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java并发编程—Immutability模式：如何利用不变性解决并发问题？</title>
-    <link href="https://www.zhangquan.me/2023/07/18/java-bing-fa-bian-cheng-immutability-mo-shi-ru-he-li-yong-bu-bian-xing-jie-jue-bing-fa-wen-ti/"/>
-    <id>https://www.zhangquan.me/2023/07/18/java-bing-fa-bian-cheng-immutability-mo-shi-ru-he-li-yong-bu-bian-xing-jie-jue-bing-fa-wen-ti/</id>
-    <published>2023-07-18T07:51:13.000Z</published>
-    <updated>2023-08-23T06:10:21.512Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;我们知道，“多个线程同时读写同一共享变量存在并发问题”，这里的必要条件之一是读写，如果只有读，而没有写，是没有并发问题的。&lt;/p&gt;
-&lt;p&gt;解决并发问题，其实最简单的办法就是让共享变量只有读操作，而没有写操作。这个办法如此重要，以至于被上升到了一种解决并发问题的设计模式：&lt;s</summary>
         
       
     
