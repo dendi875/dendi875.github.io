@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2024-01-05T04:03:21.639Z</updated>
+  <updated>2024-01-11T10:52:19.287Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,90 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Kafka-聊聊Kafka的版本号</title>
+    <link href="https://www.zhangquan.me/2024/01/11/kafka-liao-liao-kafka-de-ban-ben-hao/"/>
+    <id>https://www.zhangquan.me/2024/01/11/kafka-liao-liao-kafka-de-ban-ben-hao/</id>
+    <published>2024-01-11T10:51:55.000Z</published>
+    <updated>2024-01-11T10:52:19.287Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;今天要讨论的内容实在是太重要了，我觉得它甚至是你日后能否用好 Kafka 的关键。&lt;/p&gt;
+&lt;p&gt;上一期我介绍了目前流行的几种 Kafka 发行版，其实不论是哪种 Kafka，本质上都内嵌了最核心的 Apache Kafka，也就是社区版 Kafka，那今天我们就来说说</summary>
+        
+      
+    
+    
+    
+    <category term="Kafka" scheme="https://www.zhangquan.me/categories/Kafka/"/>
+    
+    
+    <category term="Kafka" scheme="https://www.zhangquan.me/tags/Kafka/"/>
+    
+    <category term="消息队" scheme="https://www.zhangquan.me/tags/%E6%B6%88%E6%81%AF%E9%98%9F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Kafka-我应该选择哪种Kafka？</title>
+    <link href="https://www.zhangquan.me/2024/01/11/kafka-wo-ying-gai-xuan-ze-na-chong-kafka/"/>
+    <id>https://www.zhangquan.me/2024/01/11/kafka-wo-ying-gai-xuan-ze-na-chong-kafka/</id>
+    <published>2024-01-11T10:51:04.000Z</published>
+    <updated>2024-01-11T10:51:35.097Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Kafka 不再是一个单纯的消息引擎系统，而是能够实现精确一次（Exactly-once）处理语义的实时流处理平台。&lt;/p&gt;
+&lt;p&gt;你可能听说过 Apache Storm、Apache Spark Streaming 亦或是 Apache</summary>
+        
+      
+    
+    
+    
+    <category term="Kafka" scheme="https://www.zhangquan.me/categories/Kafka/"/>
+    
+    
+    <category term="Kafka" scheme="https://www.zhangquan.me/tags/Kafka/"/>
+    
+    <category term="消息队" scheme="https://www.zhangquan.me/tags/%E6%B6%88%E6%81%AF%E9%98%9F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Kafka-一篇文章带你快速搞定Kafka术语</title>
+    <link href="https://www.zhangquan.me/2024/01/11/kafka-yi-pian-wen-zhang-dai-ni-kuai-su-gao-ding-kafka-zhu-yu/"/>
+    <id>https://www.zhangquan.me/2024/01/11/kafka-yi-pian-wen-zhang-dai-ni-kuai-su-gao-ding-kafka-zhu-yu/</id>
+    <published>2024-01-11T09:25:14.000Z</published>
+    <updated>2024-01-11T09:26:24.193Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在 Kafka 的世界中有很多概念和术语是需要你提前理解并熟练掌握的，这对于后面你深入学习 Kafka 各种功能和特性将大有裨益。下面我来盘点一下 Kafka 的各种术语。&lt;/p&gt;
+&lt;p&gt; Kafka</summary>
+        
+      
+    
+    
+    
+    <category term="Kafka" scheme="https://www.zhangquan.me/categories/Kafka/"/>
+    
+    
+    <category term="Kafka" scheme="https://www.zhangquan.me/tags/Kafka/"/>
+    
+    <category term="消息队" scheme="https://www.zhangquan.me/tags/%E6%B6%88%E6%81%AF%E9%98%9F/"/>
+    
+  </entry>
   
   <entry>
     <title>设计模式之美-桥接模式：如何实现支持不同类型和渠道的消息推送系统？</title>
@@ -289,6 +373,33 @@
   </entry>
   
   <entry>
+    <title>如何在 MacOS 上安装 Gradle？</title>
+    <link href="https://www.zhangquan.me/2023/09/26/ru-he-zai-macos-shang-an-zhuang-gradle/"/>
+    <id>https://www.zhangquan.me/2023/09/26/ru-he-zai-macos-shang-an-zhuang-gradle/</id>
+    <published>2023-09-26T10:52:40.000Z</published>
+    <updated>2024-01-11T10:55:59.589Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;如何在-MacOS-上安装-Gradle？&quot;&gt;&lt;a href=&quot;#如何在-MacOS-上安装-Gradle？&quot; class=&quot;headerlink&quot; title=&quot;如何在 MacOS 上安装 Gradle？&quot;&gt;&lt;/a&gt;如何在 MacOS 上安装</summary>
+        
+      
+    
+    
+    
+    <category term="Gradle" scheme="https://www.zhangquan.me/categories/Gradle/"/>
+    
+    
+    <category term="Gradle" scheme="https://www.zhangquan.me/tags/Gradle/"/>
+    
+    <category term="构建工具" scheme="https://www.zhangquan.me/tags/%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
+  
+  <entry>
     <title>如何将一个已存在的目录转换为一个 Git 项目并托管到 GitHub 仓库</title>
     <link href="https://www.zhangquan.me/2023/09/25/ru-he-jiang-yi-ge-yi-cun-zai-de-mu-lu-zhuan-huan-wei-yi-ge-git-xiang-mu-bing-tuo-guan-dao-github-cang-ku/"/>
     <id>https://www.zhangquan.me/2023/09/25/ru-he-jiang-yi-ge-yi-cun-zai-de-mu-lu-zhuan-huan-wei-yi-ge-git-xiang-mu-bing-tuo-guan-dao-github-cang-ku/</id>
@@ -433,114 +544,6 @@
         
         
     <summary type="html">&lt;p&gt;在&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-    
-    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
-    
-    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java并发编程—Thread-Per-Message模式：最简单实用的分工方法</title>
-    <link href="https://www.zhangquan.me/2023/08/03/java-bing-fa-bian-cheng-thread-per-message-mo-shi-zui-jian-dan-shi-yong-de-fen-gong-fang-fa/"/>
-    <id>https://www.zhangquan.me/2023/08/03/java-bing-fa-bian-cheng-thread-per-message-mo-shi-zui-jian-dan-shi-yong-de-fen-gong-fang-fa/</id>
-    <published>2023-08-03T10:07:13.000Z</published>
-    <updated>2023-08-23T06:07:21.734Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;我们曾经把并发编程领域的问题总结为三个核心问题：分工、同步和互斥。其中，同步和互斥相关问题更多地源自微观，而分工问题则是源自宏观。我们解决问题，往往都是从宏观入手，在编程领域，软件的设计过程也是先从概要设计开始，而后才进行详细设计。同样，&lt;strong&gt;解决并发编程问题，首</summary>
-        
-      
-    
-    
-    
-    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-    
-    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
-    
-    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java并发编程—Balking模式：再谈线程安全的单例模式</title>
-    <link href="https://www.zhangquan.me/2023/07/31/java-bing-fa-bian-cheng-balking-mo-shi-zai-tan-xian-cheng-an-quan-de-dan-li-mo-shi/"/>
-    <id>https://www.zhangquan.me/2023/07/31/java-bing-fa-bian-cheng-balking-mo-shi-zai-tan-xian-cheng-an-quan-de-dan-li-mo-shi/</id>
-    <published>2023-07-31T02:20:07.000Z</published>
-    <updated>2023-07-31T02:21:03.903Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;上&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-    
-    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
-    
-    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java并发编程—Guarded Suspension模式：等待唤醒机制的规范实现</title>
-    <link href="https://www.zhangquan.me/2023/07/30/java-bing-fa-bian-cheng-guarded-suspension-mo-shi-deng-dai-huan-xing-ji-zhi-de-gui-fan-shi-xian/"/>
-    <id>https://www.zhangquan.me/2023/07/30/java-bing-fa-bian-cheng-guarded-suspension-mo-shi-deng-dai-huan-xing-ji-zhi-de-gui-fan-shi-xian/</id>
-    <published>2023-07-30T11:55:33.000Z</published>
-    <updated>2023-07-31T02:20:43.833Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;前不久，同事小灰工作中遇到一个问题，他开发了一个 Web 项目：Web</summary>
-        
-      
-    
-    
-    
-    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-    
-    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
-    
-    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java并发编程—线程本地存储模式：没有共享，就没有伤害</title>
-    <link href="https://www.zhangquan.me/2023/07/26/java-bing-fa-bian-cheng-xian-cheng-ben-di-cun-chu-mo-shi-mei-you-gong-xiang-jiu-mei-you-shang-hai/"/>
-    <id>https://www.zhangquan.me/2023/07/26/java-bing-fa-bian-cheng-xian-cheng-ben-di-cun-chu-mo-shi-mei-you-gong-xiang-jiu-mei-you-shang-hai/</id>
-    <published>2023-07-26T03:12:54.000Z</published>
-    <updated>2023-08-23T06:11:20.867Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;我们曾经一遍一遍又一遍地重复，多个线程同时读写同一共享变量存在并发问题。&lt;a</summary>
         
       
     

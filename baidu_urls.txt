@@ -1,3 +1,6 @@
+https://www.zhangquan.me/2024/01/11/kafka-liao-liao-kafka-de-ban-ben-hao/
+https://www.zhangquan.me/2024/01/11/kafka-wo-ying-gai-xuan-ze-na-chong-kafka/
+https://www.zhangquan.me/2024/01/11/kafka-yi-pian-wen-zhang-dai-ni-kuai-su-gao-ding-kafka-zhu-yu/
 https://www.zhangquan.me/2023/11/21/she-ji-mo-shi-zhi-mei-qiao-jie-mo-shi-ru-he-shi-xian-zhi-chi-bu-tong-lei-xing-he-qu-dao-de-xiao-xi-tui-song-xi-tong/
 https://www.zhangquan.me/2023/11/21/she-ji-mo-shi-zhi-mei-dai-li-mo-shi-dai-li-zai-rpc-huan-cun-jian-kong-deng-chang-jing-zhong-de-ying-yong/
 https://www.zhangquan.me/2023/11/20/she-ji-mo-shi-zhi-mei-yuan-xing-mo-shi-ru-he-zui-kuai-su-di-clone-yi-ge-hashmap-san-lie-biao/
@@ -8,6 +11,7 @@ https://www.zhangquan.me/2023/11/01/she-ji-mo-shi-zhi-mei-dan-li-mo-shi-zhong-wo
 https://www.zhangquan.me/2023/10/24/she-ji-mo-shi-zhi-mei-dan-li-mo-shi-shang-wei-shi-me-shuo-zhi-chi-lan-jia-zai-de-shuang-chong-jian-ce-bu-bi-e-han-shi-geng-you/
 https://www.zhangquan.me/2023/10/23/she-ji-mo-shi-zhi-mei-mian-xiang-dui-xiang-she-ji-yuan-ze-she-ji-mo-shi-bian-cheng-gui-fan-chong-gou-zhe-wu-zhe-you-he-guan-xi/
 https://www.zhangquan.me/2023/10/22/she-ji-mo-shi-zhi-mei-ru-he-ping-jie-dai-ma-zhi-liang-de-gao-di/
+https://www.zhangquan.me/2023/09/26/ru-he-zai-macos-shang-an-zhuang-gradle/
 https://www.zhangquan.me/2023/09/25/ru-he-jiang-yi-ge-yi-cun-zai-de-mu-lu-zhuan-huan-wei-yi-ge-git-xiang-mu-bing-tuo-guan-dao-github-cang-ku/
 https://www.zhangquan.me/2023/09/25/python-zhong-de-zhuang-shi-qi/
 https://www.zhangquan.me/2023/09/13/python-li-can-shu-shi-ru-he-chuan-di-de/

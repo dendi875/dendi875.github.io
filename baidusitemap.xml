@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.zhangquan.me/2023/09/26/ru-he-zai-macos-shang-an-zhuang-gradle/</loc>
+    <lastmod>2024-01-11</lastmod>
+  </url>
+  <url>
+    <loc>https://www.zhangquan.me/2024/01/11/kafka-liao-liao-kafka-de-ban-ben-hao/</loc>
+    <lastmod>2024-01-11</lastmod>
+  </url>
+  <url>
+    <loc>https://www.zhangquan.me/2024/01/11/kafka-wo-ying-gai-xuan-ze-na-chong-kafka/</loc>
+    <lastmod>2024-01-11</lastmod>
+  </url>
+  <url>
+    <loc>https://www.zhangquan.me/2024/01/11/kafka-yi-pian-wen-zhang-dai-ni-kuai-su-gao-ding-kafka-zhu-yu/</loc>
+    <lastmod>2024-01-11</lastmod>
+  </url>
+  <url>
     <loc>https://www.zhangquan.me/2023/11/21/she-ji-mo-shi-zhi-mei-dai-li-mo-shi-dai-li-zai-rpc-huan-cun-jian-kong-deng-chang-jing-zhong-de-ying-yong/</loc>
     <lastmod>2024-01-05</lastmod>
   </url>
