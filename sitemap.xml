@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.zhangquan.me/2024/01/11/api-zhi-zheng-grpc-vs-rest/</loc>
+    
+    <lastmod>2024-02-26</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.zhangquan.me/2023/09/26/ru-he-zai-macos-shang-an-zhuang-redis/</loc>
     
     <lastmod>2024-02-26</lastmod>
@@ -1494,6 +1501,20 @@
     <priority>0.6</priority>
   </url>
   
+  <url>
+    <loc>https://www.zhangquan.me/tags/gRPC/</loc>
+    <lastmod>2024-02-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zhangquan.me/tags/REST/</loc>
+    <lastmod>2024-02-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
 
   
   <url>
@@ -1673,6 +1694,13 @@
   
   <url>
     <loc>https://www.zhangquan.me/categories/Gradle/</loc>
+    <lastmod>2024-02-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zhangquan.me/categories/%E5%90%8E%E7%AB%AF%E5%92%8C%E6%9E%B6%E6%9E%84/</loc>
     <lastmod>2024-02-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

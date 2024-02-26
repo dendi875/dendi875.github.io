@@ -101,6 +101,33 @@
   </entry>
   
   <entry>
+    <title>API 之争—gRPC VS REST</title>
+    <link href="https://www.zhangquan.me/2024/01/11/api-zhi-zheng-grpc-vs-rest/"/>
+    <id>https://www.zhangquan.me/2024/01/11/api-zhi-zheng-grpc-vs-rest/</id>
+    <published>2024-01-11T05:51:29.000Z</published>
+    <updated>2024-02-26T10:13:51.038Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在构建新的基于web 的服务时，首先出现的问题之一是，“我将如何与其交谈？”有很多选择需要考虑。这里我们将重点讨论 REST 和gRPC。REST 是一个架构/设计概念，而 gRPC 更多的是一个框架。然而，两者都是用于在 Web</summary>
+        
+      
+    
+    
+    
+    <category term="后端和架构" scheme="https://www.zhangquan.me/categories/%E5%90%8E%E7%AB%AF%E5%92%8C%E6%9E%B6%E6%9E%84/"/>
+    
+    
+    <category term="gRPC" scheme="https://www.zhangquan.me/tags/gRPC/"/>
+    
+    <category term="REST" scheme="https://www.zhangquan.me/tags/REST/"/>
+    
+  </entry>
+  
+  <entry>
     <title>设计模式之美-桥接模式：如何实现支持不同类型和渠道的消息推送系统？</title>
     <link href="https://www.zhangquan.me/2023/11/21/she-ji-mo-shi-zhi-mei-qiao-jie-mo-shi-ru-he-shi-xian-zhi-chi-bu-tong-lei-xing-he-qu-dao-de-xiao-xi-tui-song-xi-tong/"/>
     <id>https://www.zhangquan.me/2023/11/21/she-ji-mo-shi-zhi-mei-qiao-jie-mo-shi-ru-he-shi-xian-zhi-chi-bu-tong-lei-xing-he-qu-dao-de-xiao-xi-tui-song-xi-tong/</id>
@@ -508,33 +535,6 @@
     <id>https://www.zhangquan.me/2023/08/15/java-bing-fa-bian-cheng-sheng-chan-zhe-xiao-fei-zhe-mo-shi-yong-liu-shui-xian-si-xiang-ti-gao-xiao-lu/</id>
     <published>2023-08-15T13:18:13.000Z</published>
     <updated>2023-08-15T13:19:01.649Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;在&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="Java并发编程" scheme="https://www.zhangquan.me/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-    
-    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
-    
-    <category term="并发编程" scheme="https://www.zhangquan.me/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java并发编程—两阶段终止模式：如何优雅地终止线程？</title>
-    <link href="https://www.zhangquan.me/2023/08/11/java-bing-fa-bian-cheng-liang-jie-duan-zhong-zhi-mo-shi-ru-he-you-ya-di-zhong-zhi-xian-cheng/"/>
-    <id>https://www.zhangquan.me/2023/08/11/java-bing-fa-bian-cheng-liang-jie-duan-zhong-zhi-mo-shi-ru-he-you-ya-di-zhong-zhi-xian-cheng/</id>
-    <published>2023-08-11T12:53:28.000Z</published>
-    <updated>2023-08-14T01:29:17.807Z</updated>
     
     
       
