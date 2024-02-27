@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.zhangquan.me/2024/01/11/api-zhi-zheng-grpc-vs-rest/</loc>
-    <lastmod>2024-02-26</lastmod>
+    <loc>https://www.zhangquan.me/2024/02/27/ben-di-kai-fa-huan-jing-da-jian-nacos-ji-qun/</loc>
+    <lastmod>2024-02-27</lastmod>
+  </url>
+  <url>
+    <loc>https://www.zhangquan.me/2024/02/27/ru-he-zai-macos-11-big-sur-shang-an-zhuang-mysql/</loc>
+    <lastmod>2024-02-27</lastmod>
   </url>
   <url>
     <loc>https://www.zhangquan.me/2023/09/26/ru-he-zai-macos-shang-an-zhuang-redis/</loc>
+    <lastmod>2024-02-27</lastmod>
+  </url>
+  <url>
+    <loc>https://www.zhangquan.me/2024/01/11/api-zhi-zheng-grpc-vs-rest/</loc>
     <lastmod>2024-02-26</lastmod>
   </url>
   <url>
