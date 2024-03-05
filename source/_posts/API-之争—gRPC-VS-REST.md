@@ -8,8 +8,9 @@ mathjax: false
 date: 2024-01-11 13:51:29
 password:
 summary: API 之争—gRPC VS REST
-tags: - gRPC
-      - REST
+tags: 
+  - gRPC
+  - REST
 categories: 后端和架构
 ---
 

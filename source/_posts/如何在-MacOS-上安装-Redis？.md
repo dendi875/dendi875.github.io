@@ -12,7 +12,6 @@ tags:
   - Redi
 categories: 数据库
 ---
-# 如何在 MacOS 上安装 Redis？
 
 ## 概述
 
