@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2024-03-14T10:01:01.439Z</updated>
+  <updated>2024-03-14T15:04:52.987Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://www.zhangquan.me/2024/03/14/npm-yarn-ru-he-cha-kan-yuan-he-qie-huan-yuan/"/>
     <id>https://www.zhangquan.me/2024/03/14/npm-yarn-ru-he-cha-kan-yuan-he-qie-huan-yuan/</id>
     <published>2024-03-14T09:59:49.000Z</published>
-    <updated>2024-03-14T10:01:01.439Z</updated>
+    <updated>2024-03-14T15:04:52.987Z</updated>
     
     
       
@@ -38,19 +38,6 @@
     
     
     <category term="前端" scheme="https://www.zhangquan.me/tags/%E5%89%8D%E7%AB%AF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>source/_posts/Spring-Boot-外部化配置-上篇.md</title>
-    <link href="https://www.zhangquan.me/2024/03/14/source-posts-spring-boot-wai-bu-hua-pei-zhi-shang-pian-md/"/>
-    <id>https://www.zhangquan.me/2024/03/14/source-posts-spring-boot-wai-bu-hua-pei-zhi-shang-pian-md/</id>
-    <published>2024-03-14T09:59:31.000Z</published>
-    <updated>2024-03-14T09:59:31.848Z</updated>
-    
-    
-    
-    
     
   </entry>
   
@@ -541,6 +528,33 @@
     <category term="Gradle" scheme="https://www.zhangquan.me/tags/Gradle/"/>
     
     <category term="构建工具" scheme="https://www.zhangquan.me/tags/%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>如何将一个已存在的目录转换为一个 Git 项目并托管到 GitHub 仓库</title>
+    <link href="https://www.zhangquan.me/2023/09/25/ru-he-jiang-yi-ge-yi-cun-zai-de-mu-lu-zhuan-huan-wei-yi-ge-git-xiang-mu-bing-tuo-guan-dao-github-cang-ku/"/>
+    <id>https://www.zhangquan.me/2023/09/25/ru-he-jiang-yi-ge-yi-cun-zai-de-mu-lu-zhuan-huan-wei-yi-ge-git-xiang-mu-bing-tuo-guan-dao-github-cang-ku/</id>
+    <published>2023-09-25T02:59:48.000Z</published>
+    <updated>2023-09-30T08:19:36.146Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;一、-打开命令行终端，进入项目所在的本地目录，将目录初始化为一个-Git-项目&quot;&gt;&lt;a href=&quot;#一、-打开命令行终端，进入项目所在的本地目录，将目录初始化为一个-Git-项目&quot; class=&quot;headerlink&quot; title=&quot;一、</summary>
+        
+      
+    
+    
+    
+    <category term="Git" scheme="https://www.zhangquan.me/categories/Git/"/>
+    
+    
+    <category term="Git" scheme="https://www.zhangquan.me/tags/Git/"/>
+    
+    <category term="工具" scheme="https://www.zhangquan.me/tags/%E5%B7%A5%E5%85%B7/"/>
     
   </entry>
   
