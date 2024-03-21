@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2024-03-14T15:04:52.987Z</updated>
+  <updated>2024-03-21T10:16:16.304Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,81 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Netty 如何搞定 TCP 粘包、半包问题</title>
+    <link href="https://www.zhangquan.me/2024/03/21/netty-ru-he-gao-ding-tcp-nian-bao-ban-bao-wen-ti/"/>
+    <id>https://www.zhangquan.me/2024/03/21/netty-ru-he-gao-ding-tcp-nian-bao-ban-bao-wen-ti/</id>
+    <published>2024-03-21T10:12:36.000Z</published>
+    <updated>2024-03-21T10:16:16.304Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;什么是粘包和半包？&quot;&gt;&lt;a href=&quot;#什么是粘包和半包？&quot; class=&quot;headerlink&quot; title=&quot;什么是粘包和半包？&quot;&gt;&lt;/a&gt;什么是粘包和半包？&lt;/h2&gt;&lt;p&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    <category term="Netty" scheme="https://www.zhangquan.me/categories/Netty/"/>
+    
+    
+    <category term="Netty" scheme="https://www.zhangquan.me/tags/Netty/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Netty 如何支持三种 Reactor</title>
+    <link href="https://www.zhangquan.me/2024/03/21/netty-ru-he-zhi-chi-san-chong-reactor/"/>
+    <id>https://www.zhangquan.me/2024/03/21/netty-ru-he-zhi-chi-san-chong-reactor/</id>
+    <published>2024-03-21T08:59:55.000Z</published>
+    <updated>2024-03-21T10:15:52.971Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;什么是-Reactor-及三种版本&quot;&gt;&lt;a href=&quot;#什么是-Reactor-及三种版本&quot; class=&quot;headerlink&quot; title=&quot;什么是 Reactor 及三种版本&quot;&gt;&lt;/a&gt;什么是 Reactor 及三种版本&lt;/h2&gt;&lt;p&gt;在 Netty 中</summary>
+        
+      
+    
+    
+    
+    <category term="Netty" scheme="https://www.zhangquan.me/categories/Netty/"/>
+    
+    
+    <category term="Netty" scheme="https://www.zhangquan.me/tags/Netty/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Netty 怎么切换三种 I/O 模式</title>
+    <link href="https://www.zhangquan.me/2024/03/21/netty-zen-me-qie-huan-san-chong-io-mo-shi/"/>
+    <id>https://www.zhangquan.me/2024/03/21/netty-zen-me-qie-huan-san-chong-io-mo-shi/</id>
+    <published>2024-03-21T06:49:00.000Z</published>
+    <updated>2024-03-21T10:15:30.357Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;什么是经典的三种-I-O-模式&quot;&gt;&lt;a href=&quot;#什么是经典的三种-I-O-模式&quot; class=&quot;headerlink&quot; title=&quot;什么是经典的三种 I/O 模式&quot;&gt;&lt;/a&gt;什么是经典的三种 I/O</summary>
+        
+      
+    
+    
+    
+    <category term="Netty" scheme="https://www.zhangquan.me/categories/Netty/"/>
+    
+    
+    <category term="Netty" scheme="https://www.zhangquan.me/tags/Netty/"/>
+    
+  </entry>
   
   <entry>
     <title>npm yarn如何查看源和切换源</title>
@@ -476,85 +551,6 @@
     <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
     
     <category term="设计模式之美" scheme="https://www.zhangquan.me/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>如何在 MacOS 上安装 Redis？</title>
-    <link href="https://www.zhangquan.me/2023/09/26/ru-he-zai-macos-shang-an-zhuang-redis/"/>
-    <id>https://www.zhangquan.me/2023/09/26/ru-he-zai-macos-shang-an-zhuang-redis/</id>
-    <published>2023-09-26T14:52:40.000Z</published>
-    <updated>2024-02-27T03:56:02.501Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h2&gt;&lt;p&gt;本文介绍了在 macOS 上安装键值类型数据库“Redis”的步骤。安装时，请使用 Homebrew，这对于在 macOS</summary>
-        
-      
-    
-    
-    
-    <category term="数据库" scheme="https://www.zhangquan.me/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-    
-    <category term="Redi" scheme="https://www.zhangquan.me/tags/Redi/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>如何在 MacOS 上安装 Gradle？</title>
-    <link href="https://www.zhangquan.me/2023/09/26/ru-he-zai-macos-shang-an-zhuang-gradle/"/>
-    <id>https://www.zhangquan.me/2023/09/26/ru-he-zai-macos-shang-an-zhuang-gradle/</id>
-    <published>2023-09-26T10:52:40.000Z</published>
-    <updated>2024-01-11T10:55:59.589Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;如何在-MacOS-上安装-Gradle？&quot;&gt;&lt;a href=&quot;#如何在-MacOS-上安装-Gradle？&quot; class=&quot;headerlink&quot; title=&quot;如何在 MacOS 上安装 Gradle？&quot;&gt;&lt;/a&gt;如何在 MacOS 上安装</summary>
-        
-      
-    
-    
-    
-    <category term="Gradle" scheme="https://www.zhangquan.me/categories/Gradle/"/>
-    
-    
-    <category term="Gradle" scheme="https://www.zhangquan.me/tags/Gradle/"/>
-    
-    <category term="构建工具" scheme="https://www.zhangquan.me/tags/%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>如何将一个已存在的目录转换为一个 Git 项目并托管到 GitHub 仓库</title>
-    <link href="https://www.zhangquan.me/2023/09/25/ru-he-jiang-yi-ge-yi-cun-zai-de-mu-lu-zhuan-huan-wei-yi-ge-git-xiang-mu-bing-tuo-guan-dao-github-cang-ku/"/>
-    <id>https://www.zhangquan.me/2023/09/25/ru-he-jiang-yi-ge-yi-cun-zai-de-mu-lu-zhuan-huan-wei-yi-ge-git-xiang-mu-bing-tuo-guan-dao-github-cang-ku/</id>
-    <published>2023-09-25T02:59:48.000Z</published>
-    <updated>2023-09-30T08:19:36.146Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;一、-打开命令行终端，进入项目所在的本地目录，将目录初始化为一个-Git-项目&quot;&gt;&lt;a href=&quot;#一、-打开命令行终端，进入项目所在的本地目录，将目录初始化为一个-Git-项目&quot; class=&quot;headerlink&quot; title=&quot;一、</summary>
-        
-      
-    
-    
-    
-    <category term="Git" scheme="https://www.zhangquan.me/categories/Git/"/>
-    
-    
-    <category term="Git" scheme="https://www.zhangquan.me/tags/Git/"/>
-    
-    <category term="工具" scheme="https://www.zhangquan.me/tags/%E5%B7%A5%E5%85%B7/"/>
     
   </entry>
   
