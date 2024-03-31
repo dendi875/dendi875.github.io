@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2024-03-31T08:37:58.860Z</updated>
+  <updated>2024-03-31T08:45:52.626Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -17,18 +17,18 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Netty 之什么是 Reactor 及三种版本</title>
-    <link href="https://www.zhangquan.me/2024/03/21/netty-ru-he-zhi-chi-san-chong-reactor/"/>
-    <id>https://www.zhangquan.me/2024/03/21/netty-ru-he-zhi-chi-san-chong-reactor/</id>
-    <published>2024-03-21T10:59:55.000Z</published>
-    <updated>2024-03-31T08:37:58.860Z</updated>
+    <title>Netty 如何搞定 TCP 粘包、半包问题</title>
+    <link href="https://www.zhangquan.me/2024/04/21/netty-ru-he-gao-ding-tcp-nian-bao-ban-bao-wen-ti/"/>
+    <id>https://www.zhangquan.me/2024/04/21/netty-ru-he-gao-ding-tcp-nian-bao-ban-bao-wen-ti/</id>
+    <published>2024-04-21T10:12:36.000Z</published>
+    <updated>2024-03-31T08:45:52.626Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;Netty-如何支持三种-Reactor&quot;&gt;&lt;a href=&quot;#Netty-如何支持三种-Reactor&quot; class=&quot;headerlink&quot;</summary>
+    <summary type="html">&lt;h2 id=&quot;什么是粘包和半包？&quot;&gt;&lt;a href=&quot;#什么是粘包和半包？&quot; class=&quot;headerlink&quot; title=&quot;什么是粘包和半包？&quot;&gt;&lt;/a&gt;什么是粘包和半包？&lt;/h2&gt;&lt;p&gt;&lt;img</summary>
         
       
     
@@ -42,18 +42,18 @@
   </entry>
   
   <entry>
-    <title>Netty 如何搞定 TCP 粘包、半包问题</title>
-    <link href="https://www.zhangquan.me/2024/03/21/netty-ru-he-gao-ding-tcp-nian-bao-ban-bao-wen-ti/"/>
-    <id>https://www.zhangquan.me/2024/03/21/netty-ru-he-gao-ding-tcp-nian-bao-ban-bao-wen-ti/</id>
-    <published>2024-03-21T10:12:36.000Z</published>
-    <updated>2024-03-21T10:16:16.304Z</updated>
+    <title>Netty-如何支持三种-Reactor</title>
+    <link href="https://www.zhangquan.me/2024/03/21/netty-ru-he-zhi-chi-san-chong-reactor/"/>
+    <id>https://www.zhangquan.me/2024/03/21/netty-ru-he-zhi-chi-san-chong-reactor/</id>
+    <published>2024-03-21T10:59:55.000Z</published>
+    <updated>2024-03-31T08:45:35.517Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h2 id=&quot;什么是粘包和半包？&quot;&gt;&lt;a href=&quot;#什么是粘包和半包？&quot; class=&quot;headerlink&quot; title=&quot;什么是粘包和半包？&quot;&gt;&lt;/a&gt;什么是粘包和半包？&lt;/h2&gt;&lt;p&gt;&lt;img</summary>
+    <summary type="html">&lt;h1 id=&quot;Netty-如何支持三种-Reactor&quot;&gt;&lt;a href=&quot;#Netty-如何支持三种-Reactor&quot; class=&quot;headerlink&quot;</summary>
         
       
     
