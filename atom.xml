@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2024-07-03T08:52:32.657Z</updated>
+  <updated>2024-07-04T03:56:18.451Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Kafka-最最最重要的集群参数配置（上）</title>
+    <link href="https://www.zhangquan.me/2024/07/04/kafka-zui-zui-zui-chong-yao-de-ji-qun-can-shu-pei-zhi-shang/"/>
+    <id>https://www.zhangquan.me/2024/07/04/kafka-zui-zui-zui-chong-yao-de-ji-qun-can-shu-pei-zhi-shang/</id>
+    <published>2024-07-04T03:47:37.000Z</published>
+    <updated>2024-07-04T03:56:18.451Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;今天我想和你聊聊最最最重要的 Kafka 集群配置。我这里用了 3</summary>
+        
+      
+    
+    
+    
+    <category term="Kafka" scheme="https://www.zhangquan.me/categories/Kafka/"/>
+    
+    
+    <category term="Kafka" scheme="https://www.zhangquan.me/tags/Kafka/"/>
+    
+    <category term="消息队" scheme="https://www.zhangquan.me/tags/%E6%B6%88%E6%81%AF%E9%98%9F/"/>
+    
+  </entry>
   
   <entry>
     <title>如何在 Mac OS 上运行 Eclipse MAT（内存分析器工具）</title>
@@ -510,33 +537,6 @@
         
         
     <summary type="html">&lt;p&gt;上两节课中，我们针对单例模式，讲解了单例的应用场景、几种常见的代码实现和存在的问题，并粗略给出了替换单例模式的方法，比如工厂模式、IOC</summary>
-        
-      
-    
-    
-    
-    <category term="设计模式之美" scheme="https://www.zhangquan.me/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E/"/>
-    
-    
-    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
-    
-    <category term="设计模式之美" scheme="https://www.zhangquan.me/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>设计模式之美-单例模式（中）：我为什么不推荐使用单例模式？又有何替代方案？</title>
-    <link href="https://www.zhangquan.me/2023/11/01/she-ji-mo-shi-zhi-mei-dan-li-mo-shi-zhong-wo-wei-shi-me-bu-tui-jian-shi-yong-dan-li-mo-shi-you-you-he-ti-dai-fang-an/"/>
-    <id>https://www.zhangquan.me/2023/11/01/she-ji-mo-shi-zhi-mei-dan-li-mo-shi-zhong-wo-wei-shi-me-bu-tui-jian-shi-yong-dan-li-mo-shi-you-you-he-ti-dai-fang-an/</id>
-    <published>2023-11-01T09:20:17.000Z</published>
-    <updated>2023-12-29T09:23:58.848Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;尽管单例是一个很常用的设计模式，在实际的开发中，我们也确实经常用到它，但是，有些人认为单例是一种反模式（anti-pattern），并不推荐使用。所以，今天，我就针对这个说法详细地讲讲这几个问题：单例这种设计模式存在哪些问题？为什么会被称为反模式？如果不用单例，该如何表示全</summary>
         
       
     
