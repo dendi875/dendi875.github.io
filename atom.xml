@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2024-07-04T03:56:18.451Z</updated>
+  <updated>2024-07-04T12:04:37.332Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,61 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Kafka-Kafka线上集群部署方案怎么做？</title>
+    <link href="https://www.zhangquan.me/2024/07/04/kafka-kafka-xian-shang-ji-qun-bu-shu-fang-an-zen-me-zuo/"/>
+    <id>https://www.zhangquan.me/2024/07/04/kafka-kafka-xian-shang-ji-qun-bu-shu-fang-an-zen-me-zuo/</id>
+    <published>2024-07-04T12:04:06.000Z</published>
+    <updated>2024-07-04T12:04:37.332Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;现在我们就来看看在生产环境中的 Kafka 集群方案该怎么做。既然是集群，那必然就要有多个 Kafka 节点机器，因为只有单台机器构成的 Kafka</summary>
+        
+      
+    
+    
+    
+    <category term="Kafka" scheme="https://www.zhangquan.me/categories/Kafka/"/>
+    
+    
+    <category term="Kafka" scheme="https://www.zhangquan.me/tags/Kafka/"/>
+    
+    <category term="消息队" scheme="https://www.zhangquan.me/tags/%E6%B6%88%E6%81%AF%E9%98%9F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Kafka-最最最重要的集群参数配置（下）</title>
+    <link href="https://www.zhangquan.me/2024/07/04/kafka-zui-zui-zui-chong-yao-de-ji-qun-can-shu-pei-zhi-xia/"/>
+    <id>https://www.zhangquan.me/2024/07/04/kafka-zui-zui-zui-chong-yao-de-ji-qun-can-shu-pei-zhi-xia/</id>
+    <published>2024-07-04T12:02:52.000Z</published>
+    <updated>2024-07-04T12:03:43.959Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;今天我们继续来聊那些重要的 Kafka 集群配置，下半部分主要是 Topic 级别参数、JVM 参数以及操作系统参数的设置。&lt;/p&gt;
+&lt;p&gt;Kafka 支持为不同的 Topic 设置不同的参数值。当前最新的 2.2 版本总共提供了大约 25 个 Topic</summary>
+        
+      
+    
+    
+    
+    <category term="Kafka" scheme="https://www.zhangquan.me/categories/Kafka/"/>
+    
+    
+    <category term="Kafka" scheme="https://www.zhangquan.me/tags/Kafka/"/>
+    
+    <category term="消息队" scheme="https://www.zhangquan.me/tags/%E6%B6%88%E6%81%AF%E9%98%9F/"/>
+    
+  </entry>
   
   <entry>
     <title>Kafka-最最最重要的集群参数配置（上）</title>
@@ -483,60 +538,6 @@
         
         
     <summary type="html">&lt;p&gt;今天，我们再来学习另外一个比较常用的创建型设计模式，&lt;strong&gt;Builder</summary>
-        
-      
-    
-    
-    
-    <category term="设计模式之美" scheme="https://www.zhangquan.me/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E/"/>
-    
-    
-    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
-    
-    <category term="设计模式之美" scheme="https://www.zhangquan.me/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>设计模式之美-工厂模式：我为什么说没事不要随便用工厂模式创建对象？</title>
-    <link href="https://www.zhangquan.me/2023/11/07/she-ji-mo-shi-zhi-mei-gong-han-mo-shi-wo-wei-shi-me-shuo-mei-shi-bu-yao-sui-bian-yong-gong-han-mo-shi-chuang-jian-dui-xiang/"/>
-    <id>https://www.zhangquan.me/2023/11/07/she-ji-mo-shi-zhi-mei-gong-han-mo-shi-wo-wei-shi-me-shuo-mei-shi-bu-yao-sui-bian-yong-gong-han-mo-shi-chuang-jian-dui-xiang/</id>
-    <published>2023-11-07T09:20:36.000Z</published>
-    <updated>2023-12-29T09:26:17.722Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;一般情况下，工厂模式分为三种更加细分的类型：简单工厂、工厂方法和抽象工厂。不过，在 GoF</summary>
-        
-      
-    
-    
-    
-    <category term="设计模式之美" scheme="https://www.zhangquan.me/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E/"/>
-    
-    
-    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
-    
-    <category term="设计模式之美" scheme="https://www.zhangquan.me/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>设计模式之美-单例模式（下）：如何设计实现一个集群环境下的分布式单例模式？</title>
-    <link href="https://www.zhangquan.me/2023/11/05/she-ji-mo-shi-zhi-mei-dan-li-mo-shi-xia-ru-he-she-ji-shi-xian-yi-ge-ji-qun-huan-jing-xia-de-fen-bu-shi-dan-li-mo-shi/"/>
-    <id>https://www.zhangquan.me/2023/11/05/she-ji-mo-shi-zhi-mei-dan-li-mo-shi-xia-ru-he-she-ji-shi-xian-yi-ge-ji-qun-huan-jing-xia-de-fen-bu-shi-dan-li-mo-shi/</id>
-    <published>2023-11-05T09:20:26.000Z</published>
-    <updated>2023-12-29T09:24:46.595Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;上两节课中，我们针对单例模式，讲解了单例的应用场景、几种常见的代码实现和存在的问题，并粗略给出了替换单例模式的方法，比如工厂模式、IOC</summary>
         
       
     
