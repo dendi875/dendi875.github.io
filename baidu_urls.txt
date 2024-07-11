@@ -1,3 +1,4 @@
+https://www.zhangquan.me/2024/07/11/clickhouse-zhi-shi-yong-docker-she-zhi-ben-di-clickhouse-ji-qun/
 https://www.zhangquan.me/2024/07/09/hbase-ru-men-yu-shell-ji-ben-cao-zuo/
 https://www.zhangquan.me/2024/07/04/kafka-kafka-xian-shang-ji-qun-bu-shu-fang-an-zen-me-zuo/
 https://www.zhangquan.me/2024/07/04/kafka-zui-zui-zui-chong-yao-de-ji-qun-can-shu-pei-zhi-xia/
@@ -27,7 +28,7 @@ https://www.zhangquan.me/2023/10/23/she-ji-mo-shi-zhi-mei-mian-xiang-dui-xiang-s
 https://www.zhangquan.me/2023/10/22/she-ji-mo-shi-zhi-mei-ru-he-ping-jie-dai-ma-zhi-liang-de-gao-di/
 https://www.zhangquan.me/2023/09/26/ru-he-zai-macos-shang-an-zhuang-redis/
 https://www.zhangquan.me/2023/09/26/ru-he-zai-macos-shang-an-zhuang-gradle/
-https://www.zhangquan.me/2023/09/25/ru-he-jiang-yi-ge-yi-cun-zai-de-mu-lu-zhuan-huan-wei-yi-ge-git-xiang-mu-bing-tuo-guan-dao-github-cang-ku/
+https://www.zhangquan.me/2023/09/25/git-ru-he-jiang-yi-ge-yi-cun-zai-de-mu-lu-zhuan-huan-wei-yi-ge-git-xiang-mu-bing-tuo-guan-dao-github-cang-ku/
 https://www.zhangquan.me/2023/09/25/python-zhong-de-zhuang-shi-qi/
 https://www.zhangquan.me/2023/09/13/python-li-can-shu-shi-ru-he-chuan-di-de/
 https://www.zhangquan.me/2023/08/15/java-bing-fa-bian-cheng-sheng-chan-zhe-xiao-fei-zhe-mo-shi-yong-liu-shui-xian-si-xiang-ti-gao-xiao-lu/

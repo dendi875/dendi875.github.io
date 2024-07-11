@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2024-07-09T01:48:32.074Z</updated>
+  <updated>2024-07-11T02:31:15.470Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ClickHouse 之使用 Docker 设置本地 Clickhouse 集群</title>
+    <link href="https://www.zhangquan.me/2024/07/11/clickhouse-zhi-shi-yong-docker-she-zhi-ben-di-clickhouse-ji-qun/"/>
+    <id>https://www.zhangquan.me/2024/07/11/clickhouse-zhi-shi-yong-docker-she-zhi-ben-di-clickhouse-ji-qun/</id>
+    <published>2024-07-11T02:17:31.000Z</published>
+    <updated>2024-07-11T02:31:15.470Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在本教程中，我们将使用 Docker compose 设置我们自己的 Clickhouse 集群，并对设置 Clickhouse 集群所涉及的配置有一个基本的了解。&lt;/p&gt;
+&lt;h2 id=&quot;先决条件&quot;&gt;&lt;a href=&quot;#先决条件&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="ClickHouse" scheme="https://www.zhangquan.me/categories/ClickHouse/"/>
+    
+    
+    <category term="ClickHouse" scheme="https://www.zhangquan.me/tags/ClickHouse/"/>
+    
+    <category term="OLAP" scheme="https://www.zhangquan.me/tags/OLAP/"/>
+    
+  </entry>
   
   <entry>
     <title>HBase 入门与 Shell 基本操作</title>
@@ -511,33 +539,6 @@
         
     <summary type="html">&lt;p&gt;创建型模式主要解决对象的创建问题，封装复杂的创建过程，解耦对象的创建代码和使用代码。&lt;/p&gt;
 &lt;p&gt;其中，单例模式用来创建全局唯一的对象。工厂模式用来创建不同但是相关类型的对象（继承同一父类或者接口的一组子类），由给定的参数来决定创建哪种类型的对象。建造者模式是用来创建复杂</summary>
-        
-      
-    
-    
-    
-    <category term="设计模式之美" scheme="https://www.zhangquan.me/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E/"/>
-    
-    
-    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
-    
-    <category term="设计模式之美" scheme="https://www.zhangquan.me/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>设计模式之美-原型模式：如何最快速地clone一个HashMap散列表？</title>
-    <link href="https://www.zhangquan.me/2023/11/20/she-ji-mo-shi-zhi-mei-yuan-xing-mo-shi-ru-he-zui-kuai-su-di-clone-yi-ge-hashmap-san-lie-biao/"/>
-    <id>https://www.zhangquan.me/2023/11/20/she-ji-mo-shi-zhi-mei-yuan-xing-mo-shi-ru-he-zui-kuai-su-di-clone-yi-ge-hashmap-san-lie-biao/</id>
-    <published>2023-11-20T09:20:55.000Z</published>
-    <updated>2023-12-29T09:27:47.879Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;对于熟悉 JavaScript 语言的前端程序员来说，原型模式是一种比较常用的开发模式。这是因为，有别于 Java、C++ 等基于类的面向对象编程语言，JavaScript 是一种基于原型的面向对象编程语言。即便 JavaScript</summary>
         
       
     
