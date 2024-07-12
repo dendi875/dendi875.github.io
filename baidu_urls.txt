@@ -1,3 +1,4 @@
+https://www.zhangquan.me/2024/07/12/docker-mysql-zhu-cong-fu-zhi-she-zhi/
 https://www.zhangquan.me/2024/07/11/clickhouse-zhi-shi-yong-docker-she-zhi-ben-di-clickhouse-ji-qun/
 https://www.zhangquan.me/2024/07/09/hbase-ru-men-yu-shell-ji-ben-cao-zuo/
 https://www.zhangquan.me/2024/07/04/kafka-kafka-xian-shang-ji-qun-bu-shu-fang-an-zen-me-zuo/
