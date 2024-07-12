@@ -10,7 +10,7 @@ summary: 彻底搞懂 MySQL 四种事务的隔离级别
 tags:
 - MySQL	
 categories:
-- 数据库	
+- MySQL	
 ---
 
 # MySQL 四种事务隔离级别说明

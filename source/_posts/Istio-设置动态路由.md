@@ -1,5 +1,5 @@
 ---
-title: 如何使用 Istio 设置动态路由
+title: Istio 设置动态路由
 author: 张权
 top: false
 cover: false
@@ -14,8 +14,6 @@ tags:
 	- Service Mesh
 categories: Istio
 ---
-
-# 如何使用 Istio 设置动态路由
 
 路由这个功能是 Istio 流量控制里面非常重要也是最常用的一个功能，在 Istio 一般通过 `VirtualService-虚拟服务`以及 `DestinationRules-目标规则` 这两个API资源进行动态路由的设置。
 

@@ -10,7 +10,7 @@ password:
 summary: 如何在MacOS 11 Big Sur上安装MySQL？
 tags:
   - MySQL
-categories: 数据库
+categories: MySQL
 ---
 
 本教程将引导您在macOS 11 Big Sur上安装MySQL 8.0.24的步骤。

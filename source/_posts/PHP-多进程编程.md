@@ -10,7 +10,7 @@ summary: PHP 如何多进程编程
 tags:
 	- PHP
 categories:
-	- 编程语言
+	- PHP
 ---
 
 # PHP 多进程编程

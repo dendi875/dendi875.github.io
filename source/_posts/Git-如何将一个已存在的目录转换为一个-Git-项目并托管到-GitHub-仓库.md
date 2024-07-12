@@ -1,5 +1,5 @@
 ---
-title: 如何将一个已存在的目录转换为一个 Git 项目并托管到 GitHub 仓库
+title: Git-如何将一个已存在的目录转换为一个 Git 项目并托管到 GitHub 仓库
 author: 张权
 top: false
 cover: false
@@ -7,7 +7,7 @@ toc: true
 mathjax: false
 date: 2023-09-25 10:59:48
 password:
-summary: 如何将一个已存在的目录转换为一个 Git 项目并托管到 GitHub 仓库
+summary: Git-如何将一个已存在的目录转换为一个 Git 项目并托管到 GitHub 仓库
 tags:
 	- Git
 	- 工具
