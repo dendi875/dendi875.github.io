@@ -6,7 +6,7 @@
   <link href="https://www.zhangquan.me/atom.xml" rel="self"/>
   
   <link href="https://www.zhangquan.me/"/>
-  <updated>2024-07-19T11:49:55.927Z</updated>
+  <updated>2024-07-26T10:30:02.087Z</updated>
   <id>https://www.zhangquan.me/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>重构：Java 代码中消除 If-Else 语句以获得更清晰、可扩展的逻辑</title>
+    <link href="https://www.zhangquan.me/2024/07/26/chong-gou-java-dai-ma-zhong-xiao-chu-if-else-yu-ju-yi-huo-de-geng-qing-xi-ke-kuo-zhan-de-luo-ji/"/>
+    <id>https://www.zhangquan.me/2024/07/26/chong-gou-java-dai-ma-zhong-xiao-chu-if-else-yu-ju-yi-huo-de-geng-qing-xi-ke-kuo-zhan-de-luo-ji/</id>
+    <published>2024-07-26T10:24:38.000Z</published>
+    <updated>2024-07-26T10:30:02.087Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;尽管 if-else 语句无处不在，但如果过度使用，可能会导致代码复杂且难以维护。在本文中，我们将探索各种策略来减少在项目中 if-else 结构的使用，重点是使代码更加模块化、可维护和可读。&lt;/p&gt;
+&lt;p&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    <category term="重构" scheme="https://www.zhangquan.me/categories/%E9%87%8D%E6%9E%84/"/>
+    
+    
+    <category term="Java" scheme="https://www.zhangquan.me/tags/Java/"/>
+    
+    <category term="重构" scheme="https://www.zhangquan.me/tags/%E9%87%8D%E6%9E%84/"/>
+    
+  </entry>
   
   <entry>
     <title>Spring Boot 外部化配置 - 下篇</title>
@@ -513,34 +541,6 @@
         
     <summary type="html">&lt;p&gt;今天要讨论的内容实在是太重要了，我觉得它甚至是你日后能否用好 Kafka 的关键。&lt;/p&gt;
 &lt;p&gt;上一期我介绍了目前流行的几种 Kafka 发行版，其实不论是哪种 Kafka，本质上都内嵌了最核心的 Apache Kafka，也就是社区版 Kafka，那今天我们就来说说</summary>
-        
-      
-    
-    
-    
-    <category term="Kafka" scheme="https://www.zhangquan.me/categories/Kafka/"/>
-    
-    
-    <category term="Kafka" scheme="https://www.zhangquan.me/tags/Kafka/"/>
-    
-    <category term="消息队" scheme="https://www.zhangquan.me/tags/%E6%B6%88%E6%81%AF%E9%98%9F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Kafka-我应该选择哪种Kafka？</title>
-    <link href="https://www.zhangquan.me/2024/01/11/kafka-wo-ying-gai-xuan-ze-na-chong-kafka/"/>
-    <id>https://www.zhangquan.me/2024/01/11/kafka-wo-ying-gai-xuan-ze-na-chong-kafka/</id>
-    <published>2024-01-11T10:51:04.000Z</published>
-    <updated>2024-01-11T10:51:35.097Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;Kafka 不再是一个单纯的消息引擎系统，而是能够实现精确一次（Exactly-once）处理语义的实时流处理平台。&lt;/p&gt;
-&lt;p&gt;你可能听说过 Apache Storm、Apache Spark Streaming 亦或是 Apache</summary>
         
       
     
