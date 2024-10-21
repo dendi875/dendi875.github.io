@@ -2,7 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.zhangquan.me/2024/07/26/chong-gou-java-dai-ma-zhong-xiao-chu-if-else-yu-ju-yi-huo-de-geng-qing-xi-ke-kuo-zhan-de-luo-ji/</loc>
-    <lastmod>2024-07-29</lastmod>
+    <lastmod>2024-10-21</lastmod>
+  </url>
+  <url>
+    <loc>https://www.zhangquan.me/2024/02/27/ben-di-kai-fa-huan-jing-da-jian-nacos-ji-qun/</loc>
+    <lastmod>2024-09-06</lastmod>
+  </url>
+  <url>
+    <loc>https://www.zhangquan.me/2023/04/09/zookeeper-jia-gou-yu-ji-qun-an-zhuang/</loc>
+    <lastmod>2024-09-06</lastmod>
   </url>
   <url>
     <loc>https://www.zhangquan.me/2024/07/19/spring-boot-wai-bu-hua-pei-zhi-xia-pian/</loc>
@@ -91,10 +99,6 @@
   <url>
     <loc>https://www.zhangquan.me/2024/03/14/npm-yarn-ru-he-cha-kan-yuan-he-qie-huan-yuan/</loc>
     <lastmod>2024-03-14</lastmod>
-  </url>
-  <url>
-    <loc>https://www.zhangquan.me/2024/02/27/ben-di-kai-fa-huan-jing-da-jian-nacos-ji-qun/</loc>
-    <lastmod>2024-02-27</lastmod>
   </url>
   <url>
     <loc>https://www.zhangquan.me/2023/09/26/ru-he-zai-macos-shang-an-zhuang-redis/</loc>
@@ -350,10 +354,6 @@
   </url>
   <url>
     <loc>https://www.zhangquan.me/2023/04/08/zookeeper-fu-wu-shuo-ming/</loc>
-    <lastmod>2023-07-04</lastmod>
-  </url>
-  <url>
-    <loc>https://www.zhangquan.me/2023/04/09/zookeeper-jia-gou-yu-ji-qun-an-zhuang/</loc>
     <lastmod>2023-07-04</lastmod>
   </url>
   <url>
