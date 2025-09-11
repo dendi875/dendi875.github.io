@@ -18,11 +18,36 @@ categories: 重构
 
 ![](https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20240726095112.png)
 
+# 包含太多if-else语句的代码片段
+
+在深入研究优化的细节之前，让我们使用一个带有多个if else条件的示例Java代码，然后以各种方式进行优化：
+
+``` java
+public class ShippingCostCalculator {
+    public double calculateShippingCost(String shippingType, double weight) {
+        if (shippingType.equals("STANDARD")) {
+            return weight * 5.0;
+        } else if (shippingType.equals("EXPRESS")) {
+            return weight * 10.0;
+        } else if (shippingType.equals("SAME_DAY")) {
+            return weight * 20.0;
+        } else if (shippingType.equals("INTERNATIONAL")) {
+            return weight * 50.0;
+        } else if (shippingType.equals("OVERNIGHT")) {
+            return weight * 30.0;
+        }
+        return 0;
+    }
+}
+```
+
+上面的代码根据运输类型计算运费。
+
 ## 减少 If-Else 语句的策略
 
-*   策略模式
-
 *   使用枚举
+
+*   策略模式
 
 *   多态性
 
@@ -34,364 +59,400 @@ categories: 重构
 
 让我们通过示例深入了解每种策略。
 
-## 策略模式
-
-策略模式定义了一系列算法，封装了每个算法，并使它们可以互换。当您有多种方法来执行某项任务时，此模式非常有用。
-
-**示例：支付处理系统**
-
-首先，定义PaymentStrategy接口：
-
-```java
-public interface PaymentStrategy {
-		public void pay(double amount);
-}
-```
-
-接下来，实现不同的支付策略：
-
-```java
-public class AliPayment implements PaymentStrategy {
-    @Override
-    public void pay(double amount) {
-        // ali支付处理逻辑
-        System.out.println("Paid " + amount + " using Ali.");
-    }
-}
-
-public class WeChatPayment implements PaymentStrategy {
-    @Override
-    public void pay(double amount) {
-        // wechat支付处理逻辑
-        System.out.println("Paid " + amount + " using WeChat.");
-    }
-}
-
-```
-
-创建一个使用以下策略的PaymentService：
-
-```java
-public class PaymentService {
-    private final Map<String, PaymentStrategy> paymentStrategies = new HashMap<>();
-
-    public PaymentService(List<PaymentStrategy> strategies) {
-        for (PaymentStrategy strategy : strategies) {
-          	paymentStrategies.put(strategy.getClass().getSimpleName(), strategy);
-        }
-    }
-
-    public void processPayment(String strategyName, double amount) {
-        PaymentStrategy strategy = paymentStrategies.get(strategyName);
-        if (strategy != null) {
-          	strategy.pay(amount);
-        } else {
-          	throw new IllegalArgumentException("No such payment strategy: " + strategyName);
-        }
-    }
-}
-```
-
-最后，测试使用：
-
-```java
-public class PaymentTest {
-    public static void main(String[] args) {
-        // 没有PaymentService 的使用
-        String payMethod = "WeChatPayment";
-        if ("WeChatPayment".equals(payMethod)) {
-          	new WeChatPayment().pay(100);
-        } else if ("AliPayment".equals(payMethod)) {
-          	new AliPayment().pay(100);
-        }
-        // other else if ...
-
-        // 加入PaymentService来消除if..else
-        List<PaymentStrategy> paymentStrategies = Arrays.asList(new AliPayment(), new WeChatPayment());
-        PaymentService paymentService = new PaymentService(paymentStrategies);
-        paymentService.processPayment("WeChatPayment", 100);
-    }
-}
-
-// output: Paid 100.0 using WeChat.
-```
-
 ## 使用枚举
 
 枚举可以用来表示一组预定义的常量及其相关行为。
 
-**示例：订单状态管理**
-
-定义一个具有不同行为的OrderStatus枚举:
+现在，我们将使用enumt来替换if-else语句。
 
 ```java
-public enum OrderStatus {
-    NEW {
-        @Override
-        public void handle() {
-          	System.out.println("Processing new order.");
-        }
-    },
-    SHIPPED {
-        @Override
-        public void handle() {
-          	System.out.println("Order shipped.");
-        }
-    },
-    DELIVERED {
-        @Override
-        public void handle() {
-          	System.out.println("Order delivered.");
-        }
-    };
+public enum ShippingType {
+	STANDARD {
+		@Override
+		public double getCost(double weight) {
+			return weight * 5.0;
+		}
+	},
+	EXPRESS {
+		@Override
+		public double getCost(double weight) {
+			return weight * 10.0;
+		}
+	},
+	SAME_DAY {
+		@Override
+		public double getCost(double weight) {
+			return weight * 20.0;
+		}
+	},
+	INTERNATIONAL {
+		@Override
+		public double getCost(double weight) {
+			return weight * 50.0;
+		}
+	},
+	OVERNIGHT {
+		@Override
+		public double getCost(double weight) {
+			return weight * 30.0;
+		}
+	};
 
-    public abstract void handle();
+	public abstract double	getCost(double weight);
 }
 ```
 
-在服务中使用此枚举：
+```java
+public class ShippingCostCalculator {
+
+	public double calculateShippingCost(ShippingType shippingType, double weight) {
+		return shippingType.getCost(weight);
+	}
+}
+
+```
 
 ```java
-public class OrderService {
-    public void processOrder(OrderStatus status) {
-      	status.handle();
-    }
+public class MainCost {
+
+	public static void main(String[] args) {
+		ShippingCostCalculator calculator = new ShippingCostCalculator();
+		double cost = calculator.calculateShippingCost(ShippingType.EXPRESS, 2.5);
+		System.out.println("Shipping cost: " + cost);
+	}
+}
+
+// output: Shipping cost: 25.0
+```
+
+困难的 if-else 语句已简化为两行简短明了的代码。
+
+优势：
+
+*   可扩展性：添加新的运输类型和值。添加枚举并定义它的处理方法。
+*   可维护和可理解的代码：每种运输方式的推理都是孤立的，易于理解。
+
+但是，使用 Enum 有一些明显的缺点，您应该考虑：
+
+*   可扩展性：添加新的运输类型和值。枚举并定义它的处理方法。
+*   难以添加新参数：当需要更多参数时，Enum不太适合，并且代码变得繁琐。
+*   继承限制：Enum 不能从其他类继承，这降低了它们重用逻辑的潜力。
+
+使用Enum进行优化通常适用于参数较少的简单情况。
+
+## 使用工厂模式优化
+
+仍然是上面混乱的代码，我们将通过以下方式对其进行优化：
+
+创建接口 ShippingCostStrategy
+
+```java
+public interface ShippingCostStrategy {
+    double calculate(double weight);
 }
 ```
 
-最后，测试使用：
+接下来，我们将为每种运输类型的交付创建特定的类，实现上面的接口。
 
 ```java
-public class OrderTest {
-    public static void main(String[] args) {
-        OrderStatus orderStatus = OrderStatus.NEW;
-        // 之前的使用
-        if (orderStatus == OrderStatus.NEW) {
-          	System.out.println("Processing new order.");
-        } else if (orderStatus == OrderStatus.SHIPPED) {
-          	System.out.println("Order shipped.");
-        } else if (orderStatus == OrderStatus.DELIVERED) {
-          	System.out.println("Order delivered.");
-        }
-
-        // 之后的使用
-        OrderService orderService = new OrderService();
-        orderService.processOrder(orderStatus);
-    }
-}
-
-
-// output: Processing new order.
-```
-
-## 多态性
-
-多态性允许将对象视为其父类的实例，而不是其实际类的实例。这使您能够通过父类的引用调用派生类的重写方法。
-
-**示例：通知系统**
-
-定义一个Notification接口及其实现：
-
-```java
-public interface Notification {
-		void send(String message);
-}
-
-public class EmailNotification implements Notification {
+public class StandardShipping implements ShippingCostStrategy {
     @Override
-    public void send(String message) {
-        // Email sending logic
-        System.out.println("Sending email: " + message);
+    public double calculate(double weight) {
+        return weight * 5.0;
     }
 }
 
-public class SmsNotification implements Notification {
+public class ExpressShipping implements ShippingCostStrategy {
     @Override
-    public void send(String message) {
-        // SMS sending logic
-        System.out.println("Sending SMS: " + message);
+    public double calculate(double weight) {
+        return weight * 10.0;
+    }
+}
+
+public class SameDayShipping implements ShippingCostStrategy {
+    @Override
+    public double calculate(double weight) {
+        return weight * 20.0;
+    }
+}
+
+public class InternationalShipping implements ShippingCostStrategy {
+    @Override
+    public double calculate(double weight) {
+        return weight * 50.0;
+    }
+}
+
+public class OvernightShipping implements ShippingCostStrategy {
+    @Override
+    public double calculate(double weight) {
+        return weight * 30.0;
     }
 }
 ```
 
-创建一个使用多态性的服务：
+现在，我们将创建一个工厂类来根据运输类型处理路由到策略
 
 ```java
-public class NotificationService {
+import java.util.HashMap;
+import java.util.Map;
 
-    private final List<Notification> notifications;
+public class ShippingCostFactory {
+    private static final Map<String, ShippingCostStrategy> strategies = new HashMap<>();
 
-    public NotificationService(List<Notification> notifications) {
-      	this.notifications = notifications;
+    static {
+        strategies.put("STANDARD", new StandardShipping());
+        strategies.put("EXPRESS", new ExpressShipping());
+        strategies.put("SAME_DAY", new SameDayShipping());
+        strategies.put("INTERNATIONAL", new InternationalShipping());
+        strategies.put("OVERNIGHT", new OvernightShipping());
     }
 
-    public void notifyAll(String message) {
-        for (Notification notification : notifications) {
-          notification.send(message);
+    public static ShippingCostStrategy getStrategy(String shippingType) {
+        ShippingCostStrategy strategy = strategies.get(shippingType);
+        if (strategy == null) {
+            throw new IllegalArgumentException("Invalid shipping type: " + shippingType);
         }
+        return strategy;
     }
 }
 ```
 
-最后，测试使用：
+现在只需调用它并使用它
 
 ```java
-public class MyTest {
-    public static void main(String[] args) {
-        List<Notification> notifications = Arrays.asList(new EmailNotification(), new SmsNotification());
-        NotificationService notificationService = new NotificationService(notifications);
-        notificationService.notifyAll("hello word");
+public class ShippingCostCalculator {
+    public double calculateShippingCost(String shippingType, double weight) {
+        ShippingCostStrategy strategy = ShippingCostFactory.getStrategy(shippingType);
+        return strategy.calculate(weight);
+    }
+}
+```
+
+```java
+public class MainCost {
+
+	public static void main(String[] args) {
+		ShippingCostCalculator calculator = new ShippingCostCalculator();
+		double cost = calculator.calculateShippingCost("EXPRESS", 2.5);
+		System.out.println("Shipping cost: " + cost);
+	}
+}
+
+// output:
+// Shipping cost: 25.0
+```
+
+工厂模式的优势：
+
+*   易于扩展：只需开发附加类并更新工厂即可添加新的交付类型，而无需更改核心代码。
+
+*   逻辑分离：计费逻辑隔离，管理维护简单。
+
+*   灵活性：工厂可能会根据其他因素返回多种解决方案，从而提高灵活性。
+
+## 使用策略模式进行优化
+
+在我们详细介绍之前，请记住，实现将与 Factory 类似，但使用目的会略有不同。
+
+```java
+public interface ShippingCostStrategy {
+    double calculate(double weight);
+}
+```
+
+```java
+public class StandardShipping implements ShippingCostStrategy {
+    @Override
+    public double calculate(double weight) {
+        return weight * 5.0;
     }
 }
 
-// output: 
-// Sending email: hello word
-// Sending SMS: hello word
+public class ExpressShipping implements ShippingCostStrategy {
+    @Override
+    public double calculate(double weight) {
+        return weight * 10.0;
+    }
+}
+
+public class SameDayShipping implements ShippingCostStrategy {
+    @Override
+    public double calculate(double weight) {
+        return weight * 20.0;
+    }
+}
+
+public class InternationalShipping implements ShippingCostStrategy {
+    @Override
+    public double calculate(double weight) {
+        return weight * 50.0;
+    }
+}
+
+public class OvernightShipping implements ShippingCostStrategy {
+    @Override
+    public double calculate(double weight) {
+        return weight * 30.0;
+    }
+}
 ```
 
-## Lambda 表达式和函数式接口
+现在，我们将创建 ShippingContext 来管理策略
+
+```java
+public class ShippingCostContext {
+    private ShippingCostStrategy strategy;
+
+    public void setStrategy(ShippingCostStrategy strategy) {
+        this.strategy = strategy;
+    }
+
+    public double calculateShippingCost(double weight) {
+        return strategy.calculate(weight);
+    }
+}
+```
+
+```java
+import java.util.HashMap;
+import java.util.Map;
+
+public class ShippingCostCalculator {
+
+    private static final Map<String, ShippingCostStrategy> strategies = new HashMap<>();
+
+    static {
+        strategies.put("STANDARD", new StandardShipping());
+        strategies.put("EXPRESS", new ExpressShipping());
+        strategies.put("SAME_DAY", new SameDayShipping());
+        strategies.put("INTERNATIONAL", new InternationalShipping());
+        strategies.put("OVERNIGHT", new OvernightShipping());
+    }
+
+    private final ShippingCostContext context = new ShippingCostContext();
+
+    public double calculateShippingCost(String shippingType, double weight) {
+        ShippingCostStrategy strategy = strategies.get(shippingType);
+        if (strategy == null) {
+            throw new IllegalArgumentException("Invalid shipping type: " + shippingType);
+        }
+        context.setStrategy(strategy);
+        return context.calculateShippingCost(weight);
+    }
+}
+```
+
+现在，将其添加到主类中以供使用。
+
+```java
+public class MainCost {
+
+    public static void main(String[] args) 
+        ShippingCostCalculator calculator = new ShippingCostCalculator();
+
+        double weight = 10.0;
+
+        String shippingType1 = "STANDARD";
+        double cost1 = calculator.calculateShippingCost(shippingType1, weight);
+        System.out.println("Shipping cost for " + shippingType1 + ": " + cost1);
+
+        String shippingType2 = "EXPRESS";
+        double cost2 = calculator.calculateShippingCost(shippingType2, weight);
+        System.out.println("Shipping cost for " + shippingType2 + ": " + cost2);
+
+        String shippingType3 = "SAME_DAY";
+        double cost3 = calculator.calculateShippingCost(shippingType3, weight);
+        System.out.println("Shipping cost for " + shippingType3 + ": " + cost3);
+
+        String shippingType4 = "INTERNATIONAL";
+        double cost4 = calculator.calculateShippingCost(shippingType4, weight);
+        System.out.println("Shipping cost for " + shippingType4 + ": " + cost4);
+
+        String shippingType5 = "OVERNIGHT";
+        double cost5 = calculator.calculateShippingCost(shippingType5, weight);
+        System.out.println("Shipping cost for " + shippingType5 + ": " + cost5);
+    }
+
+}
+
+// output
+// Shipping cost for STANDARD: 50.0
+// Shipping cost for EXPRESS: 100.0
+// Shipping cost for SAME_DAY: 200.0
+// Shipping cost for INTERNATIONAL: 500.0
+// Shipping cost for OVERNIGHT: 300.0
+```
+
+在前两种情况下，策略模式管理如何计算运输成本，工厂模式根据交付类型决定使用哪种策略。
+
+## 使用 Stream API 和 Map 进行优化
 
 Lambda 表达式可以简化您的代码，尤其是在处理小型、单一方法接口时。
 
-**示例：折扣服务**
-
 ```java
-public class DiscountService {
-    private Map<String, Function<Double, Double>> discountStrategies = new HashMap<>();
+public class ShippingCostCalculator {
 
-    public DiscountService() {
-        discountStrategies.put("SUMMER_SALE", (price) -> price * 0.9);
-        discountStrategies.put("SUMMER_SALE", (price) -> price * 0.8);
-    }
+	private static final Map<String, Double> shippingCosts = new HashMap<>();
 
-    public double applyDiscount(String discountCode, double price) {
-      	return discountStrategies.getOrDefault(discountCode, Function.identity()).apply(price);
-    }
+	static {
+		shippingCosts.put("STANDARD", 5.0);
+		shippingCosts.put("EXPRESS", 10.0);
+		shippingCosts.put("SAME_DAY", 20.0);
+		shippingCosts.put("INTERNATIONAL", 50.0);
+		shippingCosts.put("OVERNIGHT", 30.0);
+	}
+
+	public double calculateShippingCost(String shippingType, double weight) {
+		return shippingCosts.entrySet().stream()
+				.filter(entry -> entry.getKey().equalsIgnoreCase(shippingType))
+				.map(entry -> entry.getValue())
+				.findFirst()
+				.orElse(0.0)
+				* weight;
+	}
+
+	public static void main(String[] args) {
+		ShippingCostCalculator calculator = new ShippingCostCalculator();
+
+		double weight = 10.0;
+
+		String shippingType1 = "STANDARD";
+		double cost1 = calculator.calculateShippingCost(shippingType1, weight);
+		System.out.println("Shipping cost for " + shippingType1 + ": " + cost1);
+
+		String shippingType2 = "EXPRESS";
+		double cost2 = calculator.calculateShippingCost(shippingType2, weight);
+		System.out.println("Shipping cost for " + shippingType2 + ": " + cost2);
+
+		String shippingType3 = "SAME_DAY";
+		double cost3 = calculator.calculateShippingCost(shippingType3, weight);
+		System.out.println("Shipping cost for " + shippingType3 + ": " + cost3);
+
+		String shippingType4 = "INTERNATIONAL";
+		double cost4 = calculator.calculateShippingCost(shippingType4, weight);
+		System.out.println("Shipping cost for " + shippingType4 + ": " + cost4);
+
+		String shippingType5 = "OVERNIGHT";
+		double cost5 = calculator.calculateShippingCost(shippingType5, weight);
+		System.out.println("Shipping cost for " + shippingType5 + ": " + cost5);
+
+		String invalidType = "INVALID";
+		double invalidCost = calculator.calculateShippingCost(invalidType, weight);
+		System.out.println("Shipping cost for " + invalidType + ": " + invalidCost);
+	}
 }
+
+// output:
+// Shipping cost for STANDARD: 50.0
+// Shipping cost for EXPRESS: 100.0
+// Shipping cost for SAME_DAY: 200.0
+// Shipping cost for INTERNATIONAL: 500.0
+// Shipping cost for OVERNIGHT: 300.0
+// Shipping cost for INVALID: 0.0
 ```
 
-最后，测试使用：
-
-```java
-public class MyTest {
-    public static void main(String[] args) {
-        DiscountService discountService = new DiscountService();
-
-        double sale = discountService.applyDiscount("SUMMER_SALE", 100);
-
-        System.out.println("sale: " + sale);
-    }
-}
-
-// output: sale: 80.0
-```
-
-## 命令模式
-
-命令模式将请求封装为对象，从而允许您使用队列、请求和操作对客户端进行参数化。
-
-**示例：文件操作**
-
-定义Command接口和具体命令：
-
-```java
-public interface Command {
-		void execute();
-}
-
-public class OpenFileCommand implements Command {
-    private FileSystemReceiver fileSystemReceiver;
-
-    public OpenFileCommand(FileSystemReceiver fs) {
-      	this.fileSystemReceiver = fs;
-    }
-
-    @Override
-    public void execute() {
-      	this.fileSystemReceiver.openFile();
-    }
-}
-
-public class CloseFileCommand implements Command {
-    private FileSystemReceiver fileSystemReceiver;
-
-    public CloseFileCommand(FileSystemReceiver fs) {
-      	this.fileSystemReceiver = fs;
-    }
-
-    @Override
-    public void execute() {
-      	this.fileSystemReceiver.closeFile();
-    }
-}
-
-
-```
-
-定义文件系统接收器：
-
-```java
-public interface FileSystemReceiver {
-    void openFile();
-    void closeFile();
-}
-
-public class UnixFileSystemReceiver implements FileSystemReceiver {
-    @Override
-    public void openFile() {
-      	System.out.println("Opening file in Unix OS");
-    }
-
-    @Override
-    public void closeFile() {
-      	System.out.println("Closing file in Unix OS");
-    }
-}
-
-public class WindowsFileSystemReceiver implements FileSystemReceiver {
-    @Override
-    public void openFile() {
-      	System.out.println("Opening file in Windows OS");
-    }
-
-    @Override
-    public void closeFile() {
-      	System.out.println("Closing file in Windows OS");
-    }
-}
-```
-
-定义文件调用器:
-
-```java
-public class FileInvoker {
-
-    private Command command;
-
-    public FileInvoker(Command command) {
-      	this.command = command;
-    }
-
-    public void execute() {
-      	this.command.execute();
-    }
-}
-```
-
-最后，测试使用：
-
-```java
-public class MyTest {
-    public static void main(String[] args) {
-        FileInvoker fileInvoker = new FileInvoker(new OpenFileCommand(new UnixFileSystemReceiver()));
-        fileInvoker.execute();
-    }
-}
-
-// output: Opening file in Unix OS
-```
-
-
+这个策略也很方便；虽然扩展性不如Factory和Strategy，但对于简单场景来说它仍然是一个可行的选择。
 
 ## 保护子句
 
@@ -424,7 +485,3 @@ public class UserService {
 ## 抽取成函数
 
 有人说：“如果代码不共享，就不要抽取成函数！”，持有这个观点的人太死读书了。函数是代码的封装或是抽象，并不一定用来作代码共享使用，函数用于屏蔽细节，让其它代码耦合于接口而不是细节实现，这会让我们的代码更为简单，简单的东西都能让人易读也易维护。这才是函数的作用。
-
-## 参考
-
-*   https://refactoring.com/catalog/replaceNestedConditionalWithGuardClauses.html

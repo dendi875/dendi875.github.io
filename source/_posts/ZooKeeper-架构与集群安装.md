@@ -283,6 +283,10 @@ $ ./bin/zkCli.sh -server 127.0.0.1:2181
 
 ![](https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/20230323210835.png)
 
+## GUI
+
+*   https://github.com/vran-dev/PrettyZoo/releases
+
 ## 参考
 
 * https://zookeeper.apache.org/doc/r3.5.5/zookeeperStarted.html

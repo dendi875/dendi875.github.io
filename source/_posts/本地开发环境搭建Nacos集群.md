@@ -176,7 +176,7 @@ nacos is starting，you can check the /Users/zhangquan/Downloads/my_software/nac
 
 ## 登录 Nacos 控制台
 
-在 Nacos 的控制台中，我们可以看到服务注册列表、配置项管理、集群服务列表等信息。在浏览器中打开[nacos-cluster1](http://172.16.48.130:8848/)和[nacos-cluster2](http://172.16.48.130:8948/)的地址，注意这两台服务器的端口分别是 8848 和 8948。你可以看到下面的 Nacos 的登录页面。
+在 Nacos 的控制台中，我们可以看到服务注册列表、配置项管理、集群服务列表等信息。在浏览器中打开[nacos-cluster1](http://172.16.48.130:8848/nacos)和[nacos-cluster2](http://172.16.48.130:8948/nacos)的地址，注意这两台服务器的端口分别是 8848 和 8948。你可以看到下面的 Nacos 的登录页面。
 
 ![](https://cdn.jsdelivr.net/gh/dendi875/images/PicGo/install-4.png)
 

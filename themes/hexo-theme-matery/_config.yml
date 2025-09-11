@@ -206,7 +206,7 @@ clicklove:
 profile:
   avatar: https://cdn.jsdelivr.net/gh/dendi875/dendi875.github.io/medias/avatar.jpg
   career: Software Engineer
-  introduction: If you wish to succeed, you should use persistence as your good friend, experience as your reference, prudence as your brother and hope as your sentry.
+  introduction: 
 
 # config my projects informations in about page.
 # If you don't want to display this `My Projects` content, you can deactivate or delete this configuration.
